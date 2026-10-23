@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML &amp; CSS Questions — Part 19 (181–190)</title>
+
+    <!-- ===== Favicon: inline SVG (works offline) ===== -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%234f46e5'/%3E%3Cstop%20offset='1'%20stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='url(%23g)'/%3E%3Cpath%20d='M22%2022%20L14%2032%20L22%2042%20M42%2022%20L50%2032%20L42%2042'%20stroke='white'%20stroke-width='4'%20stroke-linecap='round'%20stroke-linejoin='round'%20fill='none'/%3E%3C/svg%3E" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css" />
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            background: #f4f6fa;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        /* ==================== BACK TO HOME BUTTON ==================== */
+        .back-home {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 9999;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 16px rgba(79, 70, 229, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .back-home:hover {
+            background: linear-gradient(135deg, #4338ca, #6d28d9);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(79, 70, 229, 0.5);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 640px) {
+            .back-home {
+                top: 12px;
+                left: 12px;
+                padding: 8px 14px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* ==================== PAGE HEADER ==================== */
+        .page-header {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            margin: 0 0 8px;
+            font-size: 2rem;
+        }
+
+        .page-header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 24px 20px;
+        }
+
+        .q-section {
+            background: #fff;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 28px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+        }
+
+        .q-section h2 {
+            margin-top: 0;
+            color: #4f46e5;
+            border-bottom: 2px solid #eef;
+            padding-bottom: 10px;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            background: #dcfce7;
+            color: #166534;
+            margin-left: 8px;
+            vertical-align: middle;
+            font-weight: 600;
+        }
+
+        .badge.medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge.hard {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .q-section h3 {
+            color: #374151;
+            margin-top: 22px;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .answer {
+            background: #ecfdf5;
+            border-left: 4px solid #10b981;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 10px 0;
+        }
+
+        .answer strong.label {
+            display: block;
+            font-size: 0.75rem;
+            color: #059669;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .followup {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 12px 0;
+        }
+
+        .followup .q {
+            font-weight: 600;
+            color: #1d4ed8;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .followup .a {
+            color: #1e3a8a;
+        }
+
+        .demo-box {
+            background: #fafbff;
+            border: 1px dashed #c7d2fe;
+            border-radius: 10px;
+            padding: 16px;
+            margin: 12px 0;
+        }
+
+        .demo-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .demo-label.bad {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .demo-label.good {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        /* ==================== VS CODE ==================== */
+        .vs-code {
+            background: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 16px 0;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #2d2d2d;
+        }
+
+        .vs-titlebar {
+            background: #3c3c3c;
+            padding: 9px 14px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px solid #2d2d2d;
+        }
+
+        .vs-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .vs-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .vs-dot.red {
+            background: #ff5f56;
+        }
+
+        .vs-dot.yellow {
+            background: #ffbd2e;
+        }
+
+        .vs-dot.green {
+            background: #27c93f;
+        }
+
+        .vs-title {
+            position: absolute;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 12px;
+            color: #cccccc;
+            pointer-events: none;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+
+        .vs-tabbar {
+            background: #252526;
+            display: flex;
+        }
+
+        .vs-tab {
+            background: #2d2d2d;
+            color: #969696;
+            padding: 9px 20px;
+            font-size: 12.5px;
+            border-right: 1px solid #1e1e1e;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .vs-tab.active {
+            background: #1e1e1e;
+            color: #ffffff;
+        }
+
+        .vs-tab.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #007acc;
+        }
+
+        .file-icon {
+            display: inline-block;
+            width: 9px;
+            height: 9px;
+            border-radius: 2px;
+        }
+
+        .file-icon.html {
+            background: #e44d26;
+        }
+
+        .file-icon.css {
+            background: #264de4;
+        }
+
+        .file-icon.js {
+            background: #f7df1e;
+        }
+
+        .vs-body {
+            margin: 0 !important;
+            padding: 16px 0 !important;
+            background: #1e1e1e !important;
+            overflow-x: auto;
+            font-size: 13px !important;
+            line-height: 1.65 !important;
+            color: #dcdcdc;
+            border-radius: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+        }
+
+        .vs-body code {
+            background: transparent !important;
+            padding: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+            font-size: inherit !important;
+            color: inherit;
+            white-space: pre;
+        }
+
+        .vs-body .hljs-ln-numbers {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            text-align: right;
+            color: #858585 !important;
+            border-right: 1px solid #3a3f4b;
+            padding: 0 14px 0 16px !important;
+            vertical-align: top;
+            font-weight: normal;
+        }
+
+        .vs-body .hljs-ln-code {
+            padding: 0 16px !important;
+        }
+
+        .vs-body .hljs-ln {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .vs-body .hljs-ln td {
+            padding: 0;
+        }
+
+        .vs-body::-webkit-scrollbar {
+            height: 10px;
+        }
+
+        .vs-body::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+
+        .vs-body::-webkit-scrollbar-thumb {
+            background: #424242;
+            border-radius: 5px;
+        }
+
+        .vs-body code.hljs,
+        .vs-body .hljs {
+            background: transparent !important;
+            padding: 0 !important;
+            overflow: visible !important;
+        }
+
+        /* ==================== TASK SECTION ==================== */
+        .task-section {
+            background: linear-gradient(135deg, #fff7ed, #fef3c7);
+            border: 2px solid #f59e0b;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 40px;
+        }
+
+        .task-section h2 {
+            color: #b45309;
+            margin-top: 0;
+        }
+
+        .task-section table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 12px 0;
+            font-size: 0.9rem;
+        }
+
+        .task-section th,
+        .task-section td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .task-section th {
+            background: #fde68a;
+            color: #78350f;
+        }
+
+        .task-section code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+        }
+
+        /* ==================== DEMO SPECIFIC STYLES ==================== */
+        /* Q181 Cascade */
+        .q181-demo p {
+            color: blue;
+        }
+
+        .q181-demo p {
+            color: red;
+            font-weight: bold;
+        }
+
+        /* Q182 Inheritance */
+        .q182-demo .parent {
+            color: #4f46e5;
+            border: 2px solid #4f46e5;
+            padding: 16px;
+            background: #eef2ff;
+            border-radius: 8px;
+        }
+
+        .q182-demo .child {
+            border: 2px dashed #9ca3af;
+            padding: 16px;
+            margin-top: 10px;
+            background: #fff;
+            border-radius: 8px;
+        }
+
+        /* Q183 Keywords */
+        .q183-demo .container {
+            color: #4f46e5;
+            font-size: 1.1rem;
+            border: 2px solid #ccc;
+            padding: 16px;
+            border-radius: 8px;
+        }
+
+        .q183-demo .box {
+            background: #fff;
+            padding: 8px;
+            margin-top: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .q183-demo .inherit {
+            color: inherit;
+        }
+
+        .q183-demo .initial {
+            color: initial;
+        }
+
+        .q183-demo .unset {
+            color: unset;
+        }
+
+        .q183-demo .revert {
+            color: revert;
+        }
+
+        /* Q184 Focus */
+        .q184-demo .form-group {
+            border: 2px solid #ccc;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            transition: border-color 0.2s;
+        }
+
+        .q184-demo .form-group:focus-within {
+            border-color: #4f46e5;
+            background: #eef2ff;
+        }
+
+        .q184-demo input {
+            padding: 8px;
+            border: 1px solid #999;
+            border-radius: 4px;
+            width: 100%;
+        }
+
+        .q184-demo input:focus-visible {
+            outline: 3px solid #f59e0b;
+            outline-offset: 2px;
+        }
+
+        .q184-demo .focus-btn {
+            background: #4f46e5;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .q184-demo .focus-btn:focus-visible {
+            outline: 3px solid #f59e0b;
+            outline-offset: 2px;
+        }
+
+        /* Q185 Reduced Motion */
+        .q185-demo .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #e5e7eb;
+            border-top-color: #4f46e5;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 10px auto;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .q185-demo .spinner {
+                animation: none;
+                border-top-color: #10b981;
+                border-top-width: 4px;
+            }
+
+            .q185-demo .spinner::after {
+                content: "Reduced Motion";
+                font-size: 0.6rem;
+                color: #10b981;
+                display: block;
+                text-align: center;
+                width: 80px;
+                margin-left: -20px;
+                margin-top: 10px;
+            }
+        }
+
+        /* Q186 Flex vs Inline-Flex */
+        .q186-demo .flex-container {
+            display: flex;
+            background: #fecaca;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            gap: 10px;
+        }
+
+        .q186-demo .inline-flex-container {
+            display: inline-flex;
+            background: #bbf7d0;
+            padding: 10px;
+            border-radius: 8px;
+            gap: 10px;
+        }
+
+        .q186-demo .item {
+            background: #4f46e5;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        /* Q187 Display Contents */
+        .q187-demo .grid-parent {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            background: #f3f4f6;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .q187-demo .wrapper {
+            display: contents;
+        }
+
+        .q187-demo .grid-item {
+            background: #4f46e5;
+            color: white;
+            padding: 16px;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        /* Q188 Contain */
+        .q188-demo .card {
+            contain: layout paint;
+            border: 2px solid #ccc;
+            padding: 16px;
+            border-radius: 8px;
+            background: #fff;
+            margin-bottom: 10px;
+        }
+
+        .q188-demo .card h4 {
+            margin-top: 0;
+        }
+
+        /* Q189 Visibility Collapse */
+        .q189-demo table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .q189-demo th,
+        .q189-demo td {
+            border: 1px solid #e5e7eb;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .q189-demo th {
+            background: #f9fafb;
+            font-weight: bold;
+        }
+
+        .q189-demo .collapse-row {
+            visibility: collapse;
+        }
+
+        .q189-demo button {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        /* Q190 Supports */
+        .q190-demo .support-box {
+            background: #e5e7eb;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        /* Default: Hide Grid items, Show fallback */
+        .q190-demo .support-box .grid-msg {
+            display: none;
+        }
+
+        .q190-demo .support-box .fallback-msg {
+            display: block;
+        }
+
+        @supports (display: grid) {
+            .q190-demo .support-box {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+                background: #ecfdf5;
+                border: 2px solid #10b981;
+            }
+
+            .q190-demo .support-box .fallback-msg {
+                display: none;
+            }
+
+            .q190-demo .support-box .grid-msg {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="../../index.html" class="back-home">← Back to Home</a>
+
+    <header class="page-header">
+        <h1>HTML &amp; CSS Questions — Part 19 (181 → 190)</h1>
+        <p>Questions + Answers + VS Code-style code + Live demos that match the code exactly</p>
+    </header>
+
+    <div class="container">
+
+        <!-- Q181 -->
+        <section class="q-section">
+            <h2>Q181 — What is the CSS Cascade? <span class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                The CSS cascade is the process the browser uses to determine which CSS declarations should win when
+                multiple rules apply to the same element.<br><br>
+                Factors considered: <strong>Origin and importance</strong>, <strong>Cascade layers</strong>,
+                <strong>Specificity</strong>, and <strong>Source order</strong>.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Is specificity the only thing that determines which CSS rule wins?</span>
+                <span class="a"><strong>No.</strong> Specificity is only one part of the cascade. Importance, origin,
+                    cascade layers, and source order can also affect the result.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">p { color: blue; }
+p { color: red; } /* This wins due to source order */</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q181-demo">
+                <p>What color am I? (Red wins because it's later in the CSS file)</p>
+            </div>
+        </section>
+
+        <!-- Q182 -->
+        <section class="q-section">
+            <h2>Q182 — What is CSS inheritance? <span class="badge">Easy</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                Inheritance means some CSS properties can automatically receive their value from the parent
+                element.<br><br>
+                Properties like <code>color</code>, <code>font-family</code>, and <code>line-height</code> commonly
+                inherit.<br>
+                Others like <code>margin</code>, <code>padding</code>, <code>border</code>, and <code>width</code> do
+                not normally inherit.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can you force a property to inherit?</span>
+                <span class="a"><strong>Yes.</strong> Using <code>color: inherit;</code> explicitly tells the element to
+                    use the inherited value.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">body { color: #333; }
+
+.child { color: inherit; } /* Forces inheritance */</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q182-demo">
+                <div class="parent">
+                    Parent (Color: Purple, Border: Solid)
+                    <div class="child">
+                        Child (Inherits purple text, but not the border!)
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q183 -->
+        <section class="q-section">
+            <h2>Q183 — What do inherit, initial, unset, and revert mean? <span class="badge hard">Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <ul style="margin:6px 0">
+                    <li><code>inherit</code>: Takes the value from the parent.</li>
+                    <li><code>initial</code>: Resets to the CSS initial value (e.g., black for color).</li>
+                    <li><code>unset</code>: Inherits if the property is normally inherited, otherwise behaves like
+                        <code>initial</code>.
+                    </li>
+                    <li><code>revert</code>: Rolls back to the browser/user-agent stylesheet default.</li>
+                </ul>
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What's the difference between initial and unset?</span>
+                <span class="a"><code>initial</code> always uses the property's initial value. <code>unset</code>
+                    behaves like <code>inherit</code> if the property is inherited, otherwise it behaves like
+                    <code>initial</code>.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">button {
+  all: revert; /* Restores default browser button styling */
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q183-demo">
+                <div class="container">
+                    Parent (Color: Purple)
+                    <div class="box inherit">This is <code>inherit</code></div>
+                    <div class="box initial">This is <code>initial</code></div>
+                    <div class="box unset">This is <code>unset</code></div>
+                    <div class="box revert">This is <code>revert</code></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q184 -->
+        <section class="q-section">
+            <h2>Q184 — What is the difference between :focus, :focus-visible, and :focus-within? <span
+                    class="badge hard">Medium → Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <ul style="margin:6px 0">
+                    <li><code>:focus</code> matches an element whenever it has focus.</li>
+                    <li><code>:focus-visible</code> applies focus styles when the browser determines a visible focus
+                        indicator is appropriate (usually keyboard navigation).</li>
+                    <li><code>:focus-within</code> matches an element when it <strong>or one of its descendants</strong>
+                        has focus.</li>
+                </ul>
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Why shouldn't you simply do `*:focus { outline: none; }`?</span>
+                <span class="a">Because removing focus indicators can make keyboard navigation difficult or impossible
+                    to follow, which is an accessibility problem.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">button:focus-visible { outline: 3px solid orange; }
+.form-group:focus-within { border-color: blue; }</code></pre>
+            </div>
+            <h3>🔴 Live demo — Use the Tab key</h3>
+            <div class="demo-box q184-demo">
+                <div class="form-group">
+                    <label>Email (Focus me)</label>
+                    <input type="email" placeholder="Click me then press Tab">
+                </div>
+                <button class="focus-btn">Focus me (Tab)</button>
+            </div>
+        </section>
+
+        <!-- Q185 -->
+        <section class="q-section">
+            <h2>Q185 — What is prefers-reduced-motion and why is it important? <span class="badge medium">Medium</span>
+            </h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>prefers-reduced-motion</code> is a media feature that allows us to detect when a user has
+                requested reduced motion in their OS or browser settings.<br><br>
+                This allows us to reduce potentially uncomfortable animations for users who prefer less motion.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Would you completely remove every animation?</span>
+                <span class="a"><strong>Not necessarily.</strong> I'd reduce or disable animations that can cause
+                    discomfort while preserving useful visual feedback where appropriate.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms;
+    transition-duration: 0.01ms;
+    scroll-behavior: auto;
+  }
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo (Reduced motion simulation)</h3>
+            <div class="demo-box q185-demo">
+                <div class="spinner"></div>
+                <p style="text-align: center; font-size: 0.85rem; color: #6b7280;">If your OS has "Reduce Motion"
+                    enabled, this spinner stops.</p>
+            </div>
+        </section>
+
+        <!-- Q186 -->
+        <section class="q-section">
+            <h2>Q186 — What is the difference between display: flex and display: inline-flex? <span
+                    class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                Both create a flex formatting context for their children.<br><br>
+                <code>display: flex</code> makes the container behave as a <strong>block-level</strong> flex container
+                (takes full width).<br>
+                <code>display: inline-flex</code> makes the container behave as an <strong>inline-level</strong> flex
+                container (shrinks to fit content).
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Does inline-flex mean its children become inline elements?</span>
+                <span class="a"><strong>No.</strong> The container participates as an inline-level element, but its
+                    children are still flex items.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.flex { display: flex; } /* Block-level */
+.inline-flex { display: inline-flex; } /* Inline-level */
+
+.badge { display: inline-flex; align-items: center; }</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q186-demo">
+                <p style="font-size: 0.85rem; margin: 0 0 10px 0;">display: flex (Full width)</p>
+                <div class="flex-container">
+                    <div class="item">Item 1</div>
+                    <div class="item">Item 2</div>
+                </div>
+                <p style="font-size: 0.85rem; margin: 10px 0;">display: inline-flex (Hugs content)</p>
+                <div class="inline-flex-container">
+                    <div class="item">Item 1</div>
+                    <div class="item">Item 2</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q187 -->
+        <section class="q-section">
+            <h2>Q187 — What is display: contents? <span class="badge hard">Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>display: contents</code> causes the element's own box to <strong>not be generated</strong> for
+                layout, while its children can participate in the parent's layout as if the wrapper box wasn't there.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Does display: contents remove the element from the DOM?</span>
+                <span class="a"><strong>No.</strong> The element remains in the DOM; its own CSS box is just not
+                    generated in the usual way.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.wrapper {
+  display: contents;
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q187-demo">
+                <p style="font-size: 0.85rem; margin-top: 0;">The `.wrapper` div is ignored by the Grid layout because
+                    of `display: contents`.</p>
+                <div class="grid-parent">
+                    <div class="wrapper">
+                        <div class="grid-item">1</div>
+                        <div class="grid-item">2</div>
+                        <div class="grid-item">3</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q188 -->
+        <section class="q-section">
+            <h2>Q188 — What is contain in CSS? <span class="badge hard">Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                CSS <code>contain</code> allows an element to limit how its layout, paint, size, or style can affect the
+                rest of the page.<br><br>
+                For example, <code>contain: layout paint;</code> isolates parts of the page so changes inside them don't
+                require as much work elsewhere, improving performance.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Why can containment improve performance?</span>
+                <span class="a">Because it gives the browser stronger boundaries about which parts of the rendering tree
+                    can be affected by changes, reducing the amount of layout or paint work required.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.card {
+  contain: layout paint;
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q188-demo">
+                <div class="card">
+                    <h4>Isolated Card</h4>
+                    <p style="margin: 0; font-size: 0.85rem;">This card has <code>contain: layout paint</code>. Changes
+                        inside it won't cause the rest of the page to reflow.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q189 -->
+        <section class="q-section">
+            <h2>Q189 — What is the difference between visibility: collapse and visibility: hidden? <span
+                    class="badge hard">Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>visibility: hidden</code> makes an element invisible while generally preserving its layout
+                space.<br><br>
+                <code>visibility: collapse</code> has special behavior depending on the layout context. It was designed
+                primarily around <strong>table rows/columns</strong> and can behave differently in other layout systems.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Would you use visibility: collapse to hide a normal div?</span>
+                <span class="a"><strong>Usually no.</strong> For a normal element, I'd choose
+                    <code>display: none</code>, <code>visibility: hidden</code>, or another technique depending on
+                    whether I need to preserve layout and interaction.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">tr {
+  visibility: collapse; /* Collapses the table row */
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q189-demo">
+                <button onclick="document.getElementById('collapse-row').classList.toggle('collapse-row')">Toggle
+                    visibility: collapse</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Header 1</th>
+                            <th>Header 2</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Row 1</td>
+                            <td>Data 1</td>
+                        </tr>
+                        <!-- Removed initial class so it starts visible -->
+                        <tr id="collapse-row">
+                            <td>Row 2 (Collapsed)</td>
+                            <td>Data 2</td>
+                        </tr>
+                        <tr>
+                            <td>Row 3</td>
+                            <td>Data 3</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Q190 -->
+        <section class="q-section">
+            <h2>Q190 — What is CSS @supports, and how can it help with progressive enhancement? <span
+                    class="badge hard">Medium → Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>@supports</code> allows CSS to conditionally apply rules based on whether the browser supports a
+                particular CSS feature.<br><br>
+                The browser uses the enhanced version only if it supports the feature. This is useful for progressive
+                enhancement and graceful fallbacks.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can you check multiple conditions?</span>
+                <span class="a"><strong>Yes.</strong> You can use <code>and</code>, <code>or</code>, and
+                    <code>not</code> (e.g., <code>@supports (display: grid) and (gap: 1rem)</code>).</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.card { display: block; }
+
+@supports (display: grid) {
+  .card {
+    display: grid;
+    gap: 1rem;
+  }
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q190-demo">
+                <div class="support-box">
+                    <div class="fallback-msg">Fallback: Block layout</div>
+                    <!-- Removed inline styles here so the CSS handles it -->
+                    <div class="grid-msg">Enhanced: Grid layout (with gap)</div>
+                    <div class="grid-msg">Second Grid Item</div>
+                </div>
+                <p style="font-size: 0.85rem; color: #6b7280; margin: 10px 0 0 0;">If your browser supports CSS Grid,
+                    you'll see the green box with 2 columns. Otherwise, it would be a simple block.</p>
+            </div>
+        </section>
+
+        <!-- ==================== STUDENT TASK ==================== -->
+        <section class="task-section">
+            <h2>🧑‍🎓 Student Task — Modern CSS & Accessibility</h2>
+            <p>Build <strong>one HTML page</strong> (+ CSS file) that applies <strong>all 10 concepts</strong> from Part
+                19. Submit as a zipped folder.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Concept</th>
+                        <th>What you must do</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>181</td>
+                        <td>Cascade</td>
+                        <td>Create two identical `p` selectors with different colors. Add a comment explaining which
+                            wins.</td>
+                    </tr>
+                    <tr>
+                        <td>182</td>
+                        <td>Inheritance</td>
+                        <td>Set a color and a border on a parent. Observe what the child inherits.</td>
+                    </tr>
+                    <tr>
+                        <td>183</td>
+                        <td>CSS Keywords</td>
+                        <td>Use `inherit`, `initial`, `unset`, and `revert` on four buttons inside a colored container.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>184</td>
+                        <td>Focus states</td>
+                        <td>Create a form group and use `:focus-within` to change the border color when the input is
+                            focused.</td>
+                    </tr>
+                    <tr>
+                        <td>185</td>
+                        <td>Reduced Motion</td>
+                        <td>Add a CSS animation. Use `@media (prefers-reduced-motion: reduce)` to disable it.</td>
+                    </tr>
+                    <tr>
+                        <td>186</td>
+                        <td>Inline-Flex</td>
+                        <td>Create a "Badge" component using `display: inline-flex` so it hugs its content.</td>
+                    </tr>
+                    <tr>
+                        <td>187</td>
+                        <td>Contents</td>
+                        <td>Create a Grid layout with a wrapper div. Apply `display: contents` to the wrapper to make
+                            its children direct grid items.</td>
+                    </tr>
+                    <tr>
+                        <td>188</td>
+                        <td>Contain</td>
+                        <td>Add `contain: layout paint` to a card component. Explain in a comment why this helps
+                            performance.</td>
+                    </tr>
+                    <tr>
+                        <td>189</td>
+                        <td>Collapse</td>
+                        <td>Create a table and use `visibility: collapse` on a row. Add a button to toggle it.</td>
+                    </tr>
+                    <tr>
+                        <td>190</td>
+                        <td>@supports</td>
+                        <td>Create a `.card` block layout by default. Add an `@supports (display: grid)` query to turn
+                            it into a grid.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>📦 Submission rules</h3>
+            <ul>
+                <li><strong>File names:</strong> <code>index.html</code>, <code>styles.css</code></li>
+                <li><strong>Comments:</strong> above each section, e.g. <code>/* Q186: Inline-flex badge */</code></li>
+                <li><strong>README.md</strong> with 3 answers:
+                    <ol>
+                        <li>Why is it dangerous to remove focus outlines?</li>
+                        <li>What is the difference between `display: contents` and removing the element from the DOM?
+                        </li>
+                        <li>How does `@supports` help with progressive enhancement?</li>
+                    </ol>
+                </li>
+            </ul>
+
+            <h3>🎯 Grading (out of 10)</h3>
+            <p>1 point per row. "Focus states" and "Reduced Motion" rows are worth double if the README explanation is
+                correct.</p>
+        </section>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.hljs) {hljs.highlightAll(); if (hljs.lineNumbersBlock) {document.querySelectorAll('pre code').forEach(function (el) {hljs.lineNumbersBlock(el);});} }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML &amp; CSS Questions — Part 5 (41–50)</title>
+
+    <!-- ===== Favicon: inline SVG (works offline) ===== -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%234f46e5'/%3E%3Cstop%20offset='1'%20stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='url(%23g)'/%3E%3Cpath%20d='M22%2022%20L14%2032%20L22%2042%20M42%2022%20L50%2032%20L42%2042'%20stroke='white'%20stroke-width='4'%20stroke-linecap='round'%20stroke-linejoin='round'%20fill='none'/%3E%3C/svg%3E" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css" />
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            background: #f4f6fa;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        /* ==================== BACK TO HOME BUTTON ==================== */
+        .back-home {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 9999;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 16px rgba(79, 70, 229, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            border: 1px solid transparent;
+        }
+
+        .back-home:hover {
+            background: linear-gradient(135deg, #4338ca, #6d28d9);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(79, 70, 229, 0.5);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 640px) {
+            .back-home {
+                top: 12px;
+                left: 12px;
+                padding: 8px 14px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* ==================== PAGE HEADER ==================== */
+        .page-header {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            margin: 0 0 8px;
+            font-size: 2rem;
+        }
+
+        .page-header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 24px 20px;
+        }
+
+        .q-section {
+            background: #fff;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 28px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+        }
+
+        .q-section h2 {
+            margin-top: 0;
+            color: #4f46e5;
+            border-bottom: 2px solid #eef;
+            padding-bottom: 10px;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            background: #dcfce7;
+            color: #166534;
+            margin-left: 8px;
+            vertical-align: middle;
+            font-weight: 600;
+        }
+
+        .badge.medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .q-section h3 {
+            color: #374151;
+            margin-top: 22px;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .answer {
+            background: #ecfdf5;
+            border-left: 4px solid #10b981;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 10px 0;
+        }
+
+        .answer strong.label {
+            display: block;
+            font-size: 0.75rem;
+            color: #059669;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .followup {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 12px 0;
+        }
+
+        .followup .q {
+            font-weight: 600;
+            color: #1d4ed8;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .followup .a {
+            color: #1e3a8a;
+        }
+
+        .demo-box {
+            background: #fafbff;
+            border: 1px dashed #c7d2fe;
+            border-radius: 10px;
+            padding: 16px;
+            margin: 12px 0;
+        }
+
+        .vs-code {
+            background: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 16px 0;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #2d2d2d;
+        }
+
+        .vs-titlebar {
+            background: #3c3c3c;
+            padding: 9px 14px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px solid #2d2d2d;
+        }
+
+        .vs-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .vs-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .vs-dot.red {
+            background: #ff5f56;
+        }
+
+        .vs-dot.yellow {
+            background: #ffbd2e;
+        }
+
+        .vs-dot.green {
+            background: #27c93f;
+        }
+
+        .vs-title {
+            position: absolute;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 12px;
+            color: #cccccc;
+            pointer-events: none;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+
+        .vs-tabbar {
+            background: #252526;
+            display: flex;
+        }
+
+        .vs-tab {
+            background: #2d2d2d;
+            color: #969696;
+            padding: 9px 20px;
+            font-size: 12.5px;
+            border-right: 1px solid #1e1e1e;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .vs-tab.active {
+            background: #1e1e1e;
+            color: #ffffff;
+        }
+
+        .vs-tab.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #007acc;
+        }
+
+        .file-icon {
+            display: inline-block;
+            width: 9px;
+            height: 9px;
+            border-radius: 2px;
+        }
+
+        .file-icon.html {
+            background: #e44d26;
+        }
+
+        .file-icon.css {
+            background: #264de4;
+        }
+
+        .file-icon.js {
+            background: #f7df1e;
+        }
+
+        .vs-body {
+            margin: 0 !important;
+            padding: 16px 0 !important;
+            background: #1e1e1e !important;
+            overflow-x: auto;
+            font-size: 13px !important;
+            line-height: 1.65 !important;
+            color: #dcdcdc;
+            border-radius: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+        }
+
+        .vs-body code {
+            background: transparent !important;
+            padding: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+            font-size: inherit !important;
+            color: inherit;
+            white-space: pre;
+        }
+
+        .vs-body .hljs-ln-numbers {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            text-align: right;
+            color: #858585 !important;
+            border-right: 1px solid #3a3f4b;
+            padding: 0 14px 0 16px !important;
+            vertical-align: top;
+            font-weight: normal;
+        }
+
+        .vs-body .hljs-ln-code {
+            padding: 0 16px !important;
+        }
+
+        .vs-body .hljs-ln {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .vs-body .hljs-ln td {
+            padding: 0;
+        }
+
+        .vs-body::-webkit-scrollbar {
+            height: 10px;
+        }
+
+        .vs-body::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+
+        .vs-body::-webkit-scrollbar-thumb {
+            background: #424242;
+            border-radius: 5px;
+        }
+
+        .vs-body code.hljs,
+        .vs-body .hljs {
+            background: transparent !important;
+            padding: 0 !important;
+            overflow: visible !important;
+        }
+
+        /* =========== Q41: Element vs Attribute =========== */
+        .q31-demo input {
+            padding: 8px;
+            border: 2px solid #4f46e5;
+            border-radius: 6px;
+            font-size: 1rem;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        /* =========== Q42 & Q43: Data attributes =========== */
+        .q32-demo .card-demo {
+            background: #fff;
+            border: 1px solid #ccc;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            max-width: 300px;
+        }
+
+        .q32-demo .card-demo:hover {
+            border-color: #4f46e5;
+        }
+
+        .q33-demo button {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .q33-demo .output {
+            font-family: monospace;
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 10px;
+        }
+
+        /* =========== Q44: Positioning =========== */
+        .q34-demo .pos-container {
+            position: relative;
+            height: 200px;
+            background: #f3f4f6;
+            border: 2px dashed #9ca3af;
+            border-radius: 8px;
+            padding: 10px;
+            overflow: hidden;
+        }
+
+        .q34-demo .relative-box {
+            position: relative;
+            top: 10px;
+            left: 20px;
+            background: #3b82f6;
+            color: white;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            width: fit-content;
+        }
+
+        .q34-demo .absolute-box {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: #ef4444;
+            color: white;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        .q34-demo .sticky-header {
+            position: sticky;
+            top: 0;
+            background: #10b981;
+            color: white;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            margin-top: 20px;
+            z-index: 10;
+        }
+
+        /* =========== Q45: Async/Defer =========== */
+        .q35-demo .timeline {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .q35-demo .phase {
+            flex: 1;
+            padding: 8px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        .q35-demo .phase.active {
+            background: #4f46e5;
+            color: #fff;
+        }
+
+        .q35-demo .log {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 12px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            min-height: 80px;
+        }
+
+        .q35-demo button {
+            background: #4f46e5;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+
+        /* =========== Q46: Link vs A =========== */
+        .q36-demo a {
+            color: #4f46e5;
+            font-weight: bold;
+        }
+
+        .q36-demo .fake-head {
+            background: #1e293b;
+            color: #94a3b8;
+            padding: 10px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+            opacity: 0.5;
+        }
+
+        /* =========== Q47: Required/Disabled/Readonly =========== */
+        .q37-demo form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 300px;
+        }
+
+        .q37-demo input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .q37-demo input:required {
+            border-color: #ef4444;
+        }
+
+        .q37-demo input:disabled {
+            background: #f3f4f6;
+            color: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        .q37-demo input:read-only {
+            background: #fef3c7;
+        }
+
+        .q37-demo button {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .q37-demo .result {
+            font-family: monospace;
+            font-size: 0.85rem;
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 8px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        /* =========== Q48 & Q49: Hidden / Display / Visibility =========== */
+        .q38-demo,
+        .q39-demo {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .q38-demo .box,
+        .q39-demo .box {
+            background: #4f46e5;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .q38-demo button,
+        .q39-demo button {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .q39-demo .box-display-none {
+            display: none;
+        }
+
+        .q39-demo .box-visibility-hidden {
+            visibility: hidden;
+        }
+
+        .q39-demo .box-opacity-zero {
+            opacity: 0;
+        }
+
+        /* =========== Q50: Iframe vs Embed =========== */
+        .q40-demo iframe {
+            width: 100%;
+            height: 150px;
+            border: 2px solid #c7d2fe;
+            border-radius: 8px;
+            background: #fff;
+        }
+
+        /* =========== Q50 extra: iframe sandbox demo =========== */
+        .q221-demo .iframe-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+        }
+
+        .q221-demo .iframe-card {
+            background: #fff;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 12px;
+        }
+
+        .q221-demo .iframe-card.blocked {
+            border-color: #ef4444;
+        }
+
+        .q221-demo .iframe-card.allowed {
+            border-color: #10b981;
+        }
+
+        .q221-demo .iframe-label {
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            display: block;
+            font-family: 'Fira Code', Consolas, monospace;
+        }
+
+        .q221-demo .iframe-card.blocked .iframe-label {
+            color: #ef4444;
+        }
+
+        .q221-demo .iframe-card.allowed .iframe-label {
+            color: #10b981;
+        }
+
+        .q221-demo iframe {
+            width: 100%;
+            height: 80px;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            background: #f9fafb;
+            display: block;
+        }
+
+        .q221-demo .hint {
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin-top: 10px;
+            line-height: 1.5;
+        }
+
+        /* =========== Task =========== */
+        .task-section {
+            background: linear-gradient(135deg, #fff7ed, #fef3c7);
+            border: 2px solid #f59e0b;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 40px;
+        }
+
+        .task-section h2 {
+            color: #b45309;
+            margin-top: 0;
+        }
+
+        .task-section table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 12px 0;
+            font-size: 0.9rem;
+        }
+
+        .task-section th,
+        .task-section td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .task-section th {
+            background: #fde68a;
+            color: #78350f;
+        }
+
+        .task-section code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="../../index.html" class="back-home">← Back to Home</a>
+
+    <header class="page-header">
+        <h1>HTML &amp; CSS Questions — Part 5 (41 → 50)</h1>
+        <p>Questions + Answers + VS Code-style code + Live demos that match the code exactly</p>
+    </header>
+
+    <div class="container">
+
+        <!-- ==================== Q41 ==================== -->
+        <section class="q-section">
+            <h2>Q41 — What is the difference between an HTML element and an HTML attribute? <span
+                    class="badge">Easy</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                An HTML <strong>element</strong> is a complete building block of the document, such as
+                <code>&lt;p&gt;</code>, <code>&lt;div&gt;</code>, or <code>&lt;input&gt;</code>.<br>
+                An <strong>attribute</strong> provides additional information or configuration about an element.<br><br>
+                For example: <code>&lt;input type="email" id="email" required&gt;</code><br>
+                Here, <code>&lt;input&gt;</code> is the element, while <code>type</code>, <code>id</code>, and
+                <code>required</code> are attributes.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Are all HTML elements allowed to have the same attributes?</span>
+                <span class="a">No. Some attributes are <strong>global</strong> and can be used on many elements, such
+                    as <code>id</code>, <code>class</code>, and <code>title</code>, while others are
+                    <strong>specific</strong> to particular elements, such as <code>src</code> for images.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;!-- Element: &lt;input&gt; --&gt;
+&lt;!-- Attributes: type, id, required --&gt;
+&lt;input type="email" id="email" required&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q31-demo">
+                <p style="font-size: 0.9rem; margin-top: 0;">This is an <code>&lt;input&gt;</code> element with
+                    <code>type="text"</code>, <code>id="demo-input"</code>, and <code>placeholder="Type here..."</code>.
+                </p>
+                <input type="text" id="demo-input" placeholder="Type here...">
+            </div>
+        </section>
+
+        <!-- ==================== Q42 ==================== -->
+        <section class="q-section">
+            <h2>Q42 — What are global HTML attributes? <span class="badge medium">Easy → Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                Global attributes are attributes that can generally be used on <strong>most HTML elements</strong>.<br>
+                Examples include: <code>id</code>, <code>class</code>, <code>title</code>, <code>style</code>,
+                <code>hidden</code>, <code>tabindex</code>, <code>data-*</code>, and <code>aria-*</code>.<br><br>
+                For example: <code>&lt;div id="profile" class="card" title="User profile"&gt;</code>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What are data-* attributes?</span>
+                <span class="a">They allow developers to store custom data associated with an HTML element. For example,
+                    <code>&lt;button data-user-id="123"&gt;Delete&lt;/button&gt;</code>. JavaScript can access it
+                    through the element's <code>dataset</code>.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;div id="profile" class="card" title="User profile" tabindex="0"&gt;
+  Hover over me to see the title attribute!
+&lt;/div&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Hover over the card</h3>
+            <div class="demo-box q32-demo">
+                <div class="card-demo" id="profile" class="card" title="User profile" tabindex="0">
+                    <strong>User Profile</strong><br>
+                    <span style="font-size: 0.85rem; color: #666;">Hover to see the <code>title</code> tooltip.</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Q43 ==================== -->
+        <section class="q-section">
+            <h2>Q43 — What is the difference between data-* attributes and normal attributes? <span
+                    class="badge medium">Easy → Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>data-*</code> attributes are specifically intended for storing <strong>custom data</strong> on
+                HTML elements without creating non-standard HTML attributes.<br><br>
+                For example: <code>&lt;div data-product-id="25" data-category="plants"&gt;</code><br>
+                In JavaScript: <code>element.dataset.productId</code> would access the <code>data-product-id</code>
+                value.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Should sensitive information be stored in data-* attributes?</span>
+                <span class="a"><strong>No.</strong> Anything in the HTML is accessible to the client and should be
+                    treated as public. Sensitive information such as passwords or secret tokens should never be exposed
+                    there.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;button id="deleteBtn" data-user-id="123" data-action="delete"&gt;
+  Delete User
+&lt;/button&gt;
+
+&lt;script&gt;
+  const btn = document.getElementById('deleteBtn');
+  btn.addEventListener('click', () =&gt; {
+    console.log(btn.dataset.userId); // "123"
+    console.log(btn.dataset.action); // "delete"
+  });
+&lt;/script&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Click the button</h3>
+            <div class="demo-box q33-demo">
+                <button id="deleteBtn" data-user-id="123" data-action="delete" onclick="showDataset(this)">Delete
+                    User</button>
+                <div class="output" id="q33-output">Click the button to read the data-* attributes via JS.</div>
+            </div>
+        </section>
+
+        <!-- ==================== Q44 ==================== -->
+        <section class="q-section">
+            <h2>Q44 — What is the difference between absolute, relative, fixed, and sticky positioning? <span
+                    class="badge medium">Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <ul style="margin:6px 0">
+                    <li><strong>relative</strong>: the element remains in the normal document flow but can be visually
+                        offset; it can also establish a containing block for positioned descendants.</li>
+                    <li><strong>absolute</strong>: the element is removed from normal flow and is positioned relative to
+                        its containing block.</li>
+                    <li><strong>fixed</strong>: the element is removed from normal flow and is positioned relative to
+                        the viewport in typical cases.</li>
+                    <li><strong>sticky</strong>: the element behaves like relatively positioned content until a
+                        threshold is reached, then sticks within its scrolling container.</li>
+                </ul>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Relative to what is an absolutely positioned element positioned?</span>
+                <span class="a">Usually to its nearest ancestor that establishes a positioning context, commonly an
+                    ancestor with <code>position: relative</code>, <code>absolute</code>, <code>fixed</code>, or
+                    <code>sticky</code>. If there isn't one, the containing block can be the initial containing
+                    block.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.container { position: relative; }
+.relative-box { position: relative; top: 10px; left: 20px; }
+.absolute-box { position: absolute; bottom: 10px; right: 10px; }
+.fixed-box { position: fixed; bottom: 20px; right: 20px; }
+.sticky-header { position: sticky; top: 0; }</code></pre>
+            </div>
+
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q34-demo">
+                <div class="pos-container">
+                    <div class="relative-box">relative (shifted)</div>
+                    <div class="absolute-box">absolute (bottom right)</div>
+                    <div class="sticky-header">sticky (scroll inside)</div>
+                    <p style="font-size: 0.8rem; color: #666; margin-top: 10px;">Scroll inside this box to see the
+                        sticky element.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Q45 ==================== -->
+        <section class="q-section">
+            <h2>Q45 — What is the difference between &lt;script&gt;, &lt;script async&gt;, and &lt;script defer&gt;?
+                <span class="badge medium">Medium</span>
+            </h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                A normal <code>&lt;script&gt;</code> can <strong>block HTML parsing</strong> while the browser fetches
+                and executes the script.<br><br>
+                With <code>async</code>, the script downloads in parallel with HTML parsing and executes <strong>as soon
+                    as it's available</strong>. Therefore, execution order between async scripts isn't
+                guaranteed.<br><br>
+                With <code>defer</code>, the script also downloads in parallel, but execution happens <strong>after HTML
+                    parsing is complete</strong>, and deferred scripts maintain their document order.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Which one is usually appropriate for scripts that depend on the
+                    DOM?</span>
+                <span class="a"><code>defer</code> is usually a good choice because the script executes <strong>after
+                        the HTML has been parsed</strong>.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;script src="blocking.js"&gt;&lt;/script&gt;
+&lt;script src="async.js" async&gt;&lt;/script&gt;
+&lt;script src="defer.js" defer&gt;&lt;/script&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Run simulation</h3>
+            <div class="demo-box q35-demo">
+                <button onclick="runScriptSim()">▶ Run Simulation</button>
+                <div class="timeline">
+                    <div class="phase" id="q35-parse">1. HTML Parsing</div>
+                    <div class="phase" id="q35-download">2. Downloading</div>
+                    <div class="phase" id="q35-execute">3. Executing</div>
+                </div>
+                <div class="log" id="q35-log">Click "Run Simulation" to see how normal, async, and defer scripts behave.
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Q46 ==================== -->
+        <section class="q-section">
+            <h2>Q46 — What is the difference between &lt;link&gt; and &lt;a&gt;? <span class="badge medium">Easy →
+                    Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>&lt;a&gt;</code> creates a <strong>hyperlink</strong> that users can interact with to navigate to
+                another resource.<br><br>
+                <code>&lt;link&gt;</code> defines a <strong>relationship</strong> between the current document and an
+                external resource. It's commonly used in the <code>&lt;head&gt;</code> to load stylesheets.<br><br>
+                For example: <code>&lt;link rel="stylesheet" href="styles.css"&gt;</code> while
+                <code>&lt;a href="/about"&gt;About Us&lt;/a&gt;</code> is navigation.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can &lt;link&gt; be placed inside &lt;body&gt;?</span>
+                <span class="a">Some link relationships have specific placement rules, but stylesheet links are
+                    conventionally placed in the <code>&lt;head&gt;</code>. The key distinction is that
+                    <code>&lt;link&gt;</code> is <strong>metadata/resource relationship</strong>, while
+                    <code>&lt;a&gt;</code> is an <strong>interactive hyperlink</strong>.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;head&gt;
+  &lt;!-- link: loads a resource (invisible to user) --&gt;
+  &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;!-- a: user can click to navigate --&gt;
+  &lt;a href="https://example.com"&gt;Go to Example&lt;/a&gt;
+&lt;/body&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q36-demo">
+                <div class="fake-head">&lt;head&gt; &lt;link rel="stylesheet" href="styles.css"&gt; &lt;/head&gt; <em
+                        style="font-size:0.75rem;">(Invisible, loads CSS)</em></div>
+                <p>Here is a clickable <a href="#q36" onclick="alert('You clicked the link!')">Hyperlink (&lt;a&gt;)</a>
+                    that the user can interact with.</p>
+            </div>
+        </section>
+
+        <!-- ==================== Q47 ==================== -->
+        <section class="q-section">
+            <h2>Q47 — What is the difference between required, disabled, and readonly? <span
+                    class="badge medium">Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <ul style="margin:6px 0">
+                    <li><strong>required</strong> means the user must provide a value for the field for form validation
+                        to succeed.</li>
+                    <li><strong>disabled</strong> means the control is disabled and cannot normally be interacted with;
+                        disabled form controls are generally excluded from native form submission.</li>
+                    <li><strong>readonly</strong> means the user cannot modify the value, but the control remains
+                        generally usable and its value can be submitted.</li>
+                </ul>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: If I have a disabled input, can JavaScript read its value?</span>
+                <span class="a"><strong>Yes.</strong> Disabling the input doesn't erase its value. JavaScript can still
+                    access the element and its value.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;input name="email" required&gt;
+&lt;input name="userId" value="123" readonly&gt;
+&lt;input name="status" value="active" disabled&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q37-demo">
+                <form onsubmit="event.preventDefault(); showFormValues(this);">
+                    <label>Required input:</label>
+                    <input name="email" required placeholder="Must type here">
+
+                    <label>Readonly input:</label>
+                    <input name="userId" value="123" readonly>
+
+                    <label>Disabled input:</label>
+                    <input name="status" value="active" disabled>
+
+                    <button type="submit">Submit Form</button>
+                </form>
+                <div class="result" id="q37-output">Click Submit to see which values pass validation and get submitted.
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Q48 ==================== -->
+        <section class="q-section">
+            <h2>Q48 — What is the difference between hidden and display: none? <span class="badge medium">Medium</span>
+            </h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                The <code>hidden</code> HTML attribute indicates that an element is <strong>not currently
+                    relevant</strong> to the user and the browser normally doesn't render it.<br><br>
+                <code>display: none</code> is a CSS rule that <strong>removes the element from the rendered
+                    layout</strong>.<br><br>
+                Both normally result in the element not being visually rendered, but they communicate different intent:
+                <code>hidden</code> is an HTML semantic state, while <code>display: none</code> is presentation.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Does display: none take space in the layout?</span>
+                <span class="a"><strong>No.</strong> The element doesn't occupy layout space.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;div hidden&gt;Hidden via attribute&lt;/div&gt;
+&lt;div style="display: none;"&gt;Hidden via CSS&lt;/div&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q38-demo">
+                <div class="box" id="q38-box1">Box 1 (hidden)</div>
+                <div class="box" id="q38-box2">Box 2 (display: none)</div>
+                <div class="box">Box 3</div>
+                <button onclick="toggleQ38()">Toggle Visibility</button>
+            </div>
+        </section>
+
+        <!-- ==================== Q49 ==================== -->
+        <section class="q-section">
+            <h2>Q49 — What is the difference between visibility: hidden and display: none? <span
+                    class="badge medium">Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>display: none</code> removes the element from the layout, so it <strong>doesn't occupy
+                    space</strong>.<br><br>
+                <code>visibility: hidden</code> makes the element invisible, but it normally <strong>remains in the
+                    layout and keeps its space</strong>.<br><br>
+                For example: <code>display: none</code> means the element doesn't participate in layout, while
+                <code>visibility: hidden</code> keeps its layout space.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What about opacity: 0?</span>
+                <span class="a"><code>opacity: 0</code> makes the element fully transparent, but the element can
+                    <strong>still occupy layout space</strong> and can potentially remain interactive depending on the
+                    situation.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.display-none { display: none; }
+.visibility-hidden { visibility: hidden; }
+.opacity-zero { opacity: 0; }</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Notice the space</h3>
+            <div class="demo-box q39-demo">
+                <div class="box box-display-none" id="q39-box1">display: none</div>
+                <div class="box box-visibility-hidden" id="q39-box2">visibility: hidden</div>
+                <div class="box box-opacity-zero" id="q39-box3">opacity: 0</div>
+                <div class="box">Normal Box</div>
+                <button onclick="toggleQ39()">Toggle Classes</button>
+            </div>
+        </section>
+
+        <!-- ==================== Q50 ==================== -->
+        <section class="q-section">
+            <h2>Q50 — What is the difference between &lt;iframe&gt; and &lt;embed&gt;? <span
+                    class="badge medium">Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>&lt;iframe&gt;</code> embeds another <strong>HTML browsing context</strong> inside the current
+                page. It's commonly used for embedding external pages, maps, videos, or other web content.<br><br>
+                <code>&lt;embed&gt;</code> is a more general element for embedding external content, historically
+                including plugins and certain document/media formats.<br><br>
+                For modern web applications, <code>&lt;iframe&gt;</code> is much more commonly encountered for embedding
+                another web page or external browsing context.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What security attribute can restrict an iframe?</span>
+                <span class="a">
+                    <code>sandbox</code>.<br>
+                    For example:<br>
+                    <code>&lt;iframe src="..." sandbox title="Embedded content"&gt;&lt;/iframe&gt;</code><br><br>
+                    Sandboxing restricts capabilities of the embedded document unless specific permissions are
+                    explicitly enabled.
+                </span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can an iframe communicate with its parent page?</span>
+                <span class="a"><strong>Yes.</strong> JavaScript can communicate between windows/frames using mechanisms
+                    such as <code>postMessage</code>, especially when dealing with cross-origin contexts.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What is iframe sandbox and why is it useful?</span>
+                <span class="a">The <code>sandbox</code> attribute applies restrictions to content loaded inside an
+                    iframe.<br><br>
+                    With a sandbox, various capabilities are restricted by default. Specific capabilities can be
+                    selectively
+                    enabled using tokens.<br><br>
+                    For example, <code>sandbox="allow-scripts"</code> allows scripts while retaining other sandbox
+                    restrictions.<br><br>
+                    Possible tokens include: <code>allow-scripts</code>, <code>allow-forms</code>,
+                    <code>allow-modals</code>,
+                    <code>allow-popups</code>, <code>allow-downloads</code>, <code>allow-same-origin</code>, among
+                    others.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Is <code>sandbox="allow-scripts"</code> the same as allowing
+                    everything?</span>
+                <span class="a"><strong>No.</strong> It enables scripts but keeps other sandbox restrictions unless they
+                    are
+                    separately allowed. For example, <code>alert()</code> and <code>confirm()</code> additionally
+                    require
+                    <code>allow-modals</code>.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre
+                    class="vs-body"><code class="language-html">&lt;iframe src="https://example.com" title="Example website"&gt;&lt;/iframe&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q40-demo">
+                <p style="font-size: 0.9rem; margin-top: 0;">This is an <code>&lt;iframe&gt;</code> embedding a simple
+                    HTML document:</p>
+                <iframe
+                    srcdoc="<!DOCTYPE html><html><body style='margin:0; display:flex; align-items:center; justify-content:center; height:100vh; background:#eff6ff; font-family:sans-serif;'><div style='text-align:center;'><h3 style='color:#4f46e5; margin:0;'>Hello from inside the iframe!</h3><p style='font-size:0.8rem; color:#666;'>I am a separate browsing context.</p></div></body></html>"></iframe>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;!-- Strict sandbox: everything restricted by default --&gt;
+&lt;iframe
+  src="/embedded-app"
+  sandbox
+  title="Embedded application"
+&gt;&lt;/iframe&gt;
+
+&lt;!-- Selective sandbox: allow scripts, keep the rest restricted --&gt;
+&lt;iframe
+  src="/embedded-app"
+  sandbox="allow-scripts"
+  title="Embedded application"
+&gt;&lt;/iframe&gt;
+
+&lt;!-- Multiple tokens can be combined --&gt;
+&lt;iframe
+  src="/embedded-app"
+  sandbox="allow-scripts allow-forms allow-popups"
+  title="Embedded application"
+&gt;&lt;/iframe&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Click the buttons</h3>
+            <div class="demo-box q221-demo">
+                <div class="iframe-grid">
+                    <div class="iframe-card blocked">
+                        <span class="iframe-label">sandbox</span>
+                        <iframe sandbox title="Sandbox demo"
+                            srcdoc="&lt;body style='display:flex;align-items:center;justify-content:center;height:100%;margin:0;font-family:system-ui,sans-serif;background:#f9fafb;'&gt;&lt;button onclick='this.textContent=&quot;Clicked!&quot;;this.style.background=&quot;#10b981&quot;' style='padding:8px 16px;border:none;border-radius:6px;cursor:pointer;background:#6b7280;color:#fff;font-weight:bold;font-size:0.85rem;'&gt;Click me&lt;/button&gt;&lt;/body&gt;"></iframe>
+                    </div>
+                    <div class="iframe-card allowed">
+                        <span class="iframe-label">sandbox="allow-scripts"</span>
+                        <iframe sandbox="allow-scripts" title="Sandbox allow-scripts demo"
+                            srcdoc="&lt;body style='display:flex;align-items:center;justify-content:center;height:100%;margin:0;font-family:system-ui,sans-serif;background:#f9fafb;'&gt;&lt;button onclick='this.textContent=&quot;Clicked!&quot;;this.style.background=&quot;#10b981&quot;' style='padding:8px 16px;border:none;border-radius:6px;cursor:pointer;background:#6b7280;color:#fff;font-weight:bold;font-size:0.85rem;'&gt;Click me&lt;/button&gt;&lt;/body&gt;"></iframe>
+                    </div>
+                </div>
+                <p class="hint">
+                    👈 The left button has <code>sandbox</code> with no tokens — clicking it does nothing, because
+                    scripts (and even inline event handlers) are blocked.<br>
+                    👉 The right button has <code>sandbox="allow-scripts"</code> — clicking it changes its text to
+                    <strong>"Clicked!"</strong> and its color to green, because scripts are explicitly allowed.
+                </p>
+            </div>
+        </section>
+
+        <!-- ==================== STUDENT TASK ==================== -->
+        <section class="task-section">
+            <h2>🧑‍🎓 Student Task — Interactive Component</h2>
+            <p>Build <strong>one HTML page</strong> (+ CSS file + optional JS file) that applies <strong>all 10
+                    concepts</strong> from Part 5. Submit as a zipped folder or CodePen link.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Concept</th>
+                        <th>What you must do</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>41</td>
+                        <td>Element vs Attribute</td>
+                        <td>Create an <code>&lt;img&gt;</code> element and add at least 3 attributes (<code>src</code>,
+                            <code>alt</code>, <code>width</code>). Comment which is the element and which are
+                            attributes.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>42</td>
+                        <td>Global attributes</td>
+                        <td>Add a <code>title</code> attribute to a button (hover to see tooltip) and a
+                            <code>tabindex="0"</code> to a <code>&lt;div&gt;</code> to make it focusable.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>43</td>
+                        <td>data-*</td>
+                        <td>Add <code>data-id="101"</code> to a "Delete" button. Use JS to log <code>dataset.id</code>
+                            when clicked.</td>
+                    </tr>
+                    <tr>
+                        <td>44</td>
+                        <td>Positioning</td>
+                        <td>Create a card with <code>position: relative</code> and an "X" close button inside it with
+                            <code>position: absolute</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>45</td>
+                        <td>Script loading</td>
+                        <td>Add an external JS file with the <code>defer</code> attribute and explain in a comment why
+                            you chose it.</td>
+                    </tr>
+                    <tr>
+                        <td>46</td>
+                        <td>&lt;link&gt; vs &lt;a&gt;</td>
+                        <td>Use <code>&lt;link&gt;</code> to load your CSS. Use <code>&lt;a&gt;</code> for a "Back to
+                            Home" navigation link.</td>
+                    </tr>
+                    <tr>
+                        <td>47</td>
+                        <td>Form attributes</td>
+                        <td>Add a required email input, a readonly "Account ID" input, and a disabled "Status" input.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>48</td>
+                        <td>hidden</td>
+                        <td>Create a <code>&lt;div hidden&gt;</code> and toggle it using JS by removing/adding the
+                            attribute.</td>
+                    </tr>
+                    <tr>
+                        <td>49</td>
+                        <td>Visibility</td>
+                        <td>Create two hidden boxes: one with <code>display: none</code> and one with
+                            <code>visibility: hidden</code>. Notice the layout difference.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>50</td>
+                        <td>iframe</td>
+                        <td>Embed a YouTube video using <code>&lt;iframe&gt;</code>.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>📦 Submission rules</h3>
+            <ul>
+                <li><strong>File names:</strong> <code>index.html</code>, <code>styles.css</code>, <code>app.js</code>
+                </li>
+                <li><strong>Comments:</strong> above each section, e.g.
+                    <code>&lt;!-- Q44: Relative parent, absolute close btn --&gt;</code>
+                </li>
+                <li><strong>README.md</strong> with 3 answers:
+                    <ol>
+                        <li>What happens to a disabled input's value when the form is submitted?</li>
+                        <li>Why did you use <code>defer</code> instead of <code>async</code>?</li>
+                        <li>What is the layout difference between <code>display: none</code> and
+                            <code>visibility: hidden</code>?
+                        </li>
+                    </ol>
+                </li>
+            </ul>
+
+            <h3>⭐ Bonus</h3>
+            <ul>
+                <li>Add a <code>sticky</code> header to your page and test it while scrolling.</li>
+                <li>Add a <code>fixed</code> "Scroll to Top" button in the bottom-right corner.</li>
+            </ul>
+
+            <h3>🎯 Grading (out of 10)</h3>
+            <p>1 point per row. "Positioning" and "Visibility" rows are worth double if the README explanation is
+                correct.</p>
+        </section>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.hljs) {
+                hljs.highlightAll();
+                if (hljs.lineNumbersBlock) {
+                    document.querySelectorAll('pre code').forEach(function (el) {
+                        hljs.lineNumbersBlock(el);
+                    });
+                }
+            }
+        });
+
+        // Q43 Data attributes
+        function showDataset(btn) {
+            const out = document.getElementById('q33-output');
+            out.innerHTML = `btn.dataset.userId → "${btn.dataset.userId}"<br>btn.dataset.action → "${btn.dataset.action}"`;
+        }
+
+        // Q45 Script Simulation
+        function runScriptSim() {
+            const log = document.getElementById('q35-log');
+            const parse = document.getElementById('q35-parse');
+            const dl = document.getElementById('q35-download');
+            const ex = document.getElementById('q35-execute');
+
+            log.textContent = 'Starting HTML Parsing...';
+            parse.classList.add('active');
+
+            setTimeout(() => {
+                log.textContent += '\n\n[Normal] Blocks parsing! Fetch & Execute script1.js...';
+                log.textContent += '\n[Async] Downloads async.js in background...';
+                log.textContent += '\n[Defer] Downloads defer.js in background...';
+
+                setTimeout(() => {
+                    parse.classList.remove('active');
+                    dl.classList.add('active');
+                    log.textContent += '\n\n...Async finished downloading. Executes immediately!';
+                }, 1000);
+
+                setTimeout(() => {
+                    parse.classList.remove('active');
+                    ex.classList.add('active');
+                    log.textContent += '\n\n✅ HTML Parsing Complete!';
+                    log.textContent += '\n...Defer executes now (after parsing).';
+                }, 2000);
+            }, 300);
+        }
+
+        // Q47 Form Values
+        function showFormValues(form) {
+            const formData = new FormData(form);
+            const out = document.getElementById('q37-output');
+            let display = "Form Submitted Successfully!\nValues sent:\n";
+            for (let [key, value] of formData.entries()) {
+                display += `  ${key}: "${value}"\n`;
+            }
+            display += "\nNote: 'status' (disabled) is MISSING from FormData.";
+            out.textContent = display;
+        }
+
+        // Q48 Toggle Hidden
+        function toggleQ38() {
+            const box1 = document.getElementById('q38-box1');
+            const box2 = document.getElementById('q38-box2');
+            if (box1.hasAttribute('hidden')) {
+                box1.removeAttribute('hidden');
+                box2.style.display = 'block';
+            } else {
+                box1.setAttribute('hidden', '');
+                box2.style.display = 'none';
+            }
+        }
+
+        // Q49 Toggle Visibility
+        function toggleQ39() {
+            const boxes = [
+                document.getElementById('q39-box1'),
+                document.getElementById('q39-box2'),
+                document.getElementById('q39-box3')
+            ];
+            const classes = ['box-display-none', 'box-visibility-hidden', 'box-opacity-zero'];
+            boxes.forEach((box, i) => {
+                if (box.classList.contains(classes[i])) {
+                    box.classList.remove(classes[i]);
+                } else {
+                    box.classList.add(classes[i]);
+                }
+            });
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,1659 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HTML &amp; CSS Questions — Part 3 (21–30)</title>
+
+  <!-- ===== Favicon: inline SVG (works offline) ===== -->
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%234f46e5'/%3E%3Cstop%20offset='1'%20stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='url(%23g)'/%3E%3Cpath%20d='M22%2022%20L14%2032%20L22%2042%20M42%2022%20L50%2032%20L42%2042'%20stroke='white'%20stroke-width='4'%20stroke-linecap='round'%20stroke-linejoin='round'%20fill='none'/%3E%3C/svg%3E" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      margin: 0;
+      background: #f4f6fa;
+      color: #1f2937;
+      line-height: 1.6;
+    }
+
+    .back-home {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 9999;
+      background: linear-gradient(135deg, #4f46e5, #7c3aed);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 16px rgba(79, 70, 229, 0.4);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      border: 1px solid transparent;
+    }
+
+    .back-home:hover {
+      background: linear-gradient(135deg, #4338ca, #6d28d9);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(79, 70, 229, 0.5);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    @media (max-width: 640px) {
+      .back-home {
+        top: 12px;
+        left: 12px;
+        padding: 8px 14px;
+        font-size: 0.8rem;
+      }
+    }
+
+    .page-header {
+      background: linear-gradient(135deg, #4f46e5, #7c3aed);
+      color: #fff;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .page-header h1 {
+      margin: 0 0 8px;
+      font-size: 2rem;
+    }
+
+    .page-header p {
+      margin: 0;
+      opacity: 0.9;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 24px 20px;
+    }
+
+    .q-section {
+      background: #fff;
+      border-radius: 14px;
+      padding: 24px 28px;
+      margin-bottom: 28px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+    }
+
+    .q-section h2 {
+      margin-top: 0;
+      color: #4f46e5;
+      border-bottom: 2px solid #eef;
+      padding-bottom: 10px;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      padding: 2px 10px;
+      border-radius: 20px;
+      background: #dcfce7;
+      color: #166534;
+      margin-left: 8px;
+      vertical-align: middle;
+      font-weight: 600;
+    }
+
+    .badge.medium {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .q-section h3 {
+      color: #374151;
+      margin-top: 22px;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .answer {
+      background: #ecfdf5;
+      border-left: 4px solid #10b981;
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      margin: 10px 0;
+    }
+
+    .answer strong.label {
+      display: block;
+      font-size: 0.75rem;
+      color: #059669;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .followup {
+      background: #eff6ff;
+      border-left: 4px solid #3b82f6;
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      margin: 12px 0;
+    }
+
+    .followup .q {
+      font-weight: 600;
+      color: #1d4ed8;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .followup .a {
+      color: #1e3a8a;
+    }
+
+    .demo-box {
+      background: #fafbff;
+      border: 1px dashed #c7d2fe;
+      border-radius: 10px;
+      padding: 16px;
+      margin: 12px 0;
+    }
+
+    .demo-label {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+
+    .demo-label.bad {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .demo-label.good {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .demo-label.live {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+
+    .vs-code {
+      background: #1e1e1e;
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 16px 0;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.1);
+      border: 1px solid #2d2d2d;
+    }
+
+    .vs-titlebar {
+      background: #3c3c3c;
+      padding: 9px 14px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      border-bottom: 1px solid #2d2d2d;
+    }
+
+    .vs-dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    .vs-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .vs-dot.red {
+      background: #ff5f56;
+    }
+
+    .vs-dot.yellow {
+      background: #ffbd2e;
+    }
+
+    .vs-dot.green {
+      background: #27c93f;
+    }
+
+    .vs-title {
+      position: absolute;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 12px;
+      color: #cccccc;
+      pointer-events: none;
+      font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+    }
+
+    .vs-tabbar {
+      background: #252526;
+      display: flex;
+    }
+
+    .vs-tab {
+      background: #2d2d2d;
+      color: #969696;
+      padding: 9px 20px;
+      font-size: 12.5px;
+      border-right: 1px solid #1e1e1e;
+      font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .vs-tab.active {
+      background: #1e1e1e;
+      color: #ffffff;
+    }
+
+    .vs-tab.active::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: #007acc;
+    }
+
+    .file-icon {
+      display: inline-block;
+      width: 9px;
+      height: 9px;
+      border-radius: 2px;
+    }
+
+    .file-icon.html {
+      background: #e44d26;
+    }
+
+    .file-icon.css {
+      background: #264de4;
+    }
+
+    .file-icon.js {
+      background: #f7df1e;
+    }
+
+    .vs-body {
+      margin: 0 !important;
+      padding: 16px 0 !important;
+      background: #1e1e1e !important;
+      overflow-x: auto;
+      font-size: 13px !important;
+      line-height: 1.65 !important;
+      color: #dcdcdc;
+      border-radius: 0 !important;
+      font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+    }
+
+    .vs-body code {
+      background: transparent !important;
+      padding: 0 !important;
+      font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+      font-size: inherit !important;
+      color: inherit;
+      white-space: pre;
+    }
+
+    .vs-body .hljs-ln-numbers {
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      user-select: none;
+      text-align: right;
+      color: #858585 !important;
+      border-right: 1px solid #3a3f4b;
+      padding: 0 14px 0 16px !important;
+      vertical-align: top;
+      font-weight: normal;
+    }
+
+    .vs-body .hljs-ln-code {
+      padding: 0 16px !important;
+    }
+
+    .vs-body .hljs-ln {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    .vs-body .hljs-ln td {
+      padding: 0;
+    }
+
+    .vs-body::-webkit-scrollbar {
+      height: 10px;
+    }
+
+    .vs-body::-webkit-scrollbar-track {
+      background: #1e1e1e;
+    }
+
+    .vs-body::-webkit-scrollbar-thumb {
+      background: #424242;
+      border-radius: 5px;
+    }
+
+    .vs-body code.hljs,
+    .vs-body .hljs {
+      background: transparent !important;
+      padding: 0 !important;
+      overflow: visible !important;
+    }
+
+    /* =========== Q21 — section vs article =========== */
+    .q11-demo section {
+      background: #fef3c7;
+      padding: 12px;
+      border-radius: 8px;
+      margin: 10px 0;
+      border-left: 4px solid #f59e0b;
+    }
+
+    .q11-demo article {
+      background: #eef;
+      padding: 10px;
+      border-radius: 6px;
+      margin: 8px 0;
+      border-left: 4px solid #4f46e5;
+    }
+
+    .q11-demo h2,
+    .q11-demo h3 {
+      margin: 0 0 6px;
+      font-size: 1rem;
+    }
+
+    .q11-demo p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #4b5563;
+    }
+
+    .q11-demo .tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      padding: 1px 8px;
+      border-radius: 10px;
+      font-family: monospace;
+      margin-bottom: 4px;
+    }
+
+    .q11-demo .tag.sec {
+      background: #fde68a;
+      color: #78350f;
+    }
+
+    .q11-demo .tag.art {
+      background: #c7d2fe;
+      color: #3730a3;
+    }
+
+    /* =========== Q22 & Q23 — inline semantic demos =========== */
+    .q12-demo p,
+    .q13-demo p {
+      margin: 8px 0;
+      font-size: 1rem;
+    }
+
+    .q12-demo .note,
+    .q13-demo .note {
+      font-size: 0.85rem;
+      color: #6b7280;
+      margin-top: 10px;
+    }
+
+    /* =========== Q24 — button vs clickable div =========== */
+    .q14-demo .fake-button {
+      display: inline-block;
+      background: #6b7280;
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-right: 8px;
+      user-select: none;
+    }
+
+    .q14-demo button {
+      background: #4f46e5;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .q14-demo button:focus-visible {
+      outline: 3px solid #f59e0b;
+      outline-offset: 2px;
+    }
+
+    .q14-demo .output {
+      font-family: monospace;
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      margin-top: 10px;
+    }
+
+    /* =========== Q25 — a vs button =========== */
+    .q15-demo a.nav-link {
+      display: inline-block;
+      background: #3b82f6;
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 6px;
+      margin-right: 8px;
+      text-decoration: none;
+    }
+
+    .q15-demo button {
+      background: #10b981;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .q15-demo .target {
+      background: #dcfce7;
+      padding: 10px;
+      border-radius: 6px;
+      margin-top: 12px;
+      border-left: 4px solid #16a34a;
+      font-size: 0.9rem;
+    }
+
+    .q15-demo .modal-output {
+      display: none;
+      background: #fef3c7;
+      padding: 10px;
+      border-radius: 6px;
+      margin-top: 8px;
+      border-left: 4px solid #f59e0b;
+      font-size: 0.9rem;
+    }
+
+    /* =========== Q26 — alt attribute =========== */
+    .q16-demo .img-row {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+
+    .q16-demo .img-item {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #555;
+      max-width: 180px;
+    }
+
+    .q16-demo img {
+      display: block;
+      margin: 0 auto 8px;
+      border-radius: 8px;
+    }
+
+    .q16-demo .broken {
+      width: 100px;
+      height: 100px;
+      border: 2px dashed #f59e0b;
+      background: #fef3c7;
+    }
+
+    /* =========== Q27 — id vs class vs name =========== */
+    .q17-demo form {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin: 8px 0;
+    }
+
+    .q17-demo label {
+      font-weight: 600;
+      color: #374151;
+    }
+
+    .q17-demo input {
+      padding: 6px 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 0.95rem;
+    }
+
+    .q17-demo button {
+      background: #4f46e5;
+      color: #fff;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .q17-demo .result {
+      font-family: monospace;
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      margin-top: 8px;
+    }
+
+    /* =========== Q28 — label =========== */
+    .q18-demo .label-demo {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      padding: 12px;
+      border-radius: 8px;
+      margin: 8px 0;
+    }
+
+    .q18-demo label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #374151;
+    }
+
+    .q18-demo input {
+      padding: 6px 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 0.95rem;
+    }
+
+    .q18-demo .inline-label {
+      display: inline-block;
+      background: #eff6ff;
+      padding: 10px 12px;
+      border-radius: 6px;
+      border: 1px solid #bfdbfe;
+      font-weight: 600;
+      color: #374151;
+      cursor: pointer;
+    }
+
+    /* =========== Q29 — GET vs POST =========== */
+    .q19-demo .form-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 12px;
+      margin: 10px 0;
+    }
+
+    .q19-demo .form-card h4 {
+      margin: 0 0 8px;
+      color: #4f46e5;
+      font-size: 1rem;
+    }
+
+    .q19-demo input {
+      padding: 6px 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-right: 6px;
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+    }
+
+    .q19-demo button {
+      background: #4f46e5;
+      color: #fff;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .q19-demo .result {
+      font-family: monospace;
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      margin-top: 8px;
+      white-space: pre-wrap;
+    }
+
+    /* =========== Q30 — disabled vs readonly =========== */
+    .q20-demo .input-row {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin: 8px 0;
+    }
+
+    .q20-demo .input-item {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .q20-demo .input-item label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 4px;
+      font-size: 0.9rem;
+      color: #374151;
+    }
+
+    .q20-demo input {
+      padding: 6px 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      width: 100%;
+    }
+
+    .q20-demo input:disabled {
+      background: #f3f4f6;
+      color: #9ca3af;
+      cursor: not-allowed;
+    }
+
+    .q20-demo input:read-only:not(:disabled) {
+      background: #fef3c7;
+    }
+
+    .q20-demo button {
+      background: #4f46e5;
+      color: #fff;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin: 6px 4px 0 0;
+      font-size: 0.9rem;
+    }
+
+    .q20-demo .result {
+      font-family: monospace;
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      margin-top: 8px;
+      white-space: pre-wrap;
+    }
+
+    /* =========== Task =========== */
+    .task-section {
+      background: linear-gradient(135deg, #fff7ed, #fef3c7);
+      border: 2px solid #f59e0b;
+      border-radius: 14px;
+      padding: 24px 28px;
+      margin-bottom: 40px;
+    }
+
+    .task-section h2 {
+      color: #b45309;
+      margin-top: 0;
+    }
+
+    .task-section table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 12px 0;
+      font-size: 0.9rem;
+    }
+
+    .task-section th,
+    .task-section td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+
+    .task-section th {
+      background: #fde68a;
+      color: #78350f;
+    }
+
+    .task-section code {
+      background: #f3f4f6;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.85em;
+    }
+  </style>
+</head>
+
+<body>
+
+  <a href="../../index.html" class="back-home">← Back to Home</a>
+
+  <header class="page-header">
+    <h1>HTML &amp; CSS Questions — Part 3 (21 → 30)</h1>
+    <p>Questions + Answers + VS Code-style code + Live demos that match the code exactly</p>
+  </header>
+
+  <div class="container">
+
+    <!-- ==================== Q21 ==================== -->
+    <section class="q-section">
+      <h2>Q21 — What is the difference between &lt;section&gt; and &lt;article&gt;? <span class="badge medium">Easy →
+          Medium</span></h2>
+
+      <div class="answer">
+        <strong class="label">✅ Ideal answer</strong>
+        <code>&lt;section&gt;</code> represents a <strong>thematic grouping</strong> of content within a page, while
+        <code>&lt;article&gt;</code> represents a <strong>self-contained</strong> piece of content that could
+        potentially stand on its own or be distributed independently.<br><br>
+        For example, a blog page could have multiple <code>&lt;article&gt;</code> elements, while
+        <code>&lt;section&gt;</code> could group related content such as "Latest Posts" or "Contact Information".
+      </div>
+
+      <div class="followup">
+        <span class="q">🔁 Follow-up: Can an &lt;article&gt; contain a &lt;section&gt;?</span>
+        <span class="a">Yes. An article can contain sections when the article itself has multiple thematic parts.</span>
+      </div>
+
+      <h3>💻 Code</h3>
+      <div class="vs-code">
+        <div class="vs-titlebar">
+          <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+              class="vs-dot green"></span></div>
+          <div class="vs-title">index.html — Visual Studio Code</div>
+        </div>
+        <div class="vs-tabbar">
+          <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+        </div>
+        <pre class="vs-body"><code class="language-html">&lt;!-- section = thematic grouping (Latest Posts) --&gt;
+&lt;section&gt;
+  &lt;h2&gt;Latest Posts&lt;/h2&gt;
+  &lt;article&gt;&lt;h3&gt;Post 1&lt;/h3&gt;&lt;p&gt;…&lt;/p&gt;&lt;/article&gt;
+  &lt;article&gt;&lt;h3&gt;Post 2&lt;/h3&gt;&lt;p&gt;…&lt;/p&gt;&lt;/article&gt;
+&lt;/section&gt;
+
+&lt;!-- article can contain sections (self-contained, with parts) --&gt;
+&lt;article&gt;
+  &lt;h2&gt;Standalone Article&lt;/h2&gt;
+  &lt;section&gt;&lt;h3&gt;Part 1&lt;/h3&gt;&lt;p&gt;…&lt;/p&gt;&lt;/section&gt;
+  &lt;section&gt;&lt;h3&gt;Part 2&lt;/h3&gt;&lt;p&gt;…&lt;/p&gt;&lt;/section&gt;
+&lt;/article&gt;
+
+&lt;!-- section = thematic grouping (Contact) --&gt;
+&lt;section&gt;
+  &lt;h2&gt;Contact Information&lt;/h2&gt;
+  &lt;p&gt;…&lt;/p&gt;
+&lt;/section&gt;</code></pre>
+      </div>
+
+      <h3>🔴 Live demo</h3>
+      <div class="demo-box q11-demo">
+        <section>
+          <span class="tag sec">&lt;section&gt;</span>
+          <h2>Latest Posts</h2>
+          <article>
+            <span class="tag art">&lt;article&gt;</span>
+            <h3>Post 1</h3>
+            <p>Content of post 1…</p>
+          </article>
+          <article>
+            <span class="tag art">&lt;article&gt;</span>
+            <h3>Post 2</h3>
+            <p>Content of post 2…</p>
+          </article>
+        </section>
+
+        <article>
+          <span class="tag art">&lt;article&gt;</span>
+          <h2>Standalone Article</h2>
+          <section>
+            <span class="tag sec">&lt;section&gt;</span>
+            <h3>Part 1</h3>
+            <p>…</p>
+          </section>
+          <section>
+            <span class="tag sec">&lt;section&gt;</span>
+            <h3>Part 2</h3>
+            <p>…</p>
+          </section>
+        </article>
+
+        <section>
+          <span class="tag sec">&lt;section&gt;</span>
+          <h2>Contact Information</h2>
+          <p>…</p>
+        </section>
+      </div>
+    </section>
+
+    <!-- ==================== Q22 ==================== -->
+    <section class="q-section">
+      <h2>Q22 — What is the difference between &lt;strong&gt; and &lt;b&gt;? <span class="badge">Easy</span></h2>
+
+      <div class="answer">
+        <strong class="label">✅ Ideal answer</strong>
+        <code>&lt;strong&gt;</code> gives <strong>semantic importance</strong> to its content, while
+        <code>&lt;b&gt;</code> mainly indicates that the text should be <strong>stylistically distinguished</strong>
+        without adding the same semantic importance.<br><br>
+        For example:<br>
+        <code>&lt;strong&gt;Warning:&lt;/strong&gt; Your account will expire.</code><br>
+        Here, "Warning" has semantic importance.
+      </div>
+
+      <div class="followup">
+        <span class="q">🔁 Follow-up: Does &lt;strong&gt; necessarily make text bold?</span>
+        <span class="a">Browsers usually render it as bold by default, but its important part is the <strong>semantic
+            meaning</strong>, not the visual appearance. CSS controls the actual presentation.</span>
+      </div>
+
+      <h3>💻 Code</h3>
+      <div class="vs-code">
+        <div class="vs-titlebar">
+          <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+              class="vs-dot green"></span></div>
+          <div class="vs-title">index.html — Visual Studio Code</div>
+        </div>
+        <div class="vs-tabbar">
+          <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+        </div>
+        <pre class="vs-body"><code class="language-html">&lt;!-- strong = semantic importance --&gt;
+&lt;p&gt;&lt;strong&gt;Warning:&lt;/strong&gt; Your account will expire.&lt;/p&gt;
+
+&lt;!-- b = stylistic offset (no extra importance) --&gt;
+&lt;p&gt;&lt;b&gt;Note:&lt;/b&gt; This is just styled text, no extra importance.&lt;/p&gt;</code></pre>
+      </div>
+
+      <h3>🔴 Live demo</h3>
+      <div class="demo-box q12-demo">
+        <p><strong>Warning:</strong> Your account will expire.</p>
+        <p><b>Note:</b> This is just styled text, no extra importance.</p>
+        <p class="note">👀 Both look bold — but only <code>&lt;strong&gt;</code> tells screen readers "this is
+          important".</p>
+      </div>
+    </section>
+
+    <!-- ==================== Q23 ==================== -->
+    <section class="q-section">
+      <h2>Q23 — What is the difference between &lt;em&gt; and &lt;i&gt;? <span class="badge">Easy</span></h2>
+
+      <div class="answer">
+        <strong class="label">✅ Ideal answer</strong>
+        <code>&lt;em&gt;</code> represents <strong>emphasized</strong> content semantically, while
+        <code>&lt;i&gt;</code> represents text that is <strong>stylistically offset</strong> from the surrounding
+        content without necessarily indicating emphasis.<br><br>
+        For example, <code>&lt;em&gt;</code> can indicate that a word should be emphasized when the sentence is read.
+      </div>
+
+      <div class="followup">
+        <span class="q">🔁 Follow-up: Are &lt;em&gt; and &lt;i&gt; always displayed differently?</span>
+        <span class="a">By default, browsers commonly render <strong>both as italic</strong>, but their <strong>semantic
+            meanings are different</strong>.</span>
+      </div>
+
+      <h3>💻 Code</h3>
+      <div class="vs-code">
+        <div class="vs-titlebar">
+          <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+              class="vs-dot green"></span></div>
+          <div class="vs-title">index.html — Visual Studio Code</div>
+        </div>
+        <div class="vs-tabbar">
+          <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+        </div>
+        <pre class="vs-body"><code class="language-html">&lt;!-- em = emphasized meaning --&gt;
+&lt;p&gt;I &lt;em&gt;really&lt;/em&gt; mean it.&lt;/p&gt;
+
+&lt;!-- i = stylistically offset (e.g. technical term, foreign word) --&gt;
+&lt;p&gt;This is the &lt;i&gt;scientific name&lt;/i&gt; of the species.&lt;/p&gt;</code></pre>
+      </div>
+
+      <h3>🔴 Live demo</h3>
+      <div class="demo-box q13-demo">
+        <p>I <em>really</em> mean it.</p>
+        <p>This is the <i>scientific name</i> of the species.</p>
+        <p class="note">👀 Both look italic — but only <code>&lt;em&gt;</code> means "emphasize this when reading".</p>
+      </div>
+    </section>
+
+    <!-- ==================== Q24 ==================== -->
+    <section class="q-section">
+      <h2>Q24 — Why should we use &lt;button&gt; instead of a clickable &lt;div&gt;? <span class="badge medium">Easy →
+          Medium</span></h2>
+
+      <div class="answer">
+        <strong class="label">✅ Ideal answer</strong>
+        A <code>&lt;button&gt;</code> is designed specifically for user actions. It provides <strong>built-in keyboard
+          accessibility</strong>, <strong>focus behavior</strong>, <strong>semantics for assistive
+          technologies</strong>, and standard browser behavior.<br>
+        A <code>&lt;div&gt;</code> is only a generic container — making it clickable means manually reproducing keyboard
+        interaction and accessibility semantics.
+      </div>
+
+      <div class="followup">
+        <span class="q">🔁 Follow-up: What if the clickable element navigates to another page?</span>
+        <span class="a">I would generally use an <code>&lt;a&gt;</code> element because navigation is the semantic
+          purpose of a link.</span>
+      </div>
+
+      <h3>💻 Code</h3>
+      <div class="vs-code">
+        <div class="vs-titlebar">
+          <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+              class="vs-dot green"></span></div>
+          <div class="vs-title">index.html — Visual Studio Code</div>
+        </div>
+        <div class="vs-tabbar">
+          <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+        </div>
+        <pre class="vs-body"><code class="language-html">&lt;!-- ❌ clickable div: NOT keyboard focusable by default --&gt;
+&lt;div class="fake-button"
+     onclick="document.getElementById('q14-output').textContent='Div clicked by mouse. Can you Tab to it? No.';"&gt;
+  Click me (div)
+&lt;/div&gt;
+
+&lt;!-- ✅ real button: focusable, Enter/Space activate it, screen-reader friendly --&gt;
+&lt;button type="button"
+        onclick="document.getElementById('q14-output').textContent='Button clicked! Try Tab + Enter too.';"&gt;
+  Click me (button)
+&lt;/button&gt;
+
+&lt;p id="q14-output"&gt;Click either element. Then try Tab — only the button gets focus.&lt;/p&gt;</code></pre>
+      </div>
+
+      <h3>🔴 Live demo — click both, then press Tab</h3>
+      <div class="demo-box q14-demo">
+        <div class="fake-button"
+          onclick="document.getElementById('q14-output').textContent='Div clicked by mouse. Can you Tab to it? No — try it.';">
+          Click me (div)</div>
+        <button type="button"
+          onclick="document.getElementById('q14-output').textContent='Button clicked! Try Tab + Enter too.';">Click me
+          (button)</button>
+        <p class="output" id="q14-output">Click either element. Then press Tab — only the button gets a focus ring.</p>
+      </div>
+    </section>
+
+    <!-- ==================== Q25 ==================== -->
+    <section class="q-section">
+      <h2>Q25 — What is the difference between &lt;a&gt; and &lt;button&gt;? <span class="badge medium">Easy →
+          Medium</span></h2>
+
+      <div class="answer">
+        <strong class="label">✅ Ideal answer</strong>
+        An <code>&lt;a&gt;</code> is primarily used for <strong>navigation</strong> to another URL or resource, while a
+        <code>&lt;button&gt;</code> is used to <strong>perform an action</strong>.<br><br>
+        For example:<br>
+        <code>&lt;a href="/profile"&gt;Profile&lt;/a&gt;</code> → navigation.<br>
+        <code>&lt;button type="button"&gt;Open Modal&lt;/button&gt;</code> → action.
+      </div>
+
+      <div class="followup">
+        <span class="q">🔁 Follow-up: What would you use for a "Delete Account" action?</span>
+        <span class="a">A <code>&lt;button&gt;</code>, because deleting is an <strong>action</strong>, not
+          navigation.</span>
+      </div>
+
+      <h3>💻 Code</h3>
+      <div class="vs-code">
+        <div class="vs-titlebar">
+          <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+              class="vs-dot green"></span></div>
+          <div class="vs-title">index.html — Visual Studio Code</div>
+        </div>
+        <div class="vs-tabbar">
+          <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+        </div>
+        <pre
+          class="vs-body"><code class="language-html">&lt;!-- ✅ Navigation → &lt;a&gt; --&gt;
+&lt;a href="#q15-profile"&gt;Go to Profile&lt;/a&gt;
+
+&lt;!-- ✅ Action → &lt;button&gt; --&gt;
+&lt;button type="button"
+        onclick="document.getElementById('q15-modal').style.display='block';"&gt;
+  Open Modal
+&lt;/button&gt;
+
+&lt;p id="q15-profile"&gt;📍 Profile page — the link navigated you here.&lt;/p&gt;
+&lt;p id="q15-modal" style="display:none;"&gt;🪟 Modal opened — this is an action, not navigation.&lt;/p&gt;</code></pre>
+      </div>
+
+      <h3>🔴 Live demo — click both</h3>
+      <div class="demo-box q15-demo">
+        <a href="#q15-profile" class="nav-link">Go to Profile</a>
+        <button type="button" onclick="document.getElementById('q15-modal').style.display='block';">Open Modal</button>
+        <p class="target" id="q15-profile">📍 <strong>Profile page</strong> — the link navigated you here (browser
+          scroll/anchor event).</p>
+        <p class="modal-output" id="q15-modal">🪟 <strong>Modal opened</strong> — this is an action, not navigation.</p>
+      </div>
+    </section>
+
+    <!-- ==================== Q26 ==================== -->
+    <section class="q-section">
+      <h2>Q26 — What is the purpose of the alt attribute in an &lt;img&gt;? <span class="badge">Easy</span></h2>
+
+      <div class="answer">
+        <strong class="label">✅ Ideal answer</strong>
+        The <code>alt</code> attribute provides <strong>alternative text</strong> describing the image. It's used by
+        screen readers and is displayed when the image cannot be loaded.<br>
+        For <strong>meaningful</strong> images, <code>alt</code> should describe their purpose or content.<br>
+        For <strong>purely decorative</strong> images, <code>alt</code> can be empty:
+        <code>&lt;img src="decoration.png" alt=""&gt;</code>
+      </div>
+
+      <div class="followup">
+        <span class="q">🔁 Follow-up: Should we put "image of..." in every alt?</span>
+        <span class="a">Not necessarily. Screen readers already announce it's an image — the alt text should focus on
+          <strong>useful information</strong>, not "image of".</span>
+      </div>
+
+      <div class="followup">
+        <span class="q">🔁 Follow-up: What should you use for a purely decorative image?</span>
+        <span class="a">
+          Usually an <strong>empty alt</strong>:
+          <code>&lt;img src="decoration.png" alt=""&gt;</code><br>
+          This tells assistive technologies that the image is <strong>decorative</strong> and can be ignored.
+        </span>
+      </div>
+
+      <h3>💻 Code</h3>
+      <div class="vs-code">
+        <div class="vs-titlebar">
+          <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+              class="vs-dot green"></span></div>
+          <div class="vs-title">index.html — Visual Studio Code</div>
+        </div>
+        <div class="vs-tabbar">
+          <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+        </div>
+        <pre class="vs-body"><code class="language-html">&lt;!-- meaningful image → describe its purpose --&gt;
+&lt;img src="circle.svg" alt="Company logo"&gt;
+
+&lt;!-- decorative image → empty alt (screen readers skip it) --&gt;
+&lt;img src="pattern.svg" alt=""&gt;
+
+&lt;!-- broken image → alt text is displayed as fallback --&gt;
+&lt;img src="missing.png" alt="A red circle icon"&gt;</code></pre>
+      </div>
+
+      <h3>🔴 Live demo</h3>
+      <div class="demo-box q16-demo">
+        <div class="img-row">
+          <div class="img-item">
+            <img
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='40' fill='%234f46e5'/%3E%3C/svg%3E"
+              alt="Company logo">
+            meaningful<br><code>alt="Company logo"</code>
+          </div>
+          <div class="img-item">
+            <img
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Crect width='40' height='40' fill='%23eef'/%3E%3Cpath d='M0 20 L40 20 M20 0 L20 40' stroke='%234f46e5' stroke-width='2'/%3E%3C/svg%3E"
+              alt="">
+            decorative<br><code>alt=""</code>
+          </div>
+          <div class="img-item">
+            <img class="broken" src="missing-image.png" alt="A red circle icon">
+            broken image<br><code>alt</code> shown as fallback
+          </div>
+        </div>
+        <p style="font-size:0.85rem;color:#6b7280;margin-top:14px">
+          👀 Notice how the <strong>third image</strong> shows its alt text because the image failed to load.
+          Screen readers do the same for all three.
+        </p>
+      </div>
+    </section>
+
+    <!-- ==================== Q27 ==================== -->
+    <section class="q-section">
+      <h2>Q27 — What is the difference between id, class, and name attributes? <span class="badge medium">Medium</span>
+      </h2>
+
+      <div class="answer">
+        <strong class="label">✅ Ideal answer</strong>
+        <ul style="margin:6px 0">
+          <li><strong>id</strong> — identifies an element uniquely within the document.</li>
+          <li><strong>class</strong> — groups elements for styling or JavaScript behavior.</li>
+          <li><strong>name</strong> — identifies a form control when its value is submitted as part of form data.</li>
+        </ul>
+        <br>
+        <code>&lt;input id="email" name="email" class="form-control" type="email"&gt;</code><br>
+        Here: <code>id</code> associates with a <code>&lt;label&gt;</code>, <code>class</code> is for styling,
+        <code>name</code> is the key used when submitting form data.
+      </div>
+
+      <div class="followup">
+        <span class="q">🔁 Follow-up: Why do we usually connect &lt;label&gt; to the input using for and id?</span>
+        <span class="a">It associates the label with the input, improving <strong>accessibility</strong> and allowing
+          users to <strong>focus the input by clicking the label</strong>.</span>
+      </div>
+
+      <div class="followup">
+        <span class="q">🔁 Follow-up: What happens if an input has no name?</span>
+        <span class="a">Its value generally won't be included as a successful form control during native form
+          submission.</span>
+      </div>
+
+      <div class="followup">
+        <span class="q">🔁 Follow-up: What is the difference between id and name on an &lt;input&gt;?</span>
+        <span class="a"><code>id</code> uniquely identifies an element within the document and can be used by
+          <code>&lt;label for=""&gt;</code>, CSS, JavaScript, fragment URLs, etc.<br><br>
+          <code>name</code> identifies the form field's name when the form is submitted.<br><br>
+          <code>id</code> → DOM/document identity<br>
+          <code>name</code> → form submission identity</span>
+      </div>
+
+      <div class="followup">
+        <span class="q">🔁 Follow-up: Can id and name have the same value?</span>
+        <span class="a"><strong>Yes.</strong> That's actually common, as long as the <code>id</code> is unique within
+          the document.</span>
+      </div>
+
+      <h3>💻 Code</h3>
+      <div class="vs-code">
+        <div class="vs-titlebar">
+          <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+              class="vs-dot green"></span></div>
+          <div class="vs-title">index.html — Visual Studio Code</div>
+        </div>
+        <div class="vs-tabbar">
+          <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+        </div>
+        <pre class="vs-body"><code class="language-html">&lt;form id="q17Form"&gt;
+  &lt;label for="email"&gt;Email&lt;/label&gt;
+  &lt;input id="email" name="email" class="form-control" type="email" value="user@example.com"&gt;
+  &lt;button type="submit"&gt;Submit&lt;/button&gt;
+&lt;/form&gt;
+&lt;div id="q17Result"&gt;Click Submit to see what gets sent to the server.&lt;/div&gt;
+
+&lt;script&gt;
+  document.getElementById('q17Form').addEventListener('submit', e =&gt; {
+    e.preventDefault();
+    const params = new URLSearchParams(new FormData(e.target));
+    document.getElementById('q17Result').textContent =
+      'Submitted: ' + params.toString();
+  });
+&lt;/script&gt;</code></pre>
+      </div>
+
+      <h3>🔴 Live demo — click Submit</h3>
+      <div class="demo-box q17-demo">
+        <form id="q17Form">
+          <label for="email">Email</label>
+          <input id="email" name="email" class="form-control" type="email" value="user@example.com">
+          <button type="submit">Submit</button>
+        </form>
+        <div class="result" id="q17Result">Click Submit to see what gets sent to the server.</div>
+      </div>
+    </section>
+
+    <!-- ==================== Q28 ==================== -->
+    <section class="q-section">
+      <h2>Q28 — What is the purpose of the &lt;label&gt; element? <span class="badge">Easy</span></h2>
+
+      <div class="answer">
+        <strong class="label">✅ Ideal answer</strong>
+        <code>&lt;label&gt;</code> provides a <strong>textual description</strong> for a form control and improves
+        <strong>accessibility</strong>.<br>
+        It can be associated with an input using <code>for</code>:
+        <code>&lt;label for="email"&gt;Email&lt;/label&gt;&lt;input id="email" type="email"&gt;</code><br>
+        Clicking the label will also <strong>focus or activate</strong> the associated control.
+      </div>
+
+      <div class="followup">
+        <span class="q">🔁 Follow-up: Can we wrap the input inside the label?</span>
+        <span class="a">Yes. <code>&lt;label&gt;Email &lt;input type="email"&gt;&lt;/label&gt;</code> creates an
+          <strong>implicit association</strong> between the label and the input.</span>
+      </div>
+
+      <div class="followup">
+        <span class="q">🔁 Follow-up: What is the difference between &lt;label&gt; and placeholder?</span>
+        <span class="a">
+          A <code>&lt;label&gt;</code> provides a <strong>persistent accessible name</strong> for a form control.
+          <br><br>
+          <code>&lt;label for="email"&gt;Email address&lt;/label&gt;</code><br>
+          <code>&lt;input id="email" type="email"&gt;</code>
+          <br><br>
+          A <code>placeholder</code> is <strong>temporary hint text</strong> shown inside the control:
+          <br><br>
+          <code>&lt;input type="email" placeholder="you@example.com"&gt;</code>
+          <br><br>
+          A placeholder should <strong>not replace a proper label</strong> because it disappears when the user enters a
+          value and can create usability and accessibility problems.
+        </span>
+      </div>
+
+      <div class="followup">
+        <span class="q">🔁 Follow-up: What happens when the user clicks the label?</span>
+        <span class="a">The associated form control receives focus, assuming the association is correct.</span>
+      </div>
+
+      <div class="followup">
+        <span class="q">🔁 Follow-up: How do you associate a &lt;label&gt; with an &lt;input&gt;?</span>
+        <span class="a">
+          <strong>Ideal answer:</strong><br>
+          There are two common approaches.<br><br>
+          Using <code>for</code> + <code>id</code>:<br>
+          <code>&lt;label for="username"&gt;Username&lt;/label&gt;</code><br>
+          <code>&lt;input id="username" name="username"&gt;</code><br><br>
+          The <code>for</code> value must match the input's <code>id</code>.<br><br>
+          Or nesting:<br>
+          <code>&lt;label&gt;</code><br>
+          &nbsp;&nbsp;<code>Username</code><br>
+          &nbsp;&nbsp;<code>&lt;input name="username"&gt;</code><br>
+          <code>&lt;/label&gt;</code><br><br>
+          Both create an explicit relationship between the label and control.
+          <br><br>
+          <hr style="border: 0; border-top: 1px solid #bfdbfe; margin: 10px 0;">
+          <strong>🔁 Follow-up: Why is this important?</strong><br>
+          It improves accessibility and makes the label clickable, which also improves usability.
+        </span>
+      </div>
+
+      <h3>💻 Code</h3>
+      <div class="vs-code">
+        <div class="vs-titlebar">
+          <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+              class="vs-dot green"></span></div>
+          <div class="vs-title">index.html — Visual Studio Code</div>
+        </div>
+        <div class="vs-tabbar">
+          <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+        </div>
+        <pre class="vs-body"><code class="language-html">&lt;!-- Explicit: for + id --&gt;
+&lt;label for="q18-email"&gt;Email (explicit for/id)&lt;/label&gt;
+&lt;input id="q18-email" type="email" placeholder="Click the label → input focuses"&gt;
+
+&lt;!-- Implicit: input wrapped inside label --&gt;
+&lt;label class="inline-label"&gt;
+  Email (implicit — input inside label)
+  &lt;input type="email" placeholder="Click here → input focuses"&gt;
+&lt;/label&gt;</code></pre>
+      </div>
+
+      <h3>🔴 Live demo — click the labels</h3>
+      <div class="demo-box q18-demo">
+        <div class="label-demo">
+          <label for="q18-email">Email (explicit for/id)</label>
+          <input id="q18-email" type="email" placeholder="Click the label → input focuses">
+        </div>
+        <div class="label-demo">
+          <label class="inline-label">
+            Email (implicit — input inside label)
+            <input type="email" placeholder="Click here → input focuses">
+          </label>
+        </div>
+        <p style="font-size:0.85rem;color:#6b7280;margin-top:8px">👀 Click either label text — the input focuses. That's
+          accessibility for free.</p>
+      </div>
+    </section>
+
+    <!-- ==================== Q29 ==================== -->
+    <section class="q-section">
+      <h2>Q29 — What is the difference between GET and POST when submitting an HTML form? <span
+          class="badge medium">Medium</span></h2>
+
+      <div class="answer">
+        <strong class="label">✅ Ideal answer</strong>
+        With a traditional HTML form:
+        <ul style="margin:6px 0">
+          <li><strong>GET</strong> — sends form data as part of the <strong>URL query string</strong>.</li>
+          <li><strong>POST</strong> — sends the data in the <strong>request body</strong>.</li>
+        </ul>
+        GET is commonly used for retrieving/searching data; POST is used for submitting data that causes a server-side
+        operation.
+      </div>
+
+      <div class="followup">
+        <span class="q">🔁 Follow-up: Is POST automatically secure?</span>
+        <span class="a">No. POST does <strong>not</strong> provide encryption by itself. <strong>HTTPS</strong> is what
+          encrypts the communication between the client and server.</span>
+      </div>
+
+      <h3>💻 Code</h3>
+      <div class="vs-code">
+        <div class="vs-titlebar">
+          <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+              class="vs-dot green"></span></div>
+          <div class="vs-title">index.html — Visual Studio Code</div>
+        </div>
+        <div class="vs-tabbar">
+          <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+        </div>
+        <pre class="vs-body"><code class="language-html">&lt;!-- GET → data goes in the URL: /search?search=laptop --&gt;
+&lt;form id="q19GetForm" method="GET"&gt;
+  &lt;input name="search" value="laptop"&gt;
+  &lt;button type="submit"&gt;Submit GET&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;!-- POST → data goes in the request body --&gt;
+&lt;form id="q19PostForm" method="POST"&gt;
+  &lt;input name="username" value="Youssef"&gt;
+  &lt;input name="email" value="y@example.com"&gt;
+  &lt;button type="submit"&gt;Submit POST&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;script&gt;
+  document.getElementById('q19GetForm').addEventListener('submit', e =&gt; {
+    e.preventDefault();
+    const params = new URLSearchParams(new FormData(e.target));
+    document.getElementById('q19GetResult').textContent =
+      'GET → /search?' + params.toString();
+  });
+  document.getElementById('q19PostForm').addEventListener('submit', e =&gt; {
+    e.preventDefault();
+    const params = new URLSearchParams(new FormData(e.target));
+    document.getElementById('q19PostResult').textContent =
+      'POST → body: ' + params.toString();
+  });
+&lt;/script&gt;</code></pre>
+      </div>
+
+      <h3>🔴 Live demo — submit both forms</h3>
+      <div class="demo-box q19-demo">
+        <form class="form-card" id="q19GetForm" method="GET">
+          <h4>🔍 GET — Search</h4>
+          <input name="search" value="laptop">
+          <button type="submit">Submit GET</button>
+        </form>
+        <div class="result" id="q19GetResult">Click "Submit GET" to see how data appears in the URL.</div>
+
+        <form class="form-card" id="q19PostForm" method="POST">
+          <h4>📝 POST — Register</h4>
+          <input name="username" value="Youssef">
+          <input name="email" value="y@example.com">
+          <button type="submit">Submit POST</button>
+        </form>
+        <div class="result" id="q19PostResult">Click "Submit POST" to see how data appears in the body.</div>
+      </div>
+    </section>
+
+    <!-- ==================== Q30 ==================== -->
+    <section class="q-section">
+      <h2>Q30 — What is the difference between disabled and readonly on an input? <span
+          class="badge medium">Medium</span></h2>
+
+      <div class="answer">
+        <strong class="label">✅ Ideal answer</strong>
+        <strong>disabled</strong> — the control cannot be interacted with and is generally <strong>excluded from form
+          submission</strong>.<br>
+        <strong>readonly</strong> — the user cannot modify the value, but the control can still be focused and its value
+        can <strong>participate in form submission</strong>.
+      </div>
+
+      <div class="followup">
+        <span class="q">🔁 Follow-up: Can JavaScript change a readonly input?</span>
+        <span class="a">Yes. <code>readonly</code> prevents the <strong>user</strong> from editing through the UI, but
+          JavaScript can still modify its value.</span>
+      </div>
+
+      <div class="followup">
+        <span class="q">🔁 Follow-up: Can readonly be used on every input type?</span>
+        <span class="a"><strong>No.</strong> <code>readonly</code> applies to specific form control types, primarily
+          text-like inputs and <code>&lt;textarea&gt;</code>. It doesn't apply meaningfully to controls such as
+          <code>checkbox</code> / <code>radio</code> in the same way.</span>
+      </div>
+
+      <h3>💻 Code</h3>
+      <div class="vs-code">
+        <div class="vs-titlebar">
+          <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+              class="vs-dot green"></span></div>
+          <div class="vs-title">index.html — Visual Studio Code</div>
+        </div>
+        <div class="vs-tabbar">
+          <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+        </div>
+        <pre class="vs-body"><code class="language-html">&lt;label for="roInput"&gt;readonly&lt;/label&gt;
+&lt;input id="roInput" type="text" value="Youssef" readonly&gt;
+
+&lt;label for="disInput"&gt;disabled&lt;/label&gt;
+&lt;input id="disInput" type="text" value="Youssef" disabled&gt;
+
+&lt;button type="button" onclick="q20ChangeBoth()"&gt;🔄 Change both via JS&lt;/button&gt;
+&lt;button type="button" onclick="q20ShowSubmit()"&gt;📤 Simulate form submit&lt;/button&gt;
+
+&lt;div id="q20Result"&gt;Click "Simulate form submit"…&lt;/div&gt;
+
+&lt;script&gt;
+  function q20ChangeBoth() {
+    document.getElementById('roInput').value  = 'Ahmed (via JS)';
+    document.getElementById('disInput').value = 'Ahmed (via JS)';
+  }
+  function q20ShowSubmit() {
+    const ro  = document.getElementById('roInput').value;
+    const dis = document.getElementById('disInput').value;
+    document.getElementById('q20Result').textContent =
+      'Form submission values:\n' +
+      '  readonly → "' + ro  + '"  ✅ included\n' +
+      '  disabled → "' + dis + '"  ❌ excluded';
+  }
+&lt;/script&gt;</code></pre>
+      </div>
+
+      <h3>🔴 Live demo — try focusing, then click both buttons</h3>
+      <div class="demo-box q20-demo">
+        <div class="input-row">
+          <div class="input-item">
+            <label for="roInput">readonly</label>
+            <input id="roInput" type="text" value="Youssef" readonly>
+          </div>
+          <div class="input-item">
+            <label for="disInput">disabled</label>
+            <input id="disInput" type="text" value="Youssef" disabled>
+          </div>
+        </div>
+        <button type="button" onclick="q20ChangeBoth()">🔄 Change both via JS</button>
+        <button type="button" onclick="q20ShowSubmit()">📤 Simulate form submit</button>
+        <div class="result" id="q20Result">Click "Simulate form submit" to see which values would be sent.</div>
+      </div>
+    </section>
+
+    <!-- ==================== STUDENT TASK ==================== -->
+    <section class="task-section">
+      <h2>🧑‍🎓 Student Task — Accessible Blog + Registration Form</h2>
+      <p>Build <strong>one HTML page</strong> (+ CSS file + optional JS file) that applies <strong>all 10
+          concepts</strong> from Part 3. Submit as a zipped folder or CodePen link.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Concept</th>
+            <th>What you must do</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>21</td>
+            <td>section vs article</td>
+            <td>Build a blog page with a <code>&lt;section&gt;</code> "Latest Posts" containing multiple
+              <code>&lt;article&gt;</code> elements. One article should contain two <code>&lt;section&gt;</code> parts.
+            </td>
+          </tr>
+          <tr>
+            <td>22</td>
+            <td>strong vs b</td>
+            <td>Add a "Warning:" callout using <code>&lt;strong&gt;</code> and a "Note:" line using
+              <code>&lt;b&gt;</code>. Comment which one carries semantic importance.
+            </td>
+          </tr>
+          <tr>
+            <td>23</td>
+            <td>em vs i</td>
+            <td>Use <code>&lt;em&gt;</code> for emphasized words and <code>&lt;i&gt;</code> for a scientific/technical
+              term.</td>
+          </tr>
+          <tr>
+            <td>24</td>
+            <td>button vs div</td>
+            <td>Add a "Delete Account" <code>&lt;button&gt;</code>. Do <strong>not</strong> use a clickable
+              <code>&lt;div&gt;</code> — comment why.
+            </td>
+          </tr>
+          <tr>
+            <td>25</td>
+            <td>a vs button</td>
+            <td>Add "Back to Blog" using <code>&lt;a href&gt;</code> and "Submit Registration" using
+              <code>&lt;button type="submit"&gt;</code>.
+            </td>
+          </tr>
+          <tr>
+            <td>26</td>
+            <td>alt attribute</td>
+            <td>Add one meaningful <code>&lt;img alt="…"&gt;</code> (logo) and one decorative
+              <code>&lt;img alt=""&gt;</code>.
+            </td>
+          </tr>
+          <tr>
+            <td>27</td>
+            <td>id / class / name</td>
+            <td>Every form input must have all three: <code>id</code>, <code>name</code>, <code>class</code>. Comment
+              which one submits data.</td>
+          </tr>
+          <tr>
+            <td>28</td>
+            <td>label</td>
+            <td>Use one explicit <code>&lt;label for&gt;</code> and one implicit
+              <code>&lt;label&gt;&lt;input&gt;&lt;/label&gt;</code>.
+            </td>
+          </tr>
+          <tr>
+            <td>29</td>
+            <td>GET vs POST</td>
+            <td>Add a search form with <code>method="GET"</code> and a registration form with
+              <code>method="POST"</code>.
+            </td>
+          </tr>
+          <tr>
+            <td>30</td>
+            <td>disabled vs readonly</td>
+            <td>Add a <code>readonly</code> "Account ID" input and a <code>disabled</code> "Region" input.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>📦 Submission rules</h3>
+      <ul>
+        <li><strong>File names:</strong> <code>index.html</code>, <code>styles.css</code>, <code>app.js</code></li>
+        <li><strong>Comments:</strong> above each section, e.g. <code>&lt;!-- Q24: real button, not div --&gt;</code>
+        </li>
+        <li><strong>README.md</strong> with 3 answers:
+          <ol>
+            <li>Why does your "Delete Account" use a <code>&lt;button&gt;</code> and not an <code>&lt;a&gt;</code>?</li>
+            <li>Which form uses GET and which uses POST — and why?</li>
+            <li>What happens to the <code>disabled</code> "Region" field when the form submits?</li>
+          </ol>
+        </li>
+      </ul>
+
+      <h3>⭐ Bonus</h3>
+      <ul>
+        <li>Try submitting your form with the "Region" field <code>disabled</code> — verify it's <strong>not</strong> in
+          the request.</li>
+        <li>Tab through your page — confirm every interactive element receives focus in a logical order.</li>
+        <li>Add <code>&lt;legend&gt;</code> inside a <code>&lt;fieldset&gt;</code> around the form for extra
+          accessibility.</li>
+      </ul>
+
+      <h3>🎯 Grading (out of 10)</h3>
+      <p>1 point per row. "GET vs POST" and "disabled vs readonly" rows are worth double if the README explanation is
+        correct.</p>
+    </section>
+
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.hljs) {
+        hljs.highlightAll();
+        if (hljs.lineNumbersBlock) {
+          document.querySelectorAll('pre code').forEach(function (el) {
+            hljs.lineNumbersBlock(el);
+          });
+        }
+      }
+
+      // Q27 — show what gets submitted (name attribute)
+      var q17Form = document.getElementById('q17Form');
+      if (q17Form) {
+        q17Form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var params = new URLSearchParams(new FormData(q17Form));
+          document.getElementById('q17Result').textContent =
+            'Submitted: ' + params.toString();
+        });
+      }
+
+      // Q29 — GET vs POST demo
+      var q19GetForm = document.getElementById('q19GetForm');
+      if (q19GetForm) {
+        q19GetForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var params = new URLSearchParams(new FormData(q19GetForm));
+          document.getElementById('q19GetResult').textContent =
+            'GET → /search?' + params.toString() +
+            '\n(visible in address bar, history, server logs)';
+        });
+      }
+      var q19PostForm = document.getElementById('q19PostForm');
+      if (q19PostForm) {
+        q19PostForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var params = new URLSearchParams(new FormData(q19PostForm));
+          document.getElementById('q19PostResult').textContent =
+            'POST → body: ' + params.toString() +
+            '\n(not in URL; sent in the request body)';
+        });
+      }
+
+      // Q30 — JS can change both values, but only readonly is submitted
+      window.q20ChangeBoth = function () {
+        document.getElementById('roInput').value = 'Ahmed (via JS)';
+        document.getElementById('disInput').value = 'Ahmed (via JS)';
+      };
+      window.q20ShowSubmit = function () {
+        var ro = document.getElementById('roInput').value;
+        var dis = document.getElementById('disInput').value;
+        document.getElementById('q20Result').textContent =
+          'Form submission values:\n' +
+          '  readonly → "' + ro + '"  ✅ included\n' +
+          '  disabled → "' + dis + '"  ❌ excluded from form data';
+      };
+    });
+  </script>
+
+</body>
+
+</html>

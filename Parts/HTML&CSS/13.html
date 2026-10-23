@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML &amp; CSS Questions — Part 13 (121–130)</title>
+
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%234f46e5'/%3E%3Cstop%20offset='1'%20stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='url(%23g)'/%3E%3Cpath%20d='M22%2022%20L14%2032%20L22%2042%20M42%2022%20L50%2032%20L42%2042'%20stroke='white'%20stroke-width='4'%20stroke-linecap='round'%20stroke-linejoin='round'%20fill='none'/%3E%3C/svg%3E" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css" />
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            background: #f4f6fa;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        .back-home {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 9999;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 16px rgba(79, 70, 229, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .back-home:hover {
+            background: linear-gradient(135deg, #4338ca, #6d28d9);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(79, 70, 229, 0.5);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 640px) {
+            .back-home {
+                top: 12px;
+                left: 12px;
+                padding: 8px 14px;
+                font-size: 0.8rem;
+            }
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            margin: 0 0 8px;
+            font-size: 2rem;
+        }
+
+        .page-header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 24px 20px;
+        }
+
+        .q-section {
+            background: #fff;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 28px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+        }
+
+        .q-section h2 {
+            margin-top: 0;
+            color: #4f46e5;
+            border-bottom: 2px solid #eef;
+            padding-bottom: 10px;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            background: #dcfce7;
+            color: #166534;
+            margin-left: 8px;
+            vertical-align: middle;
+            font-weight: 600;
+        }
+
+        .badge.medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge.hard {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .q-section h3 {
+            color: #374151;
+            margin-top: 22px;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .answer {
+            background: #ecfdf5;
+            border-left: 4px solid #10b981;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 10px 0;
+        }
+
+        .answer strong.label {
+            display: block;
+            font-size: 0.75rem;
+            color: #059669;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .followup {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 12px 0;
+        }
+
+        .followup .q {
+            font-weight: 600;
+            color: #1d4ed8;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .followup .a {
+            color: #1e3a8a;
+        }
+
+        .demo-box {
+            background: #fafbff;
+            border: 1px dashed #c7d2fe;
+            border-radius: 10px;
+            padding: 16px;
+            margin: 12px 0;
+        }
+
+        .demo-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .demo-label.bad {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .demo-label.good {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .vs-code {
+            background: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 16px 0;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #2d2d2d;
+        }
+
+        .vs-titlebar {
+            background: #3c3c3c;
+            padding: 9px 14px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px solid #2d2d2d;
+        }
+
+        .vs-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .vs-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .vs-dot.red {
+            background: #ff5f56;
+        }
+
+        .vs-dot.yellow {
+            background: #ffbd2e;
+        }
+
+        .vs-dot.green {
+            background: #27c93f;
+        }
+
+        .vs-title {
+            position: absolute;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 12px;
+            color: #cccccc;
+            pointer-events: none;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+
+        .vs-tabbar {
+            background: #252526;
+            display: flex;
+        }
+
+        .vs-tab {
+            background: #2d2d2d;
+            color: #969696;
+            padding: 9px 20px;
+            font-size: 12.5px;
+            border-right: 1px solid #1e1e1e;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .vs-tab.active {
+            background: #1e1e1e;
+            color: #ffffff;
+        }
+
+        .vs-tab.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #007acc;
+        }
+
+        .file-icon {
+            display: inline-block;
+            width: 9px;
+            height: 9px;
+            border-radius: 2px;
+        }
+
+        .file-icon.html {
+            background: #e44d26;
+        }
+
+        .file-icon.css {
+            background: #264de4;
+        }
+
+        .file-icon.js {
+            background: #f7df1e;
+        }
+
+        .vs-body {
+            margin: 0 !important;
+            padding: 16px 0 !important;
+            background: #1e1e1e !important;
+            overflow-x: auto;
+            font-size: 13px !important;
+            line-height: 1.65 !important;
+            color: #dcdcdc;
+            border-radius: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+        }
+
+        .vs-body code {
+            background: transparent !important;
+            padding: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+            font-size: inherit !important;
+            color: inherit;
+            white-space: pre;
+        }
+
+        .vs-body .hljs-ln-numbers {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            text-align: right;
+            color: #858585 !important;
+            border-right: 1px solid #3a3f4b;
+            padding: 0 14px 0 16px !important;
+            vertical-align: top;
+            font-weight: normal;
+        }
+
+        .vs-body .hljs-ln-code {
+            padding: 0 16px !important;
+        }
+
+        .vs-body .hljs-ln {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .vs-body .hljs-ln td {
+            padding: 0;
+        }
+
+        .vs-body::-webkit-scrollbar {
+            height: 10px;
+        }
+
+        .vs-body::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+
+        .vs-body::-webkit-scrollbar-thumb {
+            background: #424242;
+            border-radius: 5px;
+        }
+
+        .vs-body code.hljs,
+        .vs-body .hljs {
+            background: transparent !important;
+            padding: 0 !important;
+            overflow: visible !important;
+        }
+
+        .task-section {
+            background: linear-gradient(135deg, #fff7ed, #fef3c7);
+            border: 2px solid #f59e0b;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 40px;
+        }
+
+        .task-section h2 {
+            color: #b45309;
+            margin-top: 0;
+        }
+
+        .task-section table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 12px 0;
+            font-size: 0.9rem;
+        }
+
+        .task-section th,
+        .task-section td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .task-section th {
+            background: #fde68a;
+            color: #78350f;
+        }
+
+        .task-section code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+        }
+
+        /* DEMO SPECIFIC STYLES */
+        .box-sizing-demo {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .box-sizing-demo>div {
+            background: #cfe;
+            padding: 20px;
+            border: 5px solid #333;
+            width: 150px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .box-sizing-demo .content-box {
+            box-sizing: content-box;
+        }
+
+        .box-sizing-demo .border-box {
+            box-sizing: border-box;
+            background: #fcd;
+        }
+
+        .pos-container {
+            position: relative;
+            height: 250px;
+            background: #f3f4f6;
+            border: 2px dashed #9ca3af;
+            border-radius: 8px;
+            padding: 10px;
+            overflow-y: auto;
+        }
+
+        .pos-box {
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            color: white;
+            width: fit-content;
+            margin-bottom: 8px;
+        }
+
+        .pos-static {
+            background: #6b7280;
+        }
+
+        .pos-relative {
+            background: #3b82f6;
+            position: relative;
+            top: 10px;
+            left: 20px;
+        }
+
+        .pos-absolute {
+            background: #ef4444;
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+        }
+
+        .pos-fixed {
+            background: #8b5cf6;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .pos-sticky {
+            background: #10b981;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .pos-content {
+            height: 300px;
+            background: repeating-linear-gradient(45deg, #e5e7eb, #e5e7eb 10px, #f9fafb 10px, #f9fafb 20px);
+            margin-top: 8px;
+            border-radius: 4px;
+            padding: 10px;
+            font-size: 0.8rem;
+        }
+
+        .overflow-controls {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .overflow-controls button {
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+            background: #fff;
+        }
+
+        .overflow-controls button.active {
+            background: #4f46e5;
+            color: #fff;
+            border-color: #4f46e5;
+        }
+
+        .overflow-box {
+            width: 200px;
+            height: 100px;
+            background: #e0e7ff;
+            border: 2px solid #4f46e5;
+            border-radius: 8px;
+            padding: 10px;
+            color: #3730a3;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .margin-box {
+            background: #fca5a5;
+            padding: 10px;
+            border: 1px solid #ef4444;
+        }
+
+        .margin-box.bottom {
+            margin-bottom: 40px;
+        }
+
+        .margin-box.top {
+            margin-top: 20px;
+            background: #93c5fd;
+            border-color: #3b82f6;
+        }
+
+        .bfc-parent {
+            background: #f3f4f6;
+            border: 2px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        .bfc-parent.flow-root {
+            display: flow-root;
+            background: #ecfdf5;
+            border-color: #10b981;
+        }
+
+        .float-child {
+            float: left;
+            width: 100px;
+            height: 100px;
+            background: #4f46e5;
+            color: white;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+        }
+
+        .flex-demo {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f3f4f6;
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        .flex-demo .logo {
+            font-weight: bold;
+            color: #4f46e5;
+            font-size: 1.2rem;
+        }
+
+        .flex-demo .nav-links {
+            display: flex;
+            gap: 16px;
+        }
+
+        .flex-demo .nav-links a {
+            text-decoration: none;
+            color: #374151;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="../../index.html" class="back-home">← Back to Home</a>
+
+    <header class="page-header">
+        <h1>HTML &amp; CSS Questions — Part 13 (121 → 130)</h1>
+        <p>Questions + Answers + VS Code-style code + Live demos that match the code exactly</p>
+    </header>
+
+    <div class="container">
+
+        <!-- Q121 -->
+        <section class="q-section">
+            <h2>Q121 — What is the difference between content-box and border-box? <span class="badge medium">Easy →
+                    Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>content-box</code> is the default box-sizing behavior. The declared width and height apply
+                <strong>only to the content area</strong>.<br><br>
+                With <code>border-box</code>, the declared width and height <strong>include the content, padding, and
+                    border</strong>.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What would the actual outer width be with content-box? (width: 200px,
+                    padding: 20px, border: 5px)</span>
+                <span class="a"><code>200px</code> + <code>40px</code> + <code>10px</code> =
+                    <strong>250px</strong>.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.box {
+  width: 150px;
+  padding: 20px;
+  border: 5px solid;
+  box-sizing: border-box; /* Total width remains 150px */
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo (Both have width: 150px)</h3>
+            <div class="demo-box">
+                <div class="box-sizing-demo">
+                    <div class="content-box">content-box<br>Actual: 200px</div>
+                    <div class="border-box">border-box<br>Actual: 150px</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q122 -->
+        <section class="q-section">
+            <h2>Q122 — What does box-sizing: border-box solve? <span class="badge medium">Easy → Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                It makes <strong>width and height calculations more predictable</strong> because padding and borders are
+                included within the declared dimensions.<br><br>
+                A common global rule is: <code>*, *::before, *::after { box-sizing: border-box; }</code>.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Does this change the CSS specification's default box-sizing?</span>
+                <span class="a"><strong>No.</strong> It overrides the property for the selected elements. The default
+                    for most elements is still <code>content-box</code>.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- Q123 -->
+        <section class="q-section">
+            <h2>Q123 — Explain position: static, relative, absolute, fixed, and sticky. <span
+                    class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <ul style="margin:6px 0">
+                    <li><strong>static</strong>: The default. Participates in normal flow.</li>
+                    <li><strong>relative</strong>: Remains in normal flow but can be visually offset.</li>
+                    <li><strong>absolute</strong>: Removed from normal flow. Positioned relative to its nearest
+                        positioned ancestor.</li>
+                    <li><strong>fixed</strong>: Positioned relative to the viewport. Doesn't move when scrolling.</li>
+                    <li><strong>sticky</strong>: Behaves like relative until a scroll threshold is reached, then acts
+                        like fixed.</li>
+                </ul>
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Why do we often write `.parent { position: relative; } .child { position:
+                    absolute; }`?</span>
+                <span class="a">Because the positioned parent becomes the containing block for the absolutely positioned
+                    child.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.static { position: static; }
+.relative { position: relative; top: 10px; left: 10px; }
+.absolute { position: absolute; top: 0; right: 0; }
+.fixed { position: fixed; bottom: 20px; right: 20px; }
+.sticky { position: sticky; top: 0; }</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box">
+                <div class="pos-container">
+                    <div class="pos-box pos-static">static</div>
+                    <div class="pos-box pos-relative">relative</div>
+                    <div class="pos-box pos-sticky">sticky</div>
+                    <div class="pos-content">Scroll down...<br><br><br><br><br><br><br><br><br><br><br><br><br></div>
+                    <div class="pos-box pos-absolute">absolute</div>
+                </div>
+                <div class="pos-box pos-fixed">fixed</div>
+            </div>
+        </section>
+
+        <!-- Q124 -->
+        <section class="q-section">
+            <h2>Q124 — What is the difference between relative positioning and absolute positioning? <span
+                    class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>relative</code> keeps the element in the normal document flow while allowing visual
+                offset.<br><br>
+                <code>absolute</code> removes the element from normal flow and positions it relative to its containing
+                block.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: If I move a relative element using top: 20px, does its original space
+                    disappear?</span>
+                <span class="a"><strong>No.</strong> Its original space remains reserved because it is still part of
+                    normal flow.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.relative { position: relative; top: 10px; }
+.absolute { position: absolute; top: 10px; }</code></pre>
+            </div>
+        </section>
+
+        <!-- Q125 -->
+        <section class="q-section">
+            <h2>Q125 — What is overflow, and what is the difference between visible, hidden, scroll, and auto? <span
+                    class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>overflow</code> controls what happens when content exceeds an element's box.
+                <ul style="margin:6px 0">
+                    <li><strong>visible</strong>: Content extends outside.</li>
+                    <li><strong>hidden</strong>: Content is clipped.</li>
+                    <li><strong>scroll</strong>: Scrollbars are always present.</li>
+                    <li><strong>auto</strong>: Scrollbars appear only when necessary.</li>
+                </ul>
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What is the difference between overflow-x and overflow-y?</span>
+                <span class="a">They control horizontal and vertical overflow <strong>independently</strong>.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.box-visible { overflow: visible; }
+.box-hidden { overflow: hidden; }
+.box-scroll { overflow: scroll; }
+.box-auto { overflow: auto; }</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box">
+                <div class="overflow-controls">
+                    <button onclick="setOverflow('visible', this)" class="active">visible</button>
+                    <button onclick="setOverflow('hidden', this)">hidden</button>
+                    <button onclick="setOverflow('scroll', this)">scroll</button>
+                    <button onclick="setOverflow('auto', this)">auto</button>
+                </div>
+                <div class="overflow-box" id="q125-box">
+                    <p>This is a very long text designed to overflow the container. It keeps going and going and
+                        going...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q126 -->
+        <section class="q-section">
+            <h2>Q126 — What is the difference between overflow: hidden and clip? <span class="badge hard">Hard</span>
+            </h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                Both can prevent overflowing content from being visible, but <code>clip</code> is more specifically
+                about clipping and does <strong>not create a scroll container</strong> in the same way that
+                <code>overflow: hidden</code> can.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Would overflow: clip allow the user to scroll the element
+                    programmatically?</span>
+                <span class="a"><strong>No.</strong> <code>clip</code> prevents scrolling of the clipped overflow
+                    completely.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.box {
+  overflow: clip;
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- Q127 -->
+        <section class="q-section">
+            <h2>Q127 — What is margin collapsing? <span class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                Margin collapsing is a CSS layout behavior where vertical margins of certain block-level elements can
+                <strong>combine rather than simply add together</strong>.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: How can you sometimes prevent margin collapsing?</span>
+                <span class="a">Adding padding or border to the parent, creating a new formatting context (like
+                    <code>display: flow-root</code>), or using Flexbox/Grid.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.first { margin-bottom: 30px; }
+.second { margin-top: 20px; }
+/* Resulting gap is 30px, not 50px */</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box">
+                <div class="margin-box bottom">Box 1 (margin-bottom: 40px)</div>
+                <div class="margin-box top">Box 2 (margin-top: 20px)</div>
+            </div>
+        </section>
+
+        <!-- Q128 -->
+        <section class="q-section">
+            <h2>Q128 — What is a Block Formatting Context (BFC)? <span class="badge hard">Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                A Block Formatting Context is a layout context in which block-level boxes are laid out according to
+                specific block formatting rules.<br><br>
+                Creating a BFC can affect float interaction, margin collapsing, and containment of floated descendants.
+                A modern way to create one is <code>display: flow-root;</code>.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Why might display: flow-root be useful?</span>
+                <span class="a">It can contain floated children and prevent layout issues without needing the old
+                    clearfix hack.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.container {
+  display: flow-root;
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box">
+                <p style="font-size: 0.85rem; margin-top: 0;">❌ Without BFC (Parent collapses):</p>
+                <div class="bfc-parent">
+                    <div class="float-child">Float</div>
+                    <p>Text next to float</p>
+                </div>
+                <p style="font-size: 0.85rem;">✅ With BFC (<code>display: flow-root</code>):</p>
+                <div class="bfc-parent flow-root">
+                    <div class="float-child">Float</div>
+                    <p>Text next to float. The parent now expands.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q129 -->
+        <section class="q-section">
+            <h2>Q129 — What was the traditional clearfix technique used for? <span class="badge hard">Medium →
+                    Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                When elements are floated, their parent can fail to contain them. A clearfix used a pseudo-element to
+                force the parent to contain the floats.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Would you use floats to build a modern dashboard layout?</span>
+                <span class="a"><strong>Usually no.</strong> I'd prefer Flexbox or CSS Grid.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- Q130 -->
+        <section class="q-section">
+            <h2>Q130 — What is Flexbox and when would you use it? <span class="badge medium">Easy → Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                Flexbox is a <strong>one-dimensional</strong> CSS layout system designed to arrange items along a row or
+                a column.<br><br>
+                I would commonly use Flexbox for: navigation bars, aligning buttons, centering content, and distributing
+                space.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What is the difference between the main axis and cross axis?</span>
+                <span class="a">The main axis is determined by <code>flex-direction</code>. The cross axis is
+                    perpendicular to it.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box">
+                <div class="flex-demo">
+                    <div class="logo">Logo</div>
+                    <div class="nav-links"><a href="#">Home</a><a href="#">About</a><a href="#">Contact</a></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Task -->
+        <section class="task-section">
+            <h2>🧑‍🎓 Student Task — Advanced CSS Layouts</h2>
+            <p>Build <strong>one HTML page</strong> (+ CSS file). Submit as a zipped folder.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Concept</th>
+                        <th>What you must do</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>121</td>
+                        <td>Box Sizing</td>
+                        <td>Create two divs with `width: 200px; padding: 20px; border: 2px solid;`. Make one
+                            `content-box` and one `border-box`.</td>
+                    </tr>
+                    <tr>
+                        <td>122</td>
+                        <td>Global Box Sizing</td>
+                        <td>Apply `*, *::before, *::after { box-sizing: border-box; }`.</td>
+                    </tr>
+                    <tr>
+                        <td>123</td>
+                        <td>Position</td>
+                        <td>Create a card with `position: relative` and a close button pinned with `position: absolute`.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>124</td>
+                        <td>Fixed Position</td>
+                        <td>Create a "Scroll to Top" button using `position: fixed`.</td>
+                    </tr>
+                    <tr>
+                        <td>125</td>
+                        <td>Overflow</td>
+                        <td>Create a fixed-height box with long text and `overflow: auto`.</td>
+                    </tr>
+                    <tr>
+                        <td>126</td>
+                        <td>Clip vs Hidden</td>
+                        <td>Add a comment explaining when to use `overflow: clip` instead of `hidden`.</td>
+                    </tr>
+                    <tr>
+                        <td>127</td>
+                        <td>Margin Collapse</td>
+                        <td>Stack two paragraphs with `margin-bottom: 40px` and `margin-top: 20px`. Add a comment
+                            explaining the result.</td>
+                    </tr>
+                    <tr>
+                        <td>128</td>
+                        <td>BFC</td>
+                        <td>Add `display: flow-root` to a parent containing a float.</td>
+                    </tr>
+                    <tr>
+                        <td>129</td>
+                        <td>Clearfix</td>
+                        <td>Add a comment explaining the clearfix hack.</td>
+                    </tr>
+                    <tr>
+                        <td>130</td>
+                        <td>Flexbox</td>
+                        <td>Build a navigation bar using `justify-content: space-between` and `align-items: center`.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.hljs) {hljs.highlightAll(); if (hljs.lineNumbersBlock) {document.querySelectorAll('pre code').forEach(function (el) {hljs.lineNumbersBlock(el);});} }
+        });
+        function setOverflow(value, btn) {
+            document.getElementById('q125-box').style.overflow = value;
+            const btns = document.querySelectorAll('.overflow-controls button');
+            btns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+    </script>
+</body>
+
+</html>

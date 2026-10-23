@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML &amp; CSS Questions — Part 24 (231–240)</title>
+
+    <!-- ===== Favicon: inline SVG (works offline) ===== -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%234f46e5'/%3E%3Cstop%20offset='1'%20stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='url(%23g)'/%3E%3Cpath%20d='M22%2022%20L14%2032%20L22%2042%20M42%2022%20L50%2032%20L42%2042'%20stroke='white'%20stroke-width='4'%20stroke-linecap='round'%20stroke-linejoin='round'%20fill='none'/%3E%3C/svg%3E" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css" />
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            background: #f4f6fa;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        /* ==================== BACK TO HOME BUTTON ==================== */
+        .back-home {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 9999;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 16px rgba(79, 70, 229, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            border: 1px solid transparent;
+        }
+
+        .back-home:hover {
+            background: linear-gradient(135deg, #4338ca, #6d28d9);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(79, 70, 229, 0.5);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 640px) {
+            .back-home {
+                top: 12px;
+                left: 12px;
+                padding: 8px 14px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* ==================== PAGE HEADER ==================== */
+        .page-header {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            margin: 0 0 8px;
+            font-size: 2rem;
+        }
+
+        .page-header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 24px 20px;
+        }
+
+        .q-section {
+            background: #fff;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 28px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+        }
+
+        .q-section h2 {
+            margin-top: 0;
+            color: #4f46e5;
+            border-bottom: 2px solid #eef;
+            padding-bottom: 10px;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            background: #dcfce7;
+            color: #166534;
+            margin-left: 8px;
+            vertical-align: middle;
+            font-weight: 600;
+        }
+
+        .badge.medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge.hard {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .q-section h3 {
+            color: #374151;
+            margin-top: 22px;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .answer {
+            background: #ecfdf5;
+            border-left: 4px solid #10b981;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 10px 0;
+        }
+
+        .answer strong.label {
+            display: block;
+            font-size: 0.75rem;
+            color: #059669;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .followup {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 12px 0;
+        }
+
+        .followup .q {
+            font-weight: 600;
+            color: #1d4ed8;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .followup .a {
+            color: #1e3a8a;
+        }
+
+        .demo-box {
+            background: #fafbff;
+            border: 1px dashed #c7d2fe;
+            border-radius: 10px;
+            padding: 16px;
+            margin: 12px 0;
+        }
+
+        .demo-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .demo-label.bad {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .demo-label.good {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        /* ==================== VS CODE ==================== */
+        .vs-code {
+            background: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 16px 0;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #2d2d2d;
+        }
+
+        .vs-titlebar {
+            background: #3c3c3c;
+            padding: 9px 14px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px solid #2d2d2d;
+        }
+
+        .vs-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .vs-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .vs-dot.red {
+            background: #ff5f56;
+        }
+
+        .vs-dot.yellow {
+            background: #ffbd2e;
+        }
+
+        .vs-dot.green {
+            background: #27c93f;
+        }
+
+        .vs-title {
+            position: absolute;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 12px;
+            color: #cccccc;
+            pointer-events: none;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+
+        .vs-tabbar {
+            background: #252526;
+            display: flex;
+        }
+
+        .vs-tab {
+            background: #2d2d2d;
+            color: #969696;
+            padding: 9px 20px;
+            font-size: 12.5px;
+            border-right: 1px solid #1e1e1e;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .vs-tab.active {
+            background: #1e1e1e;
+            color: #ffffff;
+        }
+
+        .vs-tab.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #007acc;
+        }
+
+        .file-icon {
+            display: inline-block;
+            width: 9px;
+            height: 9px;
+            border-radius: 2px;
+        }
+
+        .file-icon.html {
+            background: #e44d26;
+        }
+
+        .file-icon.css {
+            background: #264de4;
+        }
+
+        .file-icon.js {
+            background: #f7df1e;
+        }
+
+        .vs-body {
+            margin: 0 !important;
+            padding: 16px 0 !important;
+            background: #1e1e1e !important;
+            overflow-x: auto;
+            font-size: 13px !important;
+            line-height: 1.65 !important;
+            color: #dcdcdc;
+            border-radius: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+        }
+
+        .vs-body code {
+            background: transparent !important;
+            padding: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+            font-size: inherit !important;
+            color: inherit;
+            white-space: pre;
+        }
+
+        .vs-body .hljs-ln-numbers {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            text-align: right;
+            color: #858585 !important;
+            border-right: 1px solid #3a3f4b;
+            padding: 0 14px 0 16px !important;
+            vertical-align: top;
+            font-weight: normal;
+        }
+
+        .vs-body .hljs-ln-code {
+            padding: 0 16px !important;
+        }
+
+        .vs-body .hljs-ln {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .vs-body .hljs-ln td {
+            padding: 0;
+        }
+
+        .vs-body::-webkit-scrollbar {
+            height: 10px;
+        }
+
+        .vs-body::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+
+        .vs-body::-webkit-scrollbar-thumb {
+            background: #424242;
+            border-radius: 5px;
+        }
+
+        .vs-body code.hljs,
+        .vs-body .hljs {
+            background: transparent !important;
+            padding: 0 !important;
+            overflow: visible !important;
+        }
+
+        /* ==================== TASK SECTION ==================== */
+        .task-section {
+            background: linear-gradient(135deg, #fff7ed, #fef3c7);
+            border: 2px solid #f59e0b;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 40px;
+        }
+
+        .task-section h2 {
+            color: #b45309;
+            margin-top: 0;
+        }
+
+        .task-section table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 12px 0;
+            font-size: 0.9rem;
+        }
+
+        .task-section th,
+        .task-section td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .task-section th {
+            background: #fde68a;
+            color: #78350f;
+        }
+
+        .task-section code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+        }
+
+        /* ==================== DEMO SPECIFIC STYLES ==================== */
+
+        /* Q231 – progress vs meter */
+        .q231-demo .progress-demo,
+        .q231-demo .meter-demo {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 10px;
+        }
+
+        .q231-demo label {
+            display: block;
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            color: #374151;
+        }
+
+        .q231-demo progress,
+        .q231-demo meter {
+            width: 100%;
+            height: 24px;
+        }
+
+        /* Q232 – noscript */
+        .q232-demo .state-card {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 10px;
+        }
+
+        .q232-demo .state-label {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 2px 10px;
+            border-radius: 20px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .q232-demo .state-label.on {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .q232-demo .state-label.off {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .q232-demo .state-content {
+            font-size: 0.9rem;
+            color: #374151;
+        }
+
+        .q232-demo .noscript-badge {
+            display: inline-block;
+            background: #fef3c7;
+            border: 2px dashed #f59e0b;
+            color: #92400e;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        /* Q233 – base */
+        .q233-demo .url-resolution {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 14px;
+            font-family: 'Fira Code', Consolas, monospace;
+            font-size: 0.85rem;
+        }
+
+        .q233-demo .url-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+        }
+
+        .q233-demo .url-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .q233-demo .url-tag {
+            display: inline-block;
+            background: #eef2ff;
+            color: #4f46e5;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 0.75rem;
+        }
+
+        .q233-demo .url-arrow {
+            color: #6b7280;
+            font-weight: 700;
+        }
+
+        .q233-demo .url-result {
+            color: #10b981;
+            font-weight: 700;
+        }
+
+        /* Q234 – constraint validation */
+        .q234-demo .field-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 12px;
+            max-width: 320px;
+        }
+
+        .q234-demo label {
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: #374151;
+        }
+
+        .q234-demo input {
+            padding: 10px 12px;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        .q234-demo input:valid {
+            border-color: #10b981;
+            background: #ecfdf5;
+        }
+
+        .q234-demo input:invalid:not(:placeholder-shown) {
+            border-color: #ef4444;
+            background: #fef2f2;
+        }
+
+        .q234-demo .btn-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .q234-demo button {
+            background: #4f46e5;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .q234-demo button:hover {
+            background: #4338ca;
+        }
+
+        .q234-demo .validity-output {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 12px;
+            border-radius: 8px;
+            font-family: 'Fira Code', Consolas, monospace;
+            font-size: 0.8rem;
+            line-height: 1.7;
+            white-space: pre-wrap;
+        }
+
+        /* Q235 – browser pipeline */
+        .q235-demo .pipeline {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+
+        .q235-demo .pipeline-step {
+            background: #fff;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+        }
+
+        .q235-demo .pipeline-step .num {
+            background: #4f46e5;
+            color: #fff;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .q235-demo .pipeline-step.html {
+            border-color: #e44d26;
+        }
+
+        .q235-demo .pipeline-step.html .num {
+            background: #e44d26;
+        }
+
+        .q235-demo .pipeline-step.css {
+            border-color: #264de4;
+        }
+
+        .q235-demo .pipeline-step.css .num {
+            background: #264de4;
+        }
+
+        .q235-demo .pipeline-step.render {
+            border-color: #10b981;
+        }
+
+        .q235-demo .pipeline-step.render .num {
+            background: #10b981;
+        }
+
+        .q235-demo .pipeline-arrow {
+            text-align: center;
+            color: #9ca3af;
+            font-size: 1rem;
+            line-height: 1;
+        }
+
+        /* Q236 – referrerpolicy */
+        .q236-demo .policy-row {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 10px 14px;
+            margin-bottom: 8px;
+        }
+
+        .q236-demo .policy-code {
+            font-family: 'Fira Code', Consolas, monospace;
+            font-weight: 700;
+            color: #4f46e5;
+            display: block;
+            margin-bottom: 4px;
+            font-size: 0.82rem;
+        }
+
+        .q236-demo .policy-desc {
+            color: #6b7280;
+            font-size: 0.8rem;
+        }
+
+        /* Q237 – safe links */
+        .q237-demo a.link-demo {
+            display: inline-block;
+            padding: 8px 14px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .q237-demo a.safe {
+            background: #10b981;
+            color: #fff;
+        }
+
+        .q237-demo a.unsafe {
+            background: #ef4444;
+            color: #fff;
+        }
+
+        /* Q238 – invalid nesting */
+        .q238-demo .compare {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        @media (max-width: 600px) {
+            .q238-demo .compare {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .q238-demo .compare-card {
+            background: #fff;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 14px;
+        }
+
+        .q238-demo .compare-card.bad {
+            border-color: #ef4444;
+        }
+
+        .q238-demo .compare-card.good {
+            border-color: #10b981;
+        }
+
+        .q238-demo .compare-card h5 {
+            margin: 0 0 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .q238-demo .compare-card.bad h5 {
+            color: #ef4444;
+        }
+
+        .q238-demo .compare-card.good h5 {
+            color: #10b981;
+        }
+
+        .q238-demo .compare-card pre {
+            margin: 0;
+            background: #f3f4f6;
+            padding: 8px 10px;
+            border-radius: 6px;
+            font-size: 0.72rem;
+            font-family: 'Fira Code', Consolas, monospace;
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+
+        /* Q239 – inputmode */
+        .q239-demo .input-row {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+        }
+
+        .q239-demo .input-row label {
+            display: block;
+            font-weight: 700;
+            font-size: 0.78rem;
+            color: #4f46e5;
+            margin-bottom: 6px;
+            font-family: 'Fira Code', Consolas, monospace;
+        }
+
+        .q239-demo .input-row input {
+            padding: 8px 12px;
+            border: 2px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            width: 100%;
+            max-width: 280px;
+        }
+
+        .q239-demo .input-row input:focus {
+            outline: none;
+            border-color: #4f46e5;
+        }
+
+        /* Q240 – pointer-events vs visibility */
+        .q240-demo .compare-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .q240-demo .compare-box {
+            flex: 1;
+            min-width: 200px;
+            background: #fff;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 14px;
+        }
+
+        .q240-demo .compare-box h5 {
+            margin: 0 0 10px;
+            font-size: 0.82rem;
+            font-family: 'Fira Code', Consolas, monospace;
+            color: #4f46e5;
+        }
+
+        .q240-demo .overlay-demo {
+            position: relative;
+            height: 60px;
+            background: #eef2ff;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .q240-demo .overlay-demo .ghost {
+            position: absolute;
+            inset: 0;
+            background: rgba(79, 70, 229, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.78rem;
+            border-radius: 8px;
+        }
+
+        .q240-demo .overlay-demo .ghost.no-pe {
+            pointer-events: none;
+        }
+
+        .q240-demo .overlay-demo button {
+            position: relative;
+            z-index: 1;
+            background: #10b981;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .q240-demo .vis-hidden-demo {
+            height: 60px;
+            background: #eef2ff;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .q240-demo .vis-hidden-demo .hidden-el {
+            visibility: hidden;
+            background: #ef4444;
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ==================== BACK TO HOME BUTTON ==================== -->
+    <a href="../../index.html" class="back-home">← Back to Home</a>
+
+    <!-- ==================== PAGE HEADER ==================== -->
+    <header class="page-header">
+        <h1>HTML &amp; CSS Questions — Part 24 (231 → 240)</h1>
+        <p>Questions + Answers + VS Code-style code + Live demos that match the code exactly</p>
+    </header>
+
+    <div class="container">
+
+        <!-- ==================== Q231 ==================== -->
+        <section class="q-section">
+            <h2>Q231 — What is the difference between &lt;progress&gt; and &lt;meter&gt;? <span
+                    class="badge medium">Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>&lt;progress&gt;</code> represents <strong>completion progress</strong> for a task.<br><br>
+                <code>&lt;meter&gt;</code> represents a <strong>scalar measurement within a known range</strong>.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Would you use &lt;meter&gt; for a file upload?</span>
+                <span class="a"><strong>No.</strong> File upload completion is task progress, so
+                    <code>&lt;progress&gt;</code> is more semantically appropriate.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;label for="upload"&gt;Uploading&lt;/label&gt;
+&lt;progress id="upload" value="70" max="100"&gt;70%&lt;/progress&gt;
+
+&lt;label for="storage"&gt;Storage usage&lt;/label&gt;
+&lt;meter id="storage" min="0" max="100" value="80"&gt;80%&lt;/meter&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q231-demo">
+                <div class="progress-demo">
+                    <label>Uploading (progress: 70 / 100)</label>
+                    <progress value="70" max="100">70%</progress>
+                </div>
+                <div class="meter-demo">
+                    <label>Storage usage (meter: 80 / 100)</label>
+                    <meter min="0" max="100" value="80">80%</meter>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Q232 ==================== -->
+        <section class="q-section">
+            <h2>Q232 — What is the purpose of &lt;noscript&gt;? <span class="badge medium">Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>&lt;noscript&gt;</code> provides fallback content for situations where scripting is
+                <strong>disabled or unavailable</strong>, depending on where it's used.<br><br>
+                It can also be used in the <code>&lt;head&gt;</code> with restrictions defined by HTML.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Does &lt;noscript&gt; mean "JavaScript failed"?</span>
+                <span class="a"><strong>Not exactly.</strong> It's primarily related to scripting being disabled or
+                    unsupported in the relevant context. It doesn't serve as a general JavaScript error handler.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;noscript&gt;
+  JavaScript is required to use this application.
+&lt;/noscript&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — JS enabled vs disabled</h3>
+            <div class="demo-box q232-demo">
+                <div class="state-card">
+                    <span class="state-label on">JS enabled</span>
+                    <div class="state-content">The <code>&lt;noscript&gt;</code> content is <strong>not
+                            rendered</strong> — the browser skips it entirely.</div>
+                </div>
+                <div class="state-card">
+                    <span class="state-label off">JS disabled</span>
+                    <div class="state-content">
+                        The browser would render the <code>&lt;noscript&gt;</code> content instead:<br><br>
+                        <span class="noscript-badge">⚠️ JavaScript is required to use this application.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Q233 ==================== -->
+        <section class="q-section">
+            <h2>Q233 — What is the purpose of the &lt;base&gt; element? <span class="badge hard">Hard</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>&lt;base&gt;</code> specifies the <strong>base URL</strong> and/or default target for resolving
+                relative URLs in a document.<br><br>
+                There can be only <strong>one</strong> <code>&lt;base&gt;</code> element in a document.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What happens if I write &lt;base href="/app/"&gt; and then
+                    &lt;img src="images/logo.png"&gt;?</span>
+                <span class="a">The image URL is resolved relative to the base URL, so conceptually:
+                    <code>/app/images/logo.png</code> — depending on the document's URL resolution context.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;head&gt;
+  &lt;base href="https://example.com/app/"&gt;
+&lt;/head&gt;
+
+&lt;a href="jobs"&gt;Jobs&lt;/a&gt;
+&lt;!-- Resolves to: https://example.com/app/jobs --&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — URL resolution</h3>
+            <div class="demo-box q233-demo">
+                <div class="url-resolution">
+                    <div class="url-row">
+                        <span class="url-tag">&lt;base href="/app/"&gt;</span>
+                    </div>
+                    <div class="url-row">
+                        <span>href="jobs"</span>
+                        <span class="url-arrow">→</span>
+                        <span class="url-result">/app/jobs</span>
+                    </div>
+                    <div class="url-row">
+                        <span>src="images/logo.png"</span>
+                        <span class="url-arrow">→</span>
+                        <span class="url-result">/app/images/logo.png</span>
+                    </div>
+                    <div class="url-row">
+                        <span>href="https://external.com/x"</span>
+                        <span class="url-arrow">→</span>
+                        <span class="url-result">https://external.com/x (absolute — not affected)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Q234 ==================== -->
+        <section class="q-section">
+            <h2>Q234 — What is the Constraint Validation API? <span class="badge hard">Hard</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                The Constraint Validation API allows JavaScript to <strong>inspect and control the validity</strong>
+                of form controls.<br><br>
+                The <code>validity</code> property exposes a <code>ValidityState</code> object with flags such as
+                <code>valueMissing</code>, <code>typeMismatch</code>, <code>patternMismatch</code>,
+                <code>tooShort</code>, <code>tooLong</code>.<br><br>
+                You can also use <code>checkValidity()</code>, <code>reportValidity()</code>, and
+                <code>setCustomValidity()</code>.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What's the difference between checkValidity() and
+                    reportValidity()?</span>
+                <span class="a"><code>checkValidity()</code> checks validity and returns
+                    <code>true</code>/<code>false</code>, but does <strong>not</strong> trigger the browser's
+                    validation UI.<br><br>
+                    <code>reportValidity()</code> checks validity <em>and</em> triggers the browser's validation UI if
+                    invalid.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">script.js — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon js"></span>script.js</div>
+                </div>
+                <pre class="vs-body"><code class="language-javascript">const input = document.querySelector("#email");
+
+console.log(input.validity.valid);
+console.log(input.validity.valueMissing);
+console.log(input.validity.typeMismatch);
+
+input.checkValidity();      // true/false, no UI
+input.reportValidity();     // triggers native UI if invalid
+
+input.setCustomValidity("Invalid email");
+input.setCustomValidity(""); // clear</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Type and inspect the validity state</h3>
+            <div class="demo-box q234-demo">
+                <div class="field-group">
+                    <label for="q234-email">Email (required, must be valid)</label>
+                    <input id="q234-email" type="email" required placeholder="you@example.com" oninput="q234Update()">
+                </div>
+                <div class="btn-row">
+                    <button onclick="q234Check()">checkValidity()</button>
+                    <button onclick="q234Report()">reportValidity()</button>
+                </div>
+                <div class="validity-output" id="q234-output">Start typing to see the live validity state…</div>
+            </div>
+        </section>
+
+        <!-- ==================== Q235 ==================== -->
+        <section class="q-section">
+            <h2>Q235 — What happens when the browser receives an HTML document? <span class="badge hard">Hard</span>
+            </h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                At a high level:
+                <ol style="margin:6px 0">
+                    <li>HTML bytes → decode characters → <strong>HTML parsing</strong> → DOM</li>
+                    <li>CSS parsing → <strong>CSSOM</strong></li>
+                    <li>Both are combined → <strong>Render tree</strong></li>
+                    <li>Then: <strong>Layout</strong> → <strong>Paint</strong> → <strong>Compositing</strong></li>
+                </ol>
+                JavaScript can interact with and modify the DOM and CSSOM during this process.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Does the browser wait until all HTML is downloaded before rendering
+                    anything?</span>
+                <span class="a"><strong>Not necessarily.</strong> Browsers can progressively parse and render as
+                    resources become available, although scripts and other resources can affect parsing and rendering
+                    behavior.</span>
+            </div>
+
+            <h3>🔴 Live demo — Critical Rendering Path</h3>
+            <div class="demo-box q235-demo">
+                <div class="pipeline">
+                    <div class="pipeline-step html"><span class="num">1</span> HTML bytes → parse → DOM</div>
+                    <div class="pipeline-arrow">↓</div>
+                    <div class="pipeline-step css"><span class="num">2</span> CSS bytes → parse → CSSOM</div>
+                    <div class="pipeline-arrow">↓</div>
+                    <div class="pipeline-step render"><span class="num">3</span> DOM + CSSOM → Render Tree</div>
+                    <div class="pipeline-arrow">↓</div>
+                    <div class="pipeline-step render"><span class="num">4</span> Layout (compute geometry)</div>
+                    <div class="pipeline-arrow">↓</div>
+                    <div class="pipeline-step render"><span class="num">5</span> Paint (draw pixels)</div>
+                    <div class="pipeline-arrow">↓</div>
+                    <div class="pipeline-step render"><span class="num">6</span> Composite (combine layers)</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Q236 ==================== -->
+        <section class="q-section">
+            <h2>Q236 — What is referrerpolicy? <span class="badge hard">Hard</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>referrerpolicy</code> controls what <strong>referrer information</strong> the browser sends when
+                making certain requests/navigation from a document or resource.<br><br>
+                Depending on the policy, the browser may send the full referring URL, only the origin, or no referrer
+                at all.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Does referrerpolicy hide the user's IP address?</span>
+                <span class="a"><strong>No.</strong> It controls the HTTP <code>Referer</code> information, not the
+                    client's IP address.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;a
+  href="https://example.com"
+  referrerpolicy="no-referrer"
+&gt;
+  Visit
+&lt;/a&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Common policies</h3>
+            <div class="demo-box q236-demo">
+                <div class="policy-row">
+                    <span class="policy-code">no-referrer</span>
+                    <span class="policy-desc">Sends no referrer at all.</span>
+                </div>
+                <div class="policy-row">
+                    <span class="policy-code">origin</span>
+                    <span class="policy-desc">Sends only the origin (protocol + host + port).</span>
+                </div>
+                <div class="policy-row">
+                    <span class="policy-code">same-origin</span>
+                    <span class="policy-desc">Sends full referrer for same-origin, nothing cross-origin.</span>
+                </div>
+                <div class="policy-row">
+                    <span class="policy-code">strict-origin</span>
+                    <span class="policy-desc">Sends only the origin, and only over HTTPS → HTTPS.</span>
+                </div>
+                <div class="policy-row">
+                    <span class="policy-code">strict-origin-when-cross-origin</span>
+                    <span class="policy-desc">Full URL same-origin, origin only cross-origin, nothing on downgrade.
+                        Common modern default.</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Q237 ==================== -->
+        <section class="q-section">
+            <h2>Q237 — You need to open an external link in a new tab. How would you write it safely? <span
+                    class="badge hard">Hard</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>&lt;a href="https://example.com" target="_blank" rel="noopener noreferrer"&gt;</code><br><br>
+                <code>target="_blank"</code> requests a new browsing context.<br>
+                <code>noopener</code> prevents the opened page from accessing the opener through
+                <code>window.opener</code>.<br>
+                <code>noreferrer</code> additionally controls referrer information and provides opener protection in
+                modern browsers.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can I use only noopener?</span>
+                <span class="a"><strong>Yes</strong>, if I want opener protection but still want referrer information
+                    to be available according to the browser's referrer policy.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;a
+  href="https://example.com"
+  target="_blank"
+  rel="noopener noreferrer"
+&gt;
+  Open Example
+&lt;/a&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Click both links</h3>
+            <div class="demo-box q237-demo">
+                <a href="https://developer.mozilla.org" target="_blank" rel="noopener noreferrer"
+                    class="link-demo safe">✅ Safe (rel="noopener noreferrer")</a>
+                <a href="https://developer.mozilla.org" target="_blank" class="link-demo unsafe">⚠️ Unsafe (no rel)</a>
+                <p style="font-size:0.8rem;color:#6b7280;margin:8px 0 0;">
+                    Both open MDN in a new tab. The green one is safe — the opened page can't reach
+                    <code>window.opener</code>.
+                </p>
+            </div>
+        </section>
+
+        <!-- ==================== Q238 ==================== -->
+        <section class="q-section">
+            <h2>Q238 — You have this HTML. What's wrong with it? <span class="badge hard">Hard</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <pre
+                    style="margin:8px 0;background:#f3f4f6;padding:10px;border-radius:6px;font-size:0.82rem;font-family:'Fira Code',Consolas,monospace;overflow-x:auto;">&lt;p&gt;
+  &lt;h2&gt;Available Jobs&lt;/h2&gt;
+  &lt;div&gt;
+    Frontend Developer
+  &lt;/div&gt;
+&lt;/p&gt;</pre>
+                The structure is <strong>invalid</strong> because a <code>&lt;p&gt;</code> element cannot contain
+                arbitrary flow content such as <code>&lt;h2&gt;</code> or <code>&lt;div&gt;</code>.<br><br>
+                A paragraph is intended for <strong>phrasing content</strong>, while <code>&lt;h2&gt;</code> and
+                <code>&lt;div&gt;</code> are not phrasing content.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What might the browser do with invalid nesting like this?</span>
+                <span class="a">HTML parsing has <strong>error-recovery rules</strong>, so the browser may implicitly
+                    close the <code>&lt;p&gt;</code> before parsing elements that aren't allowed inside it. The
+                    resulting DOM may therefore differ from what the developer visually intended from the source.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;!-- ✅ Valid structure --&gt;
+&lt;section&gt;
+  &lt;h2&gt;Available Jobs&lt;/h2&gt;
+
+  &lt;div&gt;
+    Frontend Developer
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;!-- Or, if the job is a self-contained item: --&gt;
+&lt;section&gt;
+  &lt;h2&gt;Available Jobs&lt;/h2&gt;
+
+  &lt;article&gt;
+    &lt;h3&gt;Frontend Developer&lt;/h3&gt;
+  &lt;/article&gt;
+&lt;/section&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Invalid vs valid</h3>
+            <div class="demo-box q238-demo">
+                <div class="compare">
+                    <div class="compare-card bad">
+                        <h5>❌ Invalid</h5>
+                        <pre>&lt;p&gt;
+  &lt;h2&gt;Available Jobs&lt;/h2&gt;
+  &lt;div&gt;
+    Frontend Developer
+  &lt;/div&gt;
+&lt;/p&gt;</pre>
+                        <p style="font-size:0.75rem;color:#6b7280;margin:8px 0 0;">
+                            Browser will implicitly close the <code>&lt;p&gt;</code> before parsing the
+                            <code>&lt;h2&gt;</code>.
+                        </p>
+                    </div>
+                    <div class="compare-card good">
+                        <h5>✅ Valid</h5>
+                        <pre>&lt;section&gt;
+  &lt;h2&gt;Available Jobs&lt;/h2&gt;
+  &lt;div&gt;
+    Frontend Developer
+  &lt;/div&gt;
+&lt;/section&gt;</pre>
+                        <p style="font-size:0.75rem;color:#6b7280;margin:8px 0 0;">
+                            Clean structure — no parser error recovery needed.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Q239 ==================== -->
+        <section class="q-section">
+            <h2>Q239 — What is the difference between inputmode and type on an input? <span
+                    class="badge medium">Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>type</code> controls the input's <strong>semantics and validation</strong> — it tells the browser
+                what kind of value is expected.<br><br>
+                <code>inputmode</code> is a <strong>hint about which virtual keyboard layout</strong> to show on
+                mobile — it does <strong>not</strong> change the input's validation or value.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Does inputmode affect desktop behavior?</span>
+                <span class="a"><strong>No</strong> — <code>inputmode</code> is specifically about virtual keyboards,
+                    so it has no meaningful effect on desktops with a physical keyboard.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;input type="text" inputmode="numeric" name="otp"&gt;
+&lt;input type="text" inputmode="email" name="identifier"&gt;
+&lt;input type="text" inputmode="tel" name="phone"&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Try on a mobile device</h3>
+            <div class="demo-box q239-demo">
+                <div class="input-row">
+                    <label>type="text" + inputmode="numeric"</label>
+                    <input type="text" inputmode="numeric" placeholder="OTP / PIN">
+                </div>
+                <div class="input-row">
+                    <label>type="text" + inputmode="email"</label>
+                    <input type="text" inputmode="email" placeholder="you@example.com">
+                </div>
+                <div class="input-row">
+                    <label>type="text" + inputmode="tel"</label>
+                    <input type="text" inputmode="tel" placeholder="+20 100 000 0000">
+                </div>
+                <p style="font-size:0.8rem;color:#6b7280;margin:8px 0 0;">
+                    On mobile: the virtual keyboard changes per field. On desktop: all three behave the same.
+                </p>
+            </div>
+        </section>
+
+        <!-- ==================== Q240 ==================== -->
+        <section class="q-section">
+            <h2>Q240 — What does pointer-events: none do, and how is it different from visibility: hidden? <span
+                    class="badge medium">Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>pointer-events: none</code> — element is still rendered, but <strong>clicks pass through</strong>
+                to whatever is underneath.<br><br>
+                <code>visibility: hidden</code> — element is <strong>invisible</strong> and removed from the
+                accessibility tree, but still occupies layout space.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can a keyboard user still interact with an element that has
+                    pointer-events: none?</span>
+                <span class="a"><strong>Yes</strong> — and this is a common misconception. <code>pointer-events:
+                        none</code> only disables pointer-based interaction (mouse, touch, stylus). Keyboard focus,
+                    keyboard activation, screen readers, and programmatic events still work.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.overlay {
+  pointer-events: none; /* visible, but clicks pass through */
+}
+
+.hidden-btn {
+  visibility: hidden; /* invisible, but keeps layout space */
+}</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Click the button in each box</h3>
+            <div class="demo-box q240-demo">
+                <div class="compare-row">
+                    <div class="compare-box">
+                        <h5>pointer-events: none</h5>
+                        <div class="overlay-demo">
+                            <div class="ghost no-pe">Overlay (clicks pass through)</div>
+                            <button onclick="alert('Button clicked — pointer passed through the overlay!')">Click
+                                me</button>
+                        </div>
+                        <p style="font-size:0.75rem;color:#6b7280;margin:8px 0 0;">
+                            The overlay is visible but <strong>transparent to clicks</strong> — the button beneath is
+                            clickable.
+                        </p>
+                    </div>
+                    <div class="compare-box">
+                        <h5>visibility: hidden</h5>
+                        <div class="vis-hidden-demo">
+                            <div class="hidden-el">Hidden button</div>
+                        </div>
+                        <p style="font-size:0.75rem;color:#6b7280;margin:8px 0 0;">
+                            The button is <strong>invisible</strong>, keeps its space, and is removed from the
+                            accessibility tree.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== STUDENT TASK ==================== -->
+        <section class="task-section">
+            <h2>🧑‍🎓 Student Task — Forms, Semantics &amp; Browser Internals</h2>
+            <p>Build <strong>one HTML page</strong> (+ CSS file + optional JS file) that applies <strong>all 10
+                    concepts</strong> from Part 24. Submit as a zipped folder.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Concept</th>
+                        <th>What you must do</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>231</td>
+                        <td>&lt;progress&gt; vs &lt;meter&gt;</td>
+                        <td>Add a <code>&lt;progress&gt;</code> for a download and a <code>&lt;meter&gt;</code> for
+                            disk usage. Add a comment explaining why you chose each.</td>
+                    </tr>
+                    <tr>
+                        <td>232</td>
+                        <td>&lt;noscript&gt;</td>
+                        <td>Add a <code>&lt;noscript&gt;</code> warning that appears only when JavaScript is
+                            disabled.</td>
+                    </tr>
+                    <tr>
+                        <td>233</td>
+                        <td>&lt;base&gt;</td>
+                        <td>Add a <code>&lt;base href&gt;</code> tag and show how a relative link resolves against
+                            it.</td>
+                    </tr>
+                    <tr>
+                        <td>234</td>
+                        <td>Constraint Validation API</td>
+                        <td>Add an email input and a button that logs <code>input.validity.valid</code> and calls
+                            <code>reportValidity()</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>235</td>
+                        <td>Critical Rendering Path</td>
+                        <td>Add a comment block listing the rendering pipeline steps in order.</td>
+                    </tr>
+                    <tr>
+                        <td>236</td>
+                        <td>referrerpolicy</td>
+                        <td>Create two external links: one with <code>referrerpolicy="no-referrer"</code>, one with
+                            <code>strict-origin-when-cross-origin</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>237</td>
+                        <td>Safe external links</td>
+                        <td>Add a safe external link with <code>target="_blank" rel="noopener noreferrer"</code> and
+                            explain why each token matters.</td>
+                    </tr>
+                    <tr>
+                        <td>238</td>
+                        <td>Invalid HTML nesting</td>
+                        <td>Create a fixed version of the invalid
+                            <code>&lt;p&gt; &lt;h2&gt; &lt;div&gt; &lt;/p&gt;</code>
+                            structure using <code>&lt;section&gt;</code>.</td>
+                    </tr>
+                    <tr>
+                        <td>239</td>
+                        <td>inputmode vs type</td>
+                        <td>Create three fields: OTP (<code>inputmode="numeric"</code>), email
+                            (<code>inputmode="email"</code>), phone (<code>inputmode="tel"</code>).</td>
+                    </tr>
+                    <tr>
+                        <td>240</td>
+                        <td>pointer-events vs visibility</td>
+                        <td>Create an overlay with <code>pointer-events: none</code> on top of a button, and a
+                            <code>visibility: hidden</code> element next to it. Add a comment explaining the
+                            difference.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>📦 Submission rules</h3>
+            <ul>
+                <li><strong>File names:</strong> <code>index.html</code>, <code>styles.css</code>,
+                    <code>app.js</code>
+                </li>
+                <li><strong>Comments:</strong> above each section, e.g.
+                    <code>&lt;!-- Q237: safe external link --&gt;</code>
+                </li>
+                <li><strong>README.md</strong> with 3 answers:
+                    <ol>
+                        <li>What is the difference between <code>&lt;progress&gt;</code> and
+                            <code>&lt;meter&gt;</code>?
+                        </li>
+                        <li>What is the difference between <code>checkValidity()</code> and
+                            <code>reportValidity()</code>?
+                        </li>
+                        <li>Why is <code>pointer-events: none</code> not a true way to "disable" an element?</li>
+                    </ol>
+                </li>
+            </ul>
+
+            <h3>🎯 Grading (out of 10)</h3>
+            <p>1 point per row. "Constraint Validation API" and "pointer-events vs visibility" rows are worth double
+                if the README explanation is correct.</p>
+        </section>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.hljs) {
+                hljs.highlightAll();
+                if (hljs.lineNumbersBlock) {
+                    document.querySelectorAll('pre code').forEach(function (el) {
+                        hljs.lineNumbersBlock(el);
+                    });
+                }
+            }
+        });
+
+        // Q234 – Constraint Validation API demo
+        function q234Update() {
+            const input = document.getElementById('q234-email');
+            const out = document.getElementById('q234-output');
+            const v = input.validity;
+            const flags = [];
+            if (v.valueMissing) flags.push('valueMissing');
+            if (v.typeMismatch) flags.push('typeMismatch');
+            if (v.patternMismatch) flags.push('patternMismatch');
+            if (v.tooShort) flags.push('tooShort');
+            if (v.tooLong) flags.push('tooLong');
+            if (v.valid) flags.push('valid');
+
+            out.textContent =
+                'input.validity.valid      → ' + v.valid + '\n' +
+                'input.validity.valueMissing → ' + v.valueMissing + '\n' +
+                'input.validity.typeMismatch → ' + v.typeMismatch + '\n' +
+                '\nActive flags: ' + (flags.length ? flags.join(', ') : '(none)');
+        }
+
+        function q234Check() {
+            const input = document.getElementById('q234-email');
+            const out = document.getElementById('q234-output');
+            out.textContent = 'input.checkValidity() → ' + input.checkValidity() +
+                '\n(no browser UI is triggered)';
+        }
+
+        function q234Report() {
+            const input = document.getElementById('q234-email');
+            const out = document.getElementById('q234-output');
+            const result = input.reportValidity();
+            out.textContent = 'input.reportValidity() → ' + result +
+                '\n(browser UI is triggered if invalid)';
+        }
+    </script>
+
+</body>
+
+</html>

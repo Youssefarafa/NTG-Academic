@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML &amp; CSS Questions — Part 4 (31–40)</title>
+
+    <!-- ===== Favicon: inline SVG (works offline) ===== -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%234f46e5'/%3E%3Cstop%20offset='1'%20stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='url(%23g)'/%3E%3Cpath%20d='M22%2022%20L14%2032%20L22%2042%20M42%2022%20L50%2032%20L42%2042'%20stroke='white'%20stroke-width='4'%20stroke-linecap='round'%20stroke-linejoin='round'%20fill='none'/%3E%3C/svg%3E" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css" />
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            background: #f4f6fa;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        /* ==================== BACK TO HOME BUTTON ==================== */
+        .back-home {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 9999;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 16px rgba(79, 70, 229, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            border: 1px solid transparent;
+        }
+
+        .back-home:hover {
+            background: linear-gradient(135deg, #4338ca, #6d28d9);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(79, 70, 229, 0.5);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 640px) {
+            .back-home {
+                top: 12px;
+                left: 12px;
+                padding: 8px 14px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* ==================== PAGE HEADER ==================== */
+        .page-header {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            margin: 0 0 8px;
+            font-size: 2rem;
+        }
+
+        .page-header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 24px 20px;
+        }
+
+        .q-section {
+            background: #fff;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 28px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+        }
+
+        .q-section h2 {
+            margin-top: 0;
+            color: #4f46e5;
+            border-bottom: 2px solid #eef;
+            padding-bottom: 10px;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            background: #dcfce7;
+            color: #166534;
+            margin-left: 8px;
+            vertical-align: middle;
+            font-weight: 600;
+        }
+
+        .badge.medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge.hard {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .q-section h3 {
+            color: #374151;
+            margin-top: 22px;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .answer {
+            background: #ecfdf5;
+            border-left: 4px solid #10b981;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 10px 0;
+        }
+
+        .answer strong.label {
+            display: block;
+            font-size: 0.75rem;
+            color: #059669;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .followup {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 12px 0;
+        }
+
+        .followup .q {
+            font-weight: 600;
+            color: #1d4ed8;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .followup .a {
+            color: #1e3a8a;
+        }
+
+        .demo-box {
+            background: #fafbff;
+            border: 1px dashed #c7d2fe;
+            border-radius: 10px;
+            padding: 16px;
+            margin: 12px 0;
+        }
+
+        .vs-code {
+            background: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 16px 0;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #2d2d2d;
+        }
+
+        .vs-titlebar {
+            background: #3c3c3c;
+            padding: 9px 14px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px solid #2d2d2d;
+        }
+
+        .vs-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .vs-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .vs-dot.red {
+            background: #ff5f56;
+        }
+
+        .vs-dot.yellow {
+            background: #ffbd2e;
+        }
+
+        .vs-dot.green {
+            background: #27c93f;
+        }
+
+        .vs-title {
+            position: absolute;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 12px;
+            color: #cccccc;
+            pointer-events: none;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+
+        .vs-tabbar {
+            background: #252526;
+            display: flex;
+        }
+
+        .vs-tab {
+            background: #2d2d2d;
+            color: #969696;
+            padding: 9px 20px;
+            font-size: 12.5px;
+            border-right: 1px solid #1e1e1e;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .vs-tab.active {
+            background: #1e1e1e;
+            color: #ffffff;
+        }
+
+        .vs-tab.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #007acc;
+        }
+
+        .file-icon {
+            display: inline-block;
+            width: 9px;
+            height: 9px;
+            border-radius: 2px;
+        }
+
+        .file-icon.html {
+            background: #e44d26;
+        }
+
+        .file-icon.css {
+            background: #264de4;
+        }
+
+        .file-icon.js {
+            background: #f7df1e;
+        }
+
+        .vs-body {
+            margin: 0 !important;
+            padding: 16px 0 !important;
+            background: #1e1e1e !important;
+            overflow-x: auto;
+            font-size: 13px !important;
+            line-height: 1.65 !important;
+            color: #dcdcdc;
+            border-radius: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+        }
+
+        .vs-body code {
+            background: transparent !important;
+            padding: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+            font-size: inherit !important;
+            color: inherit;
+            white-space: pre;
+        }
+
+        .vs-body .hljs-ln-numbers {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            text-align: right;
+            color: #858585 !important;
+            border-right: 1px solid #3a3f4b;
+            padding: 0 14px 0 16px !important;
+            vertical-align: top;
+            font-weight: normal;
+        }
+
+        .vs-body .hljs-ln-code {
+            padding: 0 16px !important;
+        }
+
+        .vs-body .hljs-ln {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .vs-body .hljs-ln td {
+            padding: 0;
+        }
+
+        .vs-body::-webkit-scrollbar {
+            height: 10px;
+        }
+
+        .vs-body::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+
+        .vs-body::-webkit-scrollbar-thumb {
+            background: #424242;
+            border-radius: 5px;
+        }
+
+        .vs-body code.hljs,
+        .vs-body .hljs {
+            background: transparent !important;
+            padding: 0 !important;
+            overflow: visible !important;
+        }
+
+        /* =========== Q31 & Q32 - Head/Body & Viewport =========== */
+        .q21-demo button,
+        .q22-demo button {
+            background: #4f46e5;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .q22-demo .mobile-frame {
+            border: 8px solid #374151;
+            border-radius: 24px;
+            width: 320px;
+            height: 480px;
+            overflow: auto;
+            background: #fff;
+            margin: 10px auto;
+        }
+
+        .q22-demo .content-with-viewport,
+        .q22-demo .content-without-viewport {
+            padding: 16px;
+        }
+
+        .q22-demo .content-with-viewport h3,
+        .q22-demo .content-without-viewport h3 {
+            margin-top: 0;
+            font-size: 1.2rem;
+        }
+
+        .q22-demo .content-with-viewport p,
+        .q22-demo .content-without-viewport p {
+            font-size: 0.9rem;
+        }
+
+        .q22-demo .badge-small {
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: #e5e7eb;
+            color: #374151;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        /* =========== Q33 - Doctype =========== */
+        .q23-demo .iframe-container {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .q23-demo iframe {
+            width: 100%;
+            max-width: 400px;
+            height: 220px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            background: #fff;
+        }
+
+        .q23-demo .iframe-label {
+            text-align: center;
+            font-weight: 700;
+            margin-bottom: 4px;
+            font-size: 0.9rem;
+        }
+
+        .q23-demo .iframe-label.bad {
+            color: #991b1b;
+        }
+
+        .q23-demo .iframe-label.good {
+            color: #166534;
+        }
+
+        /* =========== Q34 - Storage =========== */
+        .q24-demo .storage-btns {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        .q24-demo .storage-btns button {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .q24-demo .btn-local {
+            background: #3b82f6;
+            color: #fff;
+        }
+
+        .q24-demo .btn-session {
+            background: #f59e0b;
+            color: #fff;
+        }
+
+        .q24-demo .btn-cookie {
+            background: #10b981;
+            color: #fff;
+        }
+
+        .q24-demo .btn-clear {
+            background: #ef4444;
+            color: #fff;
+        }
+
+        .q24-demo .result {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 12px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            white-space: pre-wrap;
+        }
+
+        /* =========== Q35 - Async vs Defer =========== */
+        .q25-demo .timeline {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .q25-demo .phase {
+            flex: 1;
+            padding: 8px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        .q25-demo .phase.active {
+            background: #4f46e5;
+            color: #fff;
+        }
+
+        .q25-demo .log {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 12px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            min-height: 80px;
+        }
+
+        .q25-demo button {
+            background: #4f46e5;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+
+        /* =========== Q36 & Q37 & Q38 - ARIA =========== */
+        .aria-demo-box {
+            border: 1px solid #e5e7eb;
+            padding: 16px;
+            border-radius: 8px;
+            margin-top: 10px;
+            background: #fff;
+        }
+
+        .aria-demo-box h4 {
+            margin-top: 0;
+            color: #4f46e5;
+        }
+
+        .aria-demo-box .icon-btn {
+            background: #ef4444;
+            color: #fff;
+            border: none;
+            padding: 4px 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .aria-demo-box .dialog-sim {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 8px;
+        }
+
+        /* =========== Q39 - Autocomplete =========== */
+        .q29-demo input {
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+            width: 100%;
+            max-width: 300px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .q29-demo .result {
+            font-family: monospace;
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+        }
+
+        /* =========== Q40 - Lists =========== */
+        .q30-demo .lists-container {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .q30-demo .list-box {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            padding: 16px;
+            border-radius: 8px;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .q30-demo .list-box h4 {
+            margin-top: 0;
+            color: #4f46e5;
+        }
+
+        .q30-demo .no-bullets {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .q30-demo .no-bullets li {
+            background: #f3f4f6;
+            padding: 6px 12px;
+            margin-bottom: 4px;
+            border-radius: 4px;
+        }
+
+        /* =========== Task =========== */
+        .task-section {
+            background: linear-gradient(135deg, #fff7ed, #fef3c7);
+            border: 2px solid #f59e0b;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 40px;
+        }
+
+        .task-section h2 {
+            color: #b45309;
+            margin-top: 0;
+        }
+
+        .task-section table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 12px 0;
+            font-size: 0.9rem;
+        }
+
+        .task-section th,
+        .task-section td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .task-section th {
+            background: #fde68a;
+            color: #78350f;
+        }
+
+        .task-section code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="../../index.html" class="back-home">← Back to Home</a>
+
+    <header class="page-header">
+        <h1>HTML &amp; CSS Questions — Part 4 (31 → 40)</h1>
+        <p>Questions + Answers + VS Code-style code + Live demos that match the code exactly</p>
+    </header>
+
+    <div class="container">
+
+        <!-- ==================== Q31 ==================== -->
+        <section class="q-section">
+            <h2>Q31 — What is the difference between &lt;head&gt; and &lt;body&gt;? <span class="badge">Easy</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                The <code>&lt;head&gt;</code> contains <strong>metadata and resources</strong> about the document, such
+                as the <code>&lt;title&gt;</code>, meta tags, stylesheets, and scripts that need to be loaded.<br><br>
+                The <code>&lt;body&gt;</code> contains the <strong>actual content</strong> that is rendered and
+                displayed to the user, such as headings, paragraphs, images, forms, and buttons.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Is everything inside &lt;head&gt; invisible to the user?</span>
+                <span class="a">Most of the content isn't directly displayed, but some elements can affect browser
+                    behavior or load resources. For example, <code>&lt;title&gt;</code> appears in the browser
+                    tab.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;head&gt;
+  &lt;title&gt;My Page Title&lt;/title&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Welcome to My Page&lt;/h1&gt;
+  &lt;p&gt;This is visible content.&lt;/p&gt;
+&lt;/body&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — click to change the tab title</h3>
+            <div class="demo-box q21-demo">
+                <p>The text inside <code>&lt;title&gt;</code> is shown in the browser tab at the top of your screen.</p>
+                <button
+                    onclick="document.title = 'Changed via <head>!'; setTimeout(() => document.title = 'HTML & CSS Questions — Part 4 (31–40)', 2000);">
+                    Click to change &lt;title&gt;
+                </button>
+            </div>
+        </section>
+
+        <!-- ==================== Q32 ==================== -->
+        <section class="q-section">
+            <h2>Q32 — What is the purpose of the &lt;meta viewport&gt; tag? <span class="badge medium">Easy →
+                    Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                The viewport meta tag tells the browser how to control the page's <strong>dimensions and
+                    scaling</strong> on mobile devices.<br><br>
+                The common version is:<br>
+                <code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What can happen if we don't include it on a mobile page?</span>
+                <span class="a">The browser may use a wider virtual viewport, causing the page to appear zoomed out and
+                    making responsive layouts behave incorrectly.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;!-- ✅ Correct mobile viewport --&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+
+&lt;!-- ❌ Missing (page will zoom out on mobile) --&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Compare the mobile viewports</h3>
+            <div class="demo-box q22-demo">
+                <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;">
+                    <div>
+                        <div class="iframe-label bad">❌ Without viewport</div>
+                        <div class="mobile-frame">
+                            <div class="content-without-viewport"><span class="badge-small">Virtual width ~980px</span>
+                                <h3>Looks tiny!</h3>
+                                <p>The browser zooms out to fit a desktop site.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="iframe-label good">✅ With viewport</div>
+                        <div class="mobile-frame">
+                            <div class="content-with-viewport"><span class="badge-small">Virtual width = 320px</span>
+                                <h3>Looks perfect!</h3>
+                                <p>The width matches the device. Media queries work as expected.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Q33 ==================== -->
+        <section class="q-section">
+            <h2>Q33 — What is the purpose of the DOCTYPE declaration? <span class="badge">Easy</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>&lt;!DOCTYPE html&gt;</code> tells the browser that the document should be interpreted using the
+                <strong>modern HTML standard</strong> and helps the browser use <strong>standards mode</strong> instead
+                of <strong>quirks mode</strong>.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Is DOCTYPE an HTML element?</span>
+                <span class="a">No. It's a <strong>document type declaration</strong>, not an HTML element.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;!-- ✅ Standards Mode --&gt;
+&lt;!DOCTYPE html&gt;
+
+&lt;!-- ❌ Quirks Mode (missing DOCTYPE) --&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — See the Box Model difference</h3>
+            <div class="demo-box q23-demo">
+                <div class="iframe-container">
+                    <div>
+                        <div class="iframe-label bad">❌ Quirks Mode (No DOCTYPE)</div>
+                        <iframe
+                            srcdoc="<html><body><div style='width: 100px; padding: 20px; border: 5px solid black; background: #fecaca; margin: 10px; font-family: sans-serif; font-size: 12px;'>width: 100px<br>Box is 100px</div></body></html>"></iframe>
+                    </div>
+                    <div>
+                        <div class="iframe-label good">✅ Standards Mode (With DOCTYPE)</div>
+                        <iframe
+                            srcdoc="<!DOCTYPE html><html><body><div style='width: 100px; padding: 20px; border: 5px solid black; background: #dcfce7; margin: 10px; font-family: sans-serif; font-size: 12px;'>width: 100px<br>Box is 150px</div></body></html>"></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Q34 ==================== -->
+        <section class="q-section">
+            <h2>Q34 — What is the difference between localStorage, sessionStorage, and cookies? <span
+                    class="badge medium">Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                All three can store client-side data, but they behave differently.
+                <ul style="margin:6px 0">
+                    <li><strong>localStorage</strong> persists until it's explicitly cleared.</li>
+                    <li><strong>sessionStorage</strong> usually persists only for the lifetime of the browser
+                        tab/session.</li>
+                    <li><strong>Cookies</strong> are small pieces of data associated with HTTP requests and can be
+                        configured with attributes such as <code>HttpOnly</code>, <code>Secure</code>, and
+                        <code>SameSite</code>.
+                    </li>
+                </ul>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Which is safer for storing an authentication token?</span>
+                <span class="a">It depends on the architecture and threat model. For tokens that should be protected
+                    from JavaScript access, an <code>HttpOnly</code>, <code>Secure</code> cookie can reduce XSS exposure
+                    compared with storing the token in <code>localStorage</code>.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">app.js — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon js"></span>app.js</div>
+                </div>
+                <pre class="vs-body"><code class="language-javascript">// localStorage
+localStorage.setItem('theme', 'dark');
+console.log(localStorage.getItem('theme'));
+
+// sessionStorage
+sessionStorage.setItem('sessionId', 'abc123');
+
+// Cookies
+document.cookie = 'username=Youssef; path=/';</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — try storing data</h3>
+            <div class="demo-box q24-demo">
+                <div class="storage-btns">
+                    <button class="btn-local" onclick="localStorage.setItem('theme', 'dark'); updateStorageUI();">Save
+                        to localStorage</button>
+                    <button class="btn-session"
+                        onclick="sessionStorage.setItem('sessionId', 'abc123'); updateStorageUI();">Save to
+                        sessionStorage</button>
+                    <button class="btn-cookie"
+                        onclick="document.cookie = 'username=Youssef; path=/'; updateStorageUI();">Save to
+                        Cookie</button>
+                    <button class="btn-clear" onclick="clearStorage()">Clear All</button>
+                </div>
+                <div class="result" id="q24-output">Click a button to see the values.</div>
+            </div>
+        </section>
+
+        <!-- ==================== Q35 ==================== -->
+        <section class="q-section">
+            <h2>Q35 — What is the difference between async and defer for scripts? <span
+                    class="badge medium">Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                Both <code>async</code> and <code>defer</code> allow scripts to download <strong>without blocking HTML
+                    parsing</strong>.<br><br>
+                With <code>async</code>, the script executes <strong>as soon as it finishes downloading</strong>, so
+                order between multiple async scripts isn't guaranteed.<br><br>
+                With <code>defer</code>, scripts execute <strong>after HTML parsing is complete</strong>, and they
+                maintain their document order.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Which would you prefer when one script depends on another?</span>
+                <span class="a"><code>defer</code> is generally more appropriate when script execution order
+                    matters.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Why can a normal &lt;script&gt; block HTML parsing?</span>
+                <span class="a">A classic script <strong>without</strong> <code>async</code> or <code>defer</code> can
+                    <strong>pause HTML parsing</strong> while the browser fetches and executes the script.<br><br>
+                    The parser encounters the script, and the browser may need to stop parsing, fetch the script,
+                    execute it,
+                    and then continue parsing.<br><br>
+                    This matters because JavaScript can modify the document while it is being parsed.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: How does defer change this?</span>
+                <span class="a">A deferred external script can be downloaded <strong>without blocking HTML
+                        parsing</strong>, and
+                    it executes <strong>after the document has been parsed</strong>, before
+                    <code>DOMContentLoaded</code>.<br><br>
+                    <code>&lt;script src="app.js" defer&gt;&lt;/script&gt;</code></span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What is the difference between async and defer for scripts?</span>
+                <span class="a">Both allow external scripts to be fetched <strong>without simply blocking HTML
+                        parsing</strong>
+                    during the download, but their execution behavior differs.<br><br>
+                    <strong>defer</strong><br>
+                    <code>&lt;script src="app.js" defer&gt;&lt;/script&gt;</code>
+                    <ul style="margin:6px 0">
+                        <li>Downloads while HTML parsing continues.</li>
+                        <li>Executes <strong>after HTML parsing finishes</strong>.</li>
+                        <li>Deferred scripts preserve their order relative to each other.</li>
+                        <li>Executes before <code>DOMContentLoaded</code>.</li>
+                    </ul>
+                    <strong>async</strong><br>
+                    <code>&lt;script src="analytics.js" async&gt;&lt;/script&gt;</code>
+                    <ul style="margin:6px 0">
+                        <li>Downloads while parsing continues.</li>
+                        <li>Executes <strong>as soon as the script is ready</strong>.</li>
+                        <li>Can interrupt HTML parsing for execution.</li>
+                        <li>Multiple async scripts <strong>don't guarantee execution order</strong>.</li>
+                    </ul>
+                    Conceptually:
+                    <pre
+                        style="margin:8px 0;background:#f3f4f6;padding:10px;border-radius:6px;font-size:0.8rem;font-family:'Fira Code',Consolas,monospace;overflow-x:auto;">defer
+→ download parallel
+→ execute after parsing
+→ ordered
+
+async
+→ download parallel
+→ execute whenever ready
+→ not ordered</pre>
+                </span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: When would you use async?</span>
+                <span class="a">For <strong>independent scripts</strong> where execution order relative to other scripts
+                    or
+                    document parsing isn't important, such as certain analytics or third-party scripts.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;!-- Normal: Blocks parsing --&gt;
+&lt;script src="script1.js"&gt;&lt;/script&gt;
+
+&lt;!-- Async: Downloads in parallel, executes ASAP --&gt;
+&lt;script src="script2.js" async&gt;&lt;/script&gt;
+
+&lt;!-- Defer: Downloads in parallel, executes after parsing --&gt;
+&lt;script src="script3.js" defer&gt;&lt;/script&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Run the simulation</h3>
+            <div class="demo-box q25-demo">
+                <button onclick="runAsyncDeferSim()">▶ Run Simulation</button>
+                <div class="timeline">
+                    <div class="phase" id="phase-parse">1. HTML Parsing</div>
+                    <div class="phase" id="phase-download">2. Downloading</div>
+                    <div class="phase" id="phase-execute">3. Executing</div>
+                </div>
+                <div class="log" id="q25-log">Click "Run Simulation" to see the execution order.</div>
+            </div>
+        </section>
+
+        <!-- ==================== Q36 ==================== -->
+        <section class="q-section">
+            <h2>Q36 — What is accessibility in HTML? <span class="badge medium">Easy → Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                Web accessibility means making websites usable by people with <strong>different abilities</strong>,
+                including users who rely on assistive technologies such as screen readers or keyboard navigation.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Should we use ARIA everywhere?</span>
+                <span class="a">No. Native semantic HTML should be preferred whenever possible.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What is web accessibility, and why is it important?</span>
+                <span class="a">Web accessibility means designing and developing websites so that people
+                    with different abilities can use and interact with them effectively. It includes users
+                    who may rely on screen readers, keyboard navigation, voice control, magnification, or
+                    other assistive technologies. HTML plays a major role because semantic HTML provides
+                    meaningful structure and native behavior to browsers and assistive technologies —
+                    a real <code>&lt;button&gt;</code> is generally better than a
+                    <code>&lt;div onclick&gt;</code> because the native button already provides appropriate
+                    semantics and interaction behavior.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What is WCAG?</span>
+                <span class="a"><strong>WCAG</strong> stands for <strong>Web Content Accessibility Guidelines</strong>.
+                    It's a set of guidelines for making web content more accessible.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;!-- ❌ Bad --&gt;
+&lt;div onclick="submitForm()"&gt;Submit&lt;/div&gt;
+
+&lt;!-- ✅ Good --&gt;
+&lt;button type="submit"&gt;Submit&lt;/button&gt;
+&lt;label for="name"&gt;Name&lt;/label&gt;
+&lt;input id="name" type="text"&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Compare Bad vs Good</h3>
+            <div class="demo-box q26-demo">
+                <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                    <div class="aria-demo-box" style="border-color: #fecaca; background: #fff5f5; flex: 1;">
+                        <h4 style="color: #991b1b;">❌ Bad Accessibility</h4>
+                        <div onclick="alert('Fake div clicked')"
+                            style="background: #ef4444; color: #fff; padding: 8px 16px; text-align: center; border-radius: 6px; cursor: pointer; margin-bottom: 10px; font-weight: bold;">
+                            Fake Button (div)</div>
+                        <input type="text" placeholder="Your Name"
+                            style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                    </div>
+                    <div class="aria-demo-box" style="border-color: #bbf7d0; background: #f0fdf4; flex: 1;">
+                        <h4 style="color: #166534;">✅ Good Accessibility</h4>
+                        <button type="button" onclick="alert('Real button clicked')"
+                            style="background: #10b981; color: #fff; border: none; padding: 8px 16px; width: 100%; border-radius: 6px; cursor: pointer; margin-bottom: 10px; font-weight: bold;">Real
+                            Button</button>
+                        <label for="name-acc"
+                            style="display: block; font-size: 0.85rem; font-weight: bold; margin-bottom: 4px;">Your
+                            Name</label>
+                        <input id="name-acc" type="text"
+                            style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Q37 ==================== -->
+        <section class="q-section">
+            <h2>Q37 — What is ARIA? <span class="badge medium">Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                ARIA stands for <strong>Accessible Rich Internet Applications</strong>. It provides attributes that
+                communicate roles, states, and properties of UI elements to assistive technologies.<br><br>
+                Example: <code>&lt;button aria-label="Close dialog"&gt;×&lt;/button&gt;</code>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Give me examples of ARIA attributes.</span>
+                <span class="a">Examples include <code>aria-label</code>, <code>aria-labelledby</code>,
+                    <code>aria-describedby</code>, <code>aria-expanded</code>, <code>aria-hidden</code>,
+                    <code>aria-selected</code>.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Should you use ARIA everywhere?</span>
+                <span class="a"><strong>No.</strong><br>
+                    A good principle is:<br>
+                    Use native HTML semantics whenever possible, and use ARIA when necessary to
+                    communicate semantics that native HTML doesn't provide.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;button aria-label="Close dialog"&gt;×&lt;/button&gt;
+&lt;button aria-expanded="true"&gt;Toggle Menu&lt;/button&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Hover over the buttons</h3>
+            <div class="demo-box q27-demo">
+                <div class="aria-demo-box" style="display: flex; gap: 16px; align-items: center;">
+                    <button class="icon-btn" aria-label="Close dialog"
+                        title="Screen reader says: 'Close dialog'">×</button>
+                    <span style="font-size: 0.85rem; color: #6b7280;">Hover to see the accessible name.</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Q38 ==================== -->
+        <section class="q-section">
+            <h2>Q38 — What is the difference between aria-label and aria-labelledby? <span class="badge hard">Medium →
+                    Hard</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>aria-label</code> directly provides an accessible name as a <strong>string</strong>.<br><br>
+                <code>aria-labelledby</code> references another element whose text provides the accessible name.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: When would you prefer aria-labelledby?</span>
+                <span class="a">When there is already <strong>visible text</strong> that appropriately names the
+                    element.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Which should you prefer when visible text already exists?</span>
+                <span class="a">When appropriate, <code>aria-labelledby</code> can reference the visible label
+                    instead of duplicating the text in an <code>aria-label</code>.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;!-- aria-label --&gt;
+&lt;button aria-label="Close"&gt;×&lt;/button&gt;
+
+&lt;!-- aria-labelledby --&gt;
+&lt;h2 id="dialog-title"&gt;Delete Account&lt;/h2&gt;
+&lt;div role="dialog" aria-labelledby="dialog-title"&gt;&lt;/div&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Inspect the dialog</h3>
+            <div class="demo-box q28-demo">
+                <div class="aria-demo-box">
+                    <h2 id="dialog-title" style="margin-top: 0; font-size: 1.2rem; color: #1f2937;">Delete Account</h2>
+                    <div role="dialog" aria-labelledby="dialog-title" class="dialog-sim">
+                        <p style="font-size: 0.9rem; margin: 0;">Are you sure you want to delete your account?</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Q39 ==================== -->
+        <section class="q-section">
+            <h2>Q39 — What is the difference between autocomplete, placeholder, and value? <span
+                    class="badge medium">Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <ul style="margin:6px 0">
+                    <li><strong>placeholder</strong> provides a temporary hint.</li>
+                    <li><strong>value</strong> represents the actual current value.</li>
+                    <li><strong>autocomplete</strong> gives the browser information about the expected data type.</li>
+                </ul>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Should placeholder replace a label?</span>
+                <span class="a">No. It's not a proper replacement because it disappears when the user types.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What is the difference between autocomplete, autofocus, and
+                    placeholder?</span>
+                <span class="a"><code>autocomplete</code> controls whether/how the browser can use stored information to
+                    help
+                    fill a field.<br><br>
+                    <code>autofocus</code> requests that the element receive focus when the page/dialog is initially
+                    presented.<br><br>
+                    <code>placeholder</code> provides a short hint/example inside an empty input.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;input
+  type="email"
+  name="email"
+  autocomplete="email"
+  placeholder="Enter your email"
+  value="user@example.com"&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Type and Submit</h3>
+            <div class="demo-box q29-demo">
+                <label for="email" style="display: block; font-weight: bold; margin-bottom: 4px;">Email</label>
+                <input type="email" id="email" name="email" autocomplete="email" placeholder="Enter your email"
+                    value="user@example.com">
+                <button type="button" onclick="showQ29Value()"
+                    style="background: #4f46e5; color: #fff; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer;">Submit
+                    (Show Value)</button>
+                <div class="result" id="q29-output" style="margin-top: 10px;">Click submit to see the `value` property.
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Q40 ==================== -->
+        <section class="q-section">
+            <h2>Q40 — What is the difference between &lt;ul&gt;, &lt;ol&gt;, and &lt;dl&gt;? <span
+                    class="badge">Easy</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <ul style="margin:6px 0">
+                    <li><strong>&lt;ul&gt;</strong> — unordered list.</li>
+                    <li><strong>&lt;ol&gt;</strong> — ordered list where sequence matters.</li>
+                    <li><strong>&lt;dl&gt;</strong> — description list (terms + descriptions).</li>
+                </ul>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can CSS remove the bullets from a &lt;ul&gt;?</span>
+                <span class="a">Yes. Using <code>list-style: none</code>. But that doesn't change the semantic
+                    meaning.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;ul&gt; &lt;li&gt;Angular&lt;/li&gt; &lt;li&gt;Spring Boot&lt;/li&gt; &lt;/ul&gt;
+
+&lt;ol&gt; &lt;li&gt;Login&lt;/li&gt; &lt;li&gt;Select&lt;/li&gt; &lt;li&gt;Checkout&lt;/li&gt; &lt;/ol&gt;
+
+&lt;dl&gt; &lt;dt&gt;Angular&lt;/dt&gt; &lt;dd&gt;Frontend framework.&lt;/dd&gt; &lt;/dl&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q30-demo">
+                <div class="lists-container">
+                    <div class="list-box">
+                        <h4>&lt;ul&gt; Unordered</h4>
+                        <ul>
+                            <li>Angular</li>
+                            <li>Spring Boot</li>
+                        </ul>
+                    </div>
+                    <div class="list-box">
+                        <h4>&lt;ol&gt; Ordered</h4>
+                        <ol>
+                            <li>Login</li>
+                            <li>Select</li>
+                            <li>Checkout</li>
+                        </ol>
+                    </div>
+                    <div class="list-box">
+                        <h4>&lt;dl&gt; Description</h4>
+                        <dl>
+                            <dt style="font-weight: bold;">Angular</dt>
+                            <dd style="margin-left: 16px;">Frontend framework.</dd>
+                        </dl>
+                    </div>
+                    <div class="list-box">
+                        <h4>list-style: none</h4>
+                        <ul class="no-bullets">
+                            <li>No bullet</li>
+                            <li>Still a list</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== STUDENT TASK ==================== -->
+        <section class="task-section">
+            <h2>🧑‍🎓 Student Task — Accessible App Shell</h2>
+            <p>Build <strong>one HTML page</strong> (+ CSS file + optional JS file) that applies <strong>all 10
+                    concepts</strong> from Part 4. Submit as a zipped folder or CodePen link.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Concept</th>
+                        <th>What you must do</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>31</td>
+                        <td>head vs body</td>
+                        <td>Add a proper <code>&lt;title&gt;</code> and <code>&lt;meta&gt;</code> description in the
+                            <code>&lt;head&gt;</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>32</td>
+                        <td>viewport meta</td>
+                        <td>Include
+                            <code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>33</td>
+                        <td>DOCTYPE</td>
+                        <td>Start the file with <code>&lt;!DOCTYPE html&gt;</code>.</td>
+                    </tr>
+                    <tr>
+                        <td>34</td>
+                        <td>Storage</td>
+                        <td>Create a "Theme Toggle" button that saves the selected theme in <code>localStorage</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>35</td>
+                        <td>async / defer</td>
+                        <td>Include an external script with <code>defer</code> and a comment explaining why.</td>
+                    </tr>
+                    <tr>
+                        <td>36</td>
+                        <td>Accessibility</td>
+                        <td>Ensure every form input has a <code>&lt;label&gt;</code>.</td>
+                    </tr>
+                    <tr>
+                        <td>37</td>
+                        <td>ARIA</td>
+                        <td>Add an <code>aria-label</code> to an icon-only button.</td>
+                    </tr>
+                    <tr>
+                        <td>38</td>
+                        <td>aria-labelledby</td>
+                        <td>Use <code>aria-labelledby</code> on a modal to link it to its visible heading.</td>
+                    </tr>
+                    <tr>
+                        <td>39</td>
+                        <td>autocomplete / placeholder / value</td>
+                        <td>Add a form input with all three attributes.</td>
+                    </tr>
+                    <tr>
+                        <td>40</td>
+                        <td>Lists</td>
+                        <td>Use a <code>&lt;ul&gt;</code> for nav, <code>&lt;ol&gt;</code> for steps, and
+                            <code>&lt;dl&gt;</code> for a glossary.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>📦 Submission rules</h3>
+            <ul>
+                <li><strong>File names:</strong> <code>index.html</code>, <code>styles.css</code>, <code>app.js</code>
+                </li>
+                <li><strong>Comments:</strong> above each section, e.g.
+                    <code>&lt;!-- Q34: Theme toggle using localStorage --&gt;</code>
+                </li>
+                <li><strong>README.md</strong> with 3 answers:
+                    <ol>
+                        <li>Why is <code>defer</code> better than <code>async</code> for your script?</li>
+                        <li>How does <code>aria-labelledby</code> improve the screen reader experience?</li>
+                        <li>What happens to the form if you remove the <code>&lt;label&gt;</code> and use only a
+                            <code>placeholder</code>?
+                        </li>
+                    </ol>
+                </li>
+            </ul>
+
+            <h3>⭐ Bonus</h3>
+            <ul>
+                <li>Add a Cookie consent banner and store the user's choice in a cookie.</li>
+                <li>Use <code>sessionStorage</code> to remember the last search query.</li>
+                <li>Try removing <code>&lt;!DOCTYPE html&gt;</code> and see if any visual changes occur.</li>
+            </ul>
+
+            <h3>🎯 Grading (out of 10)</h3>
+            <p>1 point per row. "Accessibility" and "ARIA" rows are worth double if the README explanation is correct.
+            </p>
+        </section>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.hljs) {
+                hljs.highlightAll();
+                if (hljs.lineNumbersBlock) {
+                    document.querySelectorAll('pre code').forEach(function (el) {hljs.lineNumbersBlock(el);});
+                }
+            }
+        });
+
+        function updateStorageUI() {
+            const out = document.getElementById('q24-output');
+            const local = localStorage.getItem('theme');
+            const session = sessionStorage.getItem('sessionId');
+            const cookie = document.cookie || '(no cookies)';
+            out.innerHTML = `🔹 <strong>localStorage:</strong> theme = "${local || 'empty'}"\n🔸 <strong>sessionStorage:</strong> sessionId = "${session || 'empty'}"\n🍪 <strong>Cookie:</strong> ${cookie}`;
+        }
+        updateStorageUI();
+
+        function clearStorage() {
+            localStorage.clear();
+            sessionStorage.clear();
+            document.cookie = 'username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            updateStorageUI();
+        }
+
+        function runAsyncDeferSim() {
+            const log = document.getElementById('q25-log');
+            const parse = document.getElementById('phase-parse');
+            const dl = document.getElementById('phase-download');
+            const ex = document.getElementById('phase-execute');
+            log.textContent = 'Starting HTML Parsing...';
+            parse.classList.add('active');
+            setTimeout(() => {
+                log.textContent += '\n\n[Normal] Blocks parsing!\n[Async] Downloads in background...\n[Defer] Downloads in background...';
+                setTimeout(() => {
+                    parse.classList.remove('active'); dl.classList.add('active');
+                    log.textContent += '\n\n...Async finished downloading. Executes immediately!';
+                }, 1000);
+                setTimeout(() => {
+                    parse.classList.remove('active'); ex.classList.add('active');
+                    log.textContent += '\n\n✅ HTML Parsing Complete!\n...Defer executes now (after parsing).';
+                }, 2000);
+            }, 300);
+        }
+
+        function showQ29Value() {
+            const val = document.getElementById('email').value;
+            document.getElementById('q29-output').textContent = `Form submission value: "${val}"\n(Placeholder disappears when typing. Value is the actual data.)`;
+        }
+    </script>
+
+</body>
+
+</html>

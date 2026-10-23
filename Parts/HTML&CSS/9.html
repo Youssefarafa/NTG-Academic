@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML &amp; CSS Questions — Part 9 (81–90)</title>
+
+    <!-- ===== Favicon: inline SVG (works offline) ===== -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%234f46e5'/%3E%3Cstop%20offset='1'%20stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='url(%23g)'/%3E%3Cpath%20d='M22%2022%20L14%2032%20L22%2042%20M42%2022%20L50%2032%20L42%2042'%20stroke='white'%20stroke-width='4'%20stroke-linecap='round'%20stroke-linejoin='round'%20fill='none'/%3E%3C/svg%3E" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css" />
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            background: #f4f6fa;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        /* ==================== BACK TO HOME BUTTON ==================== */
+        .back-home {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 9999;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 16px rgba(79, 70, 229, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            border: 1px solid transparent;
+        }
+
+        .back-home:hover {
+            background: linear-gradient(135deg, #4338ca, #6d28d9);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(79, 70, 229, 0.5);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 640px) {
+            .back-home {
+                top: 12px;
+                left: 12px;
+                padding: 8px 14px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* ==================== PAGE HEADER ==================== */
+        .page-header {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            margin: 0 0 8px;
+            font-size: 2rem;
+        }
+
+        .page-header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 24px 20px;
+        }
+
+        .q-section {
+            background: #fff;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 28px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+        }
+
+        .q-section h2 {
+            margin-top: 0;
+            color: #4f46e5;
+            border-bottom: 2px solid #eef;
+            padding-bottom: 10px;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            background: #dcfce7;
+            color: #166534;
+            margin-left: 8px;
+            vertical-align: middle;
+            font-weight: 600;
+        }
+
+        .badge.medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge.hard {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .q-section h3 {
+            color: #374151;
+            margin-top: 22px;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .answer {
+            background: #ecfdf5;
+            border-left: 4px solid #10b981;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 10px 0;
+        }
+
+        .answer strong.label {
+            display: block;
+            font-size: 0.75rem;
+            color: #059669;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .followup {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 12px 0;
+        }
+
+        .followup .q {
+            font-weight: 600;
+            color: #1d4ed8;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .followup .a {
+            color: #1e3a8a;
+        }
+
+        .demo-box {
+            background: #fafbff;
+            border: 1px dashed #c7d2fe;
+            border-radius: 10px;
+            padding: 16px;
+            margin: 12px 0;
+        }
+
+        .vs-code {
+            background: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 16px 0;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #2d2d2d;
+        }
+
+        .vs-titlebar {
+            background: #3c3c3c;
+            padding: 9px 14px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px solid #2d2d2d;
+        }
+
+        .vs-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .vs-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .vs-dot.red {
+            background: #ff5f56;
+        }
+
+        .vs-dot.yellow {
+            background: #ffbd2e;
+        }
+
+        .vs-dot.green {
+            background: #27c93f;
+        }
+
+        .vs-title {
+            position: absolute;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 12px;
+            color: #cccccc;
+            pointer-events: none;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+
+        .vs-tabbar {
+            background: #252526;
+            display: flex;
+        }
+
+        .vs-tab {
+            background: #2d2d2d;
+            color: #969696;
+            padding: 9px 20px;
+            font-size: 12.5px;
+            border-right: 1px solid #1e1e1e;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .vs-tab.active {
+            background: #1e1e1e;
+            color: #ffffff;
+        }
+
+        .vs-tab.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #007acc;
+        }
+
+        .file-icon {
+            display: inline-block;
+            width: 9px;
+            height: 9px;
+            border-radius: 2px;
+        }
+
+        .file-icon.html {
+            background: #e44d26;
+        }
+
+        .file-icon.css {
+            background: #264de4;
+        }
+
+        .file-icon.js {
+            background: #f7df1e;
+        }
+
+        .vs-body {
+            margin: 0 !important;
+            padding: 16px 0 !important;
+            background: #1e1e1e !important;
+            overflow-x: auto;
+            font-size: 13px !important;
+            line-height: 1.65 !important;
+            color: #dcdcdc;
+            border-radius: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+        }
+
+        .vs-body code {
+            background: transparent !important;
+            padding: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+            font-size: inherit !important;
+            color: inherit;
+            white-space: pre;
+        }
+
+        .vs-body .hljs-ln-numbers {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            text-align: right;
+            color: #858585 !important;
+            border-right: 1px solid #3a3f4b;
+            padding: 0 14px 0 16px !important;
+            vertical-align: top;
+            font-weight: normal;
+        }
+
+        .vs-body .hljs-ln-code {
+            padding: 0 16px !important;
+        }
+
+        .vs-body .hljs-ln {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .vs-body .hljs-ln td {
+            padding: 0;
+        }
+
+        .vs-body::-webkit-scrollbar {
+            height: 10px;
+        }
+
+        .vs-body::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+
+        .vs-body::-webkit-scrollbar-thumb {
+            background: #424242;
+            border-radius: 5px;
+        }
+
+        .vs-body code.hljs,
+        .vs-body .hljs {
+            background: transparent !important;
+            padding: 0 !important;
+            overflow: visible !important;
+        }
+
+        /* =========== Q81: Autocomplete =========== */
+        .q81-demo form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 300px;
+        }
+
+        .q81-demo input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .q81-demo button {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* =========== Q82: Accept =========== */
+        .q82-demo input[type="file"] {
+            padding: 10px;
+            border: 2px dashed #4f46e5;
+            border-radius: 8px;
+            background: #eff6ff;
+            width: 100%;
+            max-width: 400px;
+            cursor: pointer;
+        }
+
+        /* =========== Q83 & Q84: Enctype & Multipart =========== */
+        .q83-demo .tabs,
+        .q84-demo .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .q83-demo .tab-btn,
+        .q84-demo .tab-btn {
+            padding: 8px 16px;
+            border: 1px solid #ccc;
+            background: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .q83-demo .tab-btn.active,
+        .q84-demo .tab-btn.active {
+            background: #4f46e5;
+            color: #fff;
+            border-color: #4f46e5;
+        }
+
+        .q83-demo .payload,
+        .q84-demo .payload {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 12px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            white-space: pre-wrap;
+            min-height: 100px;
+        }
+
+        /* =========== Q85: Novalidate =========== */
+        .q85-demo form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 300px;
+            background: #fff;
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .q85-demo input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .q85-demo button {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .q85-demo .result {
+            font-family: monospace;
+            font-size: 0.85rem;
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 8px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        /* =========== Q86 & Q87: Validation =========== */
+        .q86-demo .input-group,
+        .q87-demo .input-group {
+            margin-bottom: 15px;
+        }
+
+        .q86-demo label,
+        .q87-demo label {
+            display: block;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+        }
+
+        .q86-demo input,
+        .q87-demo input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .q86-demo input:invalid:not(:placeholder-shown),
+        .q87-demo input:invalid:not(:placeholder-shown) {
+            border-color: #ef4444;
+            background: #fef2f2;
+        }
+
+        .q86-demo input:valid:not(:placeholder-shown),
+        .q87-demo input:valid:not(:placeholder-shown) {
+            border-color: #10b981;
+            background: #ecfdf5;
+        }
+
+        /* =========== Q88, Q89, Q90: Images =========== */
+        .q88-demo .img-container {
+            height: 150px;
+            overflow-y: scroll;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 10px;
+            background: #fff;
+        }
+
+        .q88-demo img {
+            display: block;
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+
+        .q88-demo .spacer {
+            height: 50px;
+            background: #f3f4f6;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: #9ca3af;
+        }
+
+        .q89-demo .responsive-img,
+        .q90-demo .responsive-img {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .q89-demo .resizer,
+        .q90-demo .resizer {
+            width: 100%;
+            max-width: 500px;
+            margin: 10px auto;
+            display: block;
+        }
+
+        /* =========== Task =========== */
+        .task-section {
+            background: linear-gradient(135deg, #fff7ed, #fef3c7);
+            border: 2px solid #f59e0b;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 40px;
+        }
+
+        .task-section h2 {
+            color: #b45309;
+            margin-top: 0;
+        }
+
+        .task-section table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 12px 0;
+            font-size: 0.9rem;
+        }
+
+        .task-section th,
+        .task-section td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .task-section th {
+            background: #fde68a;
+            color: #78350f;
+        }
+
+        .task-section code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="../../index.html" class="back-home">← Back to Home</a>
+
+    <header class="page-header">
+        <h1>HTML &amp; CSS Questions — Part 9 (81 → 90)</h1>
+        <p>Questions + Answers + VS Code-style code + Live demos that match the code exactly</p>
+    </header>
+
+    <div class="container">
+
+        <!-- ==================== Q81 ==================== -->
+        <section class="q-section">
+            <h2>Q81 — What is the difference between autocomplete="on" and specific autocomplete tokens? <span
+                    class="badge medium">Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>autocomplete="on"</code> allows the browser to use its <strong>general autofill
+                    behavior</strong>.<br><br>
+                Specific autocomplete tokens give the browser <strong>more precise information</strong> about what kind
+                of data the field represents (e.g., <code>email</code>, <code>given-name</code>,
+                <code>new-password</code>).<br><br>
+                This can improve autofill accuracy and accessibility.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Why is autocomplete="new-password" useful?</span>
+                <span class="a">It tells the browser that the field is intended for a <strong>new password</strong>
+                    rather than an existing login password, which can help password managers and autofill systems behave
+                    appropriately.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What is the difference between autocomplete="off" and disabling browser
+                    autofill?</span>
+                <span class="a"><code>autocomplete</code> is a <strong>browser hint</strong> describing whether and how
+                    the
+                    browser should use previously stored information to assist with form filling.<br><br>
+                    For example: <code>&lt;input type="text" name="username" autocomplete="username"&gt;</code><br><br>
+                    You can also specify <code>autocomplete="off"</code> to request that autocomplete not be
+                    used.<br><br>
+                    However, <code>autocomplete="off"</code> is <strong>not an absolute guarantee</strong> that the
+                    browser will
+                    never provide autofill or password-management behavior. Browsers and password managers can make
+                    their own
+                    decisions, particularly for credentials.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: How would you improve autocomplete for a login form?</span>
+                <span class="a">
+                    <pre
+                        style="margin:8px 0;background:#f3f4f6;padding:10px;border-radius:6px;font-size:0.8rem;font-family:'Fira Code',Consolas,monospace;overflow-x:auto;">&lt;input type="text" name="username" autocomplete="username"&gt;
+
+&lt;input type="password" name="password" autocomplete="current-password"&gt;</pre>
+                    For account creation, a new password can use <code>autocomplete="new-password"</code>.
+                </span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;input type="email" name="email" autocomplete="email"&gt;
+&lt;input type="password" name="pwd" autocomplete="new-password"&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q81-demo">
+                <form onsubmit="event.preventDefault(); alert('Submitted');">
+                    <input type="text" name="name" autocomplete="given-name"
+                        placeholder="First Name (autocomplete='given-name')">
+                    <input type="email" name="email" autocomplete="email" placeholder="Email (autocomplete='email')">
+                    <input type="password" name="password" autocomplete="new-password"
+                        placeholder="Password (autocomplete='new-password')">
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- ==================== Q82 ==================== -->
+        <section class="q-section">
+            <h2>Q82 — What is the purpose of the accept attribute on &lt;input type="file"&gt;? <span
+                    class="badge">Easy</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                The <code>accept</code> attribute provides a hint to the browser about the <strong>types of
+                    files</strong> the user should select.<br><br>
+                It helps filter the file picker and communicate expected file types.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Does accept guarantee that the uploaded file is actually an image?</span>
+                <span class="a"><strong>No.</strong> It's only a client-side hint. The backend must validate the
+                    uploaded file independently, including its actual type and potentially its content.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;input type="file" accept="image/*"&gt;
+&lt;input type="file" accept=".pdf,.doc,.docx"&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q82-demo">
+                <p style="font-size: 0.85rem; color: #666; margin-top:0;">Click to open the file picker. Notice how it
+                    filters for images only.</p>
+                <input type="file" accept="image/*">
+            </div>
+        </section>
+
+        <!-- ==================== Q83 ==================== -->
+        <section class="q-section">
+            <h2>Q83 — What is the difference between multipart/form-data and application/x-www-form-urlencoded? <span
+                    class="badge hard">Hard</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>application/x-www-form-urlencoded</code> encodes form fields as <strong>key-value pairs</strong>
+                in the request body using URL encoding.<br><br>
+                <code>multipart/form-data</code> divides the request body into <strong>multiple parts</strong>, making
+                it suitable for uploading files along with regular form fields.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Why wouldn't we normally send a file using JSON?</span>
+                <span class="a">JSON isn't designed to represent binary file data directly. We could encode a file as
+                    Base64, but that adds overhead. <code>multipart/form-data</code> is designed specifically for
+                    sending files and fields together.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">HTTP Request Headers — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>request.http</div>
+                </div>
+                <pre class="vs-body"><code class="language-http">// Form URL Encoded
+Content-Type: application/x-www-form-urlencoded
+
+name=John&email=john%40example.com
+
+// Multipart (File Upload)
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary
+
+------WebKitFormBoundary
+Content-Disposition: form-data; name="name"
+
+John
+------WebKitFormBoundary
+Content-Disposition: form-data; name="file"; filename="image.png"
+Content-Type: image/png
+
+[Binary Data]
+------WebKitFormBoundary--</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Compare payloads</h3>
+            <div class="demo-box q83-demo">
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="switchPayload('urlencoded')">x-www-form-urlencoded</button>
+                    <button class="tab-btn" onclick="switchPayload('multipart')">multipart/form-data</button>
+                </div>
+                <div class="payload" id="q83-payload">
+                    Content-Type: application/x-www-form-urlencoded
+
+                    name=John&email=john%40example.com&age=25
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Q84 ==================== -->
+        <section class="q-section">
+            <h2>Q84 — What is the difference between enctype="application/x-www-form-urlencoded" and
+                enctype="multipart/form-data" in a form? <span class="badge hard">Hard</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                The <code>enctype</code> attribute determines how the browser <strong>encodes form data</strong> when
+                submitting the form.<br><br>
+                <code>multipart/form-data</code> is commonly used when the form contains <strong>file
+                    uploads</strong>.<br>
+                For ordinary text form data, the default is generally <code>application/x-www-form-urlencoded</code>.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: If a form contains an image upload, which enctype would you choose?</span>
+                <span class="a"><code>multipart/form-data</code>.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What is the purpose of enctype on a form?</span>
+                <span class="a"><code>enctype</code> specifies how form data is encoded when the browser submits a form
+                    using
+                    <code>POST</code>.<br><br>
+                    Common values include:
+                    <ul style="margin:6px 0">
+                        <li><code>application/x-www-form-urlencoded</code> (the default in most cases)</li>
+                        <li><code>multipart/form-data</code></li>
+                        <li><code>text/plain</code></li>
+                    </ul>
+                    For file uploads, we typically use <code>multipart/form-data</code>.
+                </span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Why is multipart/form-data required for file uploads?</span>
+                <span class="a">It allows the request body to represent multiple parts, including binary file data and
+                    other
+                    form fields.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What happens if you forget enctype="multipart/form-data" on a file upload
+                    form?</span>
+                <span class="a">The browser sends the form as <code>application/x-www-form-urlencoded</code>, which
+                    means only the
+                    <strong>filename</strong> is submitted — the actual file bytes are <strong>not</strong> sent. The
+                    server won't
+                    receive the file, and the upload will fail silently. This is a very common bug.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;!-- Text only --&gt;
+&lt;form method="POST" enctype="application/x-www-form-urlencoded"&gt;
+
+&lt;!-- File upload --&gt;
+&lt;form method="POST" enctype="multipart/form-data"&gt;
+  &lt;input type="file" name="avatar"&gt;
+&lt;/form&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Submit a file</h3>
+            <div class="demo-box q84-demo">
+                <form onsubmit="event.preventDefault(); alert('Form submitted using multipart/form-data');"
+                    enctype="multipart/form-data">
+                    <input type="file" name="avatar" style="margin-bottom:10px; display:block;">
+                    <button type="submit"
+                        style="background:#4f46e5; color:#fff; border:none; padding:8px 16px; border-radius:4px; cursor:pointer;">Upload
+                        File</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- ==================== Q85 ==================== -->
+        <section class="q-section">
+            <h2>Q85 — What is the purpose of the novalidate attribute on a form? <span
+                    class="badge medium">Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>novalidate</code> tells the browser <strong>not to perform its built-in constraint
+                    validation</strong> when submitting the form.<br><br>
+                This can be useful when an application wants to handle validation entirely through JavaScript or a
+                framework.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Does novalidate remove Angular Reactive Forms validators?</span>
+                <span class="a"><strong>No.</strong> <code>novalidate</code> affects the browser's native HTML
+                    constraint validation. Angular's own validation system is separate and can still run.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;form novalidate&gt;
+  &lt;input type="email" required&gt;
+  &lt;button type="submit"&gt;Submit&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Try submitting empty</h3>
+            <div class="demo-box q85-demo">
+                <form id="q85-form" novalidate>
+                    <input type="email" name="email" required placeholder="Enter email (required)">
+                    <button type="submit">Submit (novalidate)</button>
+                </form>
+                <div class="result" id="q85-output">Click Submit without typing anything.</div>
+            </div>
+        </section>
+
+        <!-- ==================== Q86 ==================== -->
+        <section class="q-section">
+            <h2>Q86 — What is the difference between minlength and pattern? <span class="badge medium">Easy →
+                    Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>minlength</code> checks that the value contains at least a specified <strong>number of
+                    characters</strong>.<br><br>
+                <code>pattern</code> uses a <strong>regular expression</strong> to define a required format.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Does minlength validate that a value exists?</span>
+                <span class="a"><strong>Not necessarily.</strong> If the field is optional, an empty value can be
+                    allowed. If I want to require a value, I should use <code>required</code> as well.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What is the difference between required, minlength, maxlength, min, and
+                    max?</span>
+                <span class="a"><code>required</code> → value must be provided<br><br>
+                    <code>minlength</code> → minimum number of characters<br>
+                    <code>maxlength</code> → maximum number of characters<br>
+                    <code>min</code> → minimum numeric/date/etc. value<br>
+                    <code>max</code> → maximum numeric/date/etc. value<br><br>
+                    These participate in the browser's <strong>constraint validation</strong> system.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Does HTML validation replace server-side validation?</span>
+                <span class="a"><strong>No.</strong> Client-side validation improves UX, but the server must validate
+                    incoming
+                    data because clients cannot be trusted.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What is the difference between pattern validation and JavaScript
+                    validation?</span>
+                <span class="a">The <code>pattern</code> attribute provides a <strong>declarative</strong> way to define
+                    a
+                    regular-expression constraint for certain text-based input types.<br><br>
+                    Example:
+                    <code>&lt;input type="text" name="username" pattern="[A-Za-z0-9_]{3,15}" required&gt;</code><br><br>
+                    The browser can perform constraint validation <strong>before submitting</strong> the form.<br><br>
+                    JavaScript can implement <strong>more complex validation logic</strong>, for example when validation
+                    depends on application rules or asynchronous/server-side checks.<br><br>
+                    Native HTML validation is useful for straightforward constraints, while JavaScript is useful when
+                    validation depends on more complex application rules or asynchronous/server-side checks.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Does pattern validate the value on the server?</span>
+                <span class="a"><strong>No.</strong> It's client-side browser validation. The server must validate the
+                    data
+                    independently.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;input minlength="8" placeholder="At least 8 chars"&gt;
+&lt;input pattern="[A-Za-z]+" placeholder="Letters only"&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q86-demo">
+                <div class="input-group">
+                    <label>minlength="8" (Type at least 8 chars)</label>
+                    <input type="text" minlength="8" placeholder="Type here...">
+                </div>
+                <div class="input-group">
+                    <label>pattern="[A-Za-z]+" (Letters only)</label>
+                    <input type="text" pattern="[A-Za-z]+" placeholder="Type here...">
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Q87 ==================== -->
+        <section class="q-section">
+            <h2>Q87 — What is the difference between min/max and minlength/maxlength? <span class="badge medium">Easy →
+                    Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>min</code> and <code>max</code> generally constrain the <strong>numerical value</strong> of an
+                input.<br><br>
+                <code>minlength</code> and <code>maxlength</code> constrain the <strong>number of characters</strong> in
+                text-like input values.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What if I use min="8" on a text input?</span>
+                <span class="a"><code>min</code> isn't a general-purpose string-length validator. For text length,
+                    <code>minlength</code> is the appropriate constraint.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;input type="number" min="18" max="60"&gt;
+&lt;input type="text" minlength="3" maxlength="20"&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q87-demo">
+                <div class="input-group">
+                    <label>Number Input (min=18, max=60)</label>
+                    <input type="number" min="18" max="60" placeholder="Age">
+                </div>
+                <div class="input-group">
+                    <label>Text Input (minlength=3, maxlength=10)</label>
+                    <input type="text" minlength="3" maxlength="10" placeholder="Username">
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Q88 ==================== -->
+        <section class="q-section">
+            <h2>Q88 — What is the purpose of the loading attribute on images and iframes? <span
+                    class="badge medium">Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                The <code>loading</code> attribute can provide a hint about <strong>when resources</strong> such as
+                images or iframes should be loaded.<br><br>
+                <code>loading="lazy"</code> tells the browser that the resource can be deferred until it is closer to
+                the viewport.<br>
+                <code>loading="eager"</code> indicates that the resource should be loaded without lazy-loading behavior.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Should every image use loading="lazy"?</span>
+                <span class="a"><strong>Not necessarily.</strong> Important above-the-fold images, especially key visual
+                    content such as a hero image or potentially an LCP image, may be better loaded eagerly.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What is the loading="lazy" attribute?</span>
+                <span class="a">
+                    <code>loading="lazy"</code> tells the browser that an image or iframe can be loaded lazily, meaning
+                    the browser may defer loading it until it is closer to the viewport.<br><br>
+
+                    Example:<br>
+                    <code>&lt;img src="plant.jpg" alt="Plant" loading="lazy"&gt;</code><br><br>
+
+                    This can reduce initial network work and improve initial page loading performance for pages
+                    containing many off-screen resources.
+                    <br><br>
+                    <hr style="border: 0; border-top: 1px solid #bfdbfe; margin: 10px 0;">
+                    <strong>🔁 Follow-up: Should you lazy-load every image?</strong><br>
+                    <strong>Not necessarily.</strong> Images that are immediately visible, especially important
+                    above-the-fold or LCP content, generally shouldn't blindly be lazy-loaded because delaying them can
+                    hurt perceived or measured performance.
+                </span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: A page contains 100 images. Would you add loading="lazy" to all of
+                    them?</span>
+                <span class="a"><strong>Not blindly.</strong><br><br>
+                    For images <strong>far below the initial viewport</strong>, lazy loading can reduce unnecessary
+                    initial
+                    loading work:<br>
+                    <code>&lt;img src="plant.jpg" alt="Tomato plant" loading="lazy"&gt;</code><br><br>
+                    But I would generally <strong>avoid lazy-loading critical above-the-fold images</strong> because
+                    delaying
+                    them can hurt loading performance, especially the image contributing to
+                    <strong>LCP</strong>.<br><br>
+                    So I'd decide based on:
+                    <ul style="margin:6px 0">
+                        <li>Position in the page</li>
+                        <li>Importance of the image</li>
+                        <li>Network cost</li>
+                        <li>Expected user behavior</li>
+                    </ul>
+                </span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What about an image that's immediately visible at the top of the
+                    page?</span>
+                <span class="a">I generally <strong>wouldn't lazy-load</strong> a critical above-the-fold image unless
+                    there is a
+                    specific reason.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;img src="hero.jpg" loading="eager" alt="Hero"&gt;
+&lt;img src="gallery-1.jpg" loading="lazy" alt="Gallery"&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Scroll inside the box</h3>
+            <div class="demo-box q88-demo">
+                <p style="font-size: 0.85rem; color: #666; margin-top:0;">As you scroll down, the lazy-loaded image will
+                    start fetching.</p>
+                <div class="img-container">
+                    <div class="spacer">Scroll Down 👇</div>
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect width='400' height='200' fill='%23fcd34d'/%3E%3Ctext x='50%25' y='50%25' fill='%2378350f' font-family='sans-serif' font-size='16' text-anchor='middle'%3ELazy Loaded Image%3C/text%3E%3C/svg%3E"
+                        loading="lazy" alt="Lazy loaded">
+                    <div class="spacer">End of container</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Q89 ==================== -->
+        <section class="q-section">
+            <h2>Q89 — What is the srcset attribute and why is it useful? <span class="badge hard">Hard</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>srcset</code> allows us to provide <strong>multiple image resources</strong> so the browser can
+                choose an appropriate one based on factors such as viewport size and device characteristics.<br><br>
+                This can reduce unnecessary bandwidth usage and improve image performance.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What's the difference between srcset and sizes?</span>
+                <span class="a"><code>srcset</code> provides candidate image resources, while <code>sizes</code> gives
+                    the browser information about the <strong>expected rendered width</strong> of the image under
+                    different viewport conditions so it can choose an appropriate candidate.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;img
+  src="plant-800.jpg"
+  srcset="
+    plant-400.jpg 400w,
+    plant-800.jpg 800w,
+    plant-1200.jpg 1200w
+  "
+  sizes="(max-width: 600px) 400px, 800px"
+  alt="Plant"&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Resize your browser window</h3>
+            <div class="demo-box q89-demo">
+                <p style="font-size: 0.85rem; color: #666; margin-top:0;">The browser automatically downloads the best
+                    image size for your screen.</p>
+                <img class="responsive-img"
+                    src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='400'%3E%3Crect width='800' height='400' fill='%23c7d2fe'/%3E%3Ctext x='50%25' y='50%25' fill='%233730a3' font-family='sans-serif' font-size='24' text-anchor='middle'%3E800px Image (Desktop)%3C/text%3E%3C/svg%3E"
+                    srcset="
+            data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect width='400' height='200' fill='%23fde68a'/%3E%3Ctext x='50%25' y='50%25' fill='%2378350f' font-family='sans-serif' font-size='16' text-anchor='middle'%3E400px Image (Mobile)%3C/text%3E%3C/svg%3E 400w,
+            data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='400'%3E%3Crect width='800' height='400' fill='%23c7d2fe'/%3E%3Ctext x='50%25' y='50%25' fill='%233730a3' font-family='sans-serif' font-size='24' text-anchor='middle'%3E800px Image (Desktop)%3C/text%3E%3C/svg%3E 800w
+          " sizes="(max-width: 600px) 400px, 800px" alt="Plant demo">
+            </div>
+        </section>
+
+        <!-- ==================== Q90 ==================== -->
+        <section class="q-section">
+            <h2>Q90 — What is the difference between srcset and &lt;picture&gt;? <span class="badge hard">Hard</span>
+            </h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>srcset</code> allows the browser to choose among different image candidates, usually based on
+                resolution or rendered size.<br><br>
+                <code>&lt;picture&gt;</code> provides <strong>more control</strong> over which image resource is
+                selected, including using media conditions and different formats or <strong>art
+                    direction</strong>.<br><br>
+                This can be useful when the mobile version needs a completely different crop or when we want to offer
+                different formats.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: When would you use &lt;picture&gt; instead of only srcset?</span>
+                <span class="a">I'd use <code>&lt;picture&gt;</code> when I need <strong>art direction</strong>,
+                    media-based source selection, or different image formats. If I only need different resolutions of
+                    essentially the same image, <code>srcset</code> is often sufficient.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;picture&gt;
+  &lt;source media="(max-width: 600px)" srcset="plant-mobile.jpg"&gt;
+  &lt;source type="image/webp" srcset="plant.webp"&gt;
+  &lt;img src="plant.jpg" alt="Plant"&gt;
+&lt;/picture&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Resize the window</h3>
+            <div class="demo-box q90-demo">
+                <p style="font-size: 0.85rem; color: #666; margin-top:0;">Resize the window to see the art direction
+                    change (different image/crop).</p>
+                <picture>
+                    <source media="(max-width: 600px)"
+                        srcset="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Crect width='400' height='400' fill='%23f87171'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-family='sans-serif' font-size='20' text-anchor='middle'%3EMobile Crop (Square)%3C/text%3E%3C/svg%3E">
+                    <img class="responsive-img"
+                        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='400'%3E%3Crect width='800' height='400' fill='%2360a5fa'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-family='sans-serif' font-size='24' text-anchor='middle'%3EDesktop Crop (Landscape)%3C/text%3E%3C/svg%3E"
+                        alt="Responsive art direction">
+                </picture>
+            </div>
+        </section>
+
+        <!-- ==================== STUDENT TASK ==================== -->
+        <section class="task-section">
+            <h2>🧑‍🎓 Student Task — Media-Rich Registration Form</h2>
+            <p>Build <strong>one HTML page</strong> (+ CSS file + optional JS file) that applies <strong>all 10
+                    concepts</strong> from Part 9. Submit as a zipped folder or CodePen link.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Concept</th>
+                        <th>What you must do</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>81</td>
+                        <td>Autocomplete</td>
+                        <td>Add <code>autocomplete="email"</code> and <code>autocomplete="new-password"</code> to a
+                            registration form.</td>
+                    </tr>
+                    <tr>
+                        <td>82</td>
+                        <td>File Accept</td>
+                        <td>Add an avatar upload input that only accepts images (<code>accept="image/*"</code>).</td>
+                    </tr>
+                    <tr>
+                        <td>83</td>
+                        <td>Multipart</td>
+                        <td>Add a comment above your form explaining why file uploads require
+                            <code>multipart/form-data</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>84</td>
+                        <td>Enctype</td>
+                        <td>Set <code>enctype="multipart/form-data"</code> on the form that contains the file upload.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>85</td>
+                        <td>Novalidate</td>
+                        <td>Create a "Quick Save" button that submits the form without native validation using the
+                            <code>novalidate</code> attribute on a second form.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>86</td>
+                        <td>minlength & pattern</td>
+                        <td>Add a ZIP code input with <code>pattern="[0-9]{5}"</code> and a password input with
+                            <code>minlength="8"</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>87</td>
+                        <td>min & max</td>
+                        <td>Add an age input using <code>type="number" min="18" max="99"</code>.</td>
+                    </tr>
+                    <tr>
+                        <td>88</td>
+                        <td>Lazy Loading</td>
+                        <td>Add a large image at the bottom of your page using <code>loading="lazy"</code>.</td>
+                    </tr>
+                    <tr>
+                        <td>89</td>
+                        <td>srcset</td>
+                        <td>Provide 2 different resolutions of an image using <code>srcset</code> and
+                            <code>sizes</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>90</td>
+                        <td>&lt;picture&gt;</td>
+                        <td>Use <code>&lt;picture&gt;</code> to show a square crop on mobile and a landscape crop on
+                            desktop.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>📦 Submission rules</h3>
+            <ul>
+                <li><strong>File names:</strong> <code>index.html</code>, <code>styles.css</code>, <code>app.js</code>
+                </li>
+                <li><strong>Comments:</strong> above each section, e.g.
+                    <code>&lt;!-- Q90: Picture element for art direction --&gt;</code>
+                </li>
+                <li><strong>README.md</strong> with 3 answers:
+                    <ol>
+                        <li>Why is <code>novalidate</code> useful when using Angular or React?</li>
+                        <li>Why is client-side file type validation (accept attribute) not secure?</li>
+                        <li>When would you use <code>srcset</code> vs <code>&lt;picture&gt;</code>?</li>
+                    </ol>
+                </li>
+            </ul>
+
+            <h3>⭐ Bonus</h3>
+            <ul>
+                <li>Add an <code>&lt;iframe&gt;</code> with <code>loading="lazy"</code> at the bottom of the page.</li>
+                <li>Use <code>pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"</code> on a password field to require
+                    uppercase, lowercase, and a number.</li>
+            </ul>
+
+            <h3>🎯 Grading (out of 10)</h3>
+            <p>1 point per row. "Enctype/Multipart" and "srcset/picture" rows are worth double if the README explanation
+                is correct.</p>
+        </section>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.hljs) {
+                hljs.highlightAll();
+                if (hljs.lineNumbersBlock) {
+                    document.querySelectorAll('pre code').forEach(function (el) {
+                        hljs.lineNumbersBlock(el);
+                    });
+                }
+            }
+
+            // Q83 Payload Switcher
+            const payloads = {
+                urlencoded: `Content-Type: application/x-www-form-urlencoded\n\nname=John&email=john%40example.com&age=25`,
+                multipart: `Content-Type: multipart/form-data; boundary=----WebKitFormBoundary\n\n------WebKitFormBoundary\nContent-Disposition: form-data; name="name"\n\nJohn\n------WebKitFormBoundary\nContent-Disposition: form-data; name="file"; filename="avatar.png"\nContent-Type: image/png\n\n[Binary Image Data]\n------WebKitFormBoundary--`
+            };
+
+            window.switchPayload = function (type) {
+                document.getElementById('q83-payload').textContent = payloads[type];
+                const btns = document.querySelectorAll('.q83-demo .tab-btn');
+                btns.forEach(btn => btn.classList.remove('active'));
+                event.target.classList.add('active');
+            };
+
+            // Q85 Novalidate Demo
+            const q85Form = document.getElementById('q85-form');
+            if (q85Form) {
+                q85Form.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    const val = q85Form.querySelector('input').value;
+                    const out = document.getElementById('q85-output');
+                    if (!val) {
+                        out.innerHTML = '✅ Form Submitted! (novalidate bypassed the required constraint)<br>Note: The email field is empty but submitted.';
+                        out.style.color = '#10b981';
+                    } else {
+                        out.innerHTML = `✅ Form Submitted with email: ${val}`;
+                        out.style.color = '#10b981';
+                    }
+                });
+            }
+        });
+    </script>
+
+</body>
+
+</html>

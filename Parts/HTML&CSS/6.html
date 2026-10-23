@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML &amp; CSS Questions — Part 6 (51–60)</title>
+
+    <!-- ===== Favicon: inline SVG (works offline) ===== -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%234f46e5'/%3E%3Cstop%20offset='1'%20stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='url(%23g)'/%3E%3Cpath%20d='M22%2022%20L14%2032%20L22%2042%20M42%2022%20L50%2032%20L42%2042'%20stroke='white'%20stroke-width='4'%20stroke-linecap='round'%20stroke-linejoin='round'%20fill='none'/%3E%3C/svg%3E" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css" />
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            background: #f4f6fa;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        /* ==================== BACK TO HOME BUTTON ==================== */
+        .back-home {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 9999;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 16px rgba(79, 70, 229, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            border: 1px solid transparent;
+        }
+
+        .back-home:hover {
+            background: linear-gradient(135deg, #4338ca, #6d28d9);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(79, 70, 229, 0.5);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 640px) {
+            .back-home {
+                top: 12px;
+                left: 12px;
+                padding: 8px 14px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* ==================== PAGE HEADER ==================== */
+        .page-header {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            margin: 0 0 8px;
+            font-size: 2rem;
+        }
+
+        .page-header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 24px 20px;
+        }
+
+        .q-section {
+            background: #fff;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 28px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+        }
+
+        .q-section h2 {
+            margin-top: 0;
+            color: #4f46e5;
+            border-bottom: 2px solid #eef;
+            padding-bottom: 10px;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            background: #dcfce7;
+            color: #166534;
+            margin-left: 8px;
+            vertical-align: middle;
+            font-weight: 600;
+        }
+
+        .badge.medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .q-section h3 {
+            color: #374151;
+            margin-top: 22px;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .answer {
+            background: #ecfdf5;
+            border-left: 4px solid #10b981;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 10px 0;
+        }
+
+        .answer strong.label {
+            display: block;
+            font-size: 0.75rem;
+            color: #059669;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .followup {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 12px 0;
+        }
+
+        .followup .q {
+            font-weight: 600;
+            color: #1d4ed8;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .followup .a {
+            color: #1e3a8a;
+        }
+
+        .demo-box {
+            background: #fafbff;
+            border: 1px dashed #c7d2fe;
+            border-radius: 10px;
+            padding: 16px;
+            margin: 12px 0;
+        }
+
+        .vs-code {
+            background: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 16px 0;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #2d2d2d;
+        }
+
+        .vs-titlebar {
+            background: #3c3c3c;
+            padding: 9px 14px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px solid #2d2d2d;
+        }
+
+        .vs-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .vs-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .vs-dot.red {
+            background: #ff5f56;
+        }
+
+        .vs-dot.yellow {
+            background: #ffbd2e;
+        }
+
+        .vs-dot.green {
+            background: #27c93f;
+        }
+
+        .vs-title {
+            position: absolute;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 12px;
+            color: #cccccc;
+            pointer-events: none;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+
+        .vs-tabbar {
+            background: #252526;
+            display: flex;
+        }
+
+        .vs-tab {
+            background: #2d2d2d;
+            color: #969696;
+            padding: 9px 20px;
+            font-size: 12.5px;
+            border-right: 1px solid #1e1e1e;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .vs-tab.active {
+            background: #1e1e1e;
+            color: #ffffff;
+        }
+
+        .vs-tab.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #007acc;
+        }
+
+        .file-icon {
+            display: inline-block;
+            width: 9px;
+            height: 9px;
+            border-radius: 2px;
+        }
+
+        .file-icon.html {
+            background: #e44d26;
+        }
+
+        .file-icon.css {
+            background: #264de4;
+        }
+
+        .file-icon.js {
+            background: #f7df1e;
+        }
+
+        .vs-body {
+            margin: 0 !important;
+            padding: 16px 0 !important;
+            background: #1e1e1e !important;
+            overflow-x: auto;
+            font-size: 13px !important;
+            line-height: 1.65 !important;
+            color: #dcdcdc;
+            border-radius: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+        }
+
+        .vs-body code {
+            background: transparent !important;
+            padding: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+            font-size: inherit !important;
+            color: inherit;
+            white-space: pre;
+        }
+
+        .vs-body .hljs-ln-numbers {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            text-align: right;
+            color: #858585 !important;
+            border-right: 1px solid #3a3f4b;
+            padding: 0 14px 0 16px !important;
+            vertical-align: top;
+            font-weight: normal;
+        }
+
+        .vs-body .hljs-ln-code {
+            padding: 0 16px !important;
+        }
+
+        .vs-body .hljs-ln {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .vs-body .hljs-ln td {
+            padding: 0;
+        }
+
+        .vs-body::-webkit-scrollbar {
+            height: 10px;
+        }
+
+        .vs-body::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+
+        .vs-body::-webkit-scrollbar-thumb {
+            background: #424242;
+            border-radius: 5px;
+        }
+
+        .vs-body code.hljs,
+        .vs-body .hljs {
+            background: transparent !important;
+            padding: 0 !important;
+            overflow: visible !important;
+        }
+
+        /* =========== Q51: Layout =========== */
+        .q51-demo {
+            display: grid;
+            grid-template-areas: "header header" "nav main" "aside main" "footer footer";
+            grid-template-columns: 200px 1fr;
+            gap: 8px;
+            background: #e5e7eb;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .q51-demo>* {
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .q51-demo header {
+            grid-area: header;
+            background: #4f46e5;
+            color: white;
+        }
+
+        .q51-demo nav {
+            grid-area: nav;
+            background: #3b82f6;
+            color: white;
+        }
+
+        .q51-demo main {
+            grid-area: main;
+            background: #10b981;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 150px;
+        }
+
+        .q51-demo aside {
+            grid-area: aside;
+            background: #f59e0b;
+            color: white;
+        }
+
+        .q51-demo footer {
+            grid-area: footer;
+            background: #374151;
+            color: white;
+        }
+
+        /* =========== Q53 & Q54: P / Br / Div =========== */
+        .q53-demo .addr-box,
+        .q54-demo .text-box {
+            background: #fff;
+            border: 1px solid #ccc;
+            padding: 12px;
+            border-radius: 6px;
+        }
+
+        /* =========== Q55: Textarea vs Input =========== */
+        .q55-demo input,
+        .q55-demo textarea {
+            width: 100%;
+            max-width: 400px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: inherit;
+            margin-bottom: 10px;
+        }
+
+        .q55-demo textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        /* =========== Q56 & Q57: Forms & Radios =========== */
+        .q56-demo form,
+        .q57-demo form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 400px;
+        }
+
+        .q56-demo input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .q56-demo button,
+        .q57-demo button {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .q56-demo .result {
+            font-family: monospace;
+            font-size: 0.85rem;
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 8px;
+            border-radius: 4px;
+            margin-top: 10px;
+            white-space: pre-wrap;
+        }
+
+        .q57-demo fieldset {
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .q57-demo legend {
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .q57-demo label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+            cursor: pointer;
+        }
+
+        /* =========== Q58 & Q59: Select =========== */
+        .q58-demo select,
+        .q59-demo select {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            width: 100%;
+            max-width: 300px;
+            margin-bottom: 10px;
+        }
+
+        .q59-demo label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        /* =========== Q60: Validation =========== */
+        .q60-demo form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 400px;
+        }
+
+        .q60-demo input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .q60-demo input:invalid:not(:placeholder-shown) {
+            border-color: #ef4444;
+        }
+
+        .q60-demo input:valid {
+            border-color: #10b981;
+        }
+
+        .q60-demo button {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .q60-demo .result {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 10px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* =========== Task =========== */
+        .task-section {
+            background: linear-gradient(135deg, #fff7ed, #fef3c7);
+            border: 2px solid #f59e0b;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 40px;
+        }
+
+        .task-section h2 {
+            color: #b45309;
+            margin-top: 0;
+        }
+
+        .task-section table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 12px 0;
+            font-size: 0.9rem;
+        }
+
+        .task-section th,
+        .task-section td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .task-section th {
+            background: #fde68a;
+            color: #78350f;
+        }
+
+        .task-section code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="../../index.html" class="back-home">← Back to Home</a>
+
+    <header class="page-header">
+        <h1>HTML &amp; CSS Questions — Part 6 (51 → 60)</h1>
+        <p>Questions + Answers + VS Code-style code + Live demos that match the code exactly</p>
+    </header>
+
+    <div class="container">
+
+        <!-- ==================== Q51 ==================== -->
+        <section class="q-section">
+            <h2>Q51 — What is the difference between &lt;header&gt;, &lt;nav&gt;, &lt;main&gt;, &lt;aside&gt;, and
+                &lt;footer&gt;? <span class="badge medium">Easy → Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                They are semantic elements that describe different structural parts of a page:
+                <ul style="margin:6px 0">
+                    <li><code>&lt;header&gt;</code> represents introductory content for a page or section.</li>
+                    <li><code>&lt;nav&gt;</code> contains major navigation links.</li>
+                    <li><code>&lt;main&gt;</code> contains the primary content of the document.</li>
+                    <li><code>&lt;aside&gt;</code> contains related or supplementary content.</li>
+                    <li><code>&lt;footer&gt;</code> contains footer information for a page or section.</li>
+                </ul>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can a page have multiple &lt;header&gt; or &lt;footer&gt; elements?</span>
+                <span class="a"><strong>Yes.</strong> They can be used for the document itself or for individual
+                    sections/articles. However, a document should generally have one primary <code>&lt;main&gt;</code>
+                    element.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;header&gt;Header&lt;/header&gt;
+&lt;nav&gt;Navigation&lt;/nav&gt;
+&lt;main&gt;Main Content&lt;/main&gt;
+&lt;aside&gt;Sidebar&lt;/aside&gt;
+&lt;footer&gt;Footer&lt;/footer&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo (Layout representation)</h3>
+            <div class="demo-box q51-demo">
+                <header>&lt;header&gt;</header>
+                <nav>&lt;nav&gt;</nav>
+                <main>&lt;main&gt;</main>
+                <aside>&lt;aside&gt;</aside>
+                <footer>&lt;footer&gt;</footer>
+            </div>
+        </section>
+
+        <!-- ==================== Q52 ==================== -->
+        <section class="q-section">
+            <h2>Q52 — Can an HTML page have multiple &lt;main&gt; elements? <span class="badge medium">Medium</span>
+            </h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                A document should have only <strong>one visible <code>&lt;main&gt;</code> element</strong> representing
+                the dominant content of the document.<br><br>
+                If I have multiple sections or views, I wouldn't normally put multiple visible <code>&lt;main&gt;</code>
+                elements on the same page.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can the &lt;main&gt; element be nested inside &lt;article&gt; or
+                    &lt;section&gt;?</span>
+                <span class="a">Normally, <code>&lt;main&gt;</code> should represent the main content of the document
+                    and <strong>shouldn't be nested</strong> inside elements such as <code>article</code>,
+                    <code>aside</code>, <code>footer</code>, <code>header</code>, or <code>nav</code>.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;!-- ✅ Correct: One main element --&gt;
+&lt;main&gt;
+  &lt;h1&gt;Welcome&lt;/h1&gt;
+&lt;/main&gt;
+
+&lt;!-- ❌ Invalid: Multiple main elements --&gt;
+&lt;main&gt;View 1&lt;/main&gt;
+&lt;main&gt;View 2&lt;/main&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box"
+                style="background: #ecfdf5; border-color: #10b981; padding: 16px; border-radius: 8px;">
+                <p style="margin:0; font-weight: bold; color: #047857;">✅ This entire white box is the one and only
+                    <code>&lt;main&gt;</code> element for this page.</p>
+            </div>
+        </section>
+
+        <!-- ==================== Q53 ==================== -->
+        <section class="q-section">
+            <h2>Q53 — What is the difference between &lt;br&gt; and &lt;p&gt;? <span class="badge">Easy</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>&lt;p&gt;</code> represents a <strong>paragraph</strong>, while <code>&lt;br&gt;</code> represents
+                a <strong>line break</strong> within the current text flow.<br><br>
+                A <code>&lt;br&gt;</code> can be used when an actual line break is part of the content:<br>
+                <code>Address Line 1&lt;br&gt;Address Line 2</code>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Should I use multiple &lt;br&gt; elements to create vertical
+                    spacing?</span>
+                <span class="a"><strong>No.</strong> Layout and spacing should generally be handled with CSS such as
+                    <code>margin</code> and <code>padding</code>.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;p&gt;This is a paragraph.&lt;/p&gt;
+
+&lt;p&gt;
+  Address Line 1&lt;br&gt;
+  Address Line 2
+&lt;/p&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q53-demo">
+                <div class="addr-box">
+                    <p>This is a paragraph.</p>
+                    <p>
+                        Address Line 1<br>
+                        Address Line 2
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Q54 ==================== -->
+        <section class="q-section">
+            <h2>Q54 — What is the difference between &lt;p&gt; and &lt;div&gt;? <span class="badge">Easy</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>&lt;p&gt;</code> represents a <strong>paragraph of text</strong> and has semantic meaning.<br><br>
+                <code>&lt;div&gt;</code> is a <strong>generic container</strong> with no specific semantic
+                meaning.<br><br>
+                So if I'm displaying a paragraph, I should use <code>&lt;p&gt;</code> rather than
+                <code>&lt;div&gt;</code>.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can a &lt;p&gt; contain a &lt;div&gt;?</span>
+                <span class="a"><strong>No.</strong> A <code>&lt;div&gt;</code> is not valid as a descendant of a
+                    paragraph because <code>&lt;p&gt;</code> has specific content-model rules. The browser may
+                    automatically close the paragraph before the <code>&lt;div&gt;</code>.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;!-- ✅ Semantic: Paragraph --&gt;
+&lt;p&gt;This is a paragraph.&lt;/p&gt;
+
+&lt;!-- ✅ Generic: Container for layout --&gt;
+&lt;div class="card"&gt;
+  This is a div container.
+&lt;/div&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q54-demo">
+                <div class="text-box" style="margin-bottom: 10px; border-color: #10b981;">
+                    <p style="margin: 0;">This is a &lt;p&gt; paragraph. It has margin top and bottom by default.</p>
+                </div>
+                <div class="text-box" style="border-color: #4f46e5;">
+                    <div style="margin: 0;">This is a &lt;div&gt; container. It has no default margin.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Q55 ==================== -->
+        <section class="q-section">
+            <h2>Q55 — What is the difference between &lt;textarea&gt; and &lt;input type="text"&gt;? <span
+                    class="badge">Easy</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>&lt;input type="text"&gt;</code> is designed for a <strong>single-line text value</strong>, while
+                <code>&lt;textarea&gt;</code> is designed for <strong>multi-line text</strong>.<br><br>
+                For example, a username would typically use an input, while a message or description would typically use
+                a textarea.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can &lt;textarea&gt; have a value attribute?</span>
+                <span class="a">The initial value of a textarea is normally provided as its <strong>text
+                        content</strong>: <code>&lt;textarea&gt;Hello&lt;/textarea&gt;</code> rather than using a
+                    <code>value</code> attribute like an input.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What is the purpose of &lt;textarea&gt;? </span>
+                <span class="a">
+                    <code>&lt;textarea&gt;</code> is used for <strong>multi-line text input</strong>.<br><br>
+                    <code>&lt;label for="message"&gt;Message&lt;/label&gt;</code><br>
+                    <code>&lt;textarea id="message" name="message" rows="5" cols="30"&gt;&lt;/textarea&gt;</code><br><br>
+                    Unlike <code>&lt;input&gt;</code>, <code>&lt;textarea&gt;</code> has content between its opening and
+                    closing tags.
+                    <br><br>
+                    <hr style="border: 0; border-top: 1px solid #bfdbfe; margin: 10px 0;">
+                    <strong>🔁 Follow-up: Where do you specify the initial value?</strong><br>
+                    <code>&lt;textarea name="message"&gt;Initial value&lt;/textarea&gt;</code>
+                </span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;!-- Single-line --&gt;
+&lt;input type="text" name="username"&gt;
+
+&lt;!-- Multi-line --&gt;
+&lt;textarea name="message"&gt;Hello&lt;/textarea&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q55-demo">
+                <label for="q55-user" style="display: block; font-weight: bold; margin-bottom: 4px;">Username
+                    (input):</label>
+                <input type="text" id="q55-user" placeholder="Single line">
+
+                <label for="q55-msg" style="display: block; font-weight: bold; margin-bottom: 4px;">Message
+                    (textarea):</label>
+                <textarea id="q55-msg" placeholder="Multi-line...">Hello</textarea>
+            </div>
+        </section>
+
+        <!-- ==================== Q56 ==================== -->
+        <section class="q-section">
+            <h2>Q56 — What is the purpose of the name attribute in form controls? <span
+                    class="badge medium">Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                The <code>name</code> attribute identifies a form control when the browser constructs the form data for
+                submission.<br><br>
+                For example:<br>
+                <code>&lt;input name="username"&gt;</code><br>
+                <code>&lt;input name="email"&gt;</code><br>
+                The submitted data can contain key-value pairs such as: <code>username=Youssef</code> and
+                <code>email=test@example.com</code>.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Does an input need name to work with JavaScript?</span>
+                <span class="a"><strong>No.</strong> JavaScript can access the input using its ID, class, DOM reference,
+                    or other selectors. But <code>name</code> has an important role in native HTML form
+                    submission.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What happens if an input has a value but no name?</span>
+                <span class="a">Its value generally isn't included in the native form submission data.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;form id="q56-form"&gt;
+  &lt;input name="username" placeholder="Username"&gt;
+  &lt;input name="email" placeholder="Email"&gt;
+  &lt;button type="submit"&gt;Submit&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Submit the form</h3>
+            <div class="demo-box q56-demo">
+                <form id="q56-form">
+                    <input name="username" placeholder="Username" value="Youssef">
+                    <input name="email" placeholder="Email" value="test@example.com">
+                    <button type="submit">Submit</button>
+                </form>
+                <div class="result" id="q56-output">Click submit to see the key-value pairs generated by the `name`
+                    attributes.</div>
+            </div>
+        </section>
+
+        <!-- ==================== Q57 ==================== -->
+        <section class="q-section">
+            <h2>Q57 — Why do radio buttons usually share the same name? <span class="badge medium">Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                Radio buttons with the <strong>same name</strong> belong to the same group, so the user can normally
+                select <strong>only one option</strong> from that group.<br><br>
+                Because both have <code>name="gender"</code>, they behave as one radio group.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What happens if they have different names?</span>
+                <span class="a">They are treated as <strong>separate groups</strong>, so the user can select one option
+                    from each group.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What is the difference between radio buttons and checkboxes?</span>
+                <span class="a">
+                    <strong>Radio buttons</strong> are generally used when the user should select <strong>one
+                        option</strong> from a group.<br><br>
+                    <code>&lt;input type="radio" name="role" value="employee"&gt;</code><br>
+                    <code>&lt;input type="radio" name="role" value="recruiter"&gt;</code><br><br>
+                    Because they share the same <code>name</code>, they form one radio group.<br><br>
+                    <strong>Checkboxes</strong> represent independent boolean choices or allow <strong>multiple
+                        selections</strong>.<br><br>
+                    <code>&lt;input type="checkbox" name="skills" value="angular"&gt;</code><br>
+                    <code>&lt;input type="checkbox" name="skills" value="java"&gt;</code>
+                </span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Why is name important for radio buttons?</span>
+                <span class="a">
+                    Radio buttons with the same <code>name</code> belong to the same group, so normally <strong>only one
+                        can be selected</strong>.
+                </span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;!-- ✅ Same name: can only select one --&gt;
+&lt;input type="radio" name="gender" value="male"&gt; Male
+&lt;input type="radio" name="gender" value="female"&gt; Female
+
+&lt;!-- ❌ Different names: can select both --&gt;
+&lt;input type="radio" name="option1"&gt; Option 1
+&lt;input type="radio" name="option2"&gt; Option 2</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Try selecting them</h3>
+            <div class="demo-box q57-demo">
+                <form>
+                    <fieldset>
+                        <legend>✅ Same name (gender)</legend>
+                        <label><input type="radio" name="gender" value="male"> Male</label>
+                        <label><input type="radio" name="gender" value="female"> Female</label>
+                    </fieldset>
+                    <fieldset>
+                        <legend>❌ Different names</legend>
+                        <label><input type="radio" name="option1"> Option 1</label>
+                        <label><input type="radio" name="option2"> Option 2</label>
+                    </fieldset>
+                </form>
+            </div>
+        </section>
+
+        <!-- ==================== Q58 ==================== -->
+        <section class="q-section">
+            <h2>Q58 — What is the difference between &lt;select&gt;, &lt;option&gt;, and &lt;optgroup&gt;? <span
+                    class="badge medium">Easy → Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <ul style="margin:6px 0">
+                    <li><code>&lt;select&gt;</code> represents the <strong>dropdown control</strong>.</li>
+                    <li><code>&lt;option&gt;</code> represents an <strong>individual selectable item</strong>.</li>
+                    <li><code>&lt;optgroup&gt;</code> <strong>groups related options</strong> inside a select.</li>
+                </ul>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can a user select multiple options?</span>
+                <span class="a"><strong>Yes.</strong> The <code>&lt;select&gt;</code> element can have the
+                    <code>multiple</code> attribute.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;select name="country"&gt;
+  &lt;optgroup label="Africa"&gt;
+    &lt;option value="eg"&gt;Egypt&lt;/option&gt;
+    &lt;option value="ma"&gt;Morocco&lt;/option&gt;
+  &lt;/optgroup&gt;
+  &lt;optgroup label="Europe"&gt;
+    &lt;option value="fr"&gt;France&lt;/option&gt;
+  &lt;/optgroup&gt;
+&lt;/select&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q58-demo">
+                <select name="country">
+                    <optgroup label="Africa">
+                        <option value="eg">Egypt</option>
+                        <option value="ma">Morocco</option>
+                    </optgroup>
+                    <optgroup label="Europe">
+                        <option value="fr">France</option>
+                    </optgroup>
+                </select>
+            </div>
+        </section>
+
+        <!-- ==================== Q59 ==================== -->
+        <section class="q-section">
+            <h2>Q59 — What is the difference between checked, selected, and value? <span
+                    class="badge medium">Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <ul style="margin:6px 0">
+                    <li><code>checked</code> is used with checkbox and radio inputs to indicate their <strong>default
+                            checked state</strong>.</li>
+                    <li><code>selected</code> is used on an <code>&lt;option&gt;</code> to indicate its <strong>default
+                            selected state</strong>.</li>
+                    <li><code>value</code> specifies the <strong>value</strong> associated with a form control.</li>
+                </ul>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Does checked mean the checkbox can never be unchecked?</span>
+                <span class="a"><strong>No.</strong> It represents the initial/default checked state. The user can
+                    normally change it unless the control is disabled or otherwise restricted.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;!-- Checked --&gt;
+&lt;input type="checkbox" name="active" value="true" checked&gt;
+
+&lt;!-- Selected --&gt;
+&lt;select&gt;
+  &lt;option value="eg" selected&gt;Egypt&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q59-demo">
+                <label>
+                    <input type="checkbox" name="active" value="true" checked>
+                    Checkbox (checked by default)
+                </label>
+                <br>
+                <label>
+                    Dropdown (selected by default):
+                    <select>
+                        <option value="eg" selected>Egypt</option>
+                        <option value="fr">France</option>
+                    </select>
+                </label>
+            </div>
+        </section>
+
+        <!-- ==================== Q60 ==================== -->
+        <section class="q-section">
+            <h2>Q60 — What is HTML form validation, and why is it useful? <span class="badge medium">Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                HTML provides built-in <strong>client-side validation</strong> through attributes such as:
+                <code>required</code>, <code>minlength</code>, <code>maxlength</code>, <code>min</code>,
+                <code>max</code>, <code>pattern</code>, and input types such as <code>email</code>.<br><br>
+                The browser can prevent submission and report that the field is invalid.<br>
+                However, client-side validation should <strong>not be considered a security boundary</strong>. The
+                backend must validate the data again because the client can be bypassed or manipulated.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: If Angular Reactive Forms validates the email, do we still need backend
+                    validation?</span>
+                <span class="a"><strong>Absolutely.</strong> Frontend validation improves user experience and provides
+                    immediate feedback, but backend validation is required for security and data integrity because
+                    clients cannot be trusted.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What is the difference between required and HTML validation?</span>
+                <span class="a">
+                    <code>required</code> is one of HTML's built-in validation constraints.<br><br>
+                    <code>&lt;input type="email" name="email" required&gt;</code><br><br>
+                    The browser can prevent native form submission when the required field doesn't satisfy the
+                    constraint.<br>
+                    HTML also provides other validation-related attributes such as: <code>min</code>, <code>max</code>,
+                    <code>minlength</code>, <code>maxlength</code>, <code>pattern</code>, <code>step</code>.
+                    <br><br>
+                    <hr style="border: 0; border-top: 1px solid #bfdbfe; margin: 10px 0;">
+                    <strong>🔁 Follow-up: Does HTML validation replace backend validation?</strong><br>
+                    <strong>No.</strong> Client-side HTML validation improves UX, but the server must validate the
+                    submitted data because clients cannot be trusted.
+                </span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What is the difference between minlength/maxlength and min/max?</span>
+                <span class="a">
+                    <code>minlength</code> and <code>maxlength</code> apply to the <strong>length of text</strong>.<br>
+                    <code>&lt;input type="text" minlength="3" maxlength="20"&gt;</code><br><br>
+                    <code>min</code> and <code>max</code> constrain a <strong>numeric/date-like value</strong>,
+                    depending on the input type.<br>
+                    <code>&lt;input type="number" min="18" max="100"&gt;</code>
+                    <br><br>
+                    <hr style="border: 0; border-top: 1px solid #bfdbfe; margin: 10px 0;">
+                    <strong>🔁 Follow-up: What about &lt;input type="number" maxlength="2"&gt;? Will that reliably limit
+                        the number to two digits?</strong><br>
+                    <strong>No.</strong> <code>maxlength</code> is a text-length constraint and isn't the appropriate
+                    mechanism for limiting a number input.
+                </span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What is the pattern attribute used for?</span>
+                <span class="a">
+                    <code>pattern</code> specifies a <strong>regular expression</strong> that the control's value must
+                    satisfy for constraint validation.<br><br>
+                    <code>&lt;input type="text" name="username" pattern="[A-Za-z0-9_]+"&gt;</code><br><br>
+                    If the user submits a value that doesn't satisfy the constraint, native browser validation can
+                    prevent submission.
+                    <br><br>
+                    <hr style="border: 0; border-top: 1px solid #bfdbfe; margin: 10px 0;">
+                    <strong>🔁 Follow-up: Does pattern protect my backend from malicious input?</strong><br>
+                    <strong>No.</strong> It is client-side validation and can be bypassed completely. The backend must
+                    independently validate and sanitize/handle input appropriately.
+                </span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;form id="q60-form"&gt;
+  &lt;input
+    type="email"
+    name="email"
+    required
+    placeholder="Enter a valid email"&gt;
+  &lt;button type="submit"&gt;Submit&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Try submitting empty or invalid</h3>
+            <div class="demo-box q60-demo">
+                <form id="q60-form"
+                    onsubmit="event.preventDefault(); document.getElementById('q60-output').style.display='block';">
+                    <input type="email" name="email" required placeholder="Enter a valid email">
+                    <button type="submit">Submit</button>
+                </form>
+                <div class="result" id="q60-output">✅ Form submitted successfully! (Validation passed)</div>
+            </div>
+        </section>
+
+        <!-- ==================== STUDENT TASK ==================== -->
+        <section class="task-section">
+            <h2>🧑‍🎓 Student Task — Feedback & Registration Form</h2>
+            <p>Build <strong>one HTML page</strong> (+ CSS file + optional JS file) that applies <strong>all 10
+                    concepts</strong> from Part 6. Submit as a zipped folder or CodePen link.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Concept</th>
+                        <th>What you must do</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>51</td>
+                        <td>Layout tags</td>
+                        <td>Use <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>,
+                            <code>&lt;aside&gt;</code>, and <code>&lt;footer&gt;</code> to build your page layout.</td>
+                    </tr>
+                    <tr>
+                        <td>52</td>
+                        <td>Single main</td>
+                        <td>Ensure there is only one <code>&lt;main&gt;</code> element wrapping your primary content.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>53</td>
+                        <td>br vs p</td>
+                        <td>Use a <code>&lt;br&gt;</code> inside your footer for an address line (e.g., "123 Main
+                            St.<br>City, Country").</td>
+                    </tr>
+                    <tr>
+                        <td>54</td>
+                        <td>p vs div</td>
+                        <td>Write a paragraph description using <code>&lt;p&gt;</code> and a layout wrapper using
+                            <code>&lt;div&gt;</code>.</td>
+                    </tr>
+                    <tr>
+                        <td>55</td>
+                        <td>textarea</td>
+                        <td>Add a "Message" field using <code>&lt;textarea&gt;</code>.</td>
+                    </tr>
+                    <tr>
+                        <td>56</td>
+                        <td>name attribute</td>
+                        <td>Ensure every form control has a unique <code>name</code> attribute.</td>
+                    </tr>
+                    <tr>
+                        <td>57</td>
+                        <td>Radio buttons</td>
+                        <td>Create a "Contact Preference" radio group (e.g., Email, Phone) using the same
+                            <code>name</code>.</td>
+                    </tr>
+                    <tr>
+                        <td>58</td>
+                        <td>optgroup</td>
+                        <td>Create a dropdown for "Department" with <code>&lt;optgroup&gt;</code> for "Engineering" and
+                            "Design".</td>
+                    </tr>
+                    <tr>
+                        <td>59</td>
+                        <td>checked/selected</td>
+                        <td>Make the "Phone" radio checked by default, and select "Engineering" by default.</td>
+                    </tr>
+                    <tr>
+                        <td>60</td>
+                        <td>Validation</td>
+                        <td>Add <code>required</code> to the Email input and use <code>type="email"</code> to enforce
+                            validation.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>📦 Submission rules</h3>
+            <ul>
+                <li><strong>File names:</strong> <code>index.html</code>, <code>styles.css</code>, <code>app.js</code>
+                </li>
+                <li><strong>Comments:</strong> above each section, e.g.
+                    <code>&lt;!-- Q57: Same name for radio group --&gt;</code></li>
+                <li><strong>README.md</strong> with 3 answers:
+                    <ol>
+                        <li>Why is it bad to use a <code>&lt;div&gt;</code> instead of a <code>&lt;p&gt;</code> for
+                            text?</li>
+                        <li>What happens if you remove the <code>name</code> attribute from a form input?</li>
+                        <li>Why is client-side validation not enough for security?</li>
+                    </ol>
+                </li>
+            </ul>
+
+            <h3>⭐ Bonus</h3>
+            <ul>
+                <li>Add the <code>multiple</code> attribute to a second <code>&lt;select&gt;</code> to let the user pick
+                    multiple skills.</li>
+                <li>Add a <code>pattern</code> attribute to an input to enforce a specific format (e.g., ZIP code).</li>
+            </ul>
+
+            <h3>🎯 Grading (out of 10)</h3>
+            <p>1 point per row. "Validation" and "Radio buttons" rows are worth double if the README explanation is
+                correct.</p>
+        </section>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.hljs) {
+                hljs.highlightAll();
+                if (hljs.lineNumbersBlock) {
+                    document.querySelectorAll('pre code').forEach(function (el) {
+                        hljs.lineNumbersBlock(el);
+                    });
+                }
+            }
+
+            // Q56 Form Submit
+            const q56Form = document.getElementById('q56-form');
+            if (q56Form) {
+                q56Form.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    const formData = new FormData(q56Form);
+                    let output = "Form Data Key-Value Pairs:\n";
+                    for (let [key, value] of formData.entries()) {
+                        output += `  ${key}=${value}\n`;
+                    }
+                    document.getElementById('q56-output').textContent = output;
+                });
+            }
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML &amp; CSS Questions — Part 14 (131–140)</title>
+
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%234f46e5'/%3E%3Cstop%20offset='1'%20stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='url(%23g)'/%3E%3Cpath%20d='M22%2022%20L14%2032%20L22%2042%20M42%2022%20L50%2032%20L42%2042'%20stroke='white'%20stroke-width='4'%20stroke-linecap='round'%20stroke-linejoin='round'%20fill='none'/%3E%3C/svg%3E" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css" />
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            background: #f4f6fa;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        .back-home {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 9999;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 16px rgba(79, 70, 229, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .back-home:hover {
+            background: linear-gradient(135deg, #4338ca, #6d28d9);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(79, 70, 229, 0.5);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 640px) {
+            .back-home {
+                top: 12px;
+                left: 12px;
+                padding: 8px 14px;
+                font-size: 0.8rem;
+            }
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            margin: 0 0 8px;
+            font-size: 2rem;
+        }
+
+        .page-header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 24px 20px;
+        }
+
+        .q-section {
+            background: #fff;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 28px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+        }
+
+        .q-section h2 {
+            margin-top: 0;
+            color: #4f46e5;
+            border-bottom: 2px solid #eef;
+            padding-bottom: 10px;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            background: #dcfce7;
+            color: #166534;
+            margin-left: 8px;
+            vertical-align: middle;
+            font-weight: 600;
+        }
+
+        .badge.medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge.hard {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .q-section h3 {
+            color: #374151;
+            margin-top: 22px;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .answer {
+            background: #ecfdf5;
+            border-left: 4px solid #10b981;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 10px 0;
+        }
+
+        .answer strong.label {
+            display: block;
+            font-size: 0.75rem;
+            color: #059669;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .followup {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 12px 0;
+        }
+
+        .followup .q {
+            font-weight: 600;
+            color: #1d4ed8;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .followup .a {
+            color: #1e3a8a;
+        }
+
+        .demo-box {
+            background: #fafbff;
+            border: 1px dashed #c7d2fe;
+            border-radius: 10px;
+            padding: 16px;
+            margin: 12px 0;
+        }
+
+        .demo-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .demo-label.bad {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .demo-label.good {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .vs-code {
+            background: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 16px 0;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #2d2d2d;
+        }
+
+        .vs-titlebar {
+            background: #3c3c3c;
+            padding: 9px 14px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px solid #2d2d2d;
+        }
+
+        .vs-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .vs-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .vs-dot.red {
+            background: #ff5f56;
+        }
+
+        .vs-dot.yellow {
+            background: #ffbd2e;
+        }
+
+        .vs-dot.green {
+            background: #27c93f;
+        }
+
+        .vs-title {
+            position: absolute;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 12px;
+            color: #cccccc;
+            pointer-events: none;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+
+        .vs-tabbar {
+            background: #252526;
+            display: flex;
+        }
+
+        .vs-tab {
+            background: #2d2d2d;
+            color: #969696;
+            padding: 9px 20px;
+            font-size: 12.5px;
+            border-right: 1px solid #1e1e1e;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .vs-tab.active {
+            background: #1e1e1e;
+            color: #ffffff;
+        }
+
+        .vs-tab.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #007acc;
+        }
+
+        .file-icon {
+            display: inline-block;
+            width: 9px;
+            height: 9px;
+            border-radius: 2px;
+        }
+
+        .file-icon.html {
+            background: #e44d26;
+        }
+
+        .file-icon.css {
+            background: #264de4;
+        }
+
+        .file-icon.js {
+            background: #f7df1e;
+        }
+
+        .vs-body {
+            margin: 0 !important;
+            padding: 16px 0 !important;
+            background: #1e1e1e !important;
+            overflow-x: auto;
+            font-size: 13px !important;
+            line-height: 1.65 !important;
+            color: #dcdcdc;
+            border-radius: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+        }
+
+        .vs-body code {
+            background: transparent !important;
+            padding: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+            font-size: inherit !important;
+            color: inherit;
+            white-space: pre;
+        }
+
+        .vs-body .hljs-ln-numbers {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            text-align: right;
+            color: #858585 !important;
+            border-right: 1px solid #3a3f4b;
+            padding: 0 14px 0 16px !important;
+            vertical-align: top;
+            font-weight: normal;
+        }
+
+        .vs-body .hljs-ln-code {
+            padding: 0 16px !important;
+        }
+
+        .vs-body .hljs-ln {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .vs-body .hljs-ln td {
+            padding: 0;
+        }
+
+        .vs-body::-webkit-scrollbar {
+            height: 10px;
+        }
+
+        .vs-body::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+
+        .vs-body::-webkit-scrollbar-thumb {
+            background: #424242;
+            border-radius: 5px;
+        }
+
+        .vs-body code.hljs,
+        .vs-body .hljs {
+            background: transparent !important;
+            padding: 0 !important;
+            overflow: visible !important;
+        }
+
+        .task-section {
+            background: linear-gradient(135deg, #fff7ed, #fef3c7);
+            border: 2px solid #f59e0b;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 40px;
+        }
+
+        .task-section h2 {
+            color: #b45309;
+            margin-top: 0;
+        }
+
+        .task-section h3 {
+            color: #78350f;
+            margin-top: 22px;
+            font-size: 1rem;
+            letter-spacing: 0.3px;
+        }
+
+        .task-section table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 12px 0;
+            font-size: 0.9rem;
+        }
+
+        .task-section th,
+        .task-section td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .task-section th {
+            background: #fde68a;
+            color: #78350f;
+        }
+
+        .task-section code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+        }
+
+        .task-section ul,
+        .task-section ol {
+            margin: 6px 0 0;
+            padding-left: 22px;
+        }
+
+        .task-section li {
+            margin-bottom: 6px;
+        }
+
+        /* DEMO SPECIFIC STYLES */
+        .flex-demo-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .flex-box {
+            display: flex;
+            flex-wrap: wrap;
+            background: #e0e7ff;
+            border: 2px solid #4f46e5;
+            border-radius: 8px;
+            padding: 10px;
+            height: 200px;
+            width: 100%;
+            transition: all 0.3s;
+        }
+
+        .flex-item {
+            background: #4f46e5;
+            color: white;
+            padding: 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            flex: 1;
+            min-width: 60px;
+            text-align: center;
+            margin: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .controls-group {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .controls-group button {
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+            background: #fff;
+            font-size: 0.85rem;
+        }
+
+        .controls-group button.active {
+            background: #4f46e5;
+            color: #fff;
+            border-color: #4f46e5;
+        }
+
+        .align-self-demo {
+            display: flex;
+            align-items: center;
+            height: 150px;
+            background: #f3f4f6;
+            padding: 10px;
+            border-radius: 8px;
+            gap: 10px;
+        }
+
+        .align-self-demo .special {
+            align-self: flex-start;
+            background: #ef4444;
+        }
+
+        .flex-basis-demo {
+            display: flex;
+            background: #f3f4f6;
+            padding: 10px;
+            border-radius: 8px;
+            gap: 10px;
+        }
+
+        .flex-basis-demo>div {
+            background: #4f46e5;
+            color: white;
+            padding: 16px;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .item-a {
+            flex: 1;
+        }
+
+        .item-b {
+            flex: 2;
+        }
+
+        .item-c {
+            flex: 1;
+        }
+
+        .min-width-demo {
+            display: flex;
+            background: #f3f4f6;
+            padding: 10px;
+            border-radius: 8px;
+            gap: 10px;
+            border: 1px solid #ccc;
+        }
+
+        .sidebar {
+            background: #3b82f6;
+            color: white;
+            width: 150px;
+            flex-shrink: 0;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .main-content {
+            background: #10b981;
+            color: white;
+            padding: 10px;
+            border-radius: 4px;
+            overflow: hidden;
+            flex: 1;
+        }
+
+        .main-content.fixed {
+            min-width: 0;
+        }
+
+        .long-text {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .gap-demo {
+            display: flex;
+            gap: 16px;
+            background: #eef2ff;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+
+        .gap-demo>div {
+            background: #4f46e5;
+            color: white;
+            padding: 16px;
+            border-radius: 4px;
+            flex: 1;
+            text-align: center;
+        }
+
+        .margin-demo {
+            display: flex;
+            background: #eef2ff;
+            padding: 16px;
+            border-radius: 8px;
+        }
+
+        .margin-demo>div {
+            background: #4f46e5;
+            color: white;
+            padding: 16px;
+            border-radius: 4px;
+            flex: 1;
+            text-align: center;
+            margin: 0 8px;
+        }
+
+        .grid-vs-flex {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .demo-container {
+            flex: 1;
+            min-width: 250px;
+            background: #f9fafb;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .flex-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .flex-layout>div {
+            background: #c7d2fe;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .grid-layout>div {
+            background: #bbf7d0;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .grid-demo {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 10px;
+            background: #f3f4f6;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+
+        .grid-demo>div {
+            background: #f59e0b;
+            color: white;
+            padding: 16px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .grid-minmax {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            background: #f3f4f6;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .grid-minmax>div {
+            background: #10b981;
+            color: white;
+            padding: 16px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .autofit-demo {
+            display: grid;
+            gap: 10px;
+            background: #f3f4f6;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .autofit-demo>div {
+            background: #ef4444;
+            color: white;
+            padding: 16px;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .autofit-demo.fit {
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        }
+
+        .autofit-demo.fill {
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        }
+
+        .grid-toggle {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .grid-toggle button {
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+            background: #fff;
+        }
+
+        .grid-toggle button.active {
+            background: #4f46e5;
+            color: #fff;
+            border-color: #4f46e5;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="../../index.html" class="back-home">← Back to Home</a>
+
+    <header class="page-header">
+        <h1>HTML &amp; CSS Questions — Part 14 (131 → 140)</h1>
+        <p>Questions + Answers + VS Code-style code + Live demos that match the code exactly</p>
+    </header>
+
+    <div class="container">
+
+        <!-- Q131 -->
+        <section class="q-section">
+            <h2>Q131 — What is the difference between justify-content, align-items, and align-content in Flexbox? <span
+                    class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <ul style="margin:6px 0">
+                    <li><strong>justify-content</strong> controls distribution along the <strong>main axis</strong>.
+                    </li>
+                    <li><strong>align-items</strong> controls alignment along the <strong>cross axis</strong> within a
+                        single flex line.</li>
+                    <li><strong>align-content</strong> controls the distribution of <strong>multiple flex lines</strong>
+                        along the cross axis.</li>
+                </ul>
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: When does align-content have an effect?</span>
+                <span class="a">It matters when the flex container has <strong>multiple lines</strong>, usually because
+                    <code>flex-wrap: wrap</code> is enabled and there is extra space along the cross axis.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  align-content: space-around;
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box">
+                <p style="font-size: 0.85rem; margin-top:0;"><strong>justify-content:</strong></p>
+                <div class="controls-group">
+                    <button onclick="setFlexProp('justifyContent', 'flex-start', this)"
+                        class="active">flex-start</button>
+                    <button onclick="setFlexProp('justifyContent', 'center', this)">center</button>
+                    <button onclick="setFlexProp('justifyContent', 'space-between', this)">space-between</button>
+                </div>
+                <p style="font-size: 0.85rem;"><strong>align-items:</strong></p>
+                <div class="controls-group">
+                    <button onclick="setFlexProp('alignItems', 'stretch', this)" class="active">stretch</button>
+                    <button onclick="setFlexProp('alignItems', 'center', this)">center</button>
+                    <button onclick="setFlexProp('alignItems', 'flex-start', this)">flex-start</button>
+                </div>
+                <div class="flex-box" id="q131-box" style="justify-content: flex-start; align-items: stretch;">
+                    <div class="flex-item">Item 1</div>
+                    <div class="flex-item">Item 2</div>
+                    <div class="flex-item">Item 3</div>
+                    <div class="flex-item">Item 4</div>
+                    <div class="flex-item">Item 5</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q132 -->
+        <section class="q-section">
+            <h2>Q132 — What is the difference between align-items and align-self? <span
+                    class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>align-items</code> is set on the <strong>flex container</strong> and defines the default
+                cross-axis alignment for its flex items.<br><br>
+                <code>align-self</code> is set on an <strong>individual flex item</strong> and allows that item to
+                override the container's <code>align-items</code> value.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can align-self override justify-content?</span>
+                <span class="a"><strong>No.</strong> <code>align-self</code> controls the item's alignment on the cross
+                    axis. <code>justify-content</code> controls distribution along the main axis.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.container { display: flex; align-items: center; }
+.special { align-self: flex-start; }</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box">
+                <div class="align-self-demo" style="align-items: center;">
+                    <div class="flex-item" style="margin:0; flex: 1;">Item 1 (Center)</div>
+                    <div class="flex-item special" style="margin:0; flex: 1;">Item 2 (align-self: flex-start)</div>
+                    <div class="flex-item" style="margin:0; flex: 1;">Item 3 (Center)</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q133 -->
+        <section class="q-section">
+            <h2>Q133 — What is the difference between flex-grow, flex-shrink, and flex-basis? <span
+                    class="badge hard">Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <ul style="margin:6px 0">
+                    <li><strong>flex-grow</strong> determines how much an item can grow relative to others.</li>
+                    <li><strong>flex-shrink</strong> determines how much an item can shrink when there isn't enough
+                        space.</li>
+                    <li><strong>flex-basis</strong> defines the initial main-size used before remaining space is
+                        distributed.</li>
+                </ul>
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What does <code>flex: 1;</code> mean?</span>
+                <span class="a">It's a shorthand that commonly behaves as:
+                    <code>flex-grow: 1; flex-shrink: 1; flex-basis: 0%;</code>.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.item {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 200px;
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box">
+                <div class="flex-basis-demo">
+                    <div class="item-a">flex: 1</div>
+                    <div class="item-b">flex: 2</div>
+                    <div class="item-c">flex: 1</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q134 -->
+        <section class="q-section">
+            <h2>Q134 — What is the difference between flex-basis: auto and flex-basis: 0? <span
+                    class="badge hard">Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>flex-basis: auto</code> uses the item's main-size property (e.g., <code>width</code>) as the
+                initial basis.<br><br>
+                <code>flex-basis: 0</code> sets the initial flex base to effectively zero, so available free space is
+                distributed based primarily on the flex grow factors.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: If two items have <code>flex: 1;</code> what happens?</span>
+                <span class="a">They generally divide the available free space <strong>equally</strong>, subject to
+                    minimum sizes and other constraints.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.item-auto { flex-basis: auto; width: 100px; }
+.item-zero { flex-basis: 0; }</code></pre>
+            </div>
+        </section>
+
+        <!-- Q135 -->
+        <section class="q-section">
+            <h2>Q135 — What does min-width: 0 solve in Flexbox? <span class="badge hard">Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                Flex items have an automatic minimum size behavior that can sometimes prevent them from shrinking as
+                expected.<br><br>
+                Setting <code>min-width: 0;</code> allows the item to shrink below its content's intrinsic minimum size
+                in situations where that default minimum would otherwise cause overflow.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Where might you encounter this problem in a real application?</span>
+                <span class="a">For example, in a dashboard layout (Sidebar | Main Content). If the main content is a
+                    flex child containing a wide table or long text.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.main-content {
+  flex: 1;
+  min-width: 0; /* The Fix */
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box">
+                <button onclick="toggleMinWidth()"
+                    style="background: #4f46e5; color: #fff; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; margin-bottom: 10px;">Toggle
+                    `min-width: 0`</button>
+                <div class="min-width-demo">
+                    <div class="sidebar">Sidebar (150px)</div>
+                    <div class="main-content" id="q135-main">
+                        <div class="long-text">
+                            This_is_a_very_long_unbreakable_string_that_forces_the_flex_item_to_overflow_because_it_wont_shrink_below_its_intrinsic_width
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q136 -->
+        <section class="q-section">
+            <h2>Q136 — What is the difference between gap, margin, and padding in a Flexbox layout? <span
+                    class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <ul style="margin:6px 0">
+                    <li><strong>gap</strong> creates consistent spacing <strong>between</strong> flex or grid items.
+                    </li>
+                    <li><strong>margin</strong> creates space <strong>outside</strong> an individual element.</li>
+                    <li><strong>padding</strong> creates space between an element's content and its border.</li>
+                </ul>
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Does gap add space around the outer edges of the container?</span>
+                <span class="a"><strong>No.</strong> <code>gap</code> creates spacing between adjacent items, not
+                    between the items and the container's outer edges.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.container {
+  display: flex;
+  gap: 20px;
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box">
+                <p style="font-size: 0.85rem; margin-top: 0;"><strong>Using gap:</strong></p>
+                <div class="gap-demo">
+                    <div>Item 1</div>
+                    <div>Item 2</div>
+                    <div>Item 3</div>
+                </div>
+                <p style="font-size: 0.85rem;"><strong>Using margin:</strong></p>
+                <div class="margin-demo">
+                    <div>Item 1</div>
+                    <div>Item 2</div>
+                    <div>Item 3</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q137 -->
+        <section class="q-section">
+            <h2>Q137 — What is CSS Grid, and how is it different from Flexbox? <span class="badge medium">Easy →
+                    Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                CSS Grid is a <strong>two-dimensional</strong> layout system that can control rows and columns
+                simultaneously.<br><br>
+                Flexbox is primarily a <strong>one-dimensional</strong> layout system, focusing on a row or a column at
+                a time.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Would you use Grid or Flexbox for a navigation bar?</span>
+                <span class="a">Usually <strong>Flexbox</strong> because navigation is commonly a one-dimensional
+                    arrangement. For a page layout with rows and columns, Grid may be more appropriate.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.flex-container { display: flex; }
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box">
+                <div class="grid-vs-flex">
+                    <div class="demo-container">
+                        <h4 style="margin-top:0; color:#4f46e5;">Flexbox (1D)</h4>
+                        <div class="flex-layout">
+                            <div>Header</div>
+                            <div>Content</div>
+                            <div>Footer</div>
+                        </div>
+                    </div>
+                    <div class="demo-container">
+                        <h4 style="margin-top:0; color:#10b981;">Grid (2D)</h4>
+                        <div class="grid-layout">
+                            <div style="grid-column: span 2;">Header</div>
+                            <div>Sidebar</div>
+                            <div>Content</div>
+                            <div style="grid-column: span 2;">Footer</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q138 -->
+        <section class="q-section">
+            <h2>Q138 — What does fr mean in CSS Grid? <span class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>fr</code> stands for <strong>fractional unit</strong>. It represents a fraction of the available
+                space in a grid container after accounting for other track sizes and relevant gaps.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What does <code>grid-template-columns: repeat(3, 1fr);</code> mean?</span>
+                <span class="a">It creates three flexible columns that generally receive <strong>equal
+                        fractions</strong> of the available grid space.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box">
+                <div class="grid-demo">
+                    <div>1fr</div>
+                    <div>2fr</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q139 -->
+        <section class="q-section">
+            <h2>Q139 — What is the difference between auto-fit and auto-fill in CSS Grid? <span
+                    class="badge hard">Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <strong>auto-fit</strong> collapses empty tracks when possible, allowing existing items to expand and
+                fill the available space.<br><br>
+                <strong>auto-fill</strong> keeps the available track structure, including empty tracks, when they fit.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Give me a responsive product grid using this concept.</span>
+                <span class="a"><code>grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));</code> - This allows
+                    the number of columns to adapt to the available width.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.autofit {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+.autofill {
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box">
+                <div class="grid-toggle">
+                    <button onclick="setGridMode('fit', this)" class="active">auto-fit</button>
+                    <button onclick="setGridMode('fill', this)">auto-fill</button>
+                </div>
+                <div class="autofit-demo fit" id="q139-grid">
+                    <div>Item 1</div>
+                    <div>Item 2</div>
+                </div>
+                <p style="font-size: 0.85rem; color: #666; margin-top: 10px; margin-bottom: 0;">Notice:
+                    <code>auto-fit</code> stretches the 2 items. <code>auto-fill</code> leaves empty invisible columns.
+                </p>
+            </div>
+        </section>
+
+        <!-- Q140 -->
+        <section class="q-section">
+            <h2>Q140 — What is minmax() in CSS Grid? <span class="badge hard">Medium → Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>minmax()</code> defines a <strong>minimum and maximum size</strong> for a grid track.<br><br>
+                Each column should be at least the minimum size, while being allowed to grow up to the maximum size
+                within the available space.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Why is this better than manually writing media queries?</span>
+                <span class="a">Because the grid can respond <strong>continuously</strong> to the available space rather
+                    than relying on many fixed breakpoints.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.grid {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box">
+                <div class="grid-minmax">
+                    <div>min 120px</div>
+                    <div>min 120px</div>
+                    <div>min 120px</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Task -->
+        <section class="task-section">
+            <h2>🧑‍🎓 Student Task — Layout Mastery</h2>
+            <p>Build <strong>one HTML page</strong> (+ CSS file). Submit as a zipped folder.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Concept</th>
+                        <th>What you must do</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>131</td>
+                        <td>Flex Alignment</td>
+                        <td>Create a flex container with `justify-content: center` and `align-items: center`.</td>
+                    </tr>
+                    <tr>
+                        <td>132</td>
+                        <td>align-self</td>
+                        <td>In a flex row, make one item align to the top using `align-self`.</td>
+                    </tr>
+                    <tr>
+                        <td>133</td>
+                        <td>flex shorthand</td>
+                        <td>Create 3 items with `flex: 1`, `flex: 2`, and `flex: 1`.</td>
+                    </tr>
+                    <tr>
+                        <td>134</td>
+                        <td>flex-basis</td>
+                        <td>Add a comment explaining `flex-basis: auto` vs `flex-basis: 0`.</td>
+                    </tr>
+                    <tr>
+                        <td>135</td>
+                        <td>min-width: 0</td>
+                        <td>Create a sidebar + main layout with a long URL. Apply `min-width: 0`.</td>
+                    </tr>
+                    <tr>
+                        <td>136</td>
+                        <td>Gap</td>
+                        <td>Build a flex container with 3 cards and use `gap: 20px`.</td>
+                    </tr>
+                    <tr>
+                        <td>137</td>
+                        <td>Grid vs Flex</td>
+                        <td>Build a page layout using CSS Grid and a navigation bar using Flexbox.</td>
+                    </tr>
+                    <tr>
+                        <td>138</td>
+                        <td>fr unit</td>
+                        <td>Use `grid-template-columns: 1fr 3fr;`.</td>
+                    </tr>
+                    <tr>
+                        <td>139</td>
+                        <td>auto-fit</td>
+                        <td>Create a responsive gallery using `repeat(auto-fit, minmax(200px, 1fr))`.</td>
+                    </tr>
+                    <tr>
+                        <td>140</td>
+                        <td>minmax</td>
+                        <td>Use `minmax(100px, auto)` on a grid.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>📦 Submission rules</h3>
+            <ul>
+                <li><strong>File names:</strong> <code>index.html</code>, <code>styles.css</code></li>
+                <li><strong>Comments:</strong> above each section, e.g. <code>/* Q137: Grid vs Flexbox layout */</code>
+                </li>
+                <li><strong>README.md</strong> with 3 answers:
+                    <ol>
+                        <li>When would you use <strong>Flexbox</strong> instead of <strong>CSS Grid</strong>, and vice
+                            versa?</li>
+                        <li>What is the difference between <code>auto-fit</code> and <code>auto-fill</code> inside
+                            <code>grid-template-columns</code>?
+                        </li>
+                        <li>Why does <code>min-width: 0</code> sometimes fix a Flexbox overflow issue?</li>
+                    </ol>
+                </li>
+            </ul>
+
+            <h3>🎯 Grading (out of 10)</h3>
+            <p>1 point per row. <strong>"Grid vs Flex"</strong> and <strong>"auto-fit"</strong> rows are worth double if
+                the README explanation is correct.</p>
+        </section>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.hljs) {hljs.highlightAll(); if (hljs.lineNumbersBlock) {document.querySelectorAll('pre code').forEach(function (el) {hljs.lineNumbersBlock(el);});} }
+        });
+        function setFlexProp(prop, value, btn) {
+            document.getElementById('q131-box').style[prop] = value;
+            const parent = btn.parentElement; const btns = parent.querySelectorAll('button');
+            btns.forEach(b => b.classList.remove('active')); btn.classList.add('active');
+        }
+        function toggleMinWidth() {document.getElementById('q135-main').classList.toggle('fixed');}
+        function setGridMode(mode, btn) {
+            const grid = document.getElementById('q139-grid'); grid.className = 'autofit-demo ' + mode;
+            const btns = document.querySelectorAll('.grid-toggle button');
+            btns.forEach(b => b.classList.remove('active')); btn.classList.add('active');
+        }
+    </script>
+</body>
+
+</html>

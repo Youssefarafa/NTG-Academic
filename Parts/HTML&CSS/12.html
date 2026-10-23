@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML &amp; CSS Questions — Part 12 (111–120)</title>
+
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%234f46e5'/%3E%3Cstop%20offset='1'%20stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='url(%23g)'/%3E%3Cpath%20d='M22%2022%20L14%2032%20L22%2042%20M42%2022%20L50%2032%20L42%2042'%20stroke='white'%20stroke-width='4'%20stroke-linecap='round'%20stroke-linejoin='round'%20fill='none'/%3E%3C/svg%3E" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css" />
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            background: #f4f6fa;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        /* ==================== BACK TO HOME BUTTON ==================== */
+        .back-home {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 9999;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 16px rgba(79, 70, 229, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .back-home:hover {
+            background: linear-gradient(135deg, #4338ca, #6d28d9);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(79, 70, 229, 0.5);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 640px) {
+            .back-home {
+                top: 12px;
+                left: 12px;
+                padding: 8px 14px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* ==================== PAGE HEADER ==================== */
+        .page-header {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            margin: 0 0 8px;
+            font-size: 2rem;
+        }
+
+        .page-header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 24px 20px;
+        }
+
+        .q-section {
+            background: #fff;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 28px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+        }
+
+        .q-section h2 {
+            margin-top: 0;
+            color: #4f46e5;
+            border-bottom: 2px solid #eef;
+            padding-bottom: 10px;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            background: #dcfce7;
+            color: #166534;
+            margin-left: 8px;
+            vertical-align: middle;
+            font-weight: 600;
+        }
+
+        .badge.medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge.hard {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .q-section h3 {
+            color: #374151;
+            margin-top: 22px;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .answer {
+            background: #ecfdf5;
+            border-left: 4px solid #10b981;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 10px 0;
+        }
+
+        .answer strong.label {
+            display: block;
+            font-size: 0.75rem;
+            color: #059669;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .followup {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 12px 0;
+        }
+
+        .followup .q {
+            font-weight: 600;
+            color: #1d4ed8;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .followup .a {
+            color: #1e3a8a;
+        }
+
+        .demo-box {
+            background: #fafbff;
+            border: 1px dashed #c7d2fe;
+            border-radius: 10px;
+            padding: 16px;
+            margin: 12px 0;
+        }
+
+        .demo-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .demo-label.bad {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .demo-label.good {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        /* ==================== VS CODE ==================== */
+        .vs-code {
+            background: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 16px 0;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #2d2d2d;
+        }
+
+        .vs-titlebar {
+            background: #3c3c3c;
+            padding: 9px 14px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px solid #2d2d2d;
+        }
+
+        .vs-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .vs-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .vs-dot.red {
+            background: #ff5f56;
+        }
+
+        .vs-dot.yellow {
+            background: #ffbd2e;
+        }
+
+        .vs-dot.green {
+            background: #27c93f;
+        }
+
+        .vs-title {
+            position: absolute;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 12px;
+            color: #cccccc;
+            pointer-events: none;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+
+        .vs-tabbar {
+            background: #252526;
+            display: flex;
+        }
+
+        .vs-tab {
+            background: #2d2d2d;
+            color: #969696;
+            padding: 9px 20px;
+            font-size: 12.5px;
+            border-right: 1px solid #1e1e1e;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .vs-tab.active {
+            background: #1e1e1e;
+            color: #ffffff;
+        }
+
+        .vs-tab.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #007acc;
+        }
+
+        .file-icon {
+            display: inline-block;
+            width: 9px;
+            height: 9px;
+            border-radius: 2px;
+        }
+
+        .file-icon.html {
+            background: #e44d26;
+        }
+
+        .file-icon.css {
+            background: #264de4;
+        }
+
+        .file-icon.js {
+            background: #f7df1e;
+        }
+
+        .vs-body {
+            margin: 0 !important;
+            padding: 16px 0 !important;
+            background: #1e1e1e !important;
+            overflow-x: auto;
+            font-size: 13px !important;
+            line-height: 1.65 !important;
+            color: #dcdcdc;
+            border-radius: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+        }
+
+        .vs-body code {
+            background: transparent !important;
+            padding: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+            font-size: inherit !important;
+            color: inherit;
+            white-space: pre;
+        }
+
+        .vs-body .hljs-ln-numbers {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            text-align: right;
+            color: #858585 !important;
+            border-right: 1px solid #3a3f4b;
+            padding: 0 14px 0 16px !important;
+            vertical-align: top;
+            font-weight: normal;
+        }
+
+        .vs-body .hljs-ln-code {
+            padding: 0 16px !important;
+        }
+
+        .vs-body .hljs-ln {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .vs-body .hljs-ln td {
+            padding: 0;
+        }
+
+        .vs-body::-webkit-scrollbar {
+            height: 10px;
+        }
+
+        .vs-body::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+
+        .vs-body::-webkit-scrollbar-thumb {
+            background: #424242;
+            border-radius: 5px;
+        }
+
+        .vs-body code.hljs,
+        .vs-body .hljs {
+            background: transparent !important;
+            padding: 0 !important;
+            overflow: visible !important;
+        }
+
+        /* ==================== TASK SECTION ==================== */
+        .task-section {
+            background: linear-gradient(135deg, #fff7ed, #fef3c7);
+            border: 2px solid #f59e0b;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 40px;
+        }
+
+        .task-section h2 {
+            color: #b45309;
+            margin-top: 0;
+        }
+
+        .task-section h3 {
+            color: #78350f;
+            margin-top: 22px;
+            font-size: 1rem;
+            letter-spacing: 0.3px;
+        }
+
+        .task-section table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 12px 0;
+            font-size: 0.9rem;
+        }
+
+        .task-section th,
+        .task-section td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .task-section th {
+            background: #fde68a;
+            color: #78350f;
+        }
+
+        .task-section code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+        }
+
+        .task-section ul,
+        .task-section ol {
+            margin: 6px 0 0;
+            padding-left: 22px;
+        }
+
+        .task-section li {
+            margin-bottom: 6px;
+        }
+
+        /* ==================== DEMO SPECIFIC STYLES ==================== */
+        .q111-demo .raw-btn {
+            font-family: monospace;
+            border: 1px solid #999;
+            background: #e5e7eb;
+            padding: 2px 5px;
+        }
+
+        .q111-demo .styled-btn {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(79, 70, 229, 0.3);
+            transition: transform 0.2s;
+        }
+
+        .q111-demo .styled-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .q112-demo .cascade-text {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .q113-demo .method-box {
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 10px;
+            background: #fff;
+        }
+
+        .q113-demo .method-box strong {
+            display: block;
+            margin-bottom: 8px;
+            color: #4f46e5;
+        }
+
+        .q114-demo .card-box {
+            border: 2px solid #4f46e5;
+            border-radius: 8px;
+            padding: 16px;
+            background: #eef2ff;
+        }
+
+        .q114-demo .card-box p {
+            color: #3730a3;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .q115-demo .box {
+            padding: 10px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .q115-demo .box-universal {
+            border: 2px dashed #9ca3af;
+            background: #f3f4f6;
+        }
+
+        .q115-demo .box-element {
+            background: #fca5a5;
+        }
+
+        .q115-demo .box-class {
+            background: #86efac;
+        }
+
+        .q115-demo #box-id {
+            background: #93c5fd;
+        }
+
+        .q116-demo .container {
+            border: 2px solid #4f46e5;
+            padding: 10px;
+            border-radius: 8px;
+            background: #fff;
+        }
+
+        .q116-demo .container p {
+            color: #ef4444;
+            font-weight: bold;
+        }
+
+        .q116-demo .container>p {
+            color: #10b981;
+        }
+
+        .q116-demo section {
+            border: 1px dashed #ccc;
+            padding: 10px;
+            margin-top: 10px;
+            background: #f9fafb;
+        }
+
+        .q116-demo .label {
+            font-size: 0.8rem;
+            color: #6b7280;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .q117-demo .test-container {
+            background: #fff;
+            border: 1px solid #ccc;
+            padding: 16px;
+            border-radius: 8px;
+        }
+
+        .q117-demo h2 {
+            margin-top: 0;
+            color: #4f46e5;
+            font-size: 1.1rem;
+        }
+
+        .q117-demo p {
+            background: #f3f4f6;
+            padding: 8px;
+            margin: 4px 0;
+            border-radius: 4px;
+        }
+
+        .q117-demo p:first-child {
+            background: #fecaca;
+            color: #991b1b;
+            border: 1px solid #ef4444;
+        }
+
+        .q117-demo p:first-of-type {
+            background: #dcfce7;
+            color: #166534;
+            border: 1px solid #10b981;
+        }
+
+        .q118-demo .parent {
+            color: #ef4444;
+            border: 2px solid #ef4444;
+            padding: 16px;
+            border-radius: 8px;
+            background: #fef2f2;
+        }
+
+        .q118-demo .child {
+            border: 2px solid #3b82f6;
+            padding: 16px;
+            margin-top: 10px;
+            border-radius: 8px;
+            background: #eff6ff;
+        }
+
+        .q119-demo .container {
+            background: #f3f4f6;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 16px;
+            color: blue;
+            border: 1px solid #ccc;
+        }
+
+        .q119-demo .box {
+            padding: 8px;
+            margin-top: 8px;
+            border: 1px solid #999;
+            background: #fff;
+        }
+
+        .q119-demo .inherit {
+            color: inherit;
+        }
+
+        .q119-demo .initial {
+            color: initial;
+        }
+
+        .q119-demo .unset {
+            color: unset;
+        }
+
+        .q119-demo .revert {
+            color: revert;
+        }
+
+        .q120-demo .controls {
+            margin-bottom: 16px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .q120-demo .controls button {
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+            background: #fff;
+        }
+
+        .q120-demo .controls button.active {
+            background: #4f46e5;
+            color: #fff;
+            border-color: #4f46e5;
+        }
+
+        .q120-demo .box-wrapper {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            background: #e5e7eb;
+            padding: 16px;
+            border-radius: 8px;
+            min-height: 150px;
+        }
+
+        .q120-demo .target-box {
+            width: 100px;
+            height: 100px;
+            background: #4f46e5;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: opacity 0.3s;
+        }
+
+        .q120-demo .target-box button {
+            padding: 4px 8px;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        .q120-demo .other-box {
+            width: 100px;
+            height: 100px;
+            background: #f59e0b;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .q120-demo .d-none {
+            display: none;
+        }
+
+        .q120-demo .v-hidden {
+            visibility: hidden;
+        }
+
+        .q120-demo .o-zero {
+            opacity: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="../../index.html" class="back-home">← Back to Home</a>
+
+    <header class="page-header">
+        <h1>HTML &amp; CSS Questions — Part 12 (111 → 120)</h1>
+        <p>Questions + Answers + VS Code-style code + Live demos that match the code exactly</p>
+    </header>
+
+    <div class="container">
+
+        <!-- Q111 -->
+        <section class="q-section">
+            <h2>Q111 — What is CSS and what problem does it solve? <span class="badge">Easy</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                CSS stands for <strong>Cascading Style Sheets</strong>. It is used to control the presentation and
+                layout of web documents.<br><br>
+                HTML defines the structure and meaning of the content, while CSS controls things such as: colors, fonts,
+                spacing, layout, responsive design, animations, and visual appearance.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can we build a website without CSS?</span>
+                <span class="a"><strong>Yes.</strong> HTML can create the structure and content, but the page will rely
+                    mostly on the browser's default styles and won't have the intended visual design.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">button {
+  background: #4f46e5;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q111-demo">
+                <p style="font-size: 0.9rem; margin-top:0;">Without CSS (Browser Default):</p>
+                <button class="raw-btn">Submit</button>
+                <p style="font-size: 0.9rem; margin-top: 20px;">With CSS:</p>
+                <button class="styled-btn">Submit</button>
+            </div>
+        </section>
+
+        <!-- Q112 -->
+        <section class="q-section">
+            <h2>Q112 — What does "Cascading" mean in CSS? <span class="badge medium">Easy → Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                The <strong>cascade</strong> is the process the browser uses to determine which CSS declarations should
+                apply when multiple rules target the same element.<br><br>
+                The result depends on factors such as: origin and importance, cascade layers,
+                <strong>specificity</strong>, and <strong>source order</strong>.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Does the last CSS rule always win?</span>
+                <span class="a"><strong>No.</strong> Source order is only one factor. A more specific selector or a
+                    declaration with different cascade priority can win even if it appears earlier.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">p {
+  color: red;
+}
+
+p {
+  color: blue; /* This wins because it comes later */
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q112-demo">
+                <p class="cascade-text">What color am I?</p>
+            </div>
+        </section>
+
+        <!-- Q113 -->
+        <section class="q-section">
+            <h2>Q113 — What are the three main ways to apply CSS? <span class="badge">Easy</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                There are three common ways:
+                <ol style="margin:6px 0">
+                    <li><strong>Inline CSS:</strong> <code>&lt;p style="color: red;"&gt;</code></li>
+                    <li><strong>Internal CSS:</strong> Using a <code>&lt;style&gt;</code> tag in the
+                        <code>&lt;head&gt;</code>.
+                    </li>
+                    <li><strong>External CSS:</strong> Using a <code>&lt;link rel="stylesheet"&gt;</code> tag.</li>
+                </ol>
+                External stylesheets are generally preferred for maintainability and reuse.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Which approach is generally best for a large application?</span>
+                <span class="a"><strong>External stylesheets</strong> or a well-structured CSS architecture are
+                    generally preferable because they improve reuse, maintainability, and separation of concerns.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;!-- 1. Inline --&gt;
+&lt;p style="color: red;"&gt;Text&lt;/p&gt;
+
+&lt;!-- 2. Internal --&gt;
+&lt;style&gt;
+  p { color: red; }
+&lt;/style&gt;
+
+&lt;!-- 3. External --&gt;
+&lt;link rel="stylesheet" href="styles.css"&gt;</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q113-demo">
+                <div class="method-box">
+                    <strong>1. Inline CSS</strong>
+                    <p style="color: #ef4444; font-weight: bold; margin: 0;">This text is red via inline style.</p>
+                </div>
+                <div class="method-box">
+                    <strong>2. Internal CSS</strong>
+                    <style>
+                        .internal-demo {
+                            color: #10b981;
+                            font-weight: bold;
+                        }
+                    </style>
+                    <p class="internal-demo" style="margin: 0;">This text is green via internal &lt;style&gt;.</p>
+                </div>
+                <div class="method-box">
+                    <strong>3. External CSS (Simulated)</strong>
+                    <p class="external-demo" style="margin: 0; color: #3b82f6; font-weight: bold;">This text is blue via
+                        a linked file.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q114 -->
+        <section class="q-section">
+            <h2>Q114 — What is a CSS selector? <span class="badge">Easy</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                A CSS selector identifies the elements to which a CSS rule applies.<br><br>
+                CSS supports different types of selectors, including: element selectors, class selectors, ID selectors,
+                attribute selectors, combinators, pseudo-classes, and pseudo-elements.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What does the selector <code>.card p</code> mean?</span>
+                <span class="a">It selects <code>p</code> elements that are descendants of an element with the class
+                    <code>card</code>.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">/* Element Selector */
+p { color: red; }</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q114-demo">
+                <div class="card-box">
+                    <p>I am a paragraph inside a `.card` div, targeted by the selector.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q115 -->
+        <section class="q-section">
+            <h2>Q115 — What is the difference between *, element, class, and ID selectors? <span
+                    class="badge">Easy</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <ul style="margin:6px 0">
+                    <li><strong>Universal (*):</strong> Targets all elements.</li>
+                    <li><strong>Element (p):</strong> Targets all specific tags.</li>
+                    <li><strong>Class (.card):</strong> Targets elements with that class.</li>
+                    <li><strong>ID (#header):</strong> Targets the unique element with that ID.</li>
+                </ul>
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can multiple elements have the same class?</span>
+                <span class="a"><strong>Yes.</strong> That's one of the main purposes of classes.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">* { box-sizing: border-box; }
+p { color: red; }
+.card { padding: 20px; }
+#header { height: 60px; }</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q115-demo">
+                <div class="box box-universal">Universal Selector (*)</div>
+                <p class="box box-element" style="margin: 0 0 8px 0;">Element Selector (p)</p>
+                <div class="box box-class">Class Selector (.card)</div>
+                <div id="box-id" class="box">ID Selector (#header)</div>
+            </div>
+        </section>
+
+        <!-- Q116 -->
+        <section class="q-section">
+            <h2>Q116 — What is the difference between descendant and child selectors? <span
+                    class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                The <strong>descendant selector</strong> uses a space (e.g., <code>.container p</code>). It selects any
+                <code>p</code> descendant inside <code>.container</code>.<br><br>
+                The <strong>child selector</strong> uses <code>&gt;</code> (e.g., <code>.container &gt; p</code>). It
+                selects only <code>p</code> elements that are <strong>direct children</strong> of
+                <code>.container</code>.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Which is more restrictive?</span>
+                <span class="a">The <strong>child selector</strong> <code>&gt;</code> because it requires a direct
+                    parent-child relationship.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.container p { color: red; }   /* Descendant */
+.container > p { color: blue; }  /* Child */</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q116-demo">
+                <div class="container">
+                    <span class="label">Direct child paragraph (Green due to `>` selector)</span>
+                    <p>Direct Child</p>
+                    <section>
+                        <span class="label">Nested descendant paragraph (Red due to space selector)</span>
+                        <p>Nested Descendant</p>
+                    </section>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q117 -->
+        <section class="q-section">
+            <h2>Q117 — What is the difference between :first-child, :first-of-type, and :nth-child()? <span
+                    class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <ul style="margin:6px 0">
+                    <li><code>:first-child</code> selects an element if it is the <strong>first child</strong> of its
+                        parent.</li>
+                    <li><code>:first-of-type</code> selects the first sibling of that <strong>particular element
+                            type</strong>.</li>
+                    <li><code>:nth-child(n)</code> selects an element based on its <strong>position</strong> among its
+                        parent's children.</li>
+                </ul>
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Given a <code>div</code> with an <code>h2</code> followed by two
+                    <code>p</code> tags, will <code>p:first-child</code> select the first paragraph?</span>
+                <span class="a"><strong>No</strong>, because the first child of the div is the <code>&lt;h2&gt;</code>,
+                    not the <code>&lt;p&gt;</code>. But <code>p:first-of-type</code> <strong>would</strong> select the
+                    first <code>&lt;p&gt;</code>.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">li:first-child { color: red; }
+p:first-of-type { color: blue; }
+li:nth-child(2) { background: yellow; }</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q117-demo">
+                <div class="test-container">
+                    <h2>Title (First Child)</h2>
+                    <p style="border: 2px solid #10b981;">First Paragraph (Green = :first-of-type matched)</p>
+                    <p>Second Paragraph</p>
+                </div>
+                <p style="font-size: 0.85rem; color: #6b7280; margin-top: 10px; margin-bottom: 0;">Notice: The first
+                    paragraph does NOT have the red background because it is not the first child.</p>
+            </div>
+        </section>
+
+        <!-- Q118 -->
+        <section class="q-section">
+            <h2>Q118 — What is CSS inheritance? <span class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                Inheritance means that some CSS properties can automatically take their computed value from an
+                <strong>ancestor</strong> when no value is specified on the descendant.<br><br>
+                Properties like <code>color</code>, <code>font-family</code>, and <code>font-size</code> are commonly
+                inherited.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can I explicitly control inheritance?</span>
+                <span class="a"><strong>Yes.</strong> CSS provides keywords such as <code>inherit</code>,
+                    <code>initial</code>, <code>unset</code>, <code>revert</code>.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">body {
+  color: red;
+}
+/* A nested p inherits the red color unless overridden */</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q118-demo">
+                <div class="parent">
+                    Parent (Color: Red, Border: Red)
+                    <div class="child">
+                        Child (Inherited Color: Red, Border: Blue)
+                        <p style="margin: 0; color: black; font-size: 0.9rem;">Notice the text color was inherited, but
+                            the border was NOT inherited.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q119 -->
+        <section class="q-section">
+            <h2>Q119 — What is the difference between inherit, initial, unset, and revert? <span
+                    class="badge hard">Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <ul style="margin:6px 0">
+                    <li><code>inherit</code>: Forces the property to take the computed value from the parent.</li>
+                    <li><code>initial</code>: Resets the property to its CSS-defined initial value.</li>
+                    <li><code>unset</code>: Acts as inherit for inherited properties and initial for non-inherited
+                        properties.</li>
+                    <li><code>revert</code>: Rolls the property's value back to a previous level of the cascade.</li>
+                </ul>
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What is the difference between initial and inherit?</span>
+                <span class="a"><code>initial</code> uses the property's defined initial value, while
+                    <code>inherit</code> explicitly takes the value from the parent.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.inherit { color: inherit; }
+.initial { color: initial; }
+.unset { color: unset; }
+.revert { color: revert; }</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q119-demo">
+                <div class="container">
+                    Parent Container (Color: Blue)
+                    <div class="box inherit">This is <code>inherit</code> (Blue)</div>
+                    <div class="box initial">This is <code>initial</code> (Black)</div>
+                    <div class="box unset">This is <code>unset</code> (Blue)</div>
+                    <div class="box revert">This is <code>revert</code> (Default/Black)</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q120 -->
+        <section class="q-section">
+            <h2>Q120 — What is the difference between display: none, visibility: hidden, and opacity: 0? <span
+                    class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <ul style="margin:6px 0">
+                    <li><code>display: none</code>: The element is removed from the layout. It doesn't occupy space.
+                    </li>
+                    <li><code>visibility: hidden</code>: The element is visually hidden but normally remains in the
+                        layout.</li>
+                    <li><code>opacity: 0</code>: The element becomes fully transparent but still participates in layout.
+                    </li>
+                </ul>
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Which one would you use for a fade-out animation?</span>
+                <span class="a"><code>opacity</code> is often suitable because it can be animated smoothly.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.hidden-display { display: none; }
+.hidden-visibility { visibility: hidden; }
+.hidden-opacity { opacity: 0; }</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q120-demo">
+                <div class="controls">
+                    <button onclick="setQ120Class('')" class="active" id="btn-none">Reset</button>
+                    <button onclick="setQ120Class('d-none')">display: none</button>
+                    <button onclick="setQ120Class('v-hidden')">visibility: hidden</button>
+                    <button onclick="setQ120Class('o-zero')">opacity: 0</button>
+                </div>
+                <div class="box-wrapper">
+                    <div class="target-box" id="q120-box">Box<br><button onclick="alert('Clicked!')">Click</button>
+                    </div>
+                    <div class="other-box">Other Box</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Task -->
+        <section class="task-section">
+            <h2>🧑‍🎓 Student Task — CSS Fundamentals Playground</h2>
+            <p>Build <strong>one HTML page</strong> (+ CSS file) that applies <strong>all 10 concepts</strong>. Submit
+                as a zipped folder.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Concept</th>
+                        <th>What you must do</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>111</td>
+                        <td>What is CSS</td>
+                        <td>Create two paragraphs: one unstyled, and one styled like a warning box.</td>
+                    </tr>
+                    <tr>
+                        <td>112</td>
+                        <td>Cascading</td>
+                        <td>Create two conflicting rules for an `h1`. Comment which one wins and why.</td>
+                    </tr>
+                    <tr>
+                        <td>113</td>
+                        <td>Ways to apply CSS</td>
+                        <td>Use External CSS, but add an Inline rule to a button to override a color.</td>
+                    </tr>
+                    <tr>
+                        <td>114</td>
+                        <td>Selectors</td>
+                        <td>Target a `<p>` inside a `
+                            <div class="card">` using a CSS selector.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>115</td>
+                        <td>Selector Types</td>
+                        <td>Target using `*`, tag, class, and ID. Give each a different color.</td>
+                    </tr>
+                    <tr>
+                        <td>116</td>
+                        <td>Child vs Descendant</td>
+                        <td>Use `>` to style direct `li` children, and a space to style deeply nested `li` items.</td>
+                    </tr>
+                    <tr>
+                        <td>117</td>
+                        <td>Pseudo-classes</td>
+                        <td>Use `:first-child` and `:first-of-type` on a list. Explain the difference.</td>
+                    </tr>
+                    <tr>
+                        <td>118</td>
+                        <td>Inheritance</td>
+                        <td>Set `color` and `border` on a parent div. Observe what the child inherits.</td>
+                    </tr>
+                    <tr>
+                        <td>119</td>
+                        <td>CSS Keywords</td>
+                        <td>Use `inherit`, `initial`, `unset`, and `revert` on four buttons inside a container.</td>
+                    </tr>
+                    <tr>
+                        <td>120</td>
+                        <td>Visibility</td>
+                        <td>Create a modal. Hide it with `display: none`, show it with JS changing to `display: flex`.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>📦 Submission rules</h3>
+            <ul>
+                <li><strong>File names:</strong> <code>index.html</code>, <code>styles.css</code></li>
+                <li><strong>Comments:</strong> above each section, e.g. <code>/* Q115: Selector types */</code></li>
+                <li><strong>README.md</strong> with 3 answers:
+                    <ol>
+                        <li>What is the difference between <code>display: none</code> and
+                            <code>visibility: hidden</code>?</li>
+                        <li>Why is the child selector <code>&gt;</code> more restrictive than the descendant selector
+                            (space)?</li>
+                        <li>What is the difference between <code>inherit</code>, <code>initial</code>,
+                            <code>unset</code>, and <code>revert</code>?
+                        </li>
+                    </ol>
+                </li>
+            </ul>
+
+            <h3>🎯 Grading (out of 10)</h3>
+            <p>1 point per row. "Cascading" and "CSS Keywords" rows are worth double if the README explanation is
+                correct.</p>
+        </section>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.hljs) {hljs.highlightAll(); if (hljs.lineNumbersBlock) {document.querySelectorAll('pre code').forEach(function (el) {hljs.lineNumbersBlock(el);});} }
+        });
+        function setQ120Class(className) {
+            const box = document.getElementById('q120-box');
+            box.classList.remove('d-none', 'v-hidden', 'o-zero');
+            if (className) box.classList.add(className);
+            const btns = document.querySelectorAll('.q120-demo .controls button');
+            btns.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+
+</html>

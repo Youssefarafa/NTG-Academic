@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML &amp; CSS Questions — Part 11 (101–110)</title>
+
+    <!-- ===== Favicon: inline SVG (works offline) ===== -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%234f46e5'/%3E%3Cstop%20offset='1'%20stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='url(%23g)'/%3E%3Cpath%20d='M22%2022%20L14%2032%20L22%2042%20M42%2022%20L50%2032%20L42%2042'%20stroke='white'%20stroke-width='4'%20stroke-linecap='round'%20stroke-linejoin='round'%20fill='none'/%3E%3C/svg%3E" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css" />
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            background: #f4f6fa;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        /* ==================== BACK TO HOME BUTTON ==================== */
+        .back-home {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 9999;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 16px rgba(79, 70, 229, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            border: 1px solid transparent;
+        }
+
+        .back-home:hover {
+            background: linear-gradient(135deg, #4338ca, #6d28d9);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(79, 70, 229, 0.5);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 640px) {
+            .back-home {
+                top: 12px;
+                left: 12px;
+                padding: 8px 14px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* ==================== PAGE HEADER ==================== */
+        .page-header {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            margin: 0 0 8px;
+            font-size: 2rem;
+        }
+
+        .page-header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 24px 20px;
+        }
+
+        .q-section {
+            background: #fff;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 28px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+        }
+
+        .q-section h2 {
+            margin-top: 0;
+            color: #4f46e5;
+            border-bottom: 2px solid #eef;
+            padding-bottom: 10px;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            background: #dcfce7;
+            color: #166534;
+            margin-left: 8px;
+            vertical-align: middle;
+            font-weight: 600;
+        }
+
+        .badge.medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge.hard {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .q-section h3 {
+            color: #374151;
+            margin-top: 22px;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .answer {
+            background: #ecfdf5;
+            border-left: 4px solid #10b981;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 10px 0;
+        }
+
+        .answer strong.label {
+            display: block;
+            font-size: 0.75rem;
+            color: #059669;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .followup {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 12px 0;
+        }
+
+        .followup .q {
+            font-weight: 600;
+            color: #1d4ed8;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .followup .a {
+            color: #1e3a8a;
+        }
+
+        .demo-box {
+            background: #fafbff;
+            border: 1px dashed #c7d2fe;
+            border-radius: 10px;
+            padding: 16px;
+            margin: 12px 0;
+        }
+
+        .vs-code {
+            background: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 16px 0;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #2d2d2d;
+        }
+
+        .vs-titlebar {
+            background: #3c3c3c;
+            padding: 9px 14px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px solid #2d2d2d;
+        }
+
+        .vs-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .vs-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .vs-dot.red {
+            background: #ff5f56;
+        }
+
+        .vs-dot.yellow {
+            background: #ffbd2e;
+        }
+
+        .vs-dot.green {
+            background: #27c93f;
+        }
+
+        .vs-title {
+            position: absolute;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 12px;
+            color: #cccccc;
+            pointer-events: none;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+
+        .vs-tabbar {
+            background: #252526;
+            display: flex;
+        }
+
+        .vs-tab {
+            background: #2d2d2d;
+            color: #969696;
+            padding: 9px 20px;
+            font-size: 12.5px;
+            border-right: 1px solid #1e1e1e;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .vs-tab.active {
+            background: #1e1e1e;
+            color: #ffffff;
+        }
+
+        .vs-tab.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #007acc;
+        }
+
+        .file-icon {
+            display: inline-block;
+            width: 9px;
+            height: 9px;
+            border-radius: 2px;
+        }
+
+        .file-icon.html {
+            background: #e44d26;
+        }
+
+        .file-icon.css {
+            background: #264de4;
+        }
+
+        .file-icon.js {
+            background: #f7df1e;
+        }
+
+        .vs-body {
+            margin: 0 !important;
+            padding: 16px 0 !important;
+            background: #1e1e1e !important;
+            overflow-x: auto;
+            font-size: 13px !important;
+            line-height: 1.65 !important;
+            color: #dcdcdc;
+            border-radius: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+        }
+
+        .vs-body code {
+            background: transparent !important;
+            padding: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+            font-size: inherit !important;
+            color: inherit;
+            white-space: pre;
+        }
+
+        .vs-body .hljs-ln-numbers {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            text-align: right;
+            color: #858585 !important;
+            border-right: 1px solid #3a3f4b;
+            padding: 0 14px 0 16px !important;
+            vertical-align: top;
+            font-weight: normal;
+        }
+
+        .vs-body .hljs-ln-code {
+            padding: 0 16px !important;
+        }
+
+        .vs-body .hljs-ln {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .vs-body .hljs-ln td {
+            padding: 0;
+        }
+
+        .vs-body::-webkit-scrollbar {
+            height: 10px;
+        }
+
+        .vs-body::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+
+        .vs-body::-webkit-scrollbar-thumb {
+            background: #424242;
+            border-radius: 5px;
+        }
+
+        .vs-body code.hljs,
+        .vs-body .hljs {
+            background: transparent !important;
+            padding: 0 !important;
+            overflow: visible !important;
+        }
+
+        /* =========== Q101 & Q102: Parsing & Malformed =========== */
+        .q102-demo textarea {
+            width: 100%;
+            height: 60px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: monospace;
+            margin-bottom: 10px;
+        }
+
+        .q102-demo button {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .q102-demo .output {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            white-space: pre-wrap;
+        }
+
+        /* =========== Q103: DOM =========== */
+        .q103-demo #dom-target {
+            background: #e0e7ff;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #3730a3;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+        }
+
+        .q103-demo button {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* =========== Q104, Q105, Q106, Q107: Events =========== */
+        .event-demo-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .event-box {
+            border: 2px solid #ccc;
+            padding: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+            background: #fff;
+        }
+
+        .event-box:hover {
+            background: #f3f4f6;
+        }
+
+        .event-box .event-box {
+            margin-top: 10px;
+            background: #f9fafb;
+        }
+
+        .event-log {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 10px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            min-height: 80px;
+            margin-top: 10px;
+            white-space: pre-wrap;
+        }
+
+        .event-btn {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        /* =========== Q106: Delegation =========== */
+        .q106-demo ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .q106-demo li {
+            padding: 10px 16px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            background: #fff;
+        }
+
+        .q106-demo li:last-child {
+            border-bottom: none;
+        }
+
+        .q106-demo li:hover {
+            background: #f3f4f6;
+        }
+
+        .q106-demo .log {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 10px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            margin-top: 10px;
+        }
+
+        /* =========== Q108: Prevent Default =========== */
+        .q108-demo form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 300px;
+        }
+
+        .q108-demo input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .q108-demo button {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .q108-demo .log {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 10px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            white-space: pre-wrap;
+        }
+
+        /* =========== Q109: Shadow DOM =========== */
+        .q109-demo .shadow-host {
+            border: 2px dashed #4f46e5;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        /* This targets the host, not the shadow content */
+        .q109-demo .shadow-host button {
+            background: red;
+            color: white;
+        }
+
+        /* =========== Q110: A11y =========== */
+        .q110-demo .a11y-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .q110-demo .a11y-box {
+            flex: 1;
+            min-width: 250px;
+            border: 1px solid #ccc;
+            padding: 16px;
+            border-radius: 8px;
+            background: #fff;
+        }
+
+        .q110-demo .focus-btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+            width: 100%;
+        }
+
+        .q110-demo .focus-btn:focus {
+            outline: 3px solid #f59e0b;
+            outline-offset: 2px;
+        }
+
+        .q110-demo .fake-btn {
+            background: #e5e7eb;
+            padding: 10px 16px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .q110-demo .fake-btn:focus {
+            outline: none;
+        }
+
+        /* Removed focus outline to show bad a11y */
+
+        /* =========== Task =========== */
+        .task-section {
+            background: linear-gradient(135deg, #fff7ed, #fef3c7);
+            border: 2px solid #f59e0b;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 40px;
+        }
+
+        .task-section h2 {
+            color: #b45309;
+            margin-top: 0;
+        }
+
+        .task-section table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 12px 0;
+            font-size: 0.9rem;
+        }
+
+        .task-section th,
+        .task-section td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .task-section th {
+            background: #fde68a;
+            color: #78350f;
+        }
+
+        .task-section code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="../../index.html" class="back-home">← Back to Home</a>
+
+    <header class="page-header">
+        <h1>HTML &amp; CSS Questions — Part 11 (101 → 110)</h1>
+        <p>Questions + Answers + VS Code-style code + Live demos that match the code exactly</p>
+    </header>
+
+    <div class="container">
+
+        <!-- ==================== Q101 ==================== -->
+        <section class="q-section">
+            <h2>Q101 — What is the difference between HTML parsing and DOM construction? <span
+                    class="badge hard">Hard</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <strong>HTML parsing</strong> is the process where the browser reads the HTML source and interprets its
+                tokens according to the HTML parsing algorithm.<br><br>
+                During this process, the browser constructs the <strong>DOM</strong> (Document Object Model), which
+                represents the document as a tree of nodes that JavaScript and other browser APIs can interact with.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Is the DOM the same thing as the original HTML source?</span>
+                <span class="a"><strong>No.</strong> The DOM is an in-memory representation of the document. JavaScript
+                    can modify the DOM after parsing, so the DOM can differ from the original HTML source.</span>
+            </div>
+            
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Does the DOM exist in the HTML source code?</span>
+                <span class="a"><strong>No.</strong> The DOM is an <strong>in-memory object model</strong> created by
+                    the browser
+                    while parsing the document.</span>
+            </div>
+            
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What is the difference between HTML and the DOM?</span>
+                <span class="a"><strong>HTML</strong> is the markup language used to describe the structure of a
+                    document.<br><br>
+                    The <strong>DOM</strong> (Document Object Model) is the browser's <strong>object
+                        representation</strong>
+                    of that document that JavaScript and other APIs can interact with.<br><br>
+                    The browser parses the HTML and creates a DOM tree conceptually like:
+                    <pre
+                        style="margin:8px 0;background:#f3f4f6;padding:10px;border-radius:6px;font-size:0.8rem;font-family:'Fira Code',Consolas,monospace;overflow-x:auto;">Document
+└── html
+    └── body
+        └── h1
+            └── "Hello"</pre>
+                    JavaScript can then interact with it:<br>
+                    <code>document.querySelector("h1").textContent = "Hello Youssef";</code>
+                </span>
+            </div>
+
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;!-- HTML Source --&gt;
+&lt;body&gt;
+  &lt;h1&gt;Hello&lt;/h1&gt;
+&lt;/body&gt;
+
+&lt;!-- DOM Tree Concept --&gt;
+Document
+ └── html
+      └── body
+           └── h1
+                └── "Hello"</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Check Console (F12)</h3>
+            <div class="demo-box q101-demo">
+                <p style="font-size: 0.9rem; margin: 0;">Open your browser console to see the DOM tree representation of
+                    this specific section.</p>
+            </div>
+        </section>
+
+        <!-- ==================== Q102 ==================== -->
+        <section class="q-section">
+            <h2>Q102 — What happens if the browser encounters malformed HTML? <span class="badge hard">Hard</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                Browsers are designed to be <strong>fault-tolerant</strong>. They don't simply stop parsing when they
+                encounter malformed HTML.<br><br>
+                Instead, the HTML parsing algorithm has <strong>error-recovery rules</strong> that attempt to construct
+                a valid DOM tree. Browsers can automatically close certain elements or restructure malformed markup
+                according to the HTML parsing rules.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Does malformed HTML always produce the same DOM in every browser?</span>
+                <span class="a">Modern browsers generally follow the standardized HTML parsing algorithm, but relying on
+                    malformed markup is still bad practice because it makes behavior harder to reason about and
+                    maintain.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;!-- Malformed: div inside p --&gt;
+&lt;p&gt;Hello &lt;div&gt;World&lt;/div&gt;&lt;/p&gt;
+
+&lt;!-- Browser auto-corrects to: --&gt;
+&lt;p&gt;Hello &lt;/p&gt;
+&lt;div&gt;World&lt;/div&gt;
+&lt;p&gt;&lt;/p&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — See the correction</h3>
+            <div class="demo-box q102-demo">
+                <textarea id="q102-input"><p>Hello <div>World</div></p></textarea>
+                <button onclick="fixHTML()">Parse Malformed HTML</button>
+                <div class="output" id="q102-output">Click the button to see how the browser fixes the DOM.</div>
+            </div>
+        </section>
+
+        <!-- ==================== Q103 ==================== -->
+        <section class="q-section">
+            <h2>Q103 — What is the DOM, and why is it important for JavaScript? <span class="badge medium">Easy →
+                    Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                The DOM is an object-based representation of an HTML document.<br><br>
+                JavaScript can use DOM APIs to: find elements, change content, modify attributes, change styles, create
+                elements, remove elements, and respond to events.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Does changing the DOM automatically change the original HTML file?</span>
+                <span class="a"><strong>No.</strong> It changes the in-memory DOM for the current document. It doesn't
+                    modify the original HTML file on the server.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">app.js — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon js"></span>app.js</div>
+                </div>
+                <pre class="vs-body"><code class="language-javascript">const title = document.querySelector('#dom-target');
+title.textContent = 'Changed by JS!';</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Click to change</h3>
+            <div class="demo-box q103-demo">
+                <div id="dom-target">Original Text</div>
+                <button onclick="changeDOM()">Change via JS</button>
+            </div>
+        </section>
+
+        <!-- ==================== Q104 ==================== -->
+        <section class="q-section">
+            <h2>Q104 — What is event bubbling? <span class="badge medium">Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                Event bubbling means that when an event occurs on an element, the event can <strong>propagate from that
+                    element upward</strong> through its ancestors.<br><br>
+                Unless propagation is stopped, it goes from Target → Parent → Body → Document → Window.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: How can you stop bubbling?</span>
+                <span class="a">Using <code>event.stopPropagation();</code> This prevents the event from continuing to
+                    propagate through the relevant propagation path.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;div id="parent"&gt;
+  &lt;button id="child"&gt;Click&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Click the button</h3>
+            <div class="demo-box">
+                <div class="event-demo-container">
+                    <div class="event-box" id="q104-parent">Parent (Div)
+                        <div class="event-box" id="q104-child" style="background: #e0e7ff;">Child (Button)</div>
+                    </div>
+                </div>
+                <div class="event-log" id="q104-log">Waiting for click...</div>
+            </div>
+        </section>
+
+        <!-- ==================== Q105 ==================== -->
+        <section class="q-section">
+            <h2>Q105 — What is event capturing? <span class="badge hard">Medium → Hard</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                Event capturing is the phase where an event <strong>travels from the outer ancestors toward the target
+                    element</strong> before reaching the target.<br><br>
+                Propagation model: Window → Document → HTML → Body → Parent → Target.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Which phase does addEventListener('click', handler) use by default?</span>
+                <span class="a">The default is the <strong>bubbling phase</strong>. To use capturing, you pass
+                    <code>true</code> or <code>{ capture: true }</code>.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">app.js — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon js"></span>app.js</div>
+                </div>
+                <pre
+                    class="vs-body"><code class="language-javascript">  element.addEventListener('click', handler, { capture: true });</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Click the button (Watch the log)</h3>
+            <div class="demo-box">
+                <div class="event-demo-container">
+                    <div class="event-box" id="q105-parent" style="background: #fce7f3;">Parent (Capture Listener)
+                        <div class="event-box" id="q105-child" style="background: #fbcfe8;">Child (Target)</div>
+                    </div>
+                </div>
+                <div class="event-log" id="q105-log">Waiting for click...</div>
+            </div>
+        </section>
+
+        <!-- ==================== Q106 ==================== -->
+        <section class="q-section">
+            <h2>Q106 — What is event delegation? <span class="badge hard">Hard</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                Event delegation is a technique where we attach a <strong>single event listener to a parent</strong>
+                instead of attaching separate listeners to many child elements.<br><br>
+                It relies on event bubbling. It's useful for dynamically added elements and reduces memory overhead.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What is the advantage?</span>
+                <span class="a">It can reduce the number of event listeners, simplify handling of dynamically added
+                    children, and reduce memory overhead in cases with many similar elements.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">app.js — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon js"></span>app.js</div>
+                </div>
+                <pre class="vs-body"><code class="language-javascript">products.addEventListener('click', (event) => {
+  const item = event.target.closest('li');
+  if (item) console.log(item.textContent);
+});</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Click any item</h3>
+            <div class="demo-box q106-demo">
+                <button class="event-btn" onclick="addListItem()">+ Add Dynamic Item</button>
+                <ul id="q106-list">
+                    <li>Product 1</li>
+                    <li>Product 2</li>
+                    <li>Product 3</li>
+                </ul>
+                <div class="log" id="q106-log">Click a product...</div>
+            </div>
+        </section>
+
+        <!-- ==================== Q107 ==================== -->
+        <section class="q-section">
+            <h2>Q107 — What is the difference between event.target and event.currentTarget? <span
+                    class="badge hard">Hard</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>event.target</code> is the element where the event <strong>originally occurred</strong>.<br><br>
+                <code>event.currentTarget</code> is the element whose <strong>event listener is currently
+                    executing</strong>.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Why is this important in event delegation?</span>
+                <span class="a">Because the listener is attached to the parent, but the event may originate from
+                    different children. <code>event.target</code> tells us which descendant initiated the event, while
+                    <code>currentTarget</code> tells us which element owns the listener.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">app.js — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon js"></span>app.js</div>
+                </div>
+                <pre class="vs-body"><code class="language-javascript">parent.addEventListener('click', (event) => {
+  console.log(event.target);        // button
+  console.log(event.currentTarget); // div
+});</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Click the inner button</h3>
+            <div class="demo-box">
+                <div class="event-box" id="q107-parent">
+                    Parent (Listener is here)
+                    <button id="q107-child" style="margin-top: 10px; padding: 8px 16px;">Click Me (Target)</button>
+                </div>
+                <div class="event-log" id="q107-log">Waiting for click...</div>
+            </div>
+        </section>
+
+        <!-- ==================== Q108 ==================== -->
+        <section class="q-section">
+            <h2>Q108 — What is the difference between preventDefault() and stopPropagation()? <span
+                    class="badge hard">Medium → Hard</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>preventDefault()</code> prevents the browser's <strong>default behavior</strong> associated with
+                an event (e.g., preventing form submission or link navigation).<br><br>
+                <code>stopPropagation()</code> prevents the event from continuing through the <strong>propagation
+                    path</strong> (bubbling/capturing).
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can you use both at the same time?</span>
+                <span class="a"><strong>Yes.</strong> They control different aspects of event behavior.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">app.js — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon js"></span>app.js</div>
+                </div>
+                <pre class="vs-body"><code class="language-javascript">form.addEventListener('submit', (event) => {
+  event.preventDefault(); // Stops browser from refreshing page
+});</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Submit the form</h3>
+            <div class="demo-box q108-demo">
+                <form id="q108-form">
+                    <input type="text" placeholder="Type something..." required>
+                    <button type="submit">Submit (Prevented)</button>
+                </form>
+                <div class="log" id="q108-log">The form will not reload the page.</div>
+            </div>
+        </section>
+
+        <!-- ==================== Q109 ==================== -->
+        <section class="q-section">
+            <h2>Q109 — What is Shadow DOM? <span class="badge hard">Hard</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                Shadow DOM is a web platform feature that allows an element to have an <strong>encapsulated DOM
+                    subtree</strong>.<br><br>
+                It provides a boundary between the component's internal DOM and the surrounding document. This allows
+                components to encapsulate their internal structure and styles.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can styles from the outside freely affect elements inside a Shadow
+                    DOM?</span>
+                <span class="a"><strong>No.</strong> Shadow DOM provides style encapsulation boundaries, although there
+                    are specific mechanisms for styling or exposing parts of shadow content.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">app.js — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon js"></span>app.js</div>
+                </div>
+                <pre class="vs-body"><code class="language-javascript">const host = document.querySelector('.shadow-host');
+const shadowRoot = host.attachShadow({ mode: 'open' });
+
+shadowRoot.innerHTML = `
+  &lt;style&gt;
+    button { background: green; color: white; }
+  &lt;/style&gt;
+  &lt;button&gt;Shadow Button&lt;/button&gt;
+`;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q109-demo">
+                <p style="font-size: 0.85rem; color: #666; margin-top: 0;">Notice how the outer CSS tries to make
+                    buttons red, but the Shadow DOM button stays green.</p>
+                <button>Outer Button (Red)</button>
+                <div class="shadow-host" id="q109-host">
+                    <!-- Shadow content will be injected here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Q110 ==================== -->
+        <section class="q-section">
+            <h2>Q110 — What is Web Accessibility, and how would you make an HTML page accessible? <span
+                    class="badge hard">Hard</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                Web accessibility means designing and developing websites so that people with <strong>different
+                    abilities can use them effectively</strong>, including people who rely on keyboards, screen readers,
+                or other assistive technologies.<br><br>
+                Key areas: Semantic HTML, proper labels, keyboard accessibility, meaningful alt text, good focus
+                management, ARIA when necessary, and sufficient color contrast.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Should you use ARIA everywhere?</span>
+                <span class="a"><strong>No.</strong> Native semantic HTML should be preferred whenever possible. A
+                    native <code>&lt;button&gt;</code> is preferable to <code>&lt;div role="button"&gt;</code>.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;!-- ✅ Good --&gt;
+&lt;button&gt;Save&lt;/button&gt;
+
+&lt;!-- ❌ Bad --&gt;
+&lt;div onclick="save()"&gt;Save&lt;/div&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Try pressing the Tab key</h3>
+            <div class="demo-box q110-demo">
+                <div class="a11y-container">
+                    <div class="a11y-box" style="background: #f0fdf4; border-color: #bbf7d0;">
+                        <h4 style="color: #166534; margin-top: 0;">✅ Accessible</h4>
+                        <button class="focus-btn" style="background: #10b981; color: white;">Native Button</button>
+                        <p style="font-size: 0.8rem; color: #555; margin: 0;">Can be focused via keyboard. Has a visible
+                            focus ring.</p>
+                    </div>
+                    <div class="a11y-box" style="background: #fef2f2; border-color: #fecaca;">
+                        <h4 style="color: #991b1b; margin-top: 0;">❌ Inaccessible</h4>
+                        <div class="fake-btn" tabindex="-1">Fake Button (Div)</div>
+                        <p style="font-size: 0.8rem; color: #555; margin: 0;">Cannot be focused with Tab. No focus ring.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== STUDENT TASK ==================== -->
+        <section class="task-section">
+            <h2>🧑‍🎓 Student Task — Interactive Event Hub</h2>
+            <p>Build <strong>one HTML page</strong> (+ CSS file + optional JS file) that applies <strong>all 10
+                    concepts</strong> from Part 11. Submit as a zipped folder or CodePen link.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Concept</th>
+                        <th>What you must do</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>101</td>
+                        <td>DOM Tree</td>
+                        <td>Add a comment at the top of your JS file showing the DOM tree structure of your page's
+                            header.</td>
+                    </tr>
+                    <tr>
+                        <td>102</td>
+                        <td>Malformed HTML</td>
+                        <td>Intentionally write a <code>&lt;div&gt;</code> inside a <code>&lt;p&gt;</code>. Inspect the
+                            elements tab to see how the browser fixed it.</td>
+                    </tr>
+                    <tr>
+                        <td>103</td>
+                        <td>DOM Manipulation</td>
+                        <td>Add a button that changes the text of an <code>&lt;h1&gt;</code> when clicked.</td>
+                    </tr>
+                    <tr>
+                        <td>104</td>
+                        <td>Bubbling</td>
+                        <td>Create a nested div structure. Attach a listener to the parent and log when it fires from a
+                            child click.</td>
+                    </tr>
+                    <tr>
+                        <td>105</td>
+                        <td>Capturing</td>
+                        <td>Add a capturing listener (<code>{ capture: true }</code>) to the parent and compare the log
+                            order.</td>
+                    </tr>
+                    <tr>
+                        <td>106</td>
+                        <td>Delegation</td>
+                        <td>Create a list of items and use one listener on the <code>&lt;ul&gt;</code> to handle clicks
+                            on the <code>&lt;li&gt;</code> elements.</td>
+                    </tr>
+                    <tr>
+                        <td>107</td>
+                        <td>target vs currentTarget</td>
+                        <td>Log both <code>e.target</code> and <code>e.currentTarget</code> when clicking a button
+                            inside a div.</td>
+                    </tr>
+                    <tr>
+                        <td>108</td>
+                        <td>preventDefault</td>
+                        <td>Create a link <code>&lt;a href="https://google.com"&gt;</code> and use JS to prevent it from
+                            navigating.</td>
+                    </tr>
+                    <tr>
+                        <td>109</td>
+                        <td>Shadow DOM</td>
+                        <td>Attach a shadow root to a custom <code>&lt;div&gt;</code> and inject a styled button inside
+                            it.</td>
+                    </tr>
+                    <tr>
+                        <td>110</td>
+                        <td>Accessibility</td>
+                        <td>Ensure all your buttons are native <code>&lt;button&gt;</code> tags and have a visible focus
+                            outline when tabbed to.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>📦 Submission rules</h3>
+            <ul>
+                <li><strong>File names:</strong> <code>index.html</code>, <code>styles.css</code>, <code>app.js</code>
+                </li>
+                <li><strong>Comments:</strong> above each section, e.g. <code>// Q107: Target vs CurrentTarget</code>
+                </li>
+                <li><strong>README.md</strong> with 3 answers:
+                    <ol>
+                        <li>What is the difference between bubbling and capturing?</li>
+                        <li>Why is Event Delegation more memory efficient?</li>
+                        <li>Why is <code>preventDefault()</code> used in form submissions?</li>
+                    </ol>
+                </li>
+            </ul>
+
+            <h3>🎯 Grading (out of 10)</h3>
+            <p>1 point per row. "Event Delegation" and "Accessibility" rows are worth double if the README explanation
+                is correct.</p>
+        </section>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.hljs) {
+                hljs.highlightAll();
+                if (hljs.lineNumbersBlock) {
+                    document.querySelectorAll('pre code').forEach(function (el) {
+                        hljs.lineNumbersBlock(el);
+                    });
+                }
+            }
+
+            // Q102 Malformed HTML
+            window.fixHTML = function () {
+                const input = document.getElementById('q102-input').value;
+                const output = document.getElementById('q102-output');
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = input;
+                output.textContent = tempDiv.innerHTML;
+            };
+            fixHTML(); // Initial
+
+            // Q103 DOM Manipulation
+            window.changeDOM = function () {
+                const el = document.getElementById('dom-target');
+                el.textContent = 'Changed by JS!';
+                el.style.background = '#dcfce7';
+                el.style.color = '#166534';
+            };
+
+            // Q104 Bubbling
+            const q104Log = document.getElementById('q104-log');
+            q104Log.textContent = '';
+            document.getElementById('q104-parent').addEventListener('click', () => {
+                q104Log.textContent += '👆 Parent (Bubbling) fired!\n';
+            });
+            document.getElementById('q104-child').addEventListener('click', (e) => {
+                q104Log.textContent += '🎯 Child (Target) fired!\n';
+            });
+
+            // Q105 Capturing
+            const q105Log = document.getElementById('q105-log');
+            q105Log.textContent = '';
+            document.getElementById('q105-parent').addEventListener('click', () => {
+                q105Log.textContent += '👇 Parent (Capturing) fired FIRST!\n';
+            }, {capture: true});
+            document.getElementById('q105-child').addEventListener('click', () => {
+                q105Log.textContent += '🎯 Child (Target) fired SECOND!\n';
+            });
+
+            // Q106 Delegation
+            const q106List = document.getElementById('q106-list');
+            const q106Log = document.getElementById('q106-log');
+            q106Log.textContent = '';
+            q106List.addEventListener('click', (e) => {
+                const item = e.target.closest('li');
+                if (item) {
+                    q106Log.textContent = `Clicked: "${item.textContent}" (Handled by UL listener)`;
+                }
+            });
+            window.addListItem = function () {
+                const li = document.createElement('li');
+                li.textContent = `Product ${q106List.children.length + 1}`;
+                q106List.appendChild(li);
+            };
+
+            // Q107 target vs currentTarget
+            const q107Log = document.getElementById('q107-log');
+            q107Log.textContent = '';
+            document.getElementById('q107-parent').addEventListener('click', (e) => {
+                q107Log.innerHTML = `e.target.id: "${e.target.id}"<br>e.currentTarget.id: "${e.currentTarget.id}"`;
+            });
+
+            // Q108 preventDefault
+            document.getElementById('q108-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                document.getElementById('q108-log').textContent = '✅ preventDefault() called. Page did not reload!';
+                document.getElementById('q108-log').style.color = '#10b981';
+            });
+
+            // Q109 Shadow DOM
+            const host = document.getElementById('q109-host');
+            if (host) {
+                const shadowRoot = host.attachShadow({mode: 'open'});
+                shadowRoot.innerHTML = `
+          <style>
+            button { background: #10b981; color: white; border: none; padding: 8px 16px; border-radius: 4px; font-weight: bold; }
+          </style>
+          <button>Shadow Button (Green)</button>
+        `;
+            }
+        });
+    </script>
+
+</body>
+
+</html>

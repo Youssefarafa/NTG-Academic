@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML &amp; CSS Questions — Part 15 (141–150)</title>
+
+    <!-- ===== Favicon: inline SVG (works offline) ===== -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%234f46e5'/%3E%3Cstop%20offset='1'%20stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='url(%23g)'/%3E%3Cpath%20d='M22%2022%20L14%2032%20L22%2042%20M42%2022%20L50%2032%20L42%2042'%20stroke='white'%20stroke-width='4'%20stroke-linecap='round'%20stroke-linejoin='round'%20fill='none'/%3E%3C/svg%3E" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css" />
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            background: #f4f6fa;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        /* ==================== BACK TO HOME BUTTON ==================== */
+        .back-home {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 9999;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 16px rgba(79, 70, 229, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .back-home:hover {
+            background: linear-gradient(135deg, #4338ca, #6d28d9);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(79, 70, 229, 0.5);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 640px) {
+            .back-home {
+                top: 12px;
+                left: 12px;
+                padding: 8px 14px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* ==================== PAGE HEADER ==================== */
+        .page-header {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            margin: 0 0 8px;
+            font-size: 2rem;
+        }
+
+        .page-header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 24px 20px;
+        }
+
+        .q-section {
+            background: #fff;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 28px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+        }
+
+        .q-section h2 {
+            margin-top: 0;
+            color: #4f46e5;
+            border-bottom: 2px solid #eef;
+            padding-bottom: 10px;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            background: #dcfce7;
+            color: #166534;
+            margin-left: 8px;
+            vertical-align: middle;
+            font-weight: 600;
+        }
+
+        .badge.medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge.hard {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .q-section h3 {
+            color: #374151;
+            margin-top: 22px;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .answer {
+            background: #ecfdf5;
+            border-left: 4px solid #10b981;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 10px 0;
+        }
+
+        .answer strong.label {
+            display: block;
+            font-size: 0.75rem;
+            color: #059669;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .followup {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 12px 0;
+        }
+
+        .followup .q {
+            font-weight: 600;
+            color: #1d4ed8;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .followup .a {
+            color: #1e3a8a;
+        }
+
+        .demo-box {
+            background: #fafbff;
+            border: 1px dashed #c7d2fe;
+            border-radius: 10px;
+            padding: 16px;
+            margin: 12px 0;
+        }
+
+        .demo-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .demo-label.bad {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .demo-label.good {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        /* ==================== VS CODE ==================== */
+        .vs-code {
+            background: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 16px 0;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #2d2d2d;
+        }
+
+        .vs-titlebar {
+            background: #3c3c3c;
+            padding: 9px 14px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px solid #2d2d2d;
+        }
+
+        .vs-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .vs-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .vs-dot.red {
+            background: #ff5f56;
+        }
+
+        .vs-dot.yellow {
+            background: #ffbd2e;
+        }
+
+        .vs-dot.green {
+            background: #27c93f;
+        }
+
+        .vs-title {
+            position: absolute;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 12px;
+            color: #cccccc;
+            pointer-events: none;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+
+        .vs-tabbar {
+            background: #252526;
+            display: flex;
+        }
+
+        .vs-tab {
+            background: #2d2d2d;
+            color: #969696;
+            padding: 9px 20px;
+            font-size: 12.5px;
+            border-right: 1px solid #1e1e1e;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .vs-tab.active {
+            background: #1e1e1e;
+            color: #ffffff;
+        }
+
+        .vs-tab.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #007acc;
+        }
+
+        .file-icon {
+            display: inline-block;
+            width: 9px;
+            height: 9px;
+            border-radius: 2px;
+        }
+
+        .file-icon.html {
+            background: #e44d26;
+        }
+
+        .file-icon.css {
+            background: #264de4;
+        }
+
+        .file-icon.js {
+            background: #f7df1e;
+        }
+
+        .vs-body {
+            margin: 0 !important;
+            padding: 16px 0 !important;
+            background: #1e1e1e !important;
+            overflow-x: auto;
+            font-size: 13px !important;
+            line-height: 1.65 !important;
+            color: #dcdcdc;
+            border-radius: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+        }
+
+        .vs-body code {
+            background: transparent !important;
+            padding: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+            font-size: inherit !important;
+            color: inherit;
+            white-space: pre;
+        }
+
+        .vs-body .hljs-ln-numbers {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            text-align: right;
+            color: #858585 !important;
+            border-right: 1px solid #3a3f4b;
+            padding: 0 14px 0 16px !important;
+            vertical-align: top;
+            font-weight: normal;
+        }
+
+        .vs-body .hljs-ln-code {
+            padding: 0 16px !important;
+        }
+
+        .vs-body .hljs-ln {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .vs-body .hljs-ln td {
+            padding: 0;
+        }
+
+        .vs-body::-webkit-scrollbar {
+            height: 10px;
+        }
+
+        .vs-body::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+
+        .vs-body::-webkit-scrollbar-thumb {
+            background: #424242;
+            border-radius: 5px;
+        }
+
+        .vs-body code.hljs,
+        .vs-body .hljs {
+            background: transparent !important;
+            padding: 0 !important;
+            overflow: visible !important;
+        }
+
+        /* ==================== TASK SECTION ==================== */
+        .task-section {
+            background: linear-gradient(135deg, #fff7ed, #fef3c7);
+            border: 2px solid #f59e0b;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 40px;
+        }
+
+        .task-section h2 {
+            color: #b45309;
+            margin-top: 0;
+        }
+
+        .task-section table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 12px 0;
+            font-size: 0.9rem;
+        }
+
+        .task-section th,
+        .task-section td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .task-section th {
+            background: #fde68a;
+            color: #78350f;
+        }
+
+        .task-section code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+        }
+
+        /* ==================== DEMO SPECIFIC STYLES ==================== */
+        .grid-demo-box {
+            display: grid;
+            gap: 10px;
+            background: #e5e7eb;
+            padding: 10px;
+            border-radius: 8px;
+            border: 2px dashed #9ca3af;
+        }
+
+        .grid-item {
+            background: #4f46e5;
+            color: white;
+            padding: 20px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .grid-item.implicit {
+            background: #ef4444;
+        }
+
+        .q141-demo .grid-auto {
+            grid-template-columns: 100px 100px;
+            grid-auto-columns: 150px;
+            grid-auto-flow: column;
+        }
+
+        .q142-demo .grid-auto {
+            grid-template-rows: 50px 50px;
+            grid-auto-rows: 80px;
+            grid-auto-flow: row;
+            height: 250px;
+        }
+
+        .q143-demo .grid-area {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 80px);
+            gap: 10px;
+            background: #e5e7eb;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .q143-demo .item-area {
+            grid-column: 1 / 3;
+            grid-row: 1 / 3;
+            background: #10b981;
+        }
+
+        .q143-demo .item-row {
+            grid-row: 3 / 4;
+            background: #f59e0b;
+        }
+
+        .q144-demo .layout-area {
+            display: grid;
+            gap: 10px;
+            grid-template-areas: "header header" "sidebar main" "footer footer";
+            grid-template-columns: 200px 1fr;
+            background: #f3f4f6;
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .q144-demo .layout-area.mobile {
+            grid-template-areas: "header" "main" "sidebar" "footer";
+            grid-template-columns: 1fr;
+        }
+
+        .q144-demo .header {
+            grid-area: header;
+            background: #4f46e5;
+        }
+
+        .q144-demo .sidebar {
+            grid-area: sidebar;
+            background: #3b82f6;
+        }
+
+        .q144-demo .main {
+            grid-area: main;
+            background: #10b981;
+            min-height: 100px;
+        }
+
+        .q144-demo .footer {
+            grid-area: footer;
+            background: #374151;
+        }
+
+        .q144-demo button {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .q145-demo .grid-align {
+            display: grid;
+            grid-template-columns: repeat(2, 150px);
+            grid-template-rows: repeat(2, 100px);
+            gap: 10px;
+            background: #e5e7eb;
+            padding: 10px;
+            border-radius: 8px;
+            height: 300px;
+            width: 100%;
+            justify-content: center;
+            align-content: center;
+        }
+
+        .q145-demo .grid-align>div {
+            background: #4f46e5;
+            color: white;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+        }
+
+        .q146-demo .grid-justify {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            background: #e5e7eb;
+            padding: 10px;
+            border-radius: 8px;
+            justify-items: center;
+        }
+
+        .q146-demo .grid-justify>div {
+            background: #4f46e5;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .q146-demo .grid-justify .special {
+            justify-self: end;
+            background: #ef4444;
+        }
+
+        .q150-demo .clamp-box {
+            width: 100%;
+            background: #4f46e5;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            font-size: clamp(1rem, 4vw, 2rem);
+            transition: font-size 0.1s;
+        }
+
+        .q150-demo .calc-box {
+            width: calc(100% - 40px);
+            background: #10b981;
+            color: white;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px auto;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="../../index.html" class="back-home">← Back to Home</a>
+
+    <header class="page-header">
+        <h1>HTML &amp; CSS Questions — Part 15 (141 → 150)</h1>
+        <p>Questions + Answers + VS Code-style code + Live demos that match the code exactly</p>
+    </header>
+
+    <div class="container">
+
+        <!-- Q141 -->
+        <section class="q-section">
+            <h2>Q141 — What is the difference between grid-template-columns and grid-auto-columns? <span
+                    class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>grid-template-columns</code> defines the columns that are <strong>explicitly created</strong> in
+                the grid.<br><br>
+                <code>grid-auto-columns</code> controls the size of columns that the browser creates
+                <strong>automatically</strong> when items require implicit columns.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What's the difference between explicit and implicit grid?</span>
+                <span class="a">The <strong>explicit grid</strong> is the grid tracks defined using properties like
+                    <code>grid-template-columns</code>. The <strong>implicit grid</strong> consists of additional tracks
+                    created automatically by the browser when items overflow.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.grid {
+  display: grid;
+  grid-template-columns: 100px 100px; /* Explicit */
+  grid-auto-columns: 150px; /* Implicit (red boxes) */
+  grid-auto-flow: column;
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo (Red boxes = Implicit columns)</h3>
+            <div class="demo-box q141-demo">
+                <div class="grid-demo-box grid-auto">
+                    <div class="grid-item">1 (Explicit)</div>
+                    <div class="grid-item">2 (Explicit)</div>
+                    <div class="grid-item implicit">3 (Implicit)</div>
+                    <div class="grid-item implicit">4 (Implicit)</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q142 -->
+        <section class="q-section">
+            <h2>Q142 — What is the difference between grid-template-rows and grid-auto-rows? <span
+                    class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>grid-template-rows</code> explicitly defines the grid's rows.<br><br>
+                <code>grid-auto-rows</code> defines the size of automatically generated implicit rows.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Why might grid-auto-rows: minmax(100px, auto) be useful?</span>
+                <span class="a">It allows automatically generated rows to have a minimum height while still growing to
+                    accommodate their content.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.grid {
+  display: grid;
+  grid-template-rows: 50px 50px; /* Explicit */
+  grid-auto-rows: 80px; /* Implicit (red boxes) */
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo (Red boxes = Implicit rows)</h3>
+            <div class="demo-box q142-demo">
+                <div class="grid-demo-box grid-auto">
+                    <div class="grid-item">1 (Explicit)</div>
+                    <div class="grid-item">2 (Explicit)</div>
+                    <div class="grid-item implicit">3 (Implicit)</div>
+                    <div class="grid-item implicit">4 (Implicit)</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q143 -->
+        <section class="q-section">
+            <h2>Q143 — What is the difference between grid-column, grid-row, and grid-area? <span
+                    class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>grid-column</code> controls where an item starts and ends across grid columns (e.g.,
+                <code>grid-column: 1 / 3;</code>).<br><br>
+                <code>grid-row</code> does the same for rows.<br><br>
+                <code>grid-area</code> can specify row and column placement using four values:
+                <code>row-start / column-start / row-end / column-end</code>.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can grid-area also be used with named grid areas?</span>
+                <span class="a"><strong>Yes.</strong> When combined with <code>grid-template-areas</code>, you can
+                    assign an item to a named region (e.g., <code>grid-area: header;</code>).</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.item-span {
+  grid-column: 1 / 3; /* Spans 2 columns */
+  grid-row: 1 / 3;    /* Spans 2 rows */
+}
+
+.item-area {
+  grid-area: 3 / 1 / 4 / 4; /* row-start / col-start / row-end / col-end */
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q143-demo">
+                <div class="grid-area">
+                    <div class="grid-item item-area">Spans 2x2 (grid-area)</div>
+                    <div class="grid-item" style="background:#8b5cf6;">3</div>
+                    <div class="grid-item item-row">Spans 3 columns (grid-row)</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q144 -->
+        <section class="q-section">
+            <h2>Q144 — What is grid-template-areas and when would you use it? <span class="badge medium">Medium</span>
+            </h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>grid-template-areas</code> allows us to define named regions of a CSS Grid using a <strong>visual
+                    string representation</strong>.<br><br>
+                This can make complex page layouts easier to understand and maintain.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can you change the layout for mobile?</span>
+                <span class="a"><strong>Yes.</strong> You can redefine the template in a media query to stack the areas
+                    (e.g., <code>"header" "main" "sidebar" "footer"</code>).</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.layout {
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "sidebar main"
+    "footer footer";
+  grid-template-columns: 200px 1fr;
+}
+
+.header { grid-area: header; }
+.sidebar { grid-area: sidebar; }
+.main { grid-area: main; }
+.footer { grid-area: footer; }</code></pre>
+            </div>
+            <h3>🔴 Live demo — Click to toggle layout</h3>
+            <div class="demo-box q144-demo">
+                <button onclick="toggleLayout()">Toggle Mobile / Desktop</button>
+                <div class="layout-area" id="q144-layout">
+                    <div class="grid-item header">Header</div>
+                    <div class="grid-item sidebar">Sidebar</div>
+                    <div class="grid-item main">Main Content</div>
+                    <div class="grid-item footer">Footer</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q145 -->
+        <section class="q-section">
+            <h2>Q145 — What is the difference between justify-items, align-items, justify-content, and align-content in
+                CSS Grid? <span class="badge hard">Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <ul style="margin:6px 0">
+                    <li><strong>justify-items / align-items</strong>: Aligns the <em>items</em> inside their individual
+                        grid cells (inline / block axis).</li>
+                    <li><strong>justify-content / align-content</strong>: Distributes the <em>entire grid track
+                            structure</em> within the container when there is extra space.</li>
+                </ul>
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What's the equivalent of align-self in Grid?</span>
+                <span class="a">Grid also supports <code>align-self</code> and <code>justify-self</code> for controlling
+                    the alignment of an individual grid item.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.grid {
+  display: grid;
+  /* Moves the whole grid to the center */
+  justify-content: center;
+  align-content: center;
+  
+  /* Moves the items inside their cells */
+  justify-items: center;
+  align-items: center;
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q145-demo">
+                <div class="grid-align">
+                    <div>1</div>
+                    <div>2</div>
+                    <div>3</div>
+                    <div>4</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q146 -->
+        <section class="q-section">
+            <h2>Q146 — What is the difference between justify-self and justify-items? <span
+                    class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>justify-items</code> is set on the grid container and defines the <strong>default</strong>
+                inline-axis alignment for all grid items.<br><br>
+                <code>justify-self</code> is set on an <strong>individual</strong> grid item and overrides the
+                container's setting for that item.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can Flexbox use justify-self in the same way Grid does?</span>
+                <span class="a"><strong>No.</strong> <code>justify-self</code> is primarily associated with Grid; it
+                    doesn't provide the same per-item main-axis behavior in Flexbox.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.grid { justify-items: center; }
+.special { justify-self: end; }</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q146-demo">
+                <div class="grid-justify">
+                    <div>Item 1</div>
+                    <div class="special">Item 2 (end)</div>
+                    <div>Item 3</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q147 -->
+        <section class="q-section">
+            <h2>Q147 — What is a media query? <span class="badge">Easy</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                A media query allows CSS rules to be applied <strong>conditionally</strong> based on characteristics of
+                the user's environment, such as viewport width, orientation, or user preferences.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Is responsive design just media queries?</span>
+                <span class="a"><strong>No.</strong> Responsive design also uses flexible layouts, percentages, Flexbox,
+                    Grid, <code>minmax()</code>, relative units, fluid typography, and responsive images. Media queries
+                    are only one part.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- Q148 -->
+        <section class="q-section">
+            <h2>Q148 — What is mobile-first responsive design? <span class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                Mobile-first means designing the base styles for <strong>smaller screens first</strong>, then
+                progressively enhancing the layout for larger screens using <code>min-width</code> media queries.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What's the opposite approach?</span>
+                <span class="a"><strong>Desktop-first</strong> typically starts with larger-screen styles and uses
+                    <code>max-width</code> media queries to adjust the layout for smaller screens.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">/* Mobile Base */
+.container { display: block; }
+
+/* Desktop Enhancement */
+@media (min-width: 768px) {
+  .container { display: flex; }
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- Q149 -->
+        <section class="q-section">
+            <h2>Q149 — What is the difference between min-width and max-width media queries? <span
+                    class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>@media (min-width: 768px)</code> applies when the viewport is <strong>at least</strong> 768px wide
+                (used in mobile-first).<br><br>
+                <code>@media (max-width: 767px)</code> applies when the viewport is <strong>at most</strong> 767px wide
+                (used in desktop-first).
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can you use both in the same stylesheet?</span>
+                <span class="a"><strong>Yes.</strong> The important thing is to structure the rules clearly and avoid
+                    unnecessary overlapping breakpoints.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">@media (min-width: 768px) { /* Mobile-first */ }
+@media (max-width: 767px) { /* Desktop-first */ }</code></pre>
+            </div>
+        </section>
+
+        <!-- Q150 -->
+        <section class="q-section">
+            <h2>Q150 — What are CSS functions such as calc(), min(), max(), and clamp()? <span class="badge hard">Medium
+                    → Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <ul style="margin:6px 0">
+                    <li><code>calc()</code> allows arithmetic expressions.</li>
+                    <li><code>min()</code> chooses the smallest value from its arguments.</li>
+                    <li><code>max()</code> chooses the largest value.</li>
+                    <li><code>clamp(min, preferred, max)</code> defines a minimum, preferred, and maximum value.</li>
+                </ul>
+                This is useful for fluid responsive designs.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Explain `font-size: clamp(16px, 2vw, 32px);`</span>
+                <span class="a">The font size should not go below 16px, can scale according to 2vw, and should not
+                    exceed 32px. It scales fluidly within those limits.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.calc-box { width: calc(100% - 40px); }
+.clamp-box { font-size: clamp(1rem, 4vw, 2rem); }</code></pre>
+            </div>
+            <h3>🔴 Live demo (Resize window to see text scale)</h3>
+            <div class="demo-box q150-demo">
+                <div class="clamp-box">This text uses clamp()<br>It scales with the viewport!</div>
+                <div class="calc-box">This box uses calc(100% - 40px)</div>
+            </div>
+        </section>
+
+        <!-- ==================== STUDENT TASK ==================== -->
+        <section class="task-section">
+            <h2>🧑‍🎓 Student Task — Advanced Grid & Responsive Mastery</h2>
+            <p>Build <strong>one HTML page</strong> (+ CSS file) that applies <strong>all 10 concepts</strong> from Part
+                15. Submit as a zipped folder.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Concept</th>
+                        <th>What you must do</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>141</td>
+                        <td>Implicit Grid</td>
+                        <td>Create a grid with 2 explicit columns and add 5 items. Use `grid-auto-columns` or
+                            `grid-auto-rows` to style the overflow.</td>
+                    </tr>
+                    <tr>
+                        <td>142</td>
+                        <td>grid-auto-rows</td>
+                        <td>Set `grid-auto-rows: minmax(100px, auto)` and add dynamic content to see the row grow.</td>
+                    </tr>
+                    <tr>
+                        <td>143</td>
+                        <td>grid-area</td>
+                        <td>Create a 3x3 grid. Use `grid-column` and `grid-row` to make one item span 2 columns and 2
+                            rows.</td>
+                    </tr>
+                    <tr>
+                        <td>144</td>
+                        <td>grid-template-areas</td>
+                        <td>Build a full page layout (Header, Sidebar, Main, Footer) using `grid-template-areas`
+                            strings.</td>
+                    </tr>
+                    <tr>
+                        <td>145</td>
+                        <td>Align Content vs Items</td>
+                        <td>Add a comment explaining the difference between `align-items` and `align-content`.</td>
+                    </tr>
+                    <tr>
+                        <td>146</td>
+                        <td>justify-self</td>
+                        <td>Create a grid with `justify-items: start;` and override one specific item to `justify-self:
+                            end;`.</td>
+                    </tr>
+                    <tr>
+                        <td>147</td>
+                        <td>Media Queries</td>
+                        <td>Write a media query that hides a `.sidebar` class when the screen is smaller than `600px`.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>148</td>
+                        <td>Mobile First</td>
+                        <td>Write your base CSS for mobile, and use `@media (min-width: 768px)` to add Flexbox to the
+                            container for desktop.</td>
+                    </tr>
+                    <tr>
+                        <td>149</td>
+                        <td>min/max width</td>
+                        <td>Add a comment explaining when you would use `min-width` vs `max-width` in media queries.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>150</td>
+                        <td>CSS Functions</td>
+                        <td>Use `clamp()` for a heading to ensure it never gets too small or too big.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>📦 Submission rules</h3>
+            <ul>
+                <li><strong>File names:</strong> <code>index.html</code>, <code>styles.css</code></li>
+                <li><strong>Comments:</strong> above each section, e.g. <code>/* Q144: Grid template areas */</code>
+                </li>
+                <li><strong>README.md</strong> with 3 answers:
+                    <ol>
+                        <li>What is the difference between explicit and implicit grids?</li>
+                        <li>Why is Mobile-First usually recommended?</li>
+                        <li>How does `clamp()` help with fluid typography?</li>
+                    </ol>
+                </li>
+            </ul>
+
+            <h3>🎯 Grading (out of 10)</h3>
+            <p>1 point per row. "grid-template-areas" and "CSS Functions" rows are worth double if the README
+                explanation is correct.</p>
+        </section>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.hljs) {hljs.highlightAll(); if (hljs.lineNumbersBlock) {document.querySelectorAll('pre code').forEach(function (el) {hljs.lineNumbersBlock(el);});} }
+        });
+
+        // Q144 Toggle Layout
+        function toggleLayout() {
+            document.getElementById('q144-layout').classList.toggle('mobile');
+        }
+    </script>
+</body>
+
+</html>

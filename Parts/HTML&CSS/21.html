@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML &amp; CSS Questions — Part 21 (201–210)</title>
+
+    <!-- ===== Favicon: inline SVG (works offline) ===== -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%234f46e5'/%3E%3Cstop%20offset='1'%20stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='url(%23g)'/%3E%3Cpath%20d='M22%2022%20L14%2032%20L22%2042%20M42%2022%20L50%2032%20L42%2042'%20stroke='white'%20stroke-width='4'%20stroke-linecap='round'%20stroke-linejoin='round'%20fill='none'/%3E%3C/svg%3E" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css" />
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            background: #f4f6fa;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        /* ==================== BACK TO HOME BUTTON ==================== */
+        .back-home {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 9999;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 16px rgba(79, 70, 229, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .back-home:hover {
+            background: linear-gradient(135deg, #4338ca, #6d28d9);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(79, 70, 229, 0.5);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 640px) {
+            .back-home {
+                top: 12px;
+                left: 12px;
+                padding: 8px 14px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* ==================== PAGE HEADER ==================== */
+        .page-header {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            margin: 0 0 8px;
+            font-size: 2rem;
+        }
+
+        .page-header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 24px 20px;
+        }
+
+        .q-section {
+            background: #fff;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 28px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+        }
+
+        .q-section h2 {
+            margin-top: 0;
+            color: #4f46e5;
+            border-bottom: 2px solid #eef;
+            padding-bottom: 10px;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            background: #dcfce7;
+            color: #166534;
+            margin-left: 8px;
+            vertical-align: middle;
+            font-weight: 600;
+        }
+
+        .badge.medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge.hard {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .q-section h3 {
+            color: #374151;
+            margin-top: 22px;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .answer {
+            background: #ecfdf5;
+            border-left: 4px solid #10b981;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 10px 0;
+        }
+
+        .answer strong.label {
+            display: block;
+            font-size: 0.75rem;
+            color: #059669;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .followup {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 12px 0;
+        }
+
+        .followup .q {
+            font-weight: 600;
+            color: #1d4ed8;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .followup .a {
+            color: #1e3a8a;
+        }
+
+        .demo-box {
+            background: #fafbff;
+            border: 1px dashed #c7d2fe;
+            border-radius: 10px;
+            padding: 16px;
+            margin: 12px 0;
+        }
+
+        .demo-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .demo-label.bad {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .demo-label.good {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        /* ==================== VS CODE ==================== */
+        .vs-code {
+            background: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 16px 0;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #2d2d2d;
+        }
+
+        .vs-titlebar {
+            background: #3c3c3c;
+            padding: 9px 14px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px solid #2d2d2d;
+        }
+
+        .vs-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .vs-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .vs-dot.red {
+            background: #ff5f56;
+        }
+
+        .vs-dot.yellow {
+            background: #ffbd2e;
+        }
+
+        .vs-dot.green {
+            background: #27c93f;
+        }
+
+        .vs-title {
+            position: absolute;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 12px;
+            color: #cccccc;
+            pointer-events: none;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+
+        .vs-tabbar {
+            background: #252526;
+            display: flex;
+        }
+
+        .vs-tab {
+            background: #2d2d2d;
+            color: #969696;
+            padding: 9px 20px;
+            font-size: 12.5px;
+            border-right: 1px solid #1e1e1e;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .vs-tab.active {
+            background: #1e1e1e;
+            color: #ffffff;
+        }
+
+        .vs-tab.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #007acc;
+        }
+
+        .file-icon {
+            display: inline-block;
+            width: 9px;
+            height: 9px;
+            border-radius: 2px;
+        }
+
+        .file-icon.html {
+            background: #e44d26;
+        }
+
+        .file-icon.css {
+            background: #264de4;
+        }
+
+        .file-icon.js {
+            background: #f7df1e;
+        }
+
+        .vs-body {
+            margin: 0 !important;
+            padding: 16px 0 !important;
+            background: #1e1e1e !important;
+            overflow-x: auto;
+            font-size: 13px !important;
+            line-height: 1.65 !important;
+            color: #dcdcdc;
+            border-radius: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+        }
+
+        .vs-body code {
+            background: transparent !important;
+            padding: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+            font-size: inherit !important;
+            color: inherit;
+            white-space: pre;
+        }
+
+        .vs-body .hljs-ln-numbers {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            text-align: right;
+            color: #858585 !important;
+            border-right: 1px solid #3a3f4b;
+            padding: 0 14px 0 16px !important;
+            vertical-align: top;
+            font-weight: normal;
+        }
+
+        .vs-body .hljs-ln-code {
+            padding: 0 16px !important;
+        }
+
+        .vs-body .hljs-ln {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .vs-body .hljs-ln td {
+            padding: 0;
+        }
+
+        .vs-body::-webkit-scrollbar {
+            height: 10px;
+        }
+
+        .vs-body::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+
+        .vs-body::-webkit-scrollbar-thumb {
+            background: #424242;
+            border-radius: 5px;
+        }
+
+        .vs-body code.hljs,
+        .vs-body .hljs {
+            background: transparent !important;
+            padding: 0 !important;
+            overflow: visible !important;
+        }
+
+        /* ==================== TASK SECTION ==================== */
+        .task-section {
+            background: linear-gradient(135deg, #fff7ed, #fef3c7);
+            border: 2px solid #f59e0b;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 40px;
+        }
+
+        .task-section h2 {
+            color: #b45309;
+            margin-top: 0;
+        }
+
+        .task-section table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 12px 0;
+            font-size: 0.9rem;
+        }
+
+        .task-section th,
+        .task-section td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .task-section th {
+            background: #fde68a;
+            color: #78350f;
+        }
+
+        .task-section code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+        }
+
+        /* ==================== DEMO SPECIFIC STYLES ==================== */
+        /* Q201 Custom Properties */
+        .q201-demo .theme-box {
+            background: var(--bg-color, #fff);
+            color: var(--text-color, #1f2937);
+            padding: 16px;
+            border-radius: 8px;
+            border: 2px solid var(--border-color, #ccc);
+            transition: all 0.3s;
+        }
+
+        .q201-demo .theme-box.dark {
+            --bg-color: #1f2937;
+            --text-color: #f3f4f6;
+            --border-color: #4b5563;
+        }
+
+        .q201-demo button {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        /* Q202 calc() */
+        .q202-demo .calc-wrapper {
+            background: #e5e7eb;
+            border: 2px dashed #9ca3af;
+            border-radius: 8px;
+            padding: 10px;
+        }
+
+        .q202-demo .calc-box {
+            width: calc(100% - 80px);
+            margin: 0 auto;
+            background: #4f46e5;
+            color: white;
+            padding: 16px;
+            text-align: center;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .q202-demo .calc-label {
+            font-size: 0.85rem;
+            text-align: center;
+            color: #6b7280;
+            margin-top: 10px;
+        }
+
+        /* Q203 clamp() */
+        .q203-demo .clamp-box {
+            font-size: clamp(16px, 4vw, 32px);
+            background: #fef3c7;
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid #f59e0b;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        /* Q204 @layer */
+        @layer reset, components, utilities;
+
+        @layer reset {
+            .q204-demo .layer-btn {
+                background: #6b7280;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-weight: bold;
+            }
+        }
+
+        @layer components {
+            .q204-demo .layer-btn {
+                background: #3b82f6;
+            }
+        }
+
+        @layer utilities {
+            .q204-demo .layer-btn {
+                background: #10b981;
+            }
+        }
+
+        /* Q205 !important */
+        .q205-demo .normal-btn {
+            background: #3b82f6;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .q205-demo .normal-btn {
+            background: #ef4444 !important;
+        }
+
+        /* Q206 Transitions vs Animations */
+        .q206-demo .trans-btn {
+            background: #4f46e5;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .q206-demo .trans-btn:hover {
+            transform: scale(1.1);
+            background: #4338ca;
+        }
+
+        .q206-demo .spin-box {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #e5e7eb;
+            border-top-color: #4f46e5;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-top: 10px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Q207 Keyframes */
+        .q207-demo .fade-box {
+            background: #4f46e5;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            animation: fadeIn 1.5s ease forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Q208 Units */
+        .q208-demo .unit-box {
+            background: #eef2ff;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border-left: 4px solid #4f46e5;
+        }
+
+        .q208-demo .px-box {
+            font-size: 16px;
+        }
+
+        .q208-demo .rem-box {
+            font-size: 1.5rem;
+        }
+
+        .q208-demo .em-box {
+            font-size: 1.5em;
+        }
+
+        .q208-demo .vw-box {
+            font-size: 3vw;
+        }
+
+        /* Q209 Media Queries */
+        .q209-demo .mq-box {
+            background: #f3f4f6;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+        .q209-demo .viewport-display {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 8px;
+            border-radius: 4px;
+            text-align: center;
+            font-family: monospace;
+            margin-bottom: 10px;
+        }
+
+        @media (min-width: 600px) {
+            .q209-demo .mq-box {
+                background: #4f46e5;
+                color: white;
+            }
+        }
+
+        /* Q210 Debugging */
+        .q210-demo .debug-container {
+            border: 2px solid #ef4444;
+            padding: 10px;
+            border-radius: 8px;
+            height: 80px;
+            overflow: hidden;
+            background: #fff;
+            transition: all 0.3s;
+        }
+
+        .q210-demo .debug-container.fixed {
+            overflow: visible;
+            height: auto;
+            min-height: 80px;
+            border-color: #10b981;
+        }
+
+        .q210-demo .debug-box {
+            background: #ef4444;
+            color: white;
+            padding: 16px;
+            border-radius: 6px;
+            margin-top: 60px;
+        }
+
+        .q210-demo .debug-container.fixed .debug-box {
+            background: #10b981;
+        }
+
+        .q210-demo button {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="../../index.html" class="back-home">← Back to Home</a>
+
+    <header class="page-header">
+        <h1>HTML &amp; CSS Questions — Part 21 (201 → 210)</h1>
+        <p>Questions + Answers + VS Code-style code + Live demos that match the code exactly</p>
+    </header>
+
+    <div class="container">
+
+        <!-- Q201 -->
+        <section class="q-section">
+            <h2>Q201 — What are CSS Custom Properties, and how are they different from Sass variables? <span
+                    class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                CSS Custom Properties are variables managed by the browser at <strong>runtime</strong>.<br><br>
+                Unlike Sass variables, CSS Custom Properties remain available in the generated CSS and can be
+                <strong>changed at runtime</strong> (e.g., for theming).
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can an Angular application change a CSS custom property
+                    dynamically?</span>
+                <span class="a"><strong>Yes.</strong> We can modify custom properties through Angular bindings (e.g.,
+                    <code>[style.--primary-color]="color"</code>) or JavaScript.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">:root {
+  --primary-color: #2563eb;
+  --spacing-md: 16px;
+}
+
+.dark-theme {
+  --primary-color: white;
+}
+
+.button {
+  color: var(--primary-color);
+  padding: var(--spacing-md);
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q201-demo">
+                <div class="theme-box" id="q201-theme">
+                    <h4 style="margin-top: 0;">Dynamic Theme</h4>
+                    <p style="margin: 0;">This box uses CSS variables.</p>
+                </div>
+                <button onclick="document.getElementById('q201-theme').classList.toggle('dark')">Toggle Theme</button>
+            </div>
+        </section>
+
+        <!-- Q202 -->
+        <section class="q-section">
+            <h2>Q202 — What is CSS calc() and when would you use it? <span class="badge medium">Easy → Medium</span>
+            </h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>calc()</code> allows us to perform calculations between CSS values. It's useful when combining
+                different units (e.g., <code>width: calc(100% - 40px);</code>).
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can you use CSS variables inside calc()?</span>
+                <span class="a"><strong>Yes:</strong> <code>height: calc(100vh - var(--header-height));</code></span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.container {
+  width: calc(100% - 40px);
+}
+
+.dashboard {
+  height: calc(100vh - 64px); /* Fixed header */
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q202-demo">
+                <div class="calc-wrapper">
+                    <div class="calc-box">width: calc(100% - 80px)</div>
+                </div>
+                <div class="calc-label">The outer dashed box is 100%. The blue box is 80px less.</div>
+            </div>
+        </section>
+
+        <!-- Q203 -->
+        <section class="q-section">
+            <h2>Q203 — What is the difference between min(), max(), and clamp()? <span class="badge hard">Hard</span>
+            </h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <ul style="margin:6px 0">
+                    <li><code>min()</code> chooses the smallest value.</li>
+                    <li><code>max()</code> chooses the largest value.</li>
+                    <li><code>clamp(min, preferred, max)</code> limits a value between a minimum and maximum.</li>
+                </ul>
+                <code>clamp()</code> is useful for fluid responsive sizing without needing many media queries.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Why is clamp() useful?</span>
+                <span class="a">It allows fluid responsive sizing (e.g., font-size) to scale with the viewport but not
+                    go below a minimum or above a maximum.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.title {
+  font-size: clamp(1rem, 2vw, 2rem);
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo (Resize window)</h3>
+            <div class="demo-box q203-demo">
+                <div class="clamp-box">This text uses clamp(16px, 4vw, 32px)</div>
+            </div>
+        </section>
+
+        <!-- Q204 -->
+        <section class="q-section">
+            <h2>Q204 — What is a CSS Cascade Layer (@layer)? <span class="badge hard">Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>@layer</code> allows us to explicitly organize CSS into cascade layers and control their
+                precedence.<br><br>
+                This can make large stylesheets easier to reason about and reduce the need for specificity hacks.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Why can cascade layers be useful with third-party libraries?</span>
+                <span class="a">They can help establish a predictable cascade relationship between library styles,
+                    application styles, components, and utilities.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">@layer reset, components, utilities;
+
+@layer reset {
+  .button { background: gray; }
+}
+@layer components {
+  .button { background: blue; }
+}
+@layer utilities {
+  .button { background: green; } /* Wins */
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q204-demo">
+                <p style="font-size: 0.85rem; margin-top: 0;">Layers are declared as:
+                    <code>reset, components, utilities</code>. The button ends up green because `utilities` was declared
+                    last.
+                </p>
+                <button class="layer-btn">Layer Button (Green Wins)</button>
+            </div>
+        </section>
+
+        <!-- Q205 -->
+        <section class="q-section">
+            <h2>Q205 — What is !important, and why should it generally be avoided? <span
+                    class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>!important</code> increases the priority of a declaration in the cascade. It can be useful in
+                specific cases, but excessive use creates specificity and maintenance problems.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Is !important always bad?</span>
+                <span class="a"><strong>No.</strong> There are legitimate use cases, but it should be deliberate rather
+                    than the default solution.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.button {
+  background: blue;
+}
+.button {
+  background: red !important; /* This wins */
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q205-demo">
+                <button class="normal-btn">My color is red because of !important</button>
+            </div>
+        </section>
+
+        <!-- Q206 -->
+        <section class="q-section">
+            <h2>Q206 — What is the difference between CSS transitions and animations? <span class="badge medium">Easy →
+                    Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                A <strong>transition</strong> describes how a property changes between states (e.g., on hover).<br><br>
+                An <strong>animation</strong> can define multiple keyframes and doesn't necessarily depend on a state
+                change (it can run automatically).
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can a transition run automatically when the page loads?</span>
+                <span class="a">A transition normally needs a change between states/values. If I need a standalone
+                    sequence, CSS animation is usually more appropriate.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">/* Transition (on hover) */
+.button { transition: transform 0.2s; }
+.button:hover { transform: scale(1.1); }
+
+/* Animation (auto-run) */
+@keyframes spin { to { transform: rotate(360deg); } }
+.loader { animation: spin 1s infinite; }</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q206-demo">
+                <p style="font-size: 0.85rem; margin-top: 0;">Hover over the button (Transition):</p>
+                <button class="trans-btn">Hover Me</button>
+                <p style="font-size: 0.85rem; margin-top: 15px;">Spinner (Auto Animation):</p>
+                <div class="spin-box"></div>
+            </div>
+        </section>
+
+        <!-- Q207 -->
+        <section class="q-section">
+            <h2>Q207 — What are CSS animation keyframes? <span class="badge">Easy</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                Keyframes define the <strong>intermediate states</strong> of a CSS animation (using
+                <code>from</code>/<code>to</code> or percentages like <code>0%</code>, <code>50%</code>,
+                <code>100%</code>).
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What's the difference between animation-duration and
+                    animation-delay?</span>
+                <span class="a"><code>duration</code> is how long the animation takes, while <code>delay</code> is how
+                    long the browser waits before starting it.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.element {
+  animation: fadeIn 500ms ease;
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q207-demo">
+                <div class="fade-box" id="q207-box">This box fades in.</div>
+                <button onclick="restartAnimation()"
+                    style="margin-top: 10px; background: #4f46e5; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">Restart
+                    Animation</button>
+            </div>
+        </section>
+
+        <!-- Q208 -->
+        <section class="q-section">
+            <h2>Q208 — What is the difference between em, rem, %, vw, vh, and px? <span
+                    class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <ul style="margin:6px 0">
+                    <li><code>px</code>: Absolute CSS pixel unit.</li>
+                    <li><code>rem</code>: Relative to the root font size.</li>
+                    <li><code>em</code>: Relative to the element's/parent's font size (can compound).</li>
+                    <li><code>%</code>: Relative to a containing dimension.</li>
+                    <li><code>vw / vh</code>: 1% of the viewport width/height.</li>
+                </ul>
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Why do many developers prefer rem for typography?</span>
+                <span class="a">Because it's relative to the root font size, making typography more predictable and
+                    easier to scale consistently.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">html { font-size: 16px; }
+.rem-box { font-size: 1.5rem; } /* 24px */
+.em-box { font-size: 1.5em; }   /* 1.5x parent */
+.vw-box { font-size: 3vw; }
+.hero { min-height: 100vh; }</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q208-demo">
+                <div class="unit-box px-box">16px (Absolute)</div>
+                <div class="unit-box rem-box">1.5rem (Relative to root)</div>
+                <div class="unit-box em-box">1.5em (Relative to parent)</div>
+                <div class="unit-box vw-box">3vw (Relative to viewport)</div>
+            </div>
+        </section>
+
+        <!-- Q209 -->
+        <section class="q-section">
+            <h2>Q209 — How do media queries work, and what is mobile-first CSS? <span class="badge medium">Medium</span>
+            </h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                Media queries apply CSS conditionally based on characteristics such as viewport width.<br><br>
+                A <strong>mobile-first</strong> approach means starting with the base styles for smaller screens and
+                progressively enhancing them for larger screens.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Why is mobile-first often preferred?</span>
+                <span class="a">It encourages simpler base styles and progressive enhancement. It can also make
+                    responsive rules easier to maintain.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">/* Mobile First */
+.container { display: block; }
+
+@media (min-width: 768px) {
+  .container { display: grid; }
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo (Resize window)</h3>
+            <div class="demo-box q209-demo">
+                <div class="viewport-display" id="viewport-width-display">Current width: 0px</div>
+                <div class="mq-box">I turn purple at >= 600px</div>
+            </div>
+        </section>
+
+        <!-- Q210 -->
+        <section class="q-section">
+            <h2>Q210 — How would you debug a CSS layout bug where an element is not appearing where you expect? <span
+                    class="badge hard">Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                I wouldn't randomly add CSS properties. I'd debug systematically using DevTools:
+                <ol style="margin:6px 0">
+                    <li>Check computed styles, box model, and dimensions.</li>
+                    <li>Check if it's hidden (<code>display: none</code>, <code>visibility: hidden</code>,
+                        <code>opacity: 0</code>).
+                    </li>
+                    <li>Check layout context (Flex, Grid, Absolute).</li>
+                    <li>Check positioning and containing blocks.</li>
+                    <li>Check cascade (specificity, <code>!important</code>).</li>
+                    <li>Check overflow (clipped by an ancestor).</li>
+                </ol>
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What if the element exists in the DOM but you can't see it?</span>
+                <span class="a">It could be hidden, have zero dimensions, be outside the visible area, be clipped by
+                    overflow, have a stacking issue, or be visually transparent.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.container {
+  height: 80px;
+  overflow: hidden; /* The bug */
+}
+
+.container.fixed {
+  overflow: visible;
+  height: auto;
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q210-demo">
+                <button onclick="document.getElementById('q210-container').classList.toggle('fixed')">Fix Layout
+                    Bug</button>
+                <div class="debug-container" id="q210-container">
+                    <div class="debug-box">This box is pushed down. Without the fix, it gets clipped by `overflow:
+                        hidden`.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== STUDENT TASK ==================== -->
+        <section class="task-section">
+            <h2>🧑‍🎓 Student Task — Advanced CSS Features</h2>
+            <p>Build <strong>one HTML page</strong> (+ CSS file) that applies <strong>all 10 concepts</strong> from Part
+                21. Submit as a zipped folder.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Concept</th>
+                        <th>What you must do</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>201</td>
+                        <td>Custom Properties</td>
+                        <td>Create a theme switcher using `--primary-color` and a `.dark-theme` class.</td>
+                    </tr>
+                    <tr>
+                        <td>202</td>
+                        <td>calc()</td>
+                        <td>Create a sidebar with fixed width and a main content area using `width: calc(100% - 250px)`.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>203</td>
+                        <td>clamp()</td>
+                        <td>Use `clamp(1rem, 5vw, 3rem)` on an `h1` so it scales fluidly.</td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>@layer</td>
+                        <td>Create two layers (`base` and `utilities`) and show how a class in `utilities` overrides
+                            `base`.</td>
+                    </tr>
+                    <tr>
+                        <td>205</td>
+                        <td>!important</td>
+                        <td>Add a comment explaining when you *would* use `!important` (e.g., overriding a third-party
+                            library).</td>
+                    </tr>
+                    <tr>
+                        <td>206</td>
+                        <td>Transition vs Animation</td>
+                        <td>Add a hover transition to a button and an infinite keyframe animation to a loading spinner.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>207</td>
+                        <td>Keyframes</td>
+                        <td>Create a `fadeIn` animation and apply it to a card when the page loads.</td>
+                    </tr>
+                    <tr>
+                        <td>208</td>
+                        <td>Units</td>
+                        <td>Set the root font size to `16px`. Use `1.5rem` for padding and `50vh` for a hero section.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>209</td>
+                        <td>Mobile-First</td>
+                        <td>Write base CSS for mobile. Add `@media (min-width: 768px)` to change the layout to grid.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>210</td>
+                        <td>Debugging</td>
+                        <td>Create a div with `overflow: hidden` that clips a child. Add a button to toggle `overflow:
+                            visible`.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>📦 Submission rules</h3>
+            <ul>
+                <li><strong>File names:</strong> <code>index.html</code>, <code>styles.css</code></li>
+                <li><strong>Comments:</strong> above each section, e.g. <code>/* Q201: Custom Properties */</code></li>
+                <li><strong>README.md</strong> with 3 answers:
+                    <ol>
+                        <li>What is the difference between CSS Custom Properties and Sass variables?</li>
+                        <li>Why is `!important` discouraged in large projects?</li>
+                        <li>What is the advantage of Mobile-First design?</li>
+                    </ol>
+                </li>
+            </ul>
+
+            <h3>🎯 Grading (out of 10)</h3>
+            <p>1 point per row. "@layer" and "Debugging" rows are worth double if the README explanation is correct.</p>
+        </section>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.hljs) {hljs.highlightAll(); if (hljs.lineNumbersBlock) {document.querySelectorAll('pre code').forEach(function (el) {hljs.lineNumbersBlock(el);});} }
+
+            // Q209 Viewport Width Display
+            function updateViewportWidth() {
+                const el = document.getElementById('viewport-width-display');
+                if (el) el.textContent = `Current width: ${window.innerWidth}px`;
+            }
+            window.addEventListener('resize', updateViewportWidth);
+            updateViewportWidth();
+        });
+
+        // Q207 Restart Animation
+        function restartAnimation() {
+            const el = document.getElementById('q207-box');
+            el.style.animation = 'none';
+            el.offsetHeight; /* trigger reflow */
+            el.style.animation = 'fadeIn 1.5s ease forwards';
+        }
+    </script>
+</body>
+
+</html>

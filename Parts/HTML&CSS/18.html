@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML &amp; CSS Questions — Part 18 (171–180)</title>
+
+    <!-- ===== Favicon: inline SVG (works offline) ===== -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%234f46e5'/%3E%3Cstop%20offset='1'%20stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='url(%23g)'/%3E%3Cpath%20d='M22%2022%20L14%2032%20L22%2042%20M42%2022%20L50%2032%20L42%2042'%20stroke='white'%20stroke-width='4'%20stroke-linecap='round'%20stroke-linejoin='round'%20fill='none'/%3E%3C/svg%3E" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css" />
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            background: #f4f6fa;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        /* ==================== BACK TO HOME BUTTON ==================== */
+        .back-home {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 9999;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 16px rgba(79, 70, 229, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .back-home:hover {
+            background: linear-gradient(135deg, #4338ca, #6d28d9);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(79, 70, 229, 0.5);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 640px) {
+            .back-home {
+                top: 12px;
+                left: 12px;
+                padding: 8px 14px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* ==================== PAGE HEADER ==================== */
+        .page-header {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            margin: 0 0 8px;
+            font-size: 2rem;
+        }
+
+        .page-header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 24px 20px;
+        }
+
+        .q-section {
+            background: #fff;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 28px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+        }
+
+        .q-section h2 {
+            margin-top: 0;
+            color: #4f46e5;
+            border-bottom: 2px solid #eef;
+            padding-bottom: 10px;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            background: #dcfce7;
+            color: #166534;
+            margin-left: 8px;
+            vertical-align: middle;
+            font-weight: 600;
+        }
+
+        .badge.medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge.hard {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .q-section h3 {
+            color: #374151;
+            margin-top: 22px;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .answer {
+            background: #ecfdf5;
+            border-left: 4px solid #10b981;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 10px 0;
+        }
+
+        .answer strong.label {
+            display: block;
+            font-size: 0.75rem;
+            color: #059669;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .followup {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 12px 0;
+        }
+
+        .followup .q {
+            font-weight: 600;
+            color: #1d4ed8;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .followup .a {
+            color: #1e3a8a;
+        }
+
+        .demo-box {
+            background: #fafbff;
+            border: 1px dashed #c7d2fe;
+            border-radius: 10px;
+            padding: 16px;
+            margin: 12px 0;
+        }
+
+        .demo-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .demo-label.bad {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .demo-label.good {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        /* ==================== VS CODE ==================== */
+        .vs-code {
+            background: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 16px 0;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #2d2d2d;
+        }
+
+        .vs-titlebar {
+            background: #3c3c3c;
+            padding: 9px 14px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px solid #2d2d2d;
+        }
+
+        .vs-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .vs-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .vs-dot.red {
+            background: #ff5f56;
+        }
+
+        .vs-dot.yellow {
+            background: #ffbd2e;
+        }
+
+        .vs-dot.green {
+            background: #27c93f;
+        }
+
+        .vs-title {
+            position: absolute;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 12px;
+            color: #cccccc;
+            pointer-events: none;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+
+        .vs-tabbar {
+            background: #252526;
+            display: flex;
+        }
+
+        .vs-tab {
+            background: #2d2d2d;
+            color: #969696;
+            padding: 9px 20px;
+            font-size: 12.5px;
+            border-right: 1px solid #1e1e1e;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .vs-tab.active {
+            background: #1e1e1e;
+            color: #ffffff;
+        }
+
+        .vs-tab.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #007acc;
+        }
+
+        .file-icon {
+            display: inline-block;
+            width: 9px;
+            height: 9px;
+            border-radius: 2px;
+        }
+
+        .file-icon.html {
+            background: #e44d26;
+        }
+
+        .file-icon.css {
+            background: #264de4;
+        }
+
+        .file-icon.js {
+            background: #f7df1e;
+        }
+
+        .vs-body {
+            margin: 0 !important;
+            padding: 16px 0 !important;
+            background: #1e1e1e !important;
+            overflow-x: auto;
+            font-size: 13px !important;
+            line-height: 1.65 !important;
+            color: #dcdcdc;
+            border-radius: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+        }
+
+        .vs-body code {
+            background: transparent !important;
+            padding: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+            font-size: inherit !important;
+            color: inherit;
+            white-space: pre;
+        }
+
+        .vs-body .hljs-ln-numbers {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            text-align: right;
+            color: #858585 !important;
+            border-right: 1px solid #3a3f4b;
+            padding: 0 14px 0 16px !important;
+            vertical-align: top;
+            font-weight: normal;
+        }
+
+        .vs-body .hljs-ln-code {
+            padding: 0 16px !important;
+        }
+
+        .vs-body .hljs-ln {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .vs-body .hljs-ln td {
+            padding: 0;
+        }
+
+        .vs-body::-webkit-scrollbar {
+            height: 10px;
+        }
+
+        .vs-body::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+
+        .vs-body::-webkit-scrollbar-thumb {
+            background: #424242;
+            border-radius: 5px;
+        }
+
+        .vs-body code.hljs,
+        .vs-body .hljs {
+            background: transparent !important;
+            padding: 0 !important;
+            overflow: visible !important;
+        }
+
+        /* ==================== TASK SECTION ==================== */
+        .task-section {
+            background: linear-gradient(135deg, #fff7ed, #fef3c7);
+            border: 2px solid #f59e0b;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 40px;
+        }
+
+        .task-section h2 {
+            color: #b45309;
+            margin-top: 0;
+        }
+
+        .task-section table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 12px 0;
+            font-size: 0.9rem;
+        }
+
+        .task-section th,
+        .task-section td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .task-section th {
+            background: #fde68a;
+            color: #78350f;
+        }
+
+        .task-section code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+        }
+
+        /* ==================== DEMO SPECIFIC STYLES ==================== */
+        /* Q171 & Q172 Box Model */
+        .q171-demo .box-model {
+            width: 150px;
+            padding: 20px;
+            border: 5px solid #333;
+            margin: 20px;
+            background: #cfe;
+            box-sizing: content-box;
+            text-align: center;
+        }
+
+        .q171-demo .box-model.border-box {
+            box-sizing: border-box;
+            background: #fcd;
+        }
+
+        /* Q173 Margin Collapse */
+        .q173-demo .margin-box {
+            background: #fca5a5;
+            padding: 10px;
+            border: 1px solid #ef4444;
+        }
+
+        .q173-demo .margin-bottom {
+            margin-bottom: 40px;
+        }
+
+        .q173-demo .margin-top {
+            margin-top: 20px;
+            background: #93c5fd;
+            border-color: #3b82f6;
+        }
+
+        /* Q174 Visibility */
+        .q174-demo .controls {
+            margin-bottom: 10px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .q174-demo .controls button {
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+            background: #fff;
+        }
+
+        .q174-demo .controls button.active {
+            background: #4f46e5;
+            color: #fff;
+            border-color: #4f46e5;
+        }
+
+        .q174-demo .box-wrapper {
+            display: flex;
+            gap: 10px;
+            background: #e5e7eb;
+            padding: 10px;
+            border-radius: 8px;
+            min-height: 100px;
+        }
+
+        .q174-demo .box {
+            width: 80px;
+            height: 80px;
+            background: #4f46e5;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .q174-demo .d-none {
+            display: none;
+        }
+
+        .q174-demo .v-hidden {
+            visibility: hidden;
+        }
+
+        .q174-demo .o-zero {
+            opacity: 0;
+        }
+
+        /* Q175 & Q176 Positioning */
+        .q175-demo .pos-container {
+            position: relative;
+            height: 250px;
+            background: #f3f4f6;
+            border: 2px dashed #9ca3af;
+            border-radius: 8px;
+            padding: 10px;
+            overflow-y: auto;
+        }
+
+        .q175-demo .pos-box {
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            color: white;
+            width: fit-content;
+            margin-bottom: 8px;
+        }
+
+        .q175-demo .pos-static {
+            background: #6b7280;
+        }
+
+        .q175-demo .pos-relative {
+            background: #3b82f6;
+            position: relative;
+            top: 10px;
+            left: 20px;
+        }
+
+        .q175-demo .pos-absolute {
+            background: #ef4444;
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+        }
+
+        .q175-demo .pos-sticky {
+            background: #10b981;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .q175-demo .pos-content {
+            height: 300px;
+            background: repeating-linear-gradient(45deg, #e5e7eb, #e5e7eb 10px, #f9fafb 10px, #f9fafb 20px);
+            margin-top: 8px;
+            border-radius: 4px;
+            padding: 10px;
+            font-size: 0.8rem;
+        }
+
+        /* Q177 Overflow */
+        .q177-demo .controls {
+            margin-bottom: 10px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .q177-demo .controls button {
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+            background: #fff;
+        }
+
+        .q177-demo .controls button.active {
+            background: #4f46e5;
+            color: #fff;
+            border-color: #4f46e5;
+        }
+
+        .q177-demo .overflow-box {
+            width: 250px;
+            height: 100px;
+            background: #e0e7ff;
+            border: 2px solid #4f46e5;
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        /* Q178 Display */
+        .q178-demo .block {
+            display: block;
+            background: #fca5a5;
+            padding: 10px;
+            margin-bottom: 5px;
+        }
+
+        .q178-demo .inline {
+            display: inline;
+            background: #86efac;
+            padding: 5px;
+        }
+
+        .q178-demo .inline-block {
+            display: inline-block;
+            background: #93c5fd;
+            width: 100px;
+            height: 50px;
+            padding: 10px;
+        }
+
+        /* Q179 Word Break */
+        .q179-demo .box {
+            width: 200px;
+            border: 2px solid #4f46e5;
+            padding: 10px;
+            margin-bottom: 10px;
+            background: #fff;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .q179-demo .wrap-anywhere {
+            overflow-wrap: anywhere;
+        }
+
+        .q179-demo .break-word {
+            word-break: break-word;
+        }
+
+        .q179-demo .nowrap {
+            white-space: nowrap;
+            overflow-x: auto;
+        }
+
+        /* Q180 Truncation */
+        .q180-demo .single-line {
+            width: 250px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            background: #fef3c7;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #f59e0b;
+        }
+
+        .q180-demo .multi-line {
+            width: 250px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            background: #ecfdf5;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #10b981;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="../../index.html" class="back-home">← Back to Home</a>
+
+    <header class="page-header">
+        <h1>HTML &amp; CSS Questions — Part 18 (171 → 180)</h1>
+        <p>Questions + Answers + VS Code-style code + Live demos that match the code exactly</p>
+    </header>
+
+    <div class="container">
+
+        <!-- Q171 -->
+        <section class="q-section">
+            <h2>Q171 — Explain the CSS Box Model. <span class="badge">Easy</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                The CSS box model describes how the browser calculates an element's dimensions. It consists of:
+                <strong>Content → Padding → Border → Margin</strong>.<br><br>
+                With the default <code>content-box</code>, the declared <code>width: 200px</code> applies to the content
+                only. The total rendered width is <code>200 (content) + 40 (padding) + 10 (border) = 250px</code>.
+                Margin is outside the element's box.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What changes when you use `box-sizing: border-box;`?</span>
+                <span class="a">The declared width includes the content, padding, and border. So
+                    <code>width: 200px</code> means the total border-box width is exactly 200px.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.box {
+  width: 150px;
+  padding: 20px;
+  border: 5px solid;
+  margin: 10px;
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q171-demo">
+                <div class="box-model">Content Box (Actual width: 200px)</div>
+                <div class="box-model border-box">Border Box (Actual width: 150px)</div>
+            </div>
+        </section>
+
+        <!-- Q172 -->
+        <section class="q-section">
+            <h2>Q172 — What is the difference between content-box and border-box? <span
+                    class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                With <code>content-box</code>, the declared width/height applies to the <strong>content
+                    area</strong>.<br><br>
+                With <code>border-box</code>, the declared width/height includes the <strong>content + padding +
+                    border</strong>.<br><br>
+                A common practice is to apply <code>*, *::before, *::after { box-sizing: border-box; }</code> to make
+                sizing more predictable.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Does border-box include margin?</span>
+                <span class="a"><strong>No.</strong> Margin remains outside the border box.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- Q173 -->
+        <section class="q-section">
+            <h2>Q173 — What is margin collapsing? <span class="badge hard">Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                Margin collapsing is a behavior where <strong>vertical margins</strong> of certain block-level elements
+                can combine rather than simply adding together.<br><br>
+                If a box has <code>margin-bottom: 30px</code> and the next has <code>margin-top: 20px</code>, the
+                resulting gap can be <strong>30px</strong> (not 50px). It occurs between adjacent block siblings,
+                parent/child in certain conditions, and empty blocks.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Does horizontal margin collapse?</span>
+                <span class="a"><strong>No.</strong> Margin collapsing is primarily a behavior of vertical margins in
+                    normal block flow.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.first { margin-bottom: 40px; }
+.second { margin-top: 20px; }
+/* Resulting gap is 40px, not 60px */</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q173-demo">
+                <div class="margin-box margin-bottom">Box 1 (margin-bottom: 40px)</div>
+                <div class="margin-box margin-top">Box 2 (margin-top: 20px)</div>
+            </div>
+        </section>
+
+        <!-- Q174 -->
+        <section class="q-section">
+            <h2>Q174 — What is the difference between display: none, visibility: hidden, and opacity: 0? <span
+                    class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <ul style="margin:6px 0">
+                    <li><code>display: none</code>: Removed from layout. Doesn't occupy space.</li>
+                    <li><code>visibility: hidden</code>: Invisible but still occupies space.</li>
+                    <li><code>opacity: 0</code>: Fully transparent but remains in layout and can still potentially
+                        participate in interaction/hit testing.</li>
+                </ul>
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Which one would you use to completely remove an element from
+                    layout?</span>
+                <span class="a"><code>display: none</code>.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.hidden-display { display: none; }
+.hidden-visibility { visibility: hidden; }
+.hidden-opacity { opacity: 0; }</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q174-demo">
+                <div class="controls">
+                    <button onclick="setVisibility('')" class="active">Reset</button>
+                    <button onclick="setVisibility('d-none')">display: none</button>
+                    <button onclick="setVisibility('v-hidden')">visibility: hidden</button>
+                    <button onclick="setVisibility('o-zero')">opacity: 0</button>
+                </div>
+                <div class="box-wrapper">
+                    <div class="box" id="q174-box">Box 1</div>
+                    <div class="box" style="background:#10b981;">Box 2</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q175 -->
+        <section class="q-section">
+            <h2>Q175 — Explain the CSS position values: static, relative, absolute, fixed, and sticky. <span
+                    class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <ul style="margin:6px 0">
+                    <li><strong>static</strong>: The default. <code>top/left</code> don't apply.</li>
+                    <li><strong>relative</strong>: Remains in normal flow, but can be visually offset. Establishes a
+                        containing block.</li>
+                    <li><strong>absolute</strong>: Removed from flow. Positioned relative to the nearest positioned
+                        ancestor.</li>
+                    <li><strong>fixed</strong>: Positioned relative to the viewport.</li>
+                    <li><strong>sticky</strong>: Behaves relatively until a scroll threshold is reached, then sticks.
+                    </li>
+                </ul>
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Why do developers commonly write `.parent { position: relative; } .child {
+                    position: absolute; }`?</span>
+                <span class="a">Because the positioned ancestor establishes the containing block that the absolutely
+                    positioned child uses for its offsets.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.parent { position: relative; }
+.child { position: absolute; top: 0; right: 0; }
+.fixed { position: fixed; bottom: 20px; right: 20px; }
+.sticky { position: sticky; top: 0; }</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q175-demo">
+                <div class="pos-container">
+                    <div class="pos-box pos-static">static</div>
+                    <div class="pos-box pos-relative">relative</div>
+                    <div class="pos-box pos-sticky">sticky</div>
+                    <div class="pos-content">Scroll down inside this box to see sticky
+                        behavior...<br><br><br><br><br><br><br><br><br><br></div>
+                    <div class="pos-box pos-absolute">absolute</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q176 -->
+        <section class="q-section">
+            <h2>Q176 — How does position: sticky actually work? <span class="badge hard">Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>position: sticky</code> combines aspects of relative positioning and scrolling behavior. The
+                element participates in normal flow, then sticks relative to its scrolling container when it reaches the
+                specified threshold (like <code>top: 0</code>).
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Why might position: sticky appear not to work?</span>
+                <span class="a">Common causes include: no offset specified (like <code>top</code>), the container
+                    doesn't provide enough scrollable space, an ancestor establishes a different scrolling context, or
+                    <code>overflow</code> settings on ancestors change the relevant scroll container.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.header {
+  position: sticky;
+  top: 0; /* Required for sticky to work */
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- Q177 -->
+        <section class="q-section">
+            <h2>Q177 — What is the difference between overflow: hidden, auto, scroll, and clip? <span
+                    class="badge hard">Medium → Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <ul style="margin:6px 0">
+                    <li><strong>hidden</strong>: Clips overflowing content (no scrollbar).</li>
+                    <li><strong>auto</strong>: Provides scrolling <strong>when needed</strong>.</li>
+                    <li><strong>scroll</strong>: Provides scrolling mechanism regardless of overflow.</li>
+                    <li><strong>clip</strong>: Clips overflow without providing a scrolling mechanism (like hidden, but
+                        more strict).</li>
+                </ul>
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What's a common downside of using overflow: hidden carelessly?</span>
+                <span class="a">It can unintentionally clip content, and in some layouts it can also affect
+                    scrolling/sticky behavior depending on which axis and ancestor is involved.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.box { overflow: hidden; }
+.box { overflow: auto; }
+.box { overflow: scroll; }
+.box { overflow: clip; }</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q177-demo">
+                <div class="controls">
+                    <button onclick="setOverflow('visible', this)" class="active">visible</button>
+                    <button onclick="setOverflow('hidden', this)">hidden</button>
+                    <button onclick="setOverflow('auto', this)">auto</button>
+                    <button onclick="setOverflow('scroll', this)">scroll</button>
+                    <button onclick="setOverflow('clip', this)">clip</button>
+                </div>
+                <div class="overflow-box" id="q177-box">
+                    <p>This is a very long text designed to overflow the container. It keeps going and going and
+                        going...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q178 -->
+        <section class="q-section">
+            <h2>Q178 — What is the difference between display: block, inline, and inline-block? <span
+                    class="badge">Easy</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <ul style="margin:6px 0">
+                    <li><strong>block</strong>: Starts on a new line, takes full width (e.g., <code>div</code>,
+                        <code>p</code>).
+                    </li>
+                    <li><strong>inline</strong>: Flows within text, ignores width/height (e.g., <code>span</code>,
+                        <code>a</code>).
+                    </li>
+                    <li><strong>inline-block</strong>: Flows inline, but accepts width and height.</li>
+                </ul>
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can you set width and height on an inline element?</span>
+                <span class="a">Not in the same effective way as a block or inline-block; width and height generally
+                    don't control the inline box.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.block { display: block; }
+.inline { display: inline; }
+.inline-block { display: inline-block; width: 200px; }</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q178-demo">
+                <div class="block">Block Element</div>
+                <span class="inline">Inline Element (Width ignored)</span>
+                <span class="inline-block">Inline-Block (Width applied)</span>
+            </div>
+        </section>
+
+        <!-- Q179 -->
+        <section class="q-section">
+            <h2>Q179 — What is the difference between overflow-wrap, word-break, and white-space? <span
+                    class="badge hard">Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <ul style="margin:6px 0">
+                    <li><code>overflow-wrap</code>: Controls whether unbreakable strings can be broken to prevent
+                        overflow.</li>
+                    <li><code>word-break</code>: Controls how words can break across lines.</li>
+                    <li><code>white-space</code>: Controls how whitespace and line wrapping are handled (e.g.,
+                        <code>nowrap</code> prevents wrapping).
+                    </li>
+                </ul>
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Suppose you have a long unbroken string inside a small card. What would
+                    you consider?</span>
+                <span class="a">I could use <code>overflow-wrap: anywhere;</code> or an appropriate
+                    <code>word-break</code> strategy depending on the content and desired behavior.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.box { overflow-wrap: anywhere; }
+.box { word-break: break-word; }
+.box { white-space: nowrap; }</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q179-demo">
+                <div class="box wrap-anywhere">
+                    <strong>overflow-wrap:</strong><br>Supercalifragilisticexpialidociousssssssssssssssssss
+                </div>
+                <div class="box break-word">
+                    <strong>word-break:</strong><br>Supercalifragilisticexpialidociousssssssssssssssssss
+                </div>
+                <div class="box nowrap"><strong>white-space:
+                        nowrap:</strong><br>Supercalifragilisticexpialidociousssssssssssssssssss</div>
+            </div>
+        </section>
+
+        <!-- Q180 -->
+        <section class="q-section">
+            <h2>Q180 — What is the difference between overflow: hidden and text truncation with ellipsis? <span
+                    class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>overflow: hidden</code> simply clips overflowing content.<br><br>
+                For single-line text truncation with an ellipsis, you need three properties together:
+                <code>white-space: nowrap;</code>, <code>overflow: hidden;</code>, and
+                <code>text-overflow: ellipsis;</code>.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Why isn't overflow: hidden alone enough to produce ...?</span>
+                <span class="a">Because <code>overflow: hidden</code> only clips the content.
+                    <code>text-overflow: ellipsis</code> is the property responsible for indicating truncated text with
+                    an ellipsis.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.single-line {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q180-demo">
+                <p style="font-size: 0.85rem; margin-top: 0;">Single-line truncation:</p>
+                <div class="single-line">This is a very long text that will be truncated with an ellipsis.</div>
+
+                <p style="font-size: 0.85rem; margin-top: 15px;">Multi-line truncation (-webkit-line-clamp):</p>
+                <div class="multi-line">This is a very long text that spans multiple lines. It will be truncated after
+                    exactly two lines using the line-clamp property in CSS. The rest of the text will be hidden.</div>
+            </div>
+        </section>
+
+        <!-- ==================== STUDENT TASK ==================== -->
+        <section class="task-section">
+            <h2>🧑‍🎓 Student Task — Box Model & Text Control</h2>
+            <p>Build <strong>one HTML page</strong> (+ CSS file) that applies <strong>all 10 concepts</strong> from Part
+                18. Submit as a zipped folder.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Concept</th>
+                        <th>What you must do</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>171</td>
+                        <td>Box Model</td>
+                        <td>Create a div with `width: 200px; padding: 20px; border: 5px solid;` and calculate its total
+                            width in a comment.</td>
+                    </tr>
+                    <tr>
+                        <td>172</td>
+                        <td>Border-Box</td>
+                        <td>Apply `box-sizing: border-box` globally and make a 300px wide container with 20px padding.
+                            Ensure it doesn't overflow the parent.</td>
+                    </tr>
+                    <tr>
+                        <td>173</td>
+                        <td>Margin Collapse</td>
+                        <td>Stack two divs with vertical margins and add a comment explaining why the gap is smaller
+                            than expected.</td>
+                    </tr>
+                    <tr>
+                        <td>174</td>
+                        <td>Visibility</td>
+                        <td>Create a button that toggles a div between `display: none` and `display: block`.</td>
+                    </tr>
+                    <tr>
+                        <td>175</td>
+                        <td>Position</td>
+                        <td>Create a card with `position: relative` and place an "X" close button in the top-right
+                            corner using `position: absolute`.</td>
+                    </tr>
+                    <tr>
+                        <td>176</td>
+                        <td>Sticky</td>
+                        <td>Create a header inside a scrollable container using `position: sticky; top: 0`.</td>
+                    </tr>
+                    <tr>
+                        <td>177</td>
+                        <td>Overflow</td>
+                        <td>Create a box with fixed height and `overflow: auto`. Add enough content to make it scroll.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>178</td>
+                        <td>Display</td>
+                        <td>Create a row of 3 cards using `display: inline-block`.</td>
+                    </tr>
+                    <tr>
+                        <td>179</td>
+                        <td>Word Break</td>
+                        <td>Create a box with a very long URL and apply `overflow-wrap: anywhere`.</td>
+                    </tr>
+                    <tr>
+                        <td>180</td>
+                        <td>Truncation</td>
+                        <td>Create a product title using single-line ellipsis truncation.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>📦 Submission rules</h3>
+            <ul>
+                <li><strong>File names:</strong> <code>index.html</code>, <code>styles.css</code></li>
+                <li><strong>Comments:</strong> above each section, e.g. <code>/* Q174: Visibility toggle */</code></li>
+                <li><strong>README.md</strong> with 3 answers:
+                    <ol>
+                        <li>What is the difference between `visibility: hidden` and `display: none`?</li>
+                        <li>Why does `position: sticky` sometimes fail to work?</li>
+                        <li>What three properties are required for single-line ellipsis truncation?</li>
+                    </ol>
+                </li>
+            </ul>
+
+            <h3>🎯 Grading (out of 10)</h3>
+            <p>1 point per row. "Position" and "Truncation" rows are worth double if the README explanation is correct.
+            </p>
+        </section>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.hljs) {hljs.highlightAll(); if (hljs.lineNumbersBlock) {document.querySelectorAll('pre code').forEach(function (el) {hljs.lineNumbersBlock(el);});} }
+        });
+
+        // Q174 Toggle Visibility
+        function setVisibility(className) {
+            const box = document.getElementById('q174-box');
+            box.classList.remove('d-none', 'v-hidden', 'o-zero');
+            if (className) box.classList.add(className);
+
+            const btns = document.querySelectorAll('.q174-demo .controls button');
+            btns.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        // Q177 Overflow Toggle
+        function setOverflow(value, btn) {
+            document.getElementById('q177-box').style.overflow = value;
+
+            const btns = document.querySelectorAll('.q177-demo .controls button');
+            btns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+    </script>
+</body>
+
+</html>

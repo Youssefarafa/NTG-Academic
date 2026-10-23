@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HTML &amp; CSS Questions — Part 2 (11–20)</title>
+
+  <!-- ===== Favicon: inline SVG (works offline) ===== -->
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%234f46e5'/%3E%3Cstop%20offset='1'%20stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='url(%23g)'/%3E%3Cpath%20d='M22%2022%20L14%2032%20L22%2042%20M42%2022%20L50%2032%20L42%2042'%20stroke='white'%20stroke-width='4'%20stroke-linecap='round'%20stroke-linejoin='round'%20fill='none'/%3E%3C/svg%3E" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      margin: 0;
+      background: #f4f6fa;
+      color: #1f2937;
+      line-height: 1.6;
+    }
+
+    /* ==================== BACK TO HOME BUTTON ==================== */
+    .back-home {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 9999;
+      background: linear-gradient(135deg, #4f46e5, #7c3aed);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 16px rgba(79, 70, 229, 0.4);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      border: 1px solid transparent;
+    }
+
+    .back-home:hover {
+      background: linear-gradient(135deg, #4338ca, #6d28d9);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(79, 70, 229, 0.5);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    @media (max-width: 640px) {
+      .back-home {
+        top: 12px;
+        left: 12px;
+        padding: 8px 14px;
+        font-size: 0.8rem;
+      }
+    }
+
+    /* ==================== PAGE HEADER ==================== */
+    .page-header {
+      background: linear-gradient(135deg, #4f46e5, #7c3aed);
+      color: #fff;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .page-header h1 {
+      margin: 0 0 8px;
+      font-size: 2rem;
+    }
+
+    .page-header p {
+      margin: 0;
+      opacity: 0.9;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 24px 20px;
+    }
+
+    .q-section {
+      background: #fff;
+      border-radius: 14px;
+      padding: 24px 28px;
+      margin-bottom: 28px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+    }
+
+    .q-section h2 {
+      margin-top: 0;
+      color: #4f46e5;
+      border-bottom: 2px solid #eef;
+      padding-bottom: 10px;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      padding: 2px 10px;
+      border-radius: 20px;
+      background: #dcfce7;
+      color: #166534;
+      margin-left: 8px;
+      vertical-align: middle;
+      font-weight: 600;
+    }
+
+    .badge.medium {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .q-section h3 {
+      color: #374151;
+      margin-top: 22px;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .answer {
+      background: #ecfdf5;
+      border-left: 4px solid #10b981;
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      margin: 10px 0;
+    }
+
+    .answer strong.label {
+      display: block;
+      font-size: 0.75rem;
+      color: #059669;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .followup {
+      background: #eff6ff;
+      border-left: 4px solid #3b82f6;
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      margin: 12px 0;
+    }
+
+    .followup .q {
+      font-weight: 600;
+      color: #1d4ed8;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .followup .a {
+      color: #1e3a8a;
+    }
+
+    .demo-box {
+      background: #fafbff;
+      border: 1px dashed #c7d2fe;
+      border-radius: 10px;
+      padding: 16px;
+      margin: 12px 0;
+    }
+
+    .demo-label {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+
+    .demo-label.bad {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .demo-label.good {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .vs-code {
+      background: #1e1e1e;
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 16px 0;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.1);
+      border: 1px solid #2d2d2d;
+    }
+
+    .vs-titlebar {
+      background: #3c3c3c;
+      padding: 9px 14px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      border-bottom: 1px solid #2d2d2d;
+    }
+
+    .vs-dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    .vs-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .vs-dot.red {
+      background: #ff5f56;
+    }
+
+    .vs-dot.yellow {
+      background: #ffbd2e;
+    }
+
+    .vs-dot.green {
+      background: #27c93f;
+    }
+
+    .vs-title {
+      position: absolute;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 12px;
+      color: #cccccc;
+      pointer-events: none;
+      font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+    }
+
+    .vs-tabbar {
+      background: #252526;
+      display: flex;
+    }
+
+    .vs-tab {
+      background: #2d2d2d;
+      color: #969696;
+      padding: 9px 20px;
+      font-size: 12.5px;
+      border-right: 1px solid #1e1e1e;
+      font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .vs-tab.active {
+      background: #1e1e1e;
+      color: #ffffff;
+    }
+
+    .vs-tab.active::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: #007acc;
+    }
+
+    .file-icon {
+      display: inline-block;
+      width: 9px;
+      height: 9px;
+      border-radius: 2px;
+    }
+
+    .file-icon.html {
+      background: #e44d26;
+    }
+
+    .file-icon.css {
+      background: #264de4;
+    }
+
+    .file-icon.js {
+      background: #f7df1e;
+    }
+
+    .vs-body {
+      margin: 0 !important;
+      padding: 16px 0 !important;
+      background: #1e1e1e !important;
+      overflow-x: auto;
+      font-size: 13px !important;
+      line-height: 1.65 !important;
+      color: #dcdcdc;
+      border-radius: 0 !important;
+      font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+    }
+
+    .vs-body code {
+      background: transparent !important;
+      padding: 0 !important;
+      font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+      font-size: inherit !important;
+      color: inherit;
+      white-space: pre;
+    }
+
+    .vs-body .hljs-ln-numbers {
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      user-select: none;
+      text-align: right;
+      color: #858585 !important;
+      border-right: 1px solid #3a3f4b;
+      padding: 0 14px 0 16px !important;
+      vertical-align: top;
+      font-weight: normal;
+    }
+
+    .vs-body .hljs-ln-code {
+      padding: 0 16px !important;
+    }
+
+    .vs-body .hljs-ln {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    .vs-body .hljs-ln td {
+      padding: 0;
+    }
+
+    .vs-body::-webkit-scrollbar {
+      height: 10px;
+    }
+
+    .vs-body::-webkit-scrollbar-track {
+      background: #1e1e1e;
+    }
+
+    .vs-body::-webkit-scrollbar-thumb {
+      background: #424242;
+      border-radius: 5px;
+    }
+
+    .vs-body code.hljs,
+    .vs-body .hljs {
+      background: transparent !important;
+      padding: 0 !important;
+      overflow: visible !important;
+    }
+
+    .q1-demo header {
+      background: #4f46e5;
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 6px;
+    }
+
+    .q1-demo nav a {
+      color: #fff;
+      margin-right: 12px;
+      text-decoration: none;
+    }
+
+    .q1-demo main {
+      padding: 10px 0;
+    }
+
+    .q1-demo article {
+      background: #eef;
+      padding: 10px;
+      border-radius: 6px;
+      margin: 8px 0;
+    }
+
+    .q1-demo article h1 {
+      margin: 0;
+      font-size: 1.3rem;
+    }
+
+    .q1-demo footer {
+      background: #222;
+      color: #ddd;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+    }
+
+    .q1-demo section {
+      background: #fef3c7;
+      padding: 10px;
+      border-radius: 6px;
+      margin: 8px 0;
+    }
+
+    .q1-demo section h2 {
+      margin: 0;
+      font-size: 1.1rem;
+    }
+
+    .q1-demo .card-wrapper {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .q1-demo .card {
+      background: #dcfce7;
+      padding: 8px 12px;
+      border-radius: 6px;
+    }
+
+    .q1-demo .header {
+      background: #4f46e5;
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 6px;
+    }
+
+    .q1-demo .nav a {
+      color: #fff;
+      margin-right: 12px;
+      text-decoration: none;
+    }
+
+    .q1-demo .main {
+      padding: 10px 0;
+    }
+
+    .q1-demo .article {
+      background: #eef;
+      padding: 10px;
+      border-radius: 6px;
+      margin: 8px 0;
+    }
+
+    .q1-demo .article h1 {
+      margin: 0;
+      font-size: 1.3rem;
+    }
+
+    .q1-demo .footer {
+      background: #222;
+      color: #ddd;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+    }
+
+    .q2-demo .layout-row {
+      background: #eef;
+      padding: 8px;
+      margin-bottom: 4px;
+      border-radius: 4px;
+    }
+
+    .q2-demo .highlight {
+      background: yellow;
+      font-weight: bold;
+      padding: 0 3px;
+    }
+
+    .q2-demo .inline-div {
+      display: inline;
+      background: #fde;
+      padding: 4px;
+      border-radius: 4px;
+    }
+
+    .q2-demo .block-span {
+      display: block;
+      background: #def;
+      padding: 4px;
+      border-radius: 4px;
+      margin: 4px 0;
+    }
+
+    #list {
+      background: #f1f5f9;
+      padding: 12px 30px;
+      border-radius: 8px;
+    }
+
+    #addBtn {
+      background: #4f46e5;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      margin-top: 10px;
+    }
+
+    #addBtn:hover {
+      background: #4338ca;
+    }
+
+    .q4-demo #site-header {
+      background: #4f46e5;
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 6px;
+    }
+
+    .q4-demo .text-muted {
+      color: #888;
+    }
+
+    .q4-demo .box {
+      background: #fecaca;
+      padding: 6px;
+      margin: 4px 0;
+      border-radius: 4px;
+    }
+
+    .q5-demo {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .q5-demo .row {
+      border: 1px dashed #ccc;
+      padding: 6px;
+    }
+
+    .q5-demo .block {
+      display: block;
+      background: #fdd;
+      padding: 6px;
+    }
+
+    .q5-demo .inline {
+      display: inline;
+      background: #dfd;
+      padding: 6px;
+      width: 200px;
+      height: 50px;
+    }
+
+    .q5-demo .inline-block {
+      display: inline-block;
+      background: #ddf;
+      width: 120px;
+      height: 60px;
+      padding: 6px;
+    }
+
+    .q6-demo .box {
+      width: 200px;
+      padding: 20px;
+      border: 5px solid #333;
+      margin: 15px;
+      background: #cfe;
+      box-sizing: content-box;
+    }
+
+    .q6-demo .box.border-box {
+      background: #fcd;
+      box-sizing: border-box;
+    }
+
+    .q7-demo button {
+      background: gray;
+      color: #fff;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      margin-right: 8px;
+    }
+
+    .q7-demo .btn {
+      background: blue;
+    }
+
+    .q7-demo #save {
+      background: green;
+    }
+
+    .q7-demo .button {
+      color: blue;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      margin-right: 8px;
+      background: #eee;
+    }
+
+    .q7-demo #button {
+      color: red;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      background: #eee;
+    }
+
+    .q8-demo .navbar {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding: 12px;
+      background: #f5f5f5;
+      border-radius: 8px;
+    }
+
+    .q8-demo .navbar a {
+      color: #4f46e5;
+      text-decoration: none;
+    }
+
+    .q8-demo .navbar .logo {
+      font-weight: bold;
+    }
+
+    .q9-demo .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .q9-demo .card {
+      background: #dde;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .q9-demo .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 16px;
+      background: #eef;
+      padding: 10px;
+      border-radius: 8px;
+    }
+
+    .q10-demo .dashboard {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      min-height: 300px;
+      gap: 16px;
+      background: #eef;
+      padding: 16px;
+      border-radius: 8px;
+    }
+
+    .q10-demo .sidebar {
+      background: #4f46e5;
+      color: #fff;
+      padding: 16px;
+      border-radius: 8px;
+    }
+
+    .q10-demo .content {
+      background: #fff;
+      padding: 16px;
+      border-radius: 8px;
+    }
+
+    .q10-demo .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .q10-demo .q10-card {
+      background: #dcfce7;
+      padding: 16px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .q10-demo .dashboard {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .task-section {
+      background: linear-gradient(135deg, #fff7ed, #fef3c7);
+      border: 2px solid #f59e0b;
+      border-radius: 14px;
+      padding: 24px 28px;
+      margin-bottom: 40px;
+    }
+
+    .task-section h2 {
+      color: #b45309;
+      margin-top: 0;
+    }
+
+    .task-section table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 12px 0;
+      font-size: 0.9rem;
+    }
+
+    .task-section th,
+    .task-section td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+
+    .task-section th {
+      background: #fde68a;
+      color: #78350f;
+    }
+
+    .task-section code {
+      background: #f3f4f6;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.85em;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ==================== BACK TO HOME BUTTON ==================== -->
+  <a href="../../index.html" class="back-home">← Back to Home</a>
+
+  <!-- ==================== PAGE HEADER ==================== -->
+  <header class="page-header">
+    <h1>HTML &amp; CSS Questions — Part 2 (11 → 20)</h1>
+    <p>Questions + Answers + VS Code-style code + Live demos that match the code exactly</p>
+  </header>
+
+  <div class="container">
+
+    <!-- ==================== Q11 ==================== -->
+    <section class="q-section">
+      <h2>Q11 — What is Semantic HTML? <span class="badge">Easy</span></h2>
+
+      <div class="answer">
+        <strong class="label">✅ Ideal answer</strong>
+        Semantic HTML means using HTML elements according to their meaning and purpose — such as
+        <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;section&gt;</code>,
+        <code>&lt;article&gt;</code>, <code>&lt;footer&gt;</code>, and <code>&lt;button&gt;</code> — instead of using
+        <code>&lt;div&gt;</code> for everything.
+        It improves <strong>accessibility</strong>, <strong>SEO</strong>, and <strong>code readability</strong>.
+      </div>
+
+      <div class="followup">
+        <span class="q">🔁 Follow-up: What's the difference between &lt;div&gt; and &lt;section&gt;?</span>
+        <span class="a">A <code>&lt;section&gt;</code> represents a <strong>thematic grouping</strong> and usually has a
+          heading. A <code>&lt;div&gt;</code> has <strong>no semantic meaning</strong> — it's used only as a
+          styling/layout wrapper.</span>
+      </div>
+
+      <div class="followup">
+        <span class="q">🔁 Follow-up: Why is semantic HTML important?</span>
+        <span class="a">
+          It improves:
+          <br>• Accessibility
+          <br>• Maintainability
+          <br>• Document structure
+          <br>• SEO understanding
+          <br>• Integration with assistive technologies
+        </span>
+      </div>
+
+      <h3>❌ Non-semantic (div soup)</h3>
+      <div class="vs-code">
+        <div class="vs-titlebar">
+          <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+              class="vs-dot green"></span></div>
+          <div class="vs-title">index.html — Visual Studio Code</div>
+        </div>
+        <div class="vs-tabbar">
+          <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+        </div>
+        <pre class="vs-body"><code class="language-html">&lt;div class="header"&gt;
+  &lt;div class="nav"&gt;
+    &lt;div class="nav-item"&gt;&lt;a href="#"&gt;Home&lt;/a&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="main"&gt;
+  &lt;div class="article"&gt;
+    &lt;h1&gt;My Post&lt;/h1&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="footer"&gt;© 2025&lt;/div&gt;</code></pre>
+      </div>
+
+      <div class="demo-box q1-demo">
+        <span class="demo-label bad">❌ Live demo — div soup</span>
+        <div class="header">
+          <div class="nav">
+            <div class="nav-item"><a href="#">Home</a></div>
+          </div>
+        </div>
+        <div class="main">
+          <div class="article">
+            <h1>My Post</h1>
+          </div>
+        </div>
+        <div class="footer">© 2025</div>
+      </div>
+
+      <h3>✅ Semantic</h3>
+      <div class="vs-code">
+        <div class="vs-titlebar">
+          <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+              class="vs-dot green"></span></div>
+          <div class="vs-title">index.html — Visual Studio Code</div>
+        </div>
+        <div class="vs-tabbar">
+          <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+        </div>
+        <pre class="vs-body"><code class="language-html">&lt;header&gt;
+  &lt;nav&gt;&lt;a href="#"&gt;Home&lt;/a&gt;&lt;/nav&gt;
+&lt;/header&gt;
+
+&lt;main&gt;
+  &lt;article&gt;
+    &lt;h1&gt;My Post&lt;/h1&gt;
+  &lt;/article&gt;
+&lt;/main&gt;
+
+&lt;footer&gt;© 2025&lt;/footer&gt;
+
+&lt;!-- section = thematic grouping --&gt;
+&lt;section&gt;
+  &lt;h2&gt;Pricing&lt;/h2&gt;
+&lt;/section&gt;
+
+&lt;!-- div = styling/layout only --&gt;
+&lt;div class="card-wrapper"&gt;
+  &lt;div class="card"&gt;…&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+
+      <div class="demo-box q1-demo">
+        <span class="demo-label good">✅ Live demo — semantic (same visual result)</span>
+        <header>
+          <nav><a href="#">Home</a></nav>
+        </header>
+        <main>
+          <article>
+            <h1>My Post</h1>
+          </article>
+        </main>
+        <footer>© 2025</footer>
+        <section>
+          <h2>Pricing</h2>
+        </section>
+        <div class="card-wrapper">
+          <div class="card">…</div>
+        </div>
+      </div>
+
+      <p style="font-size:0.85rem;color:#6b7280;margin-top:8px">
+        👀 Both demos look <strong>identical</strong> visually — but the semantic version is better for screen readers,
+        search engines, and developers reading the code.
+      </p>
+    </section>
+
+    <!-- ==================== Q12 ==================== -->
+    <section class="q-section">
+      <h2>Q12 — What is the difference between &lt;div&gt; and &lt;span&gt;? <span class="badge">Easy</span></h2>
+
+      <div class="answer">
+        <strong class="label">✅ Ideal answer</strong>
+        <code>&lt;div&gt;</code> is a generic <strong>block-level</strong> container, while <code>&lt;span&gt;</code> is
+        a generic <strong>inline-level</strong> container.
+        Use a <code>div</code> to group sections of a layout and a <code>span</code> to style or group a small part of
+        text.
+      </div>
+
+      <div class="followup">
+        <span class="q">🔁 Follow-up: Can CSS change their default display behavior?</span>
+        <span class="a">Yes. For example, I can make a <code>div</code> inline using <code>display: inline</code>, or
+          make a <code>span</code> block-level using <code>display: block</code>.</span>
+      </div>
+
+      <h3>💻 Code</h3>
+      <div class="vs-code">
+        <div class="vs-titlebar">
+          <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+              class="vs-dot green"></span></div>
+          <div class="vs-title">index.html — Visual Studio Code</div>
+        </div>
+        <div class="vs-tabbar">
+          <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+        </div>
+        <pre class="vs-body"><code class="language-html">&lt;!-- div: block-level container --&gt;
+&lt;div class="layout-row"&gt;Row 1&lt;/div&gt;
+&lt;div class="layout-row"&gt;Row 2&lt;/div&gt;
+
+&lt;!-- span: inline container inside text --&gt;
+&lt;p&gt;The price is &lt;span class="highlight"&gt;$49&lt;/span&gt; today only.&lt;/p&gt;
+
+&lt;!-- CSS can override the default display --&gt;
+&lt;div class="inline-div"&gt;div with display:inline&lt;/div&gt;
+&lt;div class="inline-div"&gt;another inline div&lt;/div&gt;
+&lt;span class="block-span"&gt;span with display:block (1)&lt;/span&gt;
+&lt;span class="block-span"&gt;span with display:block (2)&lt;/span&gt;
+
+&lt;style&gt;
+  .inline-div { display: inline; }
+  .block-span { display: block; }
+&lt;/style&gt;</code></pre>
+      </div>
+
+      <h3>🔴 Live demo</h3>
+      <div class="demo-box q2-demo">
+        <div class="layout-row">Row 1</div>
+        <div class="layout-row">Row 2</div>
+        <p>The price is <span class="highlight">$49</span> today only.</p>
+        <div class="inline-div">div with display:inline</div>
+        <div class="inline-div">another inline div</div>
+        <span class="block-span">span with display:block (1)</span>
+        <span class="block-span">span with display:block (2)</span>
+      </div>
+    </section>
+
+    <!-- ==================== Q13 ==================== -->
+    <section class="q-section">
+      <h2>Q13 — What is the DOM? <span class="badge">Easy</span></h2>
+
+      <div class="answer">
+        <strong class="label">✅ Ideal answer</strong>
+        The DOM (Document Object Model) is a tree-like representation of the HTML document created by the browser.
+        JavaScript can use the DOM to <strong>read, modify, add, or remove</strong> elements and attributes.
+      </div>
+
+      <div class="followup">
+        <span class="q">🔁 Follow-up: Does the DOM equal the HTML source code?</span>
+        <span class="a">Not exactly. The browser parses the HTML and creates the DOM. The DOM can then be modified by
+          JavaScript, so it can differ from the original HTML source.</span>
+      </div>
+
+      <h3>💻 Code</h3>
+      <div class="vs-code">
+        <div class="vs-titlebar">
+          <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+              class="vs-dot green"></span></div>
+          <div class="vs-title">index.html — Visual Studio Code</div>
+        </div>
+        <div class="vs-tabbar">
+          <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+        </div>
+        <pre class="vs-body"><code class="language-html">&lt;ul id="list"&gt;
+  &lt;li&gt;Item 1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;button id="addBtn"&gt;+ Add item&lt;/button&gt;
+
+&lt;script&gt;
+  const list = document.getElementById('list');
+  const btn  = document.getElementById('addBtn');
+  btn.addEventListener('click', () =&gt; {
+    const li = document.createElement('li');           // create
+    li.textContent = `Item ${list.children.length + 1}`; // modify
+    list.appendChild(li);                              // add to DOM
+  });
+&lt;/script&gt;</code></pre>
+      </div>
+
+      <h3>🔴 Live demo — click the button</h3>
+      <div class="demo-box">
+        <ul id="list">
+          <li>Item 1</li>
+        </ul>
+        <button id="addBtn">+ Add item</button>
+        <p style="font-size:0.85rem;color:#666;margin:8px 0 0">Open DevTools → Elements: DOM has more items than "View
+          Page Source".</p>
+      </div>
+    </section>
+
+    <!-- ==================== Q14 ==================== -->
+    <section class="q-section">
+      <h2>Q14 — What is the difference between id and class? <span class="badge">Easy</span></h2>
+
+      <div class="answer">
+        <strong class="label">✅ Ideal answer</strong>
+        An <strong>id</strong> is intended to <strong>uniquely identify</strong> an element within a document, while a
+        <strong>class</strong> can be <strong>shared by multiple elements</strong>.
+        For styling reusable elements, use classes.
+      </div>
+
+      <div class="followup">
+        <span class="q">🔁 Follow-up: Can multiple elements have the same ID?</span>
+        <span class="a">Technically browsers may still render the page, but IDs must be unique. Using the same ID
+          multiple times is <strong>invalid HTML</strong> and can cause problems with JavaScript (e.g.
+          <code>getElementById</code> returns only the first match), CSS, and accessibility.</span>
+      </div>
+
+      <h3>💻 Code</h3>
+      <div class="vs-code">
+        <div class="vs-titlebar">
+          <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+              class="vs-dot green"></span></div>
+          <div class="vs-title">index.html — Visual Studio Code</div>
+        </div>
+        <div class="vs-tabbar">
+          <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+        </div>
+        <pre class="vs-body"><code class="language-html">&lt;header id="site-header"&gt;Site (id = site-header)&lt;/header&gt;
+&lt;p class="text-muted"&gt;First paragraph (class = text-muted)&lt;/p&gt;
+&lt;p class="text-muted"&gt;Second paragraph (class = text-muted)&lt;/p&gt;
+
+&lt;!-- ❌ Invalid: duplicate IDs --&gt;
+&lt;div id="box" class="box"&gt;A (id="box")&lt;/div&gt;
+&lt;div id="box" class="box"&gt;B (id="box" — duplicate!)&lt;/div&gt;
+
+&lt;style&gt;
+  #site-header { background: #4f46e5; color: #fff; padding: 8px 14px; }
+  .text-muted  { color: #888; }
+  .box         { background: #fecaca; padding: 6px; margin: 4px 0; }
+&lt;/style&gt;</code></pre>
+      </div>
+
+      <h3>🔴 Live demo</h3>
+      <div class="demo-box q4-demo">
+        <header id="site-header">Site (id = site-header)</header>
+        <p class="text-muted">First paragraph (class = text-muted)</p>
+        <p class="text-muted">Second paragraph (class = text-muted)</p>
+        <div id="box" class="box">A (id="box")</div>
+        <div id="box" class="box">B (id="box" — duplicate!)</div>
+      </div>
+    </section>
+
+    <!-- ==================== Q15 ==================== -->
+    <section class="q-section">
+      <h2>Q15 — What is the difference between block, inline, and inline-block? <span class="badge">Easy</span></h2>
+
+      <div class="answer">
+        <strong class="label">✅ Ideal answer</strong>
+        <ul style="margin:6px 0">
+          <li><strong>block</strong>: starts on a new line and takes the available width.</li>
+          <li><strong>inline</strong>: stays in the text flow; width/height generally ignored.</li>
+          <li><strong>inline-block</strong>: stays inline but respects width and height.</li>
+        </ul>
+      </div>
+
+      <div class="followup">
+        <span class="q">🔁 Follow-up: Give examples.</span>
+        <span class="a"><code>div</code> is normally <strong>block</strong>, <code>span</code> is normally
+          <strong>inline</strong>, and <code>button</code> behaves like <strong>inline-block</strong>.</span>
+      </div>
+
+      <h3>💻 Code</h3>
+      <div class="vs-code">
+        <div class="vs-titlebar">
+          <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+              class="vs-dot green"></span></div>
+          <div class="vs-title">index.html — Visual Studio Code</div>
+        </div>
+        <div class="vs-tabbar">
+          <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+        </div>
+        <pre class="vs-body"><code class="language-html">&lt;div class="row"&gt;
+  &lt;strong&gt;block:&lt;/strong&gt;
+  &lt;div class="block"&gt;div.block — full width, new line&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="row"&gt;
+  &lt;strong&gt;inline:&lt;/strong&gt;
+  &lt;span class="inline"&gt;span (width:200px ignored)&lt;/span&gt;
+  &lt;span class="inline"&gt;second span&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;div class="row"&gt;
+  &lt;strong&gt;inline-block:&lt;/strong&gt;
+  &lt;span class="inline-block"&gt;120×60&lt;/span&gt;
+  &lt;span class="inline-block"&gt;120×60&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;style&gt;
+  .block        { display: block; background: #fdd; padding: 6px; }
+  .inline       { display: inline; background: #dfd; padding: 6px; width: 200px; height: 50px; }
+  .inline-block { display: inline-block; background: #ddf; width: 120px; height: 60px; padding: 6px; }
+&lt;/style&gt;</code></pre>
+      </div>
+
+      <h3>🔴 Live demo</h3>
+      <div class="demo-box q5-demo">
+        <div class="row"><strong>block:</strong>
+          <div class="block">div.block — full width, new line</div>
+        </div>
+        <div class="row"><strong>inline:</strong><span class="inline">span (width:200px ignored)</span><span
+            class="inline">second span</span></div>
+        <div class="row"><strong>inline-block:</strong><span class="inline-block">120×60</span><span
+            class="inline-block">120×60</span></div>
+      </div>
+    </section>
+
+    <!-- ==================== Q16 ==================== -->
+    <section class="q-section">
+      <h2>Q16 — What is the CSS Box Model? <span class="badge">Easy</span></h2>
+
+      <div class="answer">
+        <strong class="label">✅ Ideal answer</strong>
+        Every element is a box made of: <strong>content → padding → border → margin</strong>.<br>
+        Content holds the content, padding is space inside the border, border surrounds the element, margin is space
+        outside.
+      </div>
+
+      <div class="followup">
+        <span class="q">🔁 Follow-up: What does box-sizing: border-box do?</span>
+        <span class="a">It makes the declared <code>width</code> and <code>height</code> <strong>include</strong>
+          content, padding, and border.</span>
+      </div>
+
+      <h3>💻 Code</h3>
+      <div class="vs-code">
+        <div class="vs-titlebar">
+          <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+              class="vs-dot green"></span></div>
+          <div class="vs-title">index.html — Visual Studio Code</div>
+        </div>
+        <div class="vs-tabbar">
+          <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+        </div>
+        <pre class="vs-body"><code class="language-html">&lt;div class="box"&gt;content-box — total = 250px&lt;/div&gt;
+&lt;div class="box border-box"&gt;border-box — total = 200px&lt;/div&gt;
+
+&lt;style&gt;
+  .box {
+    width: 200px;
+    padding: 20px;
+    border: 5px solid #333;
+    margin: 15px;
+    background: #cfe;
+    box-sizing: content-box;   /* 200 + 40 + 10 = 250px */
+  }
+  .box.border-box {
+    background: #fcd;
+    box-sizing: border-box;    /* total = 200px */
+  }
+&lt;/style&gt;</code></pre>
+      </div>
+
+      <h3>🔴 Live demo</h3>
+      <div class="demo-box q6-demo">
+        <div class="box">content-box — total = 250px</div>
+        <div class="box border-box">border-box — total = 200px</div>
+      </div>
+    </section>
+
+    <!-- ==================== Q17 ==================== -->
+    <section class="q-section">
+      <h2>Q17 — What is CSS specificity? <span class="badge medium">Easy → Medium</span></h2>
+
+      <div class="answer">
+        <strong class="label">✅ Ideal answer</strong>
+        Specificity decides which CSS rule wins when multiple rules target the same element.<br>
+        <strong>inline styles</strong> &gt; <strong>IDs</strong> &gt; <strong>classes / attributes /
+          pseudo-classes</strong> &gt; <strong>element selectors</strong>.
+      </div>
+
+      <div class="followup">
+        <span class="q">🔁 Follow-up: What is more specific — .button or #button?</span>
+        <span class="a"><strong>#button</strong> — an ID (0,1,0,0) beats a class (0,0,1,0).</span>
+      </div>
+
+      <h3>💻 Code</h3>
+      <div class="vs-code">
+        <div class="vs-titlebar">
+          <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+              class="vs-dot green"></span></div>
+          <div class="vs-title">index.html — Visual Studio Code</div>
+        </div>
+        <div class="vs-tabbar">
+          <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+        </div>
+        <pre class="vs-body"><code class="language-html">&lt;button id="save" class="btn"&gt;Save (green — id wins)&lt;/button&gt;
+&lt;button id="button" class="button"&gt;Red wins&lt;/button&gt;
+
+&lt;style&gt;
+  /* 3 rules → the id wins (green) */
+  button  { background: gray; }   /* 0,0,1  */
+  .btn    { background: blue; }   /* 0,1,0  */
+  #save   { background: green; }  /* 1,0,0 ← wins */
+
+  /* #button beats .button */
+  .button { color: blue; }   /* 0,1,0 */
+  #button { color: red;  }   /* 1,0,0 ← wins */
+&lt;/style&gt;</code></pre>
+      </div>
+
+      <h3>🔴 Live demo</h3>
+      <div class="demo-box q7-demo">
+        <button id="save" class="btn">Save (green — id wins)</button>
+        <button id="button" class="button">Red wins</button>
+      </div>
+    </section>
+
+    <!-- ==================== Q18 ==================== -->
+    <section class="q-section">
+      <h2>Q18 — What is Flexbox? <span class="badge">Easy</span></h2>
+
+      <div class="answer">
+        <strong class="label">✅ Ideal answer</strong>
+        Flexbox is a <strong>one-dimensional</strong> layout system that arranges elements along a row or column.
+        Properties: <code>display: flex</code>, <code>justify-content</code>, <code>align-items</code>,
+        <code>flex-direction</code>, <code>gap</code>, <code>flex-wrap</code>.
+      </div>
+
+      <div class="followup">
+        <span class="q">🔁 Follow-up: What is the difference between justify-content and align-items?</span>
+        <span class="a">Their effect depends on flex direction. <code>justify-content</code> distributes along the
+          <strong>main axis</strong>; <code>align-items</code> aligns along the <strong>cross axis</strong>.</span>
+      </div>
+
+      <h3>💻 Code</h3>
+      <div class="vs-code">
+        <div class="vs-titlebar">
+          <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+              class="vs-dot green"></span></div>
+          <div class="vs-title">index.html — Visual Studio Code</div>
+        </div>
+        <div class="vs-tabbar">
+          <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+        </div>
+        <pre class="vs-body"><code class="language-html">&lt;nav class="navbar"&gt;
+  &lt;span class="logo"&gt;Logo&lt;/span&gt;
+  &lt;a href="#"&gt;Home&lt;/a&gt;
+  &lt;a href="#"&gt;About&lt;/a&gt;
+  &lt;a href="#"&gt;Contact&lt;/a&gt;
+&lt;/nav&gt;
+
+&lt;style&gt;
+  .navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* main axis  */
+    align-items: center;            /* cross axis */
+    gap: 16px;
+    flex-wrap: wrap;
+    padding: 12px;
+    background: #f5f5f5;
+    border-radius: 8px;
+  }
+  .navbar a    { color: #4f46e5; text-decoration: none; }
+  .navbar .logo { font-weight: bold; }
+&lt;/style&gt;</code></pre>
+      </div>
+
+      <h3>🔴 Live demo</h3>
+      <div class="demo-box q8-demo">
+        <nav class="navbar">
+          <span class="logo">Logo</span>
+          <a href="#">Home</a>
+          <a href="#">About</a>
+          <a href="#">Contact</a>
+        </nav>
+      </div>
+    </section>
+
+    <!-- ==================== Q19 ==================== -->
+    <section class="q-section">
+      <h2>Q19 — What is CSS Grid? <span class="badge">Easy</span></h2>
+
+      <div class="answer">
+        <strong class="label">✅ Ideal answer</strong>
+        CSS Grid is a <strong>two-dimensional</strong> layout system that works with rows and columns — useful for
+        complex page layouts and structured grids.
+      </div>
+
+      <div class="followup">
+        <span class="q">🔁 Follow-up: Flexbox or Grid for a product grid?</span>
+        <span class="a">Either works, but <strong>Grid</strong> is natural for explicit row/column control.
+          <strong>Flexbox</strong> is better for one-dimensional layouts (nav bars, toolbars).</span>
+      </div>
+
+      <h3>💻 Code</h3>
+      <div class="vs-code">
+        <div class="vs-titlebar">
+          <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+              class="vs-dot green"></span></div>
+          <div class="vs-title">index.html — Visual Studio Code</div>
+        </div>
+        <div class="vs-tabbar">
+          <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+        </div>
+        <pre class="vs-body"><code class="language-html">&lt;div class="product-grid"&gt;
+  &lt;div class="card"&gt;1&lt;/div&gt;
+  &lt;div class="card"&gt;2&lt;/div&gt;
+  &lt;div class="card"&gt;3&lt;/div&gt;
+  &lt;div class="card"&gt;4&lt;/div&gt;
+  &lt;div class="card"&gt;5&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="toolbar"&gt;
+  &lt;span&gt;Toolbar (Flexbox):&lt;/span&gt;
+  &lt;button&gt;Save&lt;/button&gt;
+  &lt;button&gt;Cancel&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;style&gt;
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .card { background: #dde; padding: 20px; border-radius: 8px; text-align: center; font-weight: bold; }
+  .toolbar { display: flex; align-items: center; gap: 12px; margin-top: 16px; background: #eef; padding: 10px; border-radius: 8px; }
+&lt;/style&gt;</code></pre>
+      </div>
+
+      <h3>🔴 Live demo</h3>
+      <div class="demo-box q9-demo">
+        <div class="product-grid">
+          <div class="card">1</div>
+          <div class="card">2</div>
+          <div class="card">3</div>
+          <div class="card">4</div>
+          <div class="card">5</div>
+        </div>
+        <div class="toolbar">
+          <span>Toolbar (Flexbox):</span>
+          <button>Save</button>
+          <button>Cancel</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== Q20 ==================== -->
+    <section class="q-section">
+      <h2>Q20 — What is Responsive Design? <span class="badge">Easy</span></h2>
+
+      <div class="answer">
+        <strong class="label">✅ Ideal answer</strong>
+        Responsive design builds interfaces that <strong>adapt to different screen sizes</strong> — using flexible
+        layouts, Grid/Flexbox, relative units, media queries, responsive images, and breakpoints.
+      </div>
+
+      <div class="followup">
+        <span class="q">🔁 Follow-up: How would you make an Angular dashboard responsive?</span>
+        <span class="a">Build a flexible layout with Grid/Flexbox, introduce breakpoints for major layout changes, and
+          use responsive UI-library components when appropriate.</span>
+      </div>
+
+      <h3>💻 Code</h3>
+      <div class="vs-code">
+        <div class="vs-titlebar">
+          <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+              class="vs-dot green"></span></div>
+          <div class="vs-title">index.html — Visual Studio Code</div>
+        </div>
+        <div class="vs-tabbar">
+          <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+        </div>
+        <pre class="vs-body"><code class="language-html">&lt;div class="dashboard"&gt;
+  &lt;aside class="sidebar"&gt;Sidebar&lt;/aside&gt;
+  &lt;main class="content"&gt;
+    Content
+    &lt;div class="cards"&gt;
+      &lt;div class="q10-card"&gt;A&lt;/div&gt;
+      &lt;div class="q10-card"&gt;B&lt;/div&gt;
+      &lt;div class="q10-card"&gt;C&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/main&gt;
+&lt;/div&gt;
+
+&lt;style&gt;
+  .dashboard {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 16px;
+    background: #eef;
+    padding: 16px;
+    border-radius: 8px;
+  }
+  .sidebar { background: #4f46e5; color: #fff; padding: 16px; border-radius: 8px; }
+  .content { background: #fff; padding: 16px; border-radius: 8px; }
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 12px; margin-top: 12px;
+  }
+  .q10-card { background: #dcfce7; padding: 16px; border-radius: 8px; text-align: center; }
+
+  @media (max-width: 768px) {
+    .dashboard { grid-template-columns: 1fr; }
+  }
+&lt;/style&gt;</code></pre>
+      </div>
+
+      <h3>🔴 Live demo (resize the window)</h3>
+      <div class="demo-box q10-demo">
+        <div class="dashboard">
+          <aside class="sidebar">Sidebar</aside>
+          <main class="content">
+            Content
+            <div class="cards">
+              <div class="q10-card">A</div>
+              <div class="q10-card">B</div>
+              <div class="q10-card">C</div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== STUDENT TASK ==================== -->
+    <section class="task-section">
+      <h2>🧑‍🎓 Student Task — Responsive Product Dashboard</h2>
+      <p>Build <strong>one HTML page</strong> (+ CSS file + optional JS file) applying <strong>all 10 concepts</strong>.
+        Submit as a zipped folder or CodePen link.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Concept</th>
+            <th>What you must do</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>11</td>
+            <td>Semantic HTML</td>
+            <td>Use <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>,
+              <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;footer&gt;</code> — no
+              <code>&lt;div&gt;</code> where semantic fits.
+            </td>
+          </tr>
+          <tr>
+            <td>12</td>
+            <td>div vs span</td>
+            <td>Use a <code>&lt;div&gt;</code> for a layout wrapper AND a <code>&lt;span&gt;</code> to highlight a word
+              in a paragraph.</td>
+          </tr>
+          <tr>
+            <td>13</td>
+            <td>DOM</td>
+            <td>Add an <strong>"Add product"</strong> button that uses JS to create and append a new card.</td>
+          </tr>
+          <tr>
+            <td>14</td>
+            <td>id vs class</td>
+            <td>Give the header an <code>id</code>; give all cards a <code>.card</code> class.</td>
+          </tr>
+          <tr>
+            <td>15</td>
+            <td>block / inline / inline-block</td>
+            <td>Add a small demo row showing all three <code>display</code> values.</td>
+          </tr>
+          <tr>
+            <td>16</td>
+            <td>Box model</td>
+            <td>Cards must use <code>padding</code>, <code>border</code>, <code>margin</code> +
+              <code>box-sizing: border-box</code>.
+            </td>
+          </tr>
+          <tr>
+            <td>17</td>
+            <td>Specificity</td>
+            <td>Style a primary button with element + class + id rules, and comment which wins.</td>
+          </tr>
+          <tr>
+            <td>18</td>
+            <td>Flexbox</td>
+            <td>Build the navbar with <code>justify-content: space-between</code> + <code>align-items: center</code>.
+            </td>
+          </tr>
+          <tr>
+            <td>19</td>
+            <td>CSS Grid</td>
+            <td>Build the product grid with <code>repeat(auto-fit, minmax(200px, 1fr))</code>.</td>
+          </tr>
+          <tr>
+            <td>20</td>
+            <td>Responsive</td>
+            <td>Add <code>@media (max-width: 768px)</code> — nav stacks, grid becomes 1 column.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>📦 Submission rules</h3>
+      <ul>
+        <li><strong>File names:</strong> <code>index.html</code>, <code>styles.css</code>, <code>app.js</code></li>
+        <li><strong>Comments:</strong> above each section, e.g. <code>&lt;!-- Q18: Flexbox navbar --&gt;</code></li>
+        <li><strong>README.md</strong> with 3 answers:
+          <ol>
+            <li>Why did you use <code>&lt;section&gt;</code> here instead of <code>&lt;div&gt;</code>?</li>
+            <li>Which rule won in your specificity test — and why?</li>
+            <li>When would you use Flexbox instead of Grid here?</li>
+          </ol>
+        </li>
+      </ul>
+
+      <h3>⭐ Bonus</h3>
+      <ul>
+        <li>Add <code>aria-label</code> on the "Add product" button.</li>
+        <li>Add <code>&lt;meta name="viewport"&gt;</code> and confirm the layout works at 375px width.</li>
+      </ul>
+
+      <h3>🎯 Grading (out of 10)</h3>
+      <p>1 point per row. "Responsive" and "Specificity" rows are worth double if the README explanation is correct.</p>
+    </section>
+
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.hljs) {
+        hljs.highlightAll();
+        if (hljs.lineNumbersBlock) {
+          document.querySelectorAll('pre code').forEach(function (el) {
+            hljs.lineNumbersBlock(el);
+          });
+        }
+      }
+      var list = document.getElementById('list');
+      var btn = document.getElementById('addBtn');
+      if (list && btn) {
+        btn.addEventListener('click', function () {
+          var li = document.createElement('li');
+          li.textContent = 'Item ' + (list.children.length + 1);
+          list.appendChild(li);
+        });
+      }
+      console.log('Q14 demo:');
+      console.log('  getElementById("site-header") →', document.getElementById('site-header'));
+      console.log('  getElementsByClassName("text-muted") →', document.getElementsByClassName('text-muted').length, 'elements');
+      var box = document.getElementById('box');
+      console.log('  getElementById("box") → first match:', box ? box.textContent : 'none');
+    });
+  </script>
+
+</body>
+
+</html>

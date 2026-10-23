@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML &amp; CSS Questions — Part 22 (211–220)</title>
+
+    <!-- ===== Favicon: inline SVG (works offline) ===== -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%234f46e5'/%3E%3Cstop%20offset='1'%20stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='url(%23g)'/%3E%3Cpath%20d='M22%2022%20L14%2032%20L22%2042%20M42%2022%20L50%2032%20L42%2042'%20stroke='white'%20stroke-width='4'%20stroke-linecap='round'%20stroke-linejoin='round'%20fill='none'/%3E%3C/svg%3E" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css" />
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            background: #f4f6fa;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        /* ==================== BACK TO HOME BUTTON ==================== */
+        .back-home {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 9999;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 16px rgba(79, 70, 229, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .back-home:hover {
+            background: linear-gradient(135deg, #4338ca, #6d28d9);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(79, 70, 229, 0.5);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 640px) {
+            .back-home {
+                top: 12px;
+                left: 12px;
+                padding: 8px 14px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* ==================== PAGE HEADER ==================== */
+        .page-header {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            margin: 0 0 8px;
+            font-size: 2rem;
+        }
+
+        .page-header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 24px 20px;
+        }
+
+        .q-section {
+            background: #fff;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 28px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+        }
+
+        .q-section h2 {
+            margin-top: 0;
+            color: #4f46e5;
+            border-bottom: 2px solid #eef;
+            padding-bottom: 10px;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            background: #dcfce7;
+            color: #166534;
+            margin-left: 8px;
+            vertical-align: middle;
+            font-weight: 600;
+        }
+
+        .badge.medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge.hard {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .q-section h3 {
+            color: #374151;
+            margin-top: 22px;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .answer {
+            background: #ecfdf5;
+            border-left: 4px solid #10b981;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 10px 0;
+        }
+
+        .answer strong.label {
+            display: block;
+            font-size: 0.75rem;
+            color: #059669;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .followup {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 12px 0;
+        }
+
+        .followup .q {
+            font-weight: 600;
+            color: #1d4ed8;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .followup .a {
+            color: #1e3a8a;
+        }
+
+        .demo-box {
+            background: #fafbff;
+            border: 1px dashed #c7d2fe;
+            border-radius: 10px;
+            padding: 16px;
+            margin: 12px 0;
+        }
+
+        /* ==================== VS CODE ==================== */
+        .vs-code {
+            background: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 16px 0;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #2d2d2d;
+        }
+
+        .vs-titlebar {
+            background: #3c3c3c;
+            padding: 9px 14px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px solid #2d2d2d;
+        }
+
+        .vs-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .vs-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .vs-dot.red {
+            background: #ff5f56;
+        }
+
+        .vs-dot.yellow {
+            background: #ffbd2e;
+        }
+
+        .vs-dot.green {
+            background: #27c93f;
+        }
+
+        .vs-title {
+            position: absolute;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 12px;
+            color: #cccccc;
+            pointer-events: none;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+
+        .vs-tabbar {
+            background: #252526;
+            display: flex;
+        }
+
+        .vs-tab {
+            background: #2d2d2d;
+            color: #969696;
+            padding: 9px 20px;
+            font-size: 12.5px;
+            border-right: 1px solid #1e1e1e;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .vs-tab.active {
+            background: #1e1e1e;
+            color: #ffffff;
+        }
+
+        .vs-tab.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #007acc;
+        }
+
+        .file-icon {
+            display: inline-block;
+            width: 9px;
+            height: 9px;
+            border-radius: 2px;
+        }
+
+        .file-icon.html {
+            background: #e44d26;
+        }
+
+        .file-icon.css {
+            background: #264de4;
+        }
+
+        .file-icon.js {
+            background: #f7df1e;
+        }
+
+        .vs-body {
+            margin: 0 !important;
+            padding: 16px 0 !important;
+            background: #1e1e1e !important;
+            overflow-x: auto;
+            font-size: 13px !important;
+            line-height: 1.65 !important;
+            color: #dcdcdc;
+            border-radius: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+        }
+
+        .vs-body code {
+            background: transparent !important;
+            padding: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+            font-size: inherit !important;
+            color: inherit;
+            white-space: pre;
+        }
+
+        .vs-body .hljs-ln-numbers {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            text-align: right;
+            color: #858585 !important;
+            border-right: 1px solid #3a3f4b;
+            padding: 0 14px 0 16px !important;
+            vertical-align: top;
+            font-weight: normal;
+        }
+
+        .vs-body .hljs-ln-code {
+            padding: 0 16px !important;
+        }
+
+        .vs-body .hljs-ln {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .vs-body .hljs-ln td {
+            padding: 0;
+        }
+
+        .vs-body::-webkit-scrollbar {
+            height: 10px;
+        }
+
+        .vs-body::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+
+        .vs-body::-webkit-scrollbar-thumb {
+            background: #424242;
+            border-radius: 5px;
+        }
+
+        .vs-body code.hljs,
+        .vs-body .hljs {
+            background: transparent !important;
+            padding: 0 !important;
+            overflow: visible !important;
+        }
+
+        /* ==================== TASK SECTION ==================== */
+        .task-section {
+            background: linear-gradient(135deg, #fff7ed, #fef3c7);
+            border: 2px solid #f59e0b;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 40px;
+        }
+
+        .task-section h2 {
+            color: #b45309;
+            margin-top: 0;
+        }
+
+        .task-section table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 12px 0;
+            font-size: 0.9rem;
+        }
+
+        .task-section th,
+        .task-section td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .task-section th {
+            background: #fde68a;
+            color: #78350f;
+        }
+
+        .task-section code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+        }
+
+        /* ==================== DEMO SPECIFIC STYLES ==================== */
+
+        /* Q211 – accessible table */
+        .q211-demo table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+
+        .q211-demo caption {
+            font-weight: 700;
+            color: #4f46e5;
+            padding: 8px;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        .q211-demo th,
+        .q211-demo td {
+            padding: 10px 14px;
+            border-bottom: 1px solid #e5e7eb;
+            text-align: left;
+        }
+
+        .q211-demo th {
+            background: #eef2ff;
+            color: #3730a3;
+            font-weight: 700;
+        }
+
+        .q211-demo tbody tr:hover {
+            background: #f9fafb;
+        }
+
+        .q211-demo .status {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .q211-demo .status.interview {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .q211-demo .status.hired {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .q211-demo .status.rejected {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* Q212 – UTF-8 */
+        .q212-demo .script-row {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .q212-demo .script-item {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 12px 14px;
+        }
+
+        .q212-demo .script-label {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 2px 10px;
+            border-radius: 20px;
+            background: #eef2ff;
+            color: #3730a3;
+            margin-bottom: 6px;
+        }
+
+        .q212-demo .script-text {
+            font-size: 1.15rem;
+            line-height: 1.6;
+        }
+
+        .q212-demo .arabic {
+            font-family: 'Noto Naskh Arabic', 'Segoe UI', Tahoma, sans-serif;
+            direction: rtl;
+            display: inline-block;
+        }
+
+        /* Q213 – meta description mock */
+        .q213-demo .search-result {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 14px 16px;
+            font-family: Arial, sans-serif;
+        }
+
+        .q213-demo .result-url {
+            font-size: 0.8rem;
+            color: #5f6368;
+            margin-bottom: 4px;
+        }
+
+        .q213-demo .result-title {
+            font-size: 1.05rem;
+            color: #1a0dab;
+            margin: 0 0 4px;
+            font-weight: 500;
+        }
+
+        .q213-demo .result-desc {
+            font-size: 0.9rem;
+            color: #4d5156;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* Q214 – robots */
+        .q214-demo .robots-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .q214-demo .robots-chip {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.82rem;
+        }
+
+        .q214-demo .robots-chip.index {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        /* Q215 – canonical */
+        .q215-demo .url-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .q215-demo .url-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-family: 'Fira Code', Consolas, monospace;
+            font-size: 0.85rem;
+        }
+
+        .q215-demo .url-row.canonical {
+            border-color: #10b981;
+            background: #ecfdf5;
+        }
+
+        .q215-demo .url-row .tag {
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 2px 10px;
+            border-radius: 20px;
+            background: #f3f4f6;
+            color: #374151;
+            font-family: system-ui, sans-serif;
+        }
+
+        .q215-demo .url-row.canonical .tag {
+            background: #10b981;
+            color: #fff;
+        }
+
+        /* Q216 – rel values */
+        .q216-demo .rel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 10px;
+        }
+
+        .q216-demo .rel-item {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 10px 12px;
+        }
+
+        .q216-demo .rel-name {
+            font-family: 'Fira Code', Consolas, monospace;
+            font-weight: 700;
+            color: #4f46e5;
+            font-size: 0.85rem;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .q216-demo .rel-desc {
+            font-size: 0.78rem;
+            color: #6b7280;
+        }
+
+        /* Q217 – target blank demo */
+        .q217-demo a.demo-link {
+            display: inline-block;
+            background: #4f46e5;
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-right: 8px;
+        }
+
+        .q217-demo a.demo-link:hover {
+            background: #4338ca;
+        }
+
+        /* Q218 – noopener vs noreferrer */
+        .q218-demo .compare-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+        }
+
+        .q218-demo .compare-card {
+            background: #fff;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 14px;
+        }
+
+        .q218-demo .compare-card h4 {
+            margin: 0 0 8px;
+            font-size: 0.9rem;
+        }
+
+        .q218-demo .compare-card.noopener h4 {
+            color: #4f46e5;
+        }
+
+        .q218-demo .compare-card.noreferrer h4 {
+            color: #ef4444;
+        }
+
+        .q218-demo .compare-card ul {
+            margin: 0;
+            padding-left: 18px;
+            font-size: 0.85rem;
+            color: #374151;
+        }
+
+        /* Q219 – heading outline */
+        .q219-demo .outline-tree {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 14px 16px;
+            font-family: 'Fira Code', Consolas, monospace;
+            font-size: 0.88rem;
+            line-height: 1.8;
+            color: #1f2937;
+            white-space: pre;
+        }
+
+        .q219-demo .tag-h1 {
+            color: #4f46e5;
+            font-weight: 700;
+        }
+
+        .q219-demo .tag-h2 {
+            color: #10b981;
+            font-weight: 700;
+        }
+
+        .q219-demo .tag-h3 {
+            color: #f59e0b;
+            font-weight: 700;
+        }
+
+        /* Q220 – semantic vs ARIA */
+        .q220-demo .compare-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+        }
+
+        .q220-demo .compare-card {
+            background: #fff;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 14px;
+        }
+
+        .q220-demo .compare-card h4 {
+            margin: 0 0 10px;
+            font-size: 0.9rem;
+        }
+
+        .q220-demo .compare-card.good {
+            border-color: #10b981;
+        }
+
+        .q220-demo .compare-card.good h4 {
+            color: #10b981;
+        }
+
+        .q220-demo .compare-card.bad {
+            border-color: #ef4444;
+        }
+
+        .q220-demo .compare-card.bad h4 {
+            color: #ef4444;
+        }
+
+        .q220-demo .compare-card button {
+            background: #4f46e5;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .q220-demo .compare-card .fake-btn {
+            display: inline-block;
+            background: #4f46e5;
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="../../index.html" class="back-home">← Back to Home</a>
+
+    <header class="page-header">
+        <h1>HTML &amp; CSS Questions — Part 22 (211 → 220)</h1>
+        <p>Questions + Answers + VS Code-style code + Live demos that match the code exactly</p>
+    </header>
+
+    <div class="container">
+
+        <!-- Q211 -->
+        <section class="q-section">
+            <h2>Q211 — How do you make an HTML table accessible? <span class="badge hard">Medium → Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                For accessible tables, I would use proper table semantics.<br><br>
+                Important techniques include:
+                <ul style="margin:6px 0">
+                    <li><code>&lt;caption&gt;</code> when the table needs a title</li>
+                    <li><code>&lt;th&gt;</code> for headers</li>
+                    <li><code>scope</code> when appropriate</li>
+                    <li>Proper row/column structure</li>
+                    <li>Avoiding tables purely for visual layout</li>
+                </ul>
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What does scope="col" mean?</span>
+                <span class="a">It indicates that the header cell is a header for the cells in its column.
+                    Similarly, <code>&lt;th scope="row"&gt;</code> indicates a header for the cells in that row.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;table&gt;
+  &lt;caption&gt;Job Applicants&lt;/caption&gt;
+
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th scope="col"&gt;Name&lt;/th&gt;
+      &lt;th scope="col"&gt;Status&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Ahmed&lt;/td&gt;
+      &lt;td&gt;Interview&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+            </div>
+            <h3>🔴 Live demo — Accessible table</h3>
+            <div class="demo-box q211-demo">
+                <table>
+                    <caption>Job Applicants</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Ahmed</td>
+                            <td><span class="status interview">Interview</span></td>
+                        </tr>
+                        <tr>
+                            <td>Sara</td>
+                            <td><span class="status hired">Hired</span></td>
+                        </tr>
+                        <tr>
+                            <td>Khaled</td>
+                            <td><span class="status rejected">Rejected</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Q212 -->
+        <section class="q-section">
+            <h2>Q212 — What is the purpose of &lt;meta charset="UTF-8"&gt;? <span class="badge">Easy</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                It specifies the character encoding used by the document.<br><br>
+                UTF-8 supports a very large range of characters and is the standard encoding commonly used for
+                modern websites, including Arabic and other languages.<br><br>
+                It helps the browser interpret the bytes of the document correctly as characters.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What can happen if the encoding is interpreted incorrectly?</span>
+                <span class="a">Characters may appear corrupted or as incorrect symbols, especially non-ASCII
+                    characters.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;My Page&lt;/title&gt;
+&lt;/head&gt;</code></pre>
+            </div>
+            <h3>🔴 Live demo — UTF-8 supports many scripts</h3>
+            <div class="demo-box q212-demo">
+                <div class="script-row">
+                    <div class="script-item">
+                        <span class="script-label">English</span>
+                        <div class="script-text">Hello, world! 👋</div>
+                    </div>
+                    <div class="script-item">
+                        <span class="script-label">Arabic</span>
+                        <div class="script-text arabic">مرحبا بالعالم 👋</div>
+                    </div>
+                    <div class="script-item">
+                        <span class="script-label">Japanese</span>
+                        <div class="script-text">こんにちは世界 👋</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q213 -->
+        <section class="q-section">
+            <h2>Q213 — What is the purpose of &lt;meta name="description"&gt;? <span class="badge medium">Medium</span>
+            </h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                Search engines may use it as the snippet displayed in search results, although they are not
+                required to always display it exactly as written.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Does meta description directly determine search ranking?</span>
+                <span class="a">It isn't generally considered a direct ranking factor in the simplistic sense. Its
+                    main value is helping describe the page and potentially improving click-through rate when used
+                    effectively.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;meta
+  name="description"
+  content="Find frontend and backend developer jobs."
+&gt;</code></pre>
+            </div>
+            <h3>🔴 Live demo — Mock search snippet</h3>
+            <div class="demo-box q213-demo">
+                <div class="search-result">
+                    <div class="result-url">https://example.com › jobs</div>
+                    <h4 class="result-title">Frontend &amp; Backend Developer Jobs</h4>
+                    <p class="result-desc">Find frontend and backend developer jobs. Browse open roles, apply
+                        directly, and track your applications in one place.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q214 -->
+        <section class="q-section">
+            <h2>Q214 — What is the purpose of meta name="robots"? <span class="badge hard">Medium → Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                The robots meta tag provides instructions to compliant search engine crawlers about how they should
+                handle a page.<br><br>
+                <code>noindex</code> asks crawlers not to index the page.<br>
+                <code>nofollow</code> asks crawlers not to follow links on the page for crawling purposes.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Does noindex prevent users from accessing the page?</span>
+                <span class="a"><strong>No.</strong> It is not an authentication or authorization mechanism. The page
+                    can still be directly accessible if there is no other protection.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;meta
+  name="robots"
+  content="noindex, nofollow"
+&gt;</code></pre>
+            </div>
+            <h3>🔴 Live demo — Directive chips</h3>
+            <div class="demo-box q214-demo">
+                <p style="font-size: 0.85rem; margin: 0 0 6px;">Active directives in this example:</p>
+                <div class="robots-chips">
+                    <span class="robots-chip">noindex</span>
+                    <span class="robots-chip">nofollow</span>
+                    <span class="robots-chip index">index (default)</span>
+                    <span class="robots-chip index">follow (default)</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q215 -->
+        <section class="q-section">
+            <h2>Q215 — What is a canonical URL? <span class="badge hard">Medium → Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                A canonical URL tells search engines which URL should be considered the preferred version of a page
+                when multiple URLs represent the same or substantially similar content.<br><br>
+                This can help search engines consolidate signals and avoid treating duplicate URLs as separate
+                primary pages.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Is canonical a redirect?</span>
+                <span class="a"><strong>No.</strong> A canonical link is a hint to search engines. It doesn't
+                    redirect the browser. A redirect such as HTTP 301 actually sends the client to another URL.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;link
+  rel="canonical"
+  href="https://example.com/jobs"
+&gt;</code></pre>
+            </div>
+            <h3>🔴 Live demo — Canonical hint</h3>
+            <div class="demo-box q215-demo">
+                <div class="url-flow">
+                    <div class="url-row">
+                        <span class="tag">duplicate</span>
+                        https://example.com/jobs?ref=newsletter
+                    </div>
+                    <div class="url-row">
+                        <span class="tag">duplicate</span>
+                        https://example.com/jobs?utm_source=twitter
+                    </div>
+                    <div class="url-row canonical">
+                        <span class="tag">canonical</span>
+                        https://example.com/jobs
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q216 -->
+        <section class="q-section">
+            <h2>Q216 — What is the purpose of rel on an HTML link? <span class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                The rel attribute describes the relationship between the current document and the linked
+                resource.<br><br>
+                For a stylesheet, <code>rel="stylesheet"</code> indicates that the resource is a stylesheet.
+                For anchors, <code>rel</code> can describe relationships such as <code>canonical</code>,
+                <code>alternate</code>, <code>author</code>, <code>nofollow</code>, <code>noopener</code>,
+                <code>noreferrer</code> depending on the element and context.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Why might you use rel="noopener" with target="_blank"?</span>
+                <span class="a">It prevents the newly opened page from getting access to the opener through
+                    <code>window.opener</code>, which helps mitigate reverse-tabnabbing-type attacks.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;link rel="stylesheet" href="styles.css"&gt;
+
+&lt;a
+  href="https://example.com"
+  rel="noopener noreferrer"
+&gt;
+  Open
+&lt;/a&gt;</code></pre>
+            </div>
+            <h3>🔴 Live demo — Common rel values</h3>
+            <div class="demo-box q216-demo">
+                <div class="rel-grid">
+                    <div class="rel-item"><span class="rel-name">stylesheet</span><span class="rel-desc">Links a CSS
+                            file.</span></div>
+                    <div class="rel-item"><span class="rel-name">canonical</span><span class="rel-desc">Preferred URL of
+                            the page.</span></div>
+                    <div class="rel-item"><span class="rel-name">alternate</span><span class="rel-desc">Alternate
+                            version (e.g. RSS, language).</span></div>
+                    <div class="rel-item"><span class="rel-name">author</span><span class="rel-desc">Author
+                            page.</span></div>
+                    <div class="rel-item"><span class="rel-name">nofollow</span><span class="rel-desc">Don't follow
+                            this link.</span></div>
+                    <div class="rel-item"><span class="rel-name">noopener</span><span class="rel-desc">Sever opener
+                            reference.</span></div>
+                    <div class="rel-item"><span class="rel-name">noreferrer</span><span class="rel-desc">Don't send
+                            referrer info.</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q217 -->
+        <section class="q-section">
+            <h2>Q217 — What is the purpose of target="_blank"? <span class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                It requests that the linked resource be opened in a new browsing context, commonly a new
+                tab.<br><br>
+                The exact UI behavior is ultimately controlled by the browser.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What security concern is associated with opening links in a new
+                    context?</span>
+                <span class="a">Historically, a newly opened page could potentially access the opener through
+                    <code>window.opener</code>. <code>rel="noopener"</code> prevents that relationship.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;a
+  href="https://example.com"
+  target="_blank"
+  rel="noopener noreferrer"
+&gt;
+  Open Example
+&lt;/a&gt;</code></pre>
+            </div>
+            <h3>🔴 Live demo — Click the button</h3>
+            <div class="demo-box q217-demo">
+                <a href="https://developer.mozilla.org" target="_blank" rel="noopener noreferrer" class="demo-link">Open
+                    MDN in a new tab ↗</a>
+                <p style="font-size: 0.8rem; color: #6b7280; margin: 8px 0 0;">The link opens in a new tab, with
+                    <code>rel="noopener noreferrer"</code> applied.
+                </p>
+            </div>
+        </section>
+
+        <!-- Q218 -->
+        <section class="q-section">
+            <h2>Q218 — What is the difference between noopener and noreferrer? <span class="badge hard">Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>noopener</code> prevents the opened page from accessing the opener through
+                <code>window.opener</code>.<br><br>
+                <code>noreferrer</code> additionally requests that the browser not send the Referer HTTP header when
+                navigating to the destination, and it also implies the relevant opener protection behavior in modern
+                browsers.<br><br>
+                Roughly:
+                <ul style="margin:6px 0">
+                    <li><code>noopener</code> → protect opener relationship</li>
+                    <li><code>noreferrer</code> → don't send referrer information, and also provides opener protection
+                    </li>
+                </ul>
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: If you use &lt;a target="_blank" href="..."&gt;, should you automatically
+                    add rel="noopener noreferrer"?</span>
+                <span class="a">For links opened in a new browsing context, using <code>noopener</code> is a good
+                    security practice. Whether <code>noreferrer</code> is appropriate depends on whether the
+                    application needs the destination to receive referrer information.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;!-- opener protection only --&gt;
+&lt;a href="https://example.com" target="_blank" rel="noopener"&gt;Open&lt;/a&gt;
+
+&lt;!-- opener protection + no referrer info --&gt;
+&lt;a href="https://example.com" target="_blank" rel="noopener noreferrer"&gt;Open&lt;/a&gt;</code></pre>
+            </div>
+            <h3>🔴 Live demo — Side-by-side comparison</h3>
+            <div class="demo-box q218-demo">
+                <div class="compare-grid">
+                    <div class="compare-card noopener">
+                        <h4>rel="noopener"</h4>
+                        <ul>
+                            <li>Blocks <code>window.opener</code> access</li>
+                            <li>Referrer is still sent</li>
+                            <li>Good general default for <code>target="_blank"</code></li>
+                        </ul>
+                    </div>
+                    <div class="compare-card noreferrer">
+                        <h4>rel="noreferrer"</h4>
+                        <ul>
+                            <li>Blocks <code>window.opener</code> access</li>
+                            <li>Referrer is NOT sent</li>
+                            <li>Useful when the destination shouldn't know the source</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q219 -->
+        <section class="q-section">
+            <h2>Q219 — What is the purpose of heading elements &lt;h1&gt; through &lt;h6&gt;? <span
+                    class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                Heading elements represent headings and subheadings in the document structure.<br><br>
+                They help users understand the structure of the content, including users who navigate pages using
+                screen-reader heading navigation. The hierarchy should reflect the logical structure of the content.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can a page have multiple &lt;h1&gt; elements?</span>
+                <span class="a">HTML technically allows multiple headings, and modern HTML does not impose a simple
+                    "exactly one h1" rule. However, for practical accessibility and document clarity, I would normally
+                    structure the page around a clear primary heading and use subsequent headings according to the
+                    content hierarchy.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;h1&gt;Frontend Guide&lt;/h1&gt;
+
+  &lt;h2&gt;HTML&lt;/h2&gt;
+    &lt;h3&gt;Semantic Elements&lt;/h3&gt;
+    &lt;h3&gt;Forms&lt;/h3&gt;
+
+  &lt;h2&gt;CSS&lt;/h2&gt;
+    &lt;h3&gt;Layout&lt;/h3&gt;</code></pre>
+            </div>
+            <h3>🔴 Live demo — Document outline</h3>
+            <div class="demo-box q219-demo">
+                <div class="outline-tree"><span class="tag-h1">&lt;h1&gt;</span> Frontend Guide
+                    ├── <span class="tag-h2">&lt;h2&gt;</span> HTML
+                    │ ├── <span class="tag-h3">&lt;h3&gt;</span> Semantic Elements
+                    │ └── <span class="tag-h3">&lt;h3&gt;</span> Forms
+                    └── <span class="tag-h2">&lt;h2&gt;</span> CSS
+                    └── <span class="tag-h3">&lt;h3&gt;</span> Layout</div>
+            </div>
+        </section>
+
+        <!-- Q220 -->
+        <section class="q-section">
+            <h2>Q220 — What is the difference between semantic HTML and ARIA? <span class="badge hard">Medium →
+                    Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                Semantic HTML uses native HTML elements that already have meaning and often built-in
+                browser/assistive technology behavior.<br><br>
+                ARIA adds accessibility semantics to elements when native semantics aren't enough. However, ARIA
+                alone does not provide built-in keyboard behavior — that has to be implemented manually.<br><br>
+                Therefore, prefer <code>&lt;button&gt;</code> when the element is actually a button.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What's the rule of thumb?</span>
+                <span class="a">Prefer native semantic HTML first. Use ARIA when native HTML cannot express the
+                    required accessibility semantics.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;!-- ✅ Native semantics + behavior --&gt;
+&lt;button&gt;
+  Submit
+&lt;/button&gt;
+
+&lt;!-- ⚠️ Semantics via ARIA, but behavior is manual --&gt;
+&lt;div
+  role="button"
+  tabindex="0"
+&gt;
+  Submit
+&lt;/div&gt;</code></pre>
+            </div>
+            <h3>🔴 Live demo — Try both with keyboard</h3>
+            <div class="demo-box q220-demo">
+                <div class="compare-grid">
+                    <div class="compare-card good">
+                        <h4>✅ &lt;button&gt;</h4>
+                        <button type="button" onclick="alert('Native button clicked!')">Submit</button>
+                        <p style="font-size: 0.8rem; color: #6b7280; margin: 8px 0 0;">Focusable, clickable, and
+                            announced as a button by screen readers — automatically.</p>
+                    </div>
+                    <div class="compare-card bad">
+                        <h4>⚠️ &lt;div role="button"&gt;</h4>
+                        <div class="fake-btn" role="button" tabindex="0"
+                            onclick="alert('Div with role=button clicked')">Submit</div>
+                        <p style="font-size: 0.8rem; color: #6b7280; margin: 8px 0 0;">Needs manual keyboard handling
+                            (Enter/Space) and is only announced correctly because of the role.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== STUDENT TASK ==================== -->
+        <section class="task-section">
+            <h2>🧑‍🎓 Student Task — Accessibility &amp; Metadata</h2>
+            <p>Build <strong>one HTML page</strong> (+ CSS file) that applies <strong>all 10 concepts</strong> from
+                Part 22. Submit as a zipped folder.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Concept</th>
+                        <th>What you must do</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>211</td>
+                        <td>Accessible Tables</td>
+                        <td>Build a table with <code>&lt;caption&gt;</code>, <code>&lt;thead&gt;</code>,
+                            <code>&lt;th scope="col"&gt;</code>, and <code>&lt;tbody&gt;</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>212</td>
+                        <td>UTF-8 Charset</td>
+                        <td>Include <code>&lt;meta charset="UTF-8"&gt;</code> and add Arabic + English text on the same
+                            page.</td>
+                    </tr>
+                    <tr>
+                        <td>213</td>
+                        <td>Meta Description</td>
+                        <td>Add a clear <code>&lt;meta name="description"&gt;</code> that summarizes the page.</td>
+                    </tr>
+                    <tr>
+                        <td>214</td>
+                        <td>Robots Meta</td>
+                        <td>Add <code>&lt;meta name="robots" content="noindex, nofollow"&gt;</code> and a comment
+                            explaining what it does.</td>
+                    </tr>
+                    <tr>
+                        <td>215</td>
+                        <td>Canonical URL</td>
+                        <td>Add a <code>&lt;link rel="canonical"&gt;</code> and a comment explaining the difference
+                            between a canonical and a redirect.</td>
+                    </tr>
+                    <tr>
+                        <td>216</td>
+                        <td>rel Values</td>
+                        <td>Create three links: <code>rel="noopener"</code>, <code>rel="noreferrer"</code>, and
+                            <code>rel="stylesheet"</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>217</td>
+                        <td>target="_blank"</td>
+                        <td>Add a link that opens in a new tab, with <code>rel="noopener noreferrer"</code>.</td>
+                    </tr>
+                    <tr>
+                        <td>218</td>
+                        <td>noopener vs noreferrer</td>
+                        <td>Add a comment explaining what each one protects against.</td>
+                    </tr>
+                    <tr>
+                        <td>219</td>
+                        <td>Heading Outline</td>
+                        <td>Create a page with a logical <code>h1 → h2 → h3</code> outline that reflects the content
+                            hierarchy.</td>
+                    </tr>
+                    <tr>
+                        <td>220</td>
+                        <td>Semantic vs ARIA</td>
+                        <td>Add a comment explaining why <code>&lt;button&gt;</code> is usually better than
+                            <code>&lt;div role="button"&gt;</code>.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>📦 Submission rules</h3>
+            <ul>
+                <li><strong>File names:</strong> <code>index.html</code>, <code>styles.css</code></li>
+                <li><strong>Comments:</strong> above each section, e.g.
+                    <code>&lt;!-- Q211: Accessible table --&gt;</code>
+                </li>
+                <li><strong>README.md</strong> with 3 answers:
+                    <ol>
+                        <li>Why is <code>&lt;th scope="col"&gt;</code> better than relying only on visual header
+                            styling?</li>
+                        <li>What is the difference between a canonical link and a redirect?</li>
+                        <li>Why is native <code>&lt;button&gt;</code> usually better than
+                            <code>&lt;div role="button"&gt;</code>?
+                        </li>
+                    </ol>
+                </li>
+            </ul>
+
+            <h3>🎯 Grading (out of 10)</h3>
+            <p>1 point per row. "Accessible Tables" and "Semantic vs ARIA" rows are worth double if the README
+                explanation is correct.</p>
+        </section>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.hljs) {hljs.highlightAll(); if (hljs.lineNumbersBlock) {document.querySelectorAll('pre code').forEach(function (el) {hljs.lineNumbersBlock(el);});} }
+        });
+    </script>
+</body>
+
+</html>

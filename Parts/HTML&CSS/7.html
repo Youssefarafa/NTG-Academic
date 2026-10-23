@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML &amp; CSS Questions — Part 7 (61–70)</title>
+
+    <!-- ===== Favicon: inline SVG (works offline) ===== -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%234f46e5'/%3E%3Cstop%20offset='1'%20stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='url(%23g)'/%3E%3Cpath%20d='M22%2022%20L14%2032%20L22%2042%20M42%2022%20L50%2032%20L42%2042'%20stroke='white'%20stroke-width='4'%20stroke-linecap='round'%20stroke-linejoin='round'%20fill='none'/%3E%3C/svg%3E" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css" />
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            background: #f4f6fa;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        /* ==================== BACK TO HOME BUTTON ==================== */
+        .back-home {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 9999;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 16px rgba(79, 70, 229, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            border: 1px solid transparent;
+        }
+
+        .back-home:hover {
+            background: linear-gradient(135deg, #4338ca, #6d28d9);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(79, 70, 229, 0.5);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 640px) {
+            .back-home {
+                top: 12px;
+                left: 12px;
+                padding: 8px 14px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* ==================== PAGE HEADER ==================== */
+        .page-header {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            margin: 0 0 8px;
+            font-size: 2rem;
+        }
+
+        .page-header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 24px 20px;
+        }
+
+        .q-section {
+            background: #fff;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 28px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+        }
+
+        .q-section h2 {
+            margin-top: 0;
+            color: #4f46e5;
+            border-bottom: 2px solid #eef;
+            padding-bottom: 10px;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            background: #dcfce7;
+            color: #166534;
+            margin-left: 8px;
+            vertical-align: middle;
+            font-weight: 600;
+        }
+
+        .badge.medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge.hard {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .q-section h3 {
+            color: #374151;
+            margin-top: 22px;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .answer {
+            background: #ecfdf5;
+            border-left: 4px solid #10b981;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 10px 0;
+        }
+
+        .answer strong.label {
+            display: block;
+            font-size: 0.75rem;
+            color: #059669;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .followup {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 12px 0;
+        }
+
+        .followup .q {
+            font-weight: 600;
+            color: #1d4ed8;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .followup .a {
+            color: #1e3a8a;
+        }
+
+        .demo-box {
+            background: #fafbff;
+            border: 1px dashed #c7d2fe;
+            border-radius: 10px;
+            padding: 16px;
+            margin: 12px 0;
+        }
+
+        .vs-code {
+            background: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 16px 0;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #2d2d2d;
+        }
+
+        .vs-titlebar {
+            background: #3c3c3c;
+            padding: 9px 14px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px solid #2d2d2d;
+        }
+
+        .vs-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .vs-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .vs-dot.red {
+            background: #ff5f56;
+        }
+
+        .vs-dot.yellow {
+            background: #ffbd2e;
+        }
+
+        .vs-dot.green {
+            background: #27c93f;
+        }
+
+        .vs-title {
+            position: absolute;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 12px;
+            color: #cccccc;
+            pointer-events: none;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+
+        .vs-tabbar {
+            background: #252526;
+            display: flex;
+        }
+
+        .vs-tab {
+            background: #2d2d2d;
+            color: #969696;
+            padding: 9px 20px;
+            font-size: 12.5px;
+            border-right: 1px solid #1e1e1e;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .vs-tab.active {
+            background: #1e1e1e;
+            color: #ffffff;
+        }
+
+        .vs-tab.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #007acc;
+        }
+
+        .file-icon {
+            display: inline-block;
+            width: 9px;
+            height: 9px;
+            border-radius: 2px;
+        }
+
+        .file-icon.html {
+            background: #e44d26;
+        }
+
+        .file-icon.css {
+            background: #264de4;
+        }
+
+        .file-icon.js {
+            background: #f7df1e;
+        }
+
+        .vs-body {
+            margin: 0 !important;
+            padding: 16px 0 !important;
+            background: #1e1e1e !important;
+            overflow-x: auto;
+            font-size: 13px !important;
+            line-height: 1.65 !important;
+            color: #dcdcdc;
+            border-radius: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+        }
+
+        .vs-body code {
+            background: transparent !important;
+            padding: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+            font-size: inherit !important;
+            color: inherit;
+            white-space: pre;
+        }
+
+        .vs-body .hljs-ln-numbers {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            text-align: right;
+            color: #858585 !important;
+            border-right: 1px solid #3a3f4b;
+            padding: 0 14px 0 16px !important;
+            vertical-align: top;
+            font-weight: normal;
+        }
+
+        .vs-body .hljs-ln-code {
+            padding: 0 16px !important;
+        }
+
+        .vs-body .hljs-ln {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .vs-body .hljs-ln td {
+            padding: 0;
+        }
+
+        .vs-body::-webkit-scrollbar {
+            height: 10px;
+        }
+
+        .vs-body::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+
+        .vs-body::-webkit-scrollbar-thumb {
+            background: #424242;
+            border-radius: 5px;
+        }
+
+        .vs-body code.hljs,
+        .vs-body .hljs {
+            background: transparent !important;
+            padding: 0 !important;
+            overflow: visible !important;
+        }
+
+        /* =========== Q61: Form & Fieldset =========== */
+        .q61-demo form {
+            border: 2px solid #4f46e5;
+            padding: 16px;
+            border-radius: 8px;
+            max-width: 400px;
+            background: #fff;
+        }
+
+        .q61-demo fieldset {
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .q61-demo legend {
+            font-weight: bold;
+            color: #4f46e5;
+            font-size: 0.9rem;
+            padding: 0 8px;
+        }
+
+        .q61-demo label {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .q61-demo input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        /* =========== Q62: Client vs Server =========== */
+        .q62-demo .split-view {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .q62-demo .split-view {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .q62-demo .panel {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .q62-demo .panel h4 {
+            margin-top: 0;
+            color: #4f46e5;
+        }
+
+        .q62-demo input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .q62-demo button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #fff;
+            width: 100%;
+        }
+
+        .q62-demo .btn-client {
+            background: #3b82f6;
+        }
+
+        .q62-demo .btn-server {
+            background: #10b981;
+        }
+
+        .q62-demo .status {
+            font-size: 0.8rem;
+            margin-top: 10px;
+            min-height: 20px;
+            font-weight: bold;
+        }
+
+        /* =========== Q63 & Q64: Buttons =========== */
+        .q63-demo form,
+        .q64-demo form {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            background: #fff;
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .q63-demo input[type="submit"],
+        .q63-demo button,
+        .q64-demo button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .q63-demo input[type="submit"] {
+            background: #374151;
+            color: #fff;
+        }
+
+        .q63-demo button[type="submit"] {
+            background: #4f46e5;
+            color: #fff;
+        }
+
+        .q64-demo button[type="submit"] {
+            background: #10b981;
+            color: #fff;
+        }
+
+        .q64-demo button[type="button"] {
+            background: #ef4444;
+            color: #fff;
+        }
+
+        /* =========== Q65 & Q66: Form Submission =========== */
+        .q65-demo form,
+        .q66-demo form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 300px;
+            background: #fff;
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .q65-demo input,
+        .q66-demo input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .q65-demo button,
+        .q66-demo button {
+            background: #4f46e5;
+            color: #fff;
+            border: none;
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .q65-demo label,
+        .q66-demo label {
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .q65-demo .result,
+        .q66-demo .result {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 10px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            white-space: pre-wrap;
+        }
+
+        /* =========== Q67 & Q68: Action & GET/POST =========== */
+        .q67-demo .url-bar,
+        .q68-demo .url-bar {
+            background: #f3f4f6;
+            border: 1px solid #d1d5db;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #374151;
+        }
+
+        .q67-demo .url-bar span,
+        .q68-demo .url-bar span {
+            color: #6b7280;
+            font-size: 0.75rem;
+        }
+
+        .q67-demo form,
+        .q68-demo form {
+            background: #fff;
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .q67-demo input,
+        .q68-demo input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        .q67-demo button,
+        .q68-demo button {
+            background: #4f46e5;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* =========== Q69 & Q70: Escaping & XSS =========== */
+        .q69-demo,
+        .q70-demo {
+            background: #fff;
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .q69-demo textarea,
+        .q70-demo input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            font-family: inherit;
+        }
+
+        .q69-demo .preview {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 10px;
+        }
+
+        .q69-demo .preview div {
+            border: 1px dashed #ccc;
+            padding: 10px;
+            border-radius: 4px;
+            min-height: 60px;
+            background: #fafbff;
+        }
+
+        .q69-demo .preview strong {
+            display: block;
+            font-size: 0.8rem;
+            margin-bottom: 6px;
+        }
+
+        .q70-demo button {
+            background: #ef4444;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .q70-demo .danger-box {
+            background: #fee2e2;
+            border: 2px solid #ef4444;
+            padding: 16px;
+            border-radius: 8px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .q70-demo .danger-box h4 {
+            color: #991b1b;
+            margin-top: 0;
+        }
+
+        /* =========== Task =========== */
+        .task-section {
+            background: linear-gradient(135deg, #fff7ed, #fef3c7);
+            border: 2px solid #f59e0b;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 40px;
+        }
+
+        .task-section h2 {
+            color: #b45309;
+            margin-top: 0;
+        }
+
+        .task-section table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 12px 0;
+            font-size: 0.9rem;
+        }
+
+        .task-section th,
+        .task-section td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .task-section th {
+            background: #fde68a;
+            color: #78350f;
+        }
+
+        .task-section code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="../../index.html" class="back-home">← Back to Home</a>
+
+    <header class="page-header">
+        <h1>HTML &amp; CSS Questions — Part 7 (61 → 70)</h1>
+        <p>Questions + Answers + VS Code-style code + Live demos that match the code exactly</p>
+    </header>
+
+    <div class="container">
+
+        <!-- ==================== Q61 ==================== -->
+        <section class="q-section">
+            <h2>Q61 — What is the difference between &lt;form&gt; and &lt;fieldset&gt;? <span class="badge medium">Easy
+                    → Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>&lt;form&gt;</code> represents a <strong>complete form</strong> that contains controls and can be
+                submitted.<br><br>
+                <code>&lt;fieldset&gt;</code> is used to <strong>group related form controls</strong> together
+                semantically.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What is the purpose of &lt;legend&gt;?</span>
+                <span class="a"><code>&lt;legend&gt;</code> provides a <strong>caption or accessible name</strong> for
+                    the <code>&lt;fieldset&gt;</code>.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What is the difference between action and method?</span>
+                <span class="a">
+                    <code>action</code><br>
+                    → where the form data is sent<br>
+                    <code>method</code><br>
+                    → how the data is sent<br><br>
+                    For example:<br>
+                    <code>&lt;form action="/users" method="post"&gt;</code>
+                </span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What is the difference between &lt;fieldset&gt; and &lt;legend&gt;?
+                </span>
+                <span class="a">
+                    <code>&lt;fieldset&gt;</code> groups related form controls.<br>
+                    <code>&lt;legend&gt;</code> provides a caption/name for that group.<br><br>
+
+                    Example:<br>
+                    <code>&lt;fieldset&gt;</code><br>
+                    &nbsp;&nbsp;<code>&lt;legend&gt;Account Type&lt;/legend&gt;</code><br><br>
+                    &nbsp;&nbsp;<code>&lt;label&gt;</code><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<code>&lt;input type="radio" name="type" value="employee"&gt;</code><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;Employee<br>
+                    &nbsp;&nbsp;<code>&lt;/label&gt;</code><br><br>
+                    &nbsp;&nbsp;<code>&lt;label&gt;</code><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<code>&lt;input type="radio" name="type" value="recruiter"&gt;</code><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;Recruiter<br>
+                    &nbsp;&nbsp;<code>&lt;/label&gt;</code><br>
+                    <code>&lt;/fieldset&gt;</code><br><br>
+
+                    This is particularly useful for accessibility because assistive technologies can understand that the
+                    controls belong to the same conceptual group.
+                    <br><br>
+                    <hr style="border: 0; border-top: 1px solid #bfdbfe; margin: 10px 0;">
+                    <strong>🔁 Follow-up: Would you use a &lt;div&gt; instead?</strong><br>
+                    If I need an actual semantic form grouping, <code>&lt;fieldset&gt;</code> is preferable because it
+                    communicates the relationship.
+                </span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;form&gt;
+  &lt;fieldset&gt;
+    &lt;legend&gt;Personal Information&lt;/legend&gt;
+    &lt;label for="name"&gt;Name&lt;/label&gt;
+    &lt;input id="name" name="name"&gt;
+    
+    &lt;label for="email"&gt;Email&lt;/label&gt;
+    &lt;input id="email" name="email"&gt;
+  &lt;/fieldset&gt;
+&lt;/form&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q61-demo">
+                <form onsubmit="event.preventDefault();">
+                    <fieldset>
+                        <legend>Personal Information</legend>
+                        <label for="q61-name">Name</label>
+                        <input id="q61-name" name="name" placeholder="John Doe">
+                        <label for="q61-email">Email</label>
+                        <input id="q61-email" name="email" placeholder="john@example.com">
+                    </fieldset>
+                </form>
+            </div>
+        </section>
+
+        <!-- ==================== Q62 ==================== -->
+        <section class="q-section">
+            <h2>Q62 — What is the difference between client-side and server-side validation? <span
+                    class="badge medium">Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <strong>Client-side validation</strong> happens in the browser before the request is sent to the server.
+                It provides fast feedback and improves user experience.<br><br>
+                <strong>Server-side validation</strong> happens on the backend and is essential because the client
+                cannot be trusted.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Why can't we rely only on Angular validation?</span>
+                <span class="a">Because a user can <strong>bypass the Angular application entirely</strong> and send
+                    requests directly to the API using tools such as Postman or custom scripts.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;!-- Client-side: Browser checks before submit --&gt;
+&lt;input type="email" required&gt;
+
+&lt;!-- Server-side: Backend MUST check again --&gt;
+&lt;!-- (e.g., Spring Boot @Valid annotation) --&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q62-demo">
+                <div class="split-view">
+                    <div class="panel">
+                        <h4>Client-Side</h4>
+                        <p style="font-size: 0.85rem; color:#666;">Validates in the browser instantly.</p>
+                        <input type="email" id="q62-client" placeholder="Type invalid email">
+                        <button class="btn-client" onclick="validateClient()">Submit</button>
+                        <div class="status" id="q62-client-status"></div>
+                    </div>
+                    <div class="panel">
+                        <h4>Server-Side</h4>
+                        <p style="font-size: 0.85rem; color:#666;">Validates securely on the backend.</p>
+                        <input type="text" id="q62-server" placeholder="Type invalid email">
+                        <button class="btn-server" onclick="validateServer()">Submit</button>
+                        <div class="status" id="q62-server-status"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Q63 ==================== -->
+        <section class="q-section">
+            <h2>Q63 — What is the difference between &lt;input type="submit"&gt; and &lt;button type="submit"&gt;? <span
+                    class="badge medium">Easy → Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                Both can submit a form when they're associated with a form.<br><br>
+                <code>&lt;input type="submit"&gt;</code> is an input control whose displayed content is controlled
+                through its <code>value</code>.<br><br>
+                <code>&lt;button type="submit"&gt;</code> is a button element whose content can contain text and,
+                depending on the allowed content, <strong>richer markup</strong>.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What is the default type of a &lt;button&gt; inside a form?</span>
+                <span class="a">The default behavior is <code>submit</code>, so it's good practice to <strong>explicitly
+                        specify the type</strong>.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;!-- Input: only plain text via value --&gt;
+&lt;input type="submit" value="Login"&gt;
+
+&lt;!-- Button: can contain icons, spans, rich HTML --&gt;
+&lt;button type="submit"&gt;
+  &lt;span style="color:red;"&gt;★&lt;/span&gt; Login
+&lt;/button&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q63-demo">
+                <form onsubmit="event.preventDefault(); alert('Form Submitted!');">
+                    <input type="submit" value="Input Submit">
+                    <button type="submit">★ Button Submit</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- ==================== Q64 ==================== -->
+        <section class="q-section">
+            <h2>Q64 — What is the difference between type="button" and type="submit"? <span class="badge">Easy</span>
+            </h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>type="submit"</code> <strong>submits</strong> the associated form.<br><br>
+                <code>type="button"</code> is a normal button and <strong>doesn't submit the form</strong> by default.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What would you use for opening a modal?</span>
+                <span class="a">Usually: <code>&lt;button type="button"&gt;Open Modal&lt;/button&gt;</code> because
+                    opening a modal is an <strong>action</strong>, not a form submission.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;form&gt;
+  &lt;button type="submit"&gt;Save&lt;/button&gt;
+  &lt;button type="button"&gt;Cancel&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Click both</h3>
+            <div class="demo-box q64-demo">
+                <form onsubmit="event.preventDefault(); alert('Form Submitted! (type=submit)');">
+                    <button type="submit">Submit Form</button>
+                    <button type="button" onclick="alert('Action performed! (type=button) - Form NOT submitted.');">Open
+                        Modal / Action</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- ==================== Q65 ==================== -->
+        <section class="q-section">
+            <h2>Q65 — What happens when an HTML form is submitted? <span class="badge medium">Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                When a form is submitted, the browser identifies the <strong>successful form controls</strong>,
+                constructs the <strong>form data</strong>, and depending on the form's <code>method</code> and
+                <code>action</code>, sends a request to the specified URL.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What happens to disabled form controls during native submission?</span>
+                <span class="a">Disabled controls are generally <strong>not included</strong> in the submitted form
+                    data.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;form action="/login" method="POST"&gt;
+  &lt;input name="username" value="Youssef"&gt;
+  &lt;input name="password" value="secret" disabled&gt;
+  &lt;button type="submit"&gt;Login&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Submit</h3>
+            <div class="demo-box q65-demo">
+                <form id="q65-form">
+                    <input name="username" value="Youssef">
+                    <input name="password" value="secret" disabled>
+                    <button type="submit">Submit Form</button>
+                </form>
+                <div class="result" id="q65-output">Notice how the disabled 'password' field is excluded.</div>
+            </div>
+        </section>
+
+        <!-- ==================== Q66 ==================== -->
+        <section class="q-section">
+            <h2>Q66 — What are "successful controls" in HTML forms? <span class="badge hard">Hard</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                Successful controls are form controls whose names and values are <strong>included when the browser
+                    constructs the form data for submission</strong>.<br><br>
+                For example, a disabled input is generally not successful and won't be included. Checkboxes that are not
+                checked are also generally not included. Controls typically need an appropriate <code>name</code> to
+                contribute a name-value pair.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: If I have an unchecked checkbox (active=true), will it be
+                    submitted?</span>
+                <span class="a"><strong>No.</strong> An unchecked checkbox is generally <strong>not included</strong> in
+                    native form submission at all. If the backend needs an explicit false, the application needs to
+                    handle that appropriately.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;input type="checkbox" name="active" value="true"&gt;
+&lt;!-- If unchecked, this is NOT submitted. --&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q66-demo">
+                <form id="q66-form">
+                    <label><input type="checkbox" name="terms" value="agreed" checked> Accept Terms (Checked)</label>
+                    <label><input type="checkbox" name="newsletter" value="yes"> Subscribe to Newsletter
+                        (Unchecked)</label>
+                    <button type="submit">Submit Form</button>
+                </form>
+                <div class="result" id="q66-output">Submit to see which checkboxes become "successful controls".</div>
+            </div>
+        </section>
+
+        <!-- ==================== Q67 ==================== -->
+        <section class="q-section">
+            <h2>Q67 — What is the action attribute of a &lt;form&gt;? <span class="badge medium">Easy → Medium</span>
+            </h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                The <code>action</code> attribute specifies the <strong>URL</strong> where the form submission should be
+                sent.<br><br>
+                For example: <code>&lt;form action="/api/users" method="POST"&gt;</code><br>
+                The browser submits the form to <code>/api/users</code>.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What happens if action isn't specified?</span>
+                <span class="a">The form submits to the <strong>current document's URL</strong> by default.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;form action="/api/users" method="POST"&gt;
+  &lt;input name="name"&gt;
+  &lt;button type="submit"&gt;Submit&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q67-demo">
+                <div class="url-bar">
+                    <span>Action URL:</span> https://example.com/api/users
+                </div>
+                <form onsubmit="event.preventDefault(); alert('Submitting to /api/users');">
+                    <input name="name" placeholder="Enter name">
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- ==================== Q68 ==================== -->
+        <section class="q-section">
+            <h2>Q68 — What is the difference between GET and POST in HTML forms? <span
+                    class="badge medium">Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                With a <strong>GET</strong> form submission, the form data is encoded into the <strong>URL query
+                    string</strong>.<br><br>
+                With <strong>POST</strong>, the form data is sent in the <strong>request body</strong>.<br><br>
+                GET is appropriate for search/filter forms where representing the state in the URL is useful. POST is
+                commonly used when submitting data that causes a server-side operation.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can GET requests modify data?</span>
+                <span class="a">Technically a server could be implemented that way, but according to HTTP semantics, GET
+                    should be <strong>safe</strong> and used for retrieving representations rather than performing
+                    state-changing operations.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Is POST automatically more secure than GET?</span>
+                <span class="a"><strong>No.</strong> The choice between GET and POST is not itself an encryption
+                    mechanism.
+                    Sensitive data should be protected using HTTPS and appropriate server-side security.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;!-- GET --&gt;
+&lt;form method="GET"&gt;
+  &lt;input name="search" value="laptop"&gt;
+&lt;/form&gt;
+
+&lt;!-- POST --&gt;
+&lt;form method="POST"&gt;
+  &lt;input name="username" value="Youssef"&gt;
+&lt;/form&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Click Submit</h3>
+            <div class="demo-box q68-demo">
+                <p style="font-size: 0.85rem; color: #666;">Submit the GET form and look at the URL simulation below.
+                </p>
+                <form id="q68-get">
+                    <input name="search" value="laptop">
+                    <button type="submit">Submit GET</button>
+                </form>
+                <div class="result" id="q68-output"
+                    style="margin-top:10px; font-family:monospace; font-size:0.85rem; background:#1e293b; color:#e2e8f0; padding:8px; border-radius:4px;">
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Q69 ==================== -->
+        <section class="q-section">
+            <h2>Q69 — What is HTML escaping and why is it important? <span class="badge hard">Medium → Hard</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                HTML escaping converts special characters into safe HTML representations so that user-provided text
+                isn't interpreted as HTML markup.<br><br>
+                For example: <code>&lt;</code> becomes <code>&amp;lt;</code>, <code>&gt;</code> becomes
+                <code>&amp;gt;</code>, and <code>&amp;</code> becomes <code>&amp;amp;</code>.<br><br>
+                This is important when displaying untrusted content because it can help prevent HTML injection and XSS
+                vulnerabilities.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Is escaping alone enough to prevent all XSS?</span>
+                <span class="a"><strong>No.</strong> XSS prevention depends on the context and proper output encoding,
+                    safe APIs, sanitization where appropriate, and framework protections. Different contexts such as
+                    HTML, JavaScript, CSS, and URLs require different handling.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;!-- User input: &lt;script&gt;alert(1)&lt;/script&gt; --&gt;
+
+&lt;!-- ❌ Unsafe: Renders as HTML --&gt;
+&lt;div&gt;&lt;script&gt;alert(1)&lt;/script&gt;&lt;/div&gt;
+
+&lt;!-- ✅ Safe: Escaped --&gt;
+&lt;div&gt;&amp;lt;script&amp;gt;alert(1)&amp;lt;/script&amp;gt;&lt;/div&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Type some HTML tags</h3>
+            <div class="demo-box q69-demo">
+                <label style="display:block; font-weight:bold; margin-bottom:4px; font-size:0.9rem;">Type HTML
+                    here:</label>
+                <textarea id="q69-input" rows="2"
+                    oninput="renderEscaped()"><script>alert('XSS')</script> <b>Hello</b></textarea>
+                <div class="preview">
+                    <div>
+                        <strong>❌ Rendered as HTML (Unsafe)</strong>
+                        <div id="q69-unsafe"></div>
+                    </div>
+                    <div>
+                        <strong>✅ Escaped (Safe)</strong>
+                        <div id="q69-safe"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Q70 ==================== -->
+        <section class="q-section">
+            <h2>Q70 — What is XSS? <span class="badge hard">Hard</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                XSS, or <strong>Cross-Site Scripting</strong>, is a vulnerability where an attacker manages to cause
+                malicious JavaScript or other executable content to run in another user's browser in the context of a
+                trusted website.<br><br>
+                For example, if an application unsafely renders user-controlled HTML, an attacker could inject a script
+                that executes when another user views the content.<br><br>
+                Types include: Stored XSS, Reflected XSS, and DOM-based XSS.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Does Angular protect against XSS?</span>
+                <span class="a">Angular provides built-in protections by escaping/interpreting template-bound values
+                    safely and sanitizing certain potentially dangerous values and contexts. However, developers can
+                    still introduce vulnerabilities by bypassing Angular's security mechanisms.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up 2: What is the danger of using innerHTML with user input?</span>
+                <span class="a">If untrusted input is inserted as HTML without proper sanitization, an attacker may
+                    inject malicious markup or scripts, creating an XSS vulnerability.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">app.js — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon js"></span>app.js</div>
+                </div>
+                <pre class="vs-body"><code class="language-javascript">// ❌ DANGEROUS: XSS Vulnerability
+const userInput = "&lt;img src=x onerror=alert('XSS!')&gt;";
+document.getElementById('output').innerHTML = userInput;
+
+// ✅ SAFE: Uses textContent (escapes HTML)
+document.getElementById('output').textContent = userInput;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Simulate XSS</h3>
+            <div class="demo-box q70-demo">
+                <p style="font-size: 0.85rem; margin-top: 0;">Click the button to see what happens when malicious input
+                    is injected via <code>innerHTML</code>.</p>
+                <input type="text" id="q70-payload" value="<img src=x onerror=alert('XSS Executed!')>" readonly>
+                <button onclick="simulateXSS()">Inject via innerHTML (Unsafe)</button>
+                <button onclick="preventXSS()" style="background: #10b981;">Inject via textContent (Safe)</button>
+                <div class="danger-box" id="q70-danger">
+                    <h4>⚠️ Malicious Content Rendered</h4>
+                    <p style="font-size: 0.85rem; margin: 0;">This area is vulnerable to HTML injection.</p>
+                    <div id="q70-target" style="margin-top: 10px;"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== STUDENT TASK ==================== -->
+        <section class="task-section">
+            <h2>🧑‍🎓 Student Task — Secure & Accessible Form</h2>
+            <p>Build <strong>one HTML page</strong> (+ CSS file + optional JS file) that applies <strong>all 10
+                    concepts</strong> from Part 7. Submit as a zipped folder or CodePen link.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Concept</th>
+                        <th>What you must do</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>61</td>
+                        <td>Form & Fieldset</td>
+                        <td>Wrap your form in <code>&lt;form&gt;</code> and group related inputs using
+                            <code>&lt;fieldset&gt;</code> and <code>&lt;legend&gt;</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>62</td>
+                        <td>Client vs Server</td>
+                        <td>Add <code>required</code> and <code>type="email"</code> to an input (client-side). Add a
+                            comment explaining why backend validation is still needed.</td>
+                    </tr>
+                    <tr>
+                        <td>63</td>
+                        <td>Button types</td>
+                        <td>Use a <code>&lt;button type="submit"&gt;</code> for form submission and include an icon
+                            inside it (e.g., `<span>💾</span> Save`).</td>
+                    </tr>
+                    <tr>
+                        <td>64</td>
+                        <td>type="button"</td>
+                        <td>Add a "Cancel" button using <code>type="button"</code> that clears the form using JS without
+                            submitting it.</td>
+                    </tr>
+                    <tr>
+                        <td>65</td>
+                        <td>Form action</td>
+                        <td>Set the form's <code>action</code> attribute to a dummy URL (e.g., <code>/submit</code>) and
+                            <code>method="POST"</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>66</td>
+                        <td>Successful controls</td>
+                        <td>Add a disabled input field and a checkbox. Submit the form and verify they are excluded (use
+                            JS to log <code>FormData</code>).</td>
+                    </tr>
+                    <tr>
+                        <td>67</td>
+                        <td>action attribute</td>
+                        <td>Add a comment explaining what happens if you remove the <code>action</code> attribute.</td>
+                    </tr>
+                    <tr>
+                        <td>68</td>
+                        <td>GET vs POST</td>
+                        <td>Create a small "Search" form using <code>method="GET"</code> and a "Register" form using
+                            <code>method="POST"</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>69</td>
+                        <td>Escaping</td>
+                        <td>Add a comment above any text rendering explaining why escaping (<code>&amp;lt;</code>
+                            instead of <code>&lt;</code>) is important.</td>
+                    </tr>
+                    <tr>
+                        <td>70</td>
+                        <td>XSS Protection</td>
+                        <td>Use <code>element.textContent = userInput</code> instead of <code>innerHTML</code> in your
+                            JavaScript. Add a comment explaining why.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>📦 Submission rules</h3>
+            <ul>
+                <li><strong>File names:</strong> <code>index.html</code>, <code>styles.css</code>, <code>app.js</code>
+                </li>
+                <li><strong>Comments:</strong> above each section, e.g.
+                    <code>&lt;!-- Q70: Safe rendering using textContent --&gt;</code>
+                </li>
+                <li><strong>README.md</strong> with 3 answers:
+                    <ol>
+                        <li>What happens to disabled form controls when submitted?</li>
+                        <li>Why is server-side validation mandatory?</li>
+                        <li>What is the difference between <code>innerHTML</code> and <code>textContent</code> regarding
+                            XSS?</li>
+                    </ol>
+                </li>
+            </ul>
+
+            <h3>⭐ Bonus</h3>
+            <ul>
+                <li>Add a <code>&lt;fieldset disabled&gt;</code> to disable an entire group of inputs at once.</li>
+                <li>Use <code>pattern="[0-9]{5}"</code> on an input to validate a 5-digit ZIP code.</li>
+            </ul>
+
+            <h3>🎯 Grading (out of 10)</h3>
+            <p>1 point per row. "Successful controls" and "XSS Protection" rows are worth double if the README
+                explanation is correct.</p>
+        </section>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.hljs) {
+                hljs.highlightAll();
+                if (hljs.lineNumbersBlock) {
+                    document.querySelectorAll('pre code').forEach(function (el) {
+                        hljs.lineNumbersBlock(el);
+                    });
+                }
+            }
+
+            // Q62 - Client vs Server
+            const q62Client = document.getElementById('q62-client');
+            if (q62Client) {
+                q62Client.addEventListener('input', function () {
+                    const status = document.getElementById('q62-client-status');
+                    if (this.value === '') {status.textContent = ''; return;}
+                    if (this.validity.typeMismatch) {
+                        status.textContent = '❌ Invalid email format!';
+                        status.style.color = '#ef4444';
+                    } else {
+                        status.textContent = '✅ Looks good!';
+                        status.style.color = '#10b981';
+                    }
+                });
+            }
+            window.validateServer = function () {
+                const val = document.getElementById('q62-server').value;
+                const status = document.getElementById('q62-server-status');
+                if (!val.includes('@')) {
+                    status.textContent = '🚫 Server rejected: Invalid email format.';
+                    status.style.color = '#ef4444';
+                } else {
+                    status.textContent = '✅ Server accepted.';
+                    status.style.color = '#10b981';
+                }
+            };
+
+            // Q65 & Q66 - Form Data Logging
+            function logFormData(formId, outputId) {
+                const form = document.getElementById(formId);
+                const output = document.getElementById(outputId);
+                if (form) {
+                    form.addEventListener('submit', function (e) {
+                        e.preventDefault();
+                        const formData = new FormData(form);
+                        let out = "Form Data Submitted:\n";
+                        for (let [key, value] of formData.entries()) {
+                            out += `  ${key}: "${value}"\n`;
+                        }
+                        if (out === "Form Data Submitted:\n") out += "  (No successful controls found)";
+                        output.textContent = out;
+                    });
+                }
+            }
+            logFormData('q65-form', 'q65-output');
+            logFormData('q66-form', 'q66-output');
+
+            // Q68 - GET Simulation
+            const q68Get = document.getElementById('q68-get');
+            if (q68Get) {
+                q68Get.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    const formData = new FormData(q68Get);
+                    const params = new URLSearchParams(formData);
+                    document.getElementById('q68-output').textContent = `URL: /search?${params.toString()}`;
+                });
+            }
+
+            // Q69 - Escaping Demo
+            window.renderEscaped = function () {
+                const val = document.getElementById('q69-input').value;
+                document.getElementById('q69-unsafe').innerHTML = val;
+
+                const div = document.createElement('div');
+                div.textContent = val;
+                document.getElementById('q69-safe').textContent = div.innerHTML;
+            };
+            renderEscaped(); // initial render
+
+            // Q70 - XSS Demo
+            window.simulateXSS = function () {
+                const payload = document.getElementById('q70-payload').value;
+                const target = document.getElementById('q70-target');
+                const box = document.getElementById('q70-danger');
+                box.style.display = 'block';
+                // Intentionally vulnerable for demo purposes
+                target.innerHTML = payload;
+            };
+            window.preventXSS = function () {
+                const payload = document.getElementById('q70-payload').value;
+                const target = document.getElementById('q70-target');
+                const box = document.getElementById('q70-danger');
+                box.style.display = 'block';
+                target.textContent = payload; // Safe!
+            };
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML &amp; CSS Questions — Part 8 (71–80)</title>
+
+    <!-- ===== Favicon: inline SVG (works offline) ===== -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%234f46e5'/%3E%3Cstop%20offset='1'%20stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='url(%23g)'/%3E%3Cpath%20d='M22%2022%20L14%2032%20L22%2042%20M42%2022%20L50%2032%20L42%2042'%20stroke='white'%20stroke-width='4'%20stroke-linecap='round'%20stroke-linejoin='round'%20fill='none'/%3E%3C/svg%3E" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css" />
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            background: #f4f6fa;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        /* ==================== BACK TO HOME BUTTON ==================== */
+        .back-home {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 9999;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 16px rgba(79, 70, 229, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            border: 1px solid transparent;
+        }
+
+        .back-home:hover {
+            background: linear-gradient(135deg, #4338ca, #6d28d9);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(79, 70, 229, 0.5);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 640px) {
+            .back-home {
+                top: 12px;
+                left: 12px;
+                padding: 8px 14px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* ==================== PAGE HEADER ==================== */
+        .page-header {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            margin: 0 0 8px;
+            font-size: 2rem;
+        }
+
+        .page-header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 24px 20px;
+        }
+
+        .q-section {
+            background: #fff;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 28px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+        }
+
+        .q-section h2 {
+            margin-top: 0;
+            color: #4f46e5;
+            border-bottom: 2px solid #eef;
+            padding-bottom: 10px;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            background: #dcfce7;
+            color: #166534;
+            margin-left: 8px;
+            vertical-align: middle;
+            font-weight: 600;
+        }
+
+        .badge.medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge.hard {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .q-section h3 {
+            color: #374151;
+            margin-top: 22px;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .answer {
+            background: #ecfdf5;
+            border-left: 4px solid #10b981;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 10px 0;
+        }
+
+        .answer strong.label {
+            display: block;
+            font-size: 0.75rem;
+            color: #059669;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .followup {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 12px 0;
+        }
+
+        .followup .q {
+            font-weight: 600;
+            color: #1d4ed8;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .followup .a {
+            color: #1e3a8a;
+        }
+
+        .demo-box {
+            background: #fafbff;
+            border: 1px dashed #c7d2fe;
+            border-radius: 10px;
+            padding: 16px;
+            margin: 12px 0;
+        }
+
+        .vs-code {
+            background: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 16px 0;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #2d2d2d;
+        }
+
+        .vs-titlebar {
+            background: #3c3c3c;
+            padding: 9px 14px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px solid #2d2d2d;
+        }
+
+        .vs-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .vs-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .vs-dot.red {
+            background: #ff5f56;
+        }
+
+        .vs-dot.yellow {
+            background: #ffbd2e;
+        }
+
+        .vs-dot.green {
+            background: #27c93f;
+        }
+
+        .vs-title {
+            position: absolute;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 12px;
+            color: #cccccc;
+            pointer-events: none;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+
+        .vs-tabbar {
+            background: #252526;
+            display: flex;
+        }
+
+        .vs-tab {
+            background: #2d2d2d;
+            color: #969696;
+            padding: 9px 20px;
+            font-size: 12.5px;
+            border-right: 1px solid #1e1e1e;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .vs-tab.active {
+            background: #1e1e1e;
+            color: #ffffff;
+        }
+
+        .vs-tab.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #007acc;
+        }
+
+        .file-icon {
+            display: inline-block;
+            width: 9px;
+            height: 9px;
+            border-radius: 2px;
+        }
+
+        .file-icon.html {
+            background: #e44d26;
+        }
+
+        .file-icon.css {
+            background: #264de4;
+        }
+
+        .file-icon.js {
+            background: #f7df1e;
+        }
+
+        .vs-body {
+            margin: 0 !important;
+            padding: 16px 0 !important;
+            background: #1e1e1e !important;
+            overflow-x: auto;
+            font-size: 13px !important;
+            line-height: 1.65 !important;
+            color: #dcdcdc;
+            border-radius: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+        }
+
+        .vs-body code {
+            background: transparent !important;
+            padding: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+            font-size: inherit !important;
+            color: inherit;
+            white-space: pre;
+        }
+
+        .vs-body .hljs-ln-numbers {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            text-align: right;
+            color: #858585 !important;
+            border-right: 1px solid #3a3f4b;
+            padding: 0 14px 0 16px !important;
+            vertical-align: top;
+            font-weight: normal;
+        }
+
+        .vs-body .hljs-ln-code {
+            padding: 0 16px !important;
+        }
+
+        .vs-body .hljs-ln {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .vs-body .hljs-ln td {
+            padding: 0;
+        }
+
+        .vs-body::-webkit-scrollbar {
+            height: 10px;
+        }
+
+        .vs-body::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+
+        .vs-body::-webkit-scrollbar-thumb {
+            background: #424242;
+            border-radius: 5px;
+        }
+
+        .vs-body code.hljs,
+        .vs-body .hljs {
+            background: transparent !important;
+            padding: 0 !important;
+            overflow: visible !important;
+        }
+
+        /* =========== Q71: Class vs ID =========== */
+        .q71-demo .card {
+            background: #eef;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border-left: 4px solid #4f46e5;
+        }
+
+        .q71-demo .card.active {
+            background: #dcfce7;
+            border-left-color: #10b981;
+        }
+
+        .q71-demo #unique-header {
+            background: #4f46e5;
+            color: white;
+            padding: 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        /* =========== Q72: Name vs ID =========== */
+        .q72-demo form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 300px;
+            background: #fff;
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .q72-demo label {
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .q72-demo input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .q72-demo button {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .q72-demo .result {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            white-space: pre-wrap;
+        }
+
+        /* =========== Q73 & Q74: Figure =========== */
+        .q73-demo figure,
+        .q74-demo figure {
+            margin: 0;
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+            max-width: 400px;
+        }
+
+        .q73-demo img,
+        .q74-demo img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .q73-demo figcaption,
+        .q74-demo figcaption {
+            font-size: 0.9rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* =========== Q75 & Q76: Media =========== */
+        .q75-demo video,
+        .q76-demo video {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 8px;
+            background: #000;
+        }
+
+        .q75-demo audio {
+            width: 100%;
+            max-width: 400px;
+            margin-top: 10px;
+        }
+
+        /* =========== Q77: Canvas vs SVG =========== */
+        .q77-demo .compare-box {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .q77-demo .box {
+            background: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 8px;
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+        }
+
+        .q77-demo canvas,
+        .q77-demo svg {
+            border: 1px dashed #ccc;
+            margin-bottom: 10px;
+        }
+
+        /* =========== Q78: Template =========== */
+        .q78-demo button {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .q78-demo .template-output {
+            background: #f9fafb;
+            border: 1px dashed #ccc;
+            padding: 16px;
+            border-radius: 8px;
+            min-height: 60px;
+        }
+
+        .q78-demo .user-card {
+            background: #eef;
+            border-left: 4px solid #4f46e5;
+            padding: 10px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+        }
+
+        /* =========== Q79: Contenteditable =========== */
+        .q79-demo [contenteditable] {
+            border: 2px dashed #cbd5e1;
+            padding: 12px;
+            border-radius: 6px;
+            background: #fff;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .q79-demo [contenteditable]:focus {
+            border-color: #4f46e5;
+            background: #fafbff;
+        }
+
+        /* =========== Q80: Tabindex =========== */
+        .q80-demo .focus-area {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 300px;
+        }
+
+        .q80-demo button,
+        .q80-demo div[tabindex] {
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 6px;
+            background: #fff;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-family: inherit;
+            text-align: left;
+        }
+
+        .q80-demo button:focus,
+        .q80-demo div[tabindex]:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+        }
+
+        /* =========== Task =========== */
+        .task-section {
+            background: linear-gradient(135deg, #fff7ed, #fef3c7);
+            border: 2px solid #f59e0b;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 40px;
+        }
+
+        .task-section h2 {
+            color: #b45309;
+            margin-top: 0;
+        }
+
+        .task-section table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 12px 0;
+            font-size: 0.9rem;
+        }
+
+        .task-section th,
+        .task-section td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .task-section th {
+            background: #fde68a;
+            color: #78350f;
+        }
+
+        .task-section code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="../../index.html" class="back-home">← Back to Home</a>
+
+    <header class="page-header">
+        <h1>HTML &amp; CSS Questions — Part 8 (71 → 80)</h1>
+        <p>Questions + Answers + VS Code-style code + Live demos that match the code exactly</p>
+    </header>
+
+    <div class="container">
+
+        <!-- ==================== Q71 ==================== -->
+        <section class="q-section">
+            <h2>Q71 — What is the difference between class and id in CSS and JavaScript? <span class="badge medium">Easy
+                    → Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                An <code>id</code> is intended to <strong>uniquely identify one element</strong>, while a
+                <code>class</code> can be <strong>shared by multiple elements</strong>.<br><br>
+                In CSS: <code>#header</code> targets an ID, while <code>.card</code> targets a class.<br>
+                In JavaScript: <code>document.getElementById('header')</code> vs
+                <code>document.querySelector('.card')</code>.<br><br>
+                For reusable styling or behavior, classes are generally more appropriate.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can an element have multiple classes?</span>
+                <span class="a"><strong>Yes.</strong>
+                    <code>&lt;div class="card active featured"&gt;&lt;/div&gt;</code></span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;div id="unique-header"&gt;Unique ID&lt;/div&gt;
+
+&lt;div class="card"&gt;Shared Class 1&lt;/div&gt;
+&lt;div class="card active"&gt;Shared Class 2 + Active&lt;/div&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q71-demo">
+                <div id="unique-header">Unique ID (#unique-header)</div>
+                <div class="card">Shared Class 1 (.card)</div>
+                <div class="card active">Shared Class 2 + Active (.card.active)</div>
+            </div>
+        </section>
+
+        <!-- ==================== Q72 ==================== -->
+        <section class="q-section">
+            <h2>Q72 — What is the difference between name and id in HTML forms? <span class="badge medium">Medium</span>
+            </h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>id</code> uniquely identifies an element in the document and can be used to associate a
+                <code>&lt;label&gt;</code> with a form control.<br><br>
+                <code>name</code> identifies the form control when its data is included in <strong>native form
+                    submission</strong>.<br><br>
+                The <code>id</code> connects the label to the input, while <code>name</code> is used as the key when
+                submitting form data.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can two inputs have the same name?</span>
+                <span class="a"><strong>Yes.</strong> This is common with radio buttons, where multiple options share
+                    the same name.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;form id="q72-form"&gt;
+  &lt;label for="email"&gt;Email&lt;/label&gt;
+  &lt;input id="email" name="email" type="email" value="test@example.com"&gt;
+  &lt;button type="submit"&gt;Submit&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Click the label, then Submit</h3>
+            <div class="demo-box q72-demo">
+                <form id="q72-form">
+                    <label for="email">Email (Click me to focus input)</label>
+                    <input id="email" name="email" type="email" value="test@example.com">
+                    <button type="submit">Submit</button>
+                </form>
+                <div class="result" id="q72-output">Submit to see how `name` forms the data key.</div>
+            </div>
+        </section>
+
+        <!-- ==================== Q73 ==================== -->
+        <section class="q-section">
+            <h2>Q73 — What is the difference between &lt;figure&gt; and &lt;img&gt;? <span class="badge medium">Easy →
+                    Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>&lt;img&gt;</code> represents an image.<br><br>
+                <code>&lt;figure&gt;</code> is a <strong>semantic container</strong> for self-contained content such as
+                an image, diagram, code example, or illustration, optionally accompanied by a
+                <code>&lt;figcaption&gt;</code>.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Is &lt;figure&gt; only for images?</span>
+                <span class="a"><strong>No.</strong> It can represent other self-contained content, such as diagrams,
+                    charts, code snippets, or illustrations.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;figure&gt;
+  &lt;img src="plant.jpg" alt="Tomato plant"&gt;
+  &lt;figcaption&gt;Tomato plant during the growth stage.&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q73-demo">
+                <figure>
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='120'%3E%3Crect width='200' height='120' fill='%23dcfce7'/%3E%3Ccircle cx='100' cy='60' r='40' fill='%2310b981'/%3E%3C/svg%3E"
+                        alt="A green circle representing a plant">
+                    <figcaption>Tomato plant during the growth stage.</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- ==================== Q74 ==================== -->
+        <section class="q-section">
+            <h2>Q74 — What is the purpose of &lt;figcaption&gt;? <span class="badge">Easy</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>&lt;figcaption&gt;</code> provides a <strong>caption or description</strong> for the content
+                inside a <code>&lt;figure&gt;</code>.<br><br>
+                It helps communicate the relationship between the figure and its caption.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can &lt;figcaption&gt; appear before the image?</span>
+                <span class="a"><strong>Yes.</strong> It can appear as the <strong>first or last child</strong> of
+                    <code>&lt;figure&gt;</code>.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;figure&gt;
+  &lt;figcaption&gt;Sales Chart 2025&lt;/figcaption&gt;
+  &lt;img src="chart.png" alt="Sales chart"&gt;
+&lt;/figure&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q74-demo">
+                <figure>
+                    <figcaption>Monthly sales from January to June.</figcaption>
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='100'%3E%3Crect width='200' height='100' fill='%23eff6ff'/%3E%3Cpath d='M20 80 L60 50 L100 60 L140 20 L180 30' stroke='%234f46e5' stroke-width='4' fill='none'/%3E%3C/svg%3E"
+                        alt="Sales chart">
+                </figure>
+            </div>
+        </section>
+
+        <!-- ==================== Q75 ==================== -->
+        <section class="q-section">
+            <h2>Q75 — What is the difference between &lt;video&gt; and &lt;audio&gt;? <span class="badge">Easy</span>
+            </h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>&lt;video&gt;</code> is used to embed <strong>video content</strong>, while
+                <code>&lt;audio&gt;</code> is used for <strong>audio content</strong>.<br><br>
+                Both support common attributes such as <code>controls</code>, <code>autoplay</code>, <code>loop</code>,
+                <code>muted</code>, and <code>preload</code>.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Why might autoplay fail even if I specify autoplay?</span>
+                <span class="a">Modern browsers often restrict autoplay when media contains audio or isn't considered
+                    user-initiated. <strong>Muted autoplay</strong> is more commonly allowed.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Why use &lt;source&gt; instead of directly specifying one file?</span>
+                <span class="a">
+                    It allows us to provide <strong>multiple media sources</strong> in different formats so the browser
+                    can select a compatible source.
+                </span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What are the controls, autoplay, muted, and loop attributes?</span>
+                <span class="a">
+                    <code>controls</code>: shows native playback controls.<br>
+                    <code>&lt;video controls&gt;</code>
+                    <br><br>
+                    <code>autoplay</code>: requests automatic playback.<br>
+                    <code>&lt;video autoplay&gt;</code>
+                    <br><br>
+                    <code>muted</code>: starts the media muted.<br>
+                    <code>&lt;video autoplay muted&gt;</code>
+                    <br><br>
+                    <code>loop</code>: repeats the media.<br>
+                    <code>&lt;video loop&gt;</code>
+                    <br><br>
+                    These are <strong>boolean HTML attributes</strong>.
+                </span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Why is autoplay commonly combined with muted for video?</span>
+                <span class="a">
+                    Browsers commonly restrict autoplay with sound to avoid unwanted audio. <strong>Muted
+                        autoplay</strong> is generally more likely to be permitted.
+                </span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;video controls&gt;
+  &lt;source src="demo.mp4" type="video/mp4"&gt;
+&lt;/video&gt;
+
+&lt;audio controls&gt;
+  &lt;source src="audio.mp3" type="audio/mpeg"&gt;
+&lt;/audio&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q75-demo">
+                <p style="font-size: 0.85rem; color: #666; margin-top:0;">Video element (with controls):</p>
+                <video controls
+                    poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect width='400' height='200' fill='%23374151'/%3E%3Cpolygon points='180,80 180,120 220,100' fill='white'/%3E%3C/svg%3E">
+                    <source src="demo.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <p style="font-size: 0.85rem; color: #666;">Audio element (with controls):</p>
+                <audio controls>
+                    <source src="audio.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+        </section>
+
+        <!-- ==================== Q76 ==================== -->
+        <section class="q-section">
+            <h2>Q76 — What is the purpose of the &lt;source&gt; element? <span class="badge medium">Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>&lt;source&gt;</code> specifies <strong>alternative media resources</strong> for elements such as
+                <code>&lt;video&gt;</code> and <code>&lt;audio&gt;</code>.<br><br>
+                The browser can choose a supported source format.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What happens if none of the sources are supported?</span>
+                <span class="a">The browser won't be able to play the media, and <strong>fallback content</strong>
+                    placed inside the <code>&lt;video&gt;</code> or <code>&lt;audio&gt;</code> element can be
+                    displayed.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;video controls&gt;
+  &lt;source src="video.webm" type="video/webm"&gt;
+  &lt;source src="video.mp4" type="video/mp4"&gt;
+  Your browser does not support HTML video.
+&lt;/video&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q76-demo">
+                <video controls
+                    poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect width='400' height='200' fill='%231f2937'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-family='sans-serif' font-size='14' text-anchor='middle'%3EVideo Fallback Demo%3C/text%3E%3C/svg%3E">
+                    <source src="fake-video.webm" type="video/webm">
+                    <source src="fake-video.mp4" type="video/mp4">
+                    <p style="color: #ef4444;">Your browser does not support HTML5 video. (Fallback content)</p>
+                </video>
+            </div>
+        </section>
+
+        <!-- ==================== Q77 ==================== -->
+        <section class="q-section">
+            <h2>Q77 — What is the difference between &lt;canvas&gt; and &lt;svg&gt;? <span class="badge hard">Medium →
+                    Hard</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>&lt;canvas&gt;</code> provides a <strong>bitmap drawing surface</strong> that JavaScript can
+                manipulate, while <strong>SVG</strong> is a <strong>vector-based markup format</strong> where graphical
+                elements are represented as DOM nodes.<br><br>
+                Canvas is often useful for games, image processing, and dynamic drawings. SVG is useful for scalable
+                graphics, icons, diagrams, and accessible DOM elements.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Which one scales without losing quality?</span>
+                <span class="a"><strong>SVG</strong> is vector-based, so it scales without pixelation.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up 2: Can I style SVG elements with CSS?</span>
+                <span class="a"><strong>Yes.</strong> SVG elements can often be styled and manipulated using CSS and
+                    JavaScript.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;canvas id="myCanvas" width="100" height="100"&gt;&lt;/canvas&gt;
+
+&lt;svg width="100" height="100"&gt;
+  &lt;circle cx="50" cy="50" r="40" fill="blue" /&gt;
+&lt;/svg&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q77-demo">
+                <div class="compare-box">
+                    <div class="box">
+                        <strong>Canvas (Bitmap)</strong><br>
+                        <canvas id="q77-canvas" width="100" height="100"></canvas>
+                        <div style="font-size:0.8rem; color:#666;">Drawn via JS. Pixelates if zoomed.</div>
+                    </div>
+                    <div class="box">
+                        <strong>SVG (Vector)</strong><br>
+                        <svg width="100" height="100">
+                            <circle cx="50" cy="50" r="40" fill="#4f46e5" />
+                        </svg>
+                        <div style="font-size:0.8rem; color:#666;">DOM node. Scales infinitely.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Q78 ==================== -->
+        <section class="q-section">
+            <h2>Q78 — What is the difference between &lt;template&gt; and normal HTML elements? <span
+                    class="badge hard">Hard</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                The <code>&lt;template&gt;</code> element contains HTML that <strong>isn't rendered</strong> as part of
+                the document immediately.<br><br>
+                Its content is stored as a <code>DocumentFragment</code> and can later be cloned and inserted into the
+                DOM using JavaScript.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Is the content inside &lt;template&gt; immediately visible?</span>
+                <span class="a"><strong>No.</strong> It's inert until it is explicitly cloned and inserted into the
+                    document.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;template id="user-card"&gt;
+  &lt;div class="user-card"&gt;
+    &lt;h3&gt;User Name&lt;/h3&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+  const template = document.getElementById('user-card');
+  const clone = template.content.cloneNode(true);
+  document.body.appendChild(clone);
+&lt;/script&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Click the button</h3>
+            <div class="demo-box q78-demo">
+                <button onclick="useTemplate()">Clone & Insert Template</button>
+                <div class="template-output" id="q78-output">
+                    <span style="color: #9ca3af; font-size: 0.9rem;">Templates will appear here...</span>
+                </div>
+
+                <!-- The Hidden Template -->
+                <template id="q78-template">
+                    <div class="user-card">
+                        <h3 style="margin:0;">Cloned User Card</h3>
+                        <p style="margin: 4px 0 0; font-size: 0.85rem; color: #555;">I was inside a template tag!</p>
+                    </div>
+                </template>
+            </div>
+        </section>
+
+        <!-- ==================== Q79 ==================== -->
+        <section class="q-section">
+            <h2>Q79 — What is the contenteditable attribute? <span class="badge medium">Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>contenteditable</code> makes an element's content <strong>editable by the user</strong>.<br><br>
+                The user can modify the content directly in the browser.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Would you trust the content entered through contenteditable and send it
+                    directly to the backend?</span>
+                <span class="a"><strong>No.</strong> User-generated content must be treated as untrusted. If it's stored
+                    or rendered as HTML, it needs appropriate validation/sanitization and safe handling to avoid issues
+                    such as XSS.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;div contenteditable="true"&gt;
+  Edit this text directly in the browser!
+&lt;/div&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Click and type</h3>
+            <div class="demo-box q79-demo">
+                <div contenteditable="true">
+                    <strong>Edit me!</strong> Click inside this box and type anything. The content is directly editable.
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Q80 ==================== -->
+        <section class="q-section">
+            <h2>Q80 — What is the tabindex attribute and why is it important? <span class="badge hard">Medium →
+                    Hard</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>tabindex</code> controls whether an element can receive <strong>keyboard focus</strong> and, in
+                some cases, its position in the sequential keyboard navigation order.<br><br>
+                A value of <code>0</code> allows an element to participate in the natural tab order.<br>
+                A negative value such as <code>-1</code> allows programmatic focus but removes the element from
+                sequential keyboard navigation.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Should we use positive tabindex values like tabindex="1"?</span>
+                <span class="a"><strong>Generally no.</strong> Positive tabindex values create a custom tab order that
+                    can become difficult to maintain and can harm keyboard accessibility. It's usually better to rely on
+                    the natural document order.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;button tabindex="0"&gt;Focusable in natural order&lt;/button&gt;
+&lt;div tabindex="-1"&gt;Focusable only via JS&lt;/div&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Press the <kbd>Tab</kbd> key</h3>
+            <div class="demo-box q80-demo">
+                <p style="font-size: 0.85rem; color: #666; margin-top:0;">Press <kbd>Tab</kbd> to cycle through these
+                    elements. Notice how the natural order is preserved.</p>
+                <div class="focus-area">
+                    <button>Normal Button (tabindex=0 by default)</button>
+                    <div tabindex="0">Div with tabindex="0"</div>
+                    <div>Div without tabindex (Skipped)</div>
+                    <button tabindex="-1">Button with tabindex="-1" (Skipped by Tab)</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== STUDENT TASK ==================== -->
+        <section class="task-section">
+            <h2>🧑‍🎓 Student Task — Media & Interactive Gallery</h2>
+            <p>Build <strong>one HTML page</strong> (+ CSS file + optional JS file) that applies <strong>all 10
+                    concepts</strong> from Part 8. Submit as a zipped folder or CodePen link.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Concept</th>
+                        <th>What you must do</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>71</td>
+                        <td>ID vs Class</td>
+                        <td>Create a <code>&lt;nav id="main-nav"&gt;</code> with 3 links. Give all links a
+                            <code>class="nav-link"</code> and style them using the class.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>72</td>
+                        <td>Name vs ID</td>
+                        <td>Add a form with a <code>&lt;label for="username"&gt;</code> and an
+                            <code>&lt;input id="username" name="user_name"&gt;</code>. Comment the difference.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>73</td>
+                        <td>&lt;figure&gt;</td>
+                        <td>Wrap an image in a <code>&lt;figure&gt;</code> tag.</td>
+                    </tr>
+                    <tr>
+                        <td>74</td>
+                        <td>&lt;figcaption&gt;</td>
+                        <td>Add a <code>&lt;figcaption&gt;</code> inside your figure describing the image.</td>
+                    </tr>
+                    <tr>
+                        <td>75</td>
+                        <td>Video/Audio</td>
+                        <td>Embed a <code>&lt;video&gt;</code> with <code>controls</code> and an
+                            <code>&lt;audio&gt;</code> tag with <code>controls</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>76</td>
+                        <td>&lt;source&gt;</td>
+                        <td>Add two <code>&lt;source&gt;</code> tags inside your video element (e.g., <code>.mp4</code>
+                            and <code>.webm</code>).</td>
+                    </tr>
+                    <tr>
+                        <td>77</td>
+                        <td>Canvas vs SVG</td>
+                        <td>Place a <code>&lt;canvas&gt;</code> next to an <code>&lt;svg&gt;</code> drawing a circle.
+                            Add
+                            a comment explaining the main difference.</td>
+                    </tr>
+                    <tr>
+                        <td>78</td>
+                        <td>&lt;template&gt;</td>
+                        <td>Create a <code>&lt;template&gt;</code> for a "Comment" box, and use JS to append a new
+                            comment to the page when a button is clicked.</td>
+                    </tr>
+                    <tr>
+                        <td>79</td>
+                        <td>contenteditable</td>
+                        <td>Create a <code>&lt;div contenteditable="true"&gt;</code> that lets the user edit their
+                            "Bio".
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>80</td>
+                        <td>tabindex</td>
+                        <td>Add <code>tabindex="0"</code> to a custom <code>&lt;div class="custom-button"&gt;</code> so
+                            it can be focused using the keyboard.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>📦 Submission rules</h3>
+            <ul>
+                <li><strong>File names:</strong> <code>index.html</code>, <code>styles.css</code>, <code>app.js</code>
+                </li>
+                <li><strong>Comments:</strong> above each section, e.g. <code>&lt;!-- Q77: SVG vs Canvas --&gt;</code>
+                </li>
+                <li><strong>README.md</strong> with 3 answers:
+                    <ol>
+                        <li>Why use an SVG instead of a Canvas for a logo?</li>
+                        <li>Why is `contenteditable` dangerous if not sanitized?</li>
+                        <li>What is the problem with using `tabindex="1"`?</li>
+                    </ol>
+                </li>
+            </ul>
+
+            <h3>⭐ Bonus</h3>
+            <ul>
+                <li>Add `autoplay muted loop` to your video element and see if it works automatically.</li>
+                <li>Use the Canvas API to draw a rectangle instead of just leaving the canvas blank.</li>
+            </ul>
+
+            <h3>🎯 Grading (out of 10)</h3>
+            <p>1 point per row. "Canvas vs SVG" and "Template" rows are worth double if the README explanation is
+                correct.</p>
+        </section>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.hljs) {
+                hljs.highlightAll();
+                if (hljs.lineNumbersBlock) {
+                    document.querySelectorAll('pre code').forEach(function (el) {
+                        hljs.lineNumbersBlock(el);
+                    });
+                }
+            }
+
+            // Q72 Form Submit
+            const q72Form = document.getElementById('q72-form');
+            if (q72Form) {
+                q72Form.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    const formData = new FormData(q72Form);
+                    let out = "Submitted Data:\n";
+                    for (let [key, value] of formData.entries()) {
+                        out += `  Key (name): "${key}"\n  Value: "${value}"\n`;
+                    }
+                    document.getElementById('q72-output').textContent = out;
+                });
+            }
+
+            // Q77 Canvas Drawing
+            const canvas = document.getElementById('q77-canvas');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                ctx.beginPath();
+                ctx.arc(50, 50, 40, 0, 2 * Math.PI);
+                ctx.fillStyle = '#4f46e5';
+                ctx.fill();
+            }
+
+            // Q78 Template Cloning
+            window.useTemplate = function () {
+                const template = document.getElementById('q78-template');
+                const output = document.getElementById('q78-output');
+
+                // Clear placeholder text on first click
+                if (output.querySelector('span')) {
+                    output.innerHTML = '';
+                }
+
+                const clone = template.content.cloneNode(true);
+                output.appendChild(clone);
+            };
+        });
+    </script>
+
+</body>
+
+</html>

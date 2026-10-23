@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML &amp; CSS Questions — Part 17 (161–170)</title>
+
+    <!-- ===== Favicon: inline SVG (works offline) ===== -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%234f46e5'/%3E%3Cstop%20offset='1'%20stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='url(%23g)'/%3E%3Cpath%20d='M22%2022%20L14%2032%20L22%2042%20M42%2022%20L50%2032%20L42%2042'%20stroke='white'%20stroke-width='4'%20stroke-linecap='round'%20stroke-linejoin='round'%20fill='none'/%3E%3C/svg%3E" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css" />
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            background: #f4f6fa;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        /* ==================== BACK TO HOME BUTTON ==================== */
+        .back-home {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 9999;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 16px rgba(79, 70, 229, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .back-home:hover {
+            background: linear-gradient(135deg, #4338ca, #6d28d9);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(79, 70, 229, 0.5);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 640px) {
+            .back-home {
+                top: 12px;
+                left: 12px;
+                padding: 8px 14px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* ==================== PAGE HEADER ==================== */
+        .page-header {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            margin: 0 0 8px;
+            font-size: 2rem;
+        }
+
+        .page-header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 24px 20px;
+        }
+
+        .q-section {
+            background: #fff;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 28px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+        }
+
+        .q-section h2 {
+            margin-top: 0;
+            color: #4f46e5;
+            border-bottom: 2px solid #eef;
+            padding-bottom: 10px;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            background: #dcfce7;
+            color: #166534;
+            margin-left: 8px;
+            vertical-align: middle;
+            font-weight: 600;
+        }
+
+        .badge.medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge.hard {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .q-section h3 {
+            color: #374151;
+            margin-top: 22px;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .answer {
+            background: #ecfdf5;
+            border-left: 4px solid #10b981;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 10px 0;
+        }
+
+        .answer strong.label {
+            display: block;
+            font-size: 0.75rem;
+            color: #059669;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .followup {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 12px 0;
+        }
+
+        .followup .q {
+            font-weight: 600;
+            color: #1d4ed8;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .followup .a {
+            color: #1e3a8a;
+        }
+
+        .demo-box {
+            background: #fafbff;
+            border: 1px dashed #c7d2fe;
+            border-radius: 10px;
+            padding: 16px;
+            margin: 12px 0;
+        }
+
+        .demo-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .demo-label.bad {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .demo-label.good {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        /* ==================== VS CODE ==================== */
+        .vs-code {
+            background: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 16px 0;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #2d2d2d;
+        }
+
+        .vs-titlebar {
+            background: #3c3c3c;
+            padding: 9px 14px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px solid #2d2d2d;
+        }
+
+        .vs-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .vs-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .vs-dot.red {
+            background: #ff5f56;
+        }
+
+        .vs-dot.yellow {
+            background: #ffbd2e;
+        }
+
+        .vs-dot.green {
+            background: #27c93f;
+        }
+
+        .vs-title {
+            position: absolute;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 12px;
+            color: #cccccc;
+            pointer-events: none;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+
+        .vs-tabbar {
+            background: #252526;
+            display: flex;
+        }
+
+        .vs-tab {
+            background: #2d2d2d;
+            color: #969696;
+            padding: 9px 20px;
+            font-size: 12.5px;
+            border-right: 1px solid #1e1e1e;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .vs-tab.active {
+            background: #1e1e1e;
+            color: #ffffff;
+        }
+
+        .vs-tab.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #007acc;
+        }
+
+        .file-icon {
+            display: inline-block;
+            width: 9px;
+            height: 9px;
+            border-radius: 2px;
+        }
+
+        .file-icon.html {
+            background: #e44d26;
+        }
+
+        .file-icon.css {
+            background: #264de4;
+        }
+
+        .file-icon.js {
+            background: #f7df1e;
+        }
+
+        .vs-body {
+            margin: 0 !important;
+            padding: 16px 0 !important;
+            background: #1e1e1e !important;
+            overflow-x: auto;
+            font-size: 13px !important;
+            line-height: 1.65 !important;
+            color: #dcdcdc;
+            border-radius: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+        }
+
+        .vs-body code {
+            background: transparent !important;
+            padding: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+            font-size: inherit !important;
+            color: inherit;
+            white-space: pre;
+        }
+
+        .vs-body .hljs-ln-numbers {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            text-align: right;
+            color: #858585 !important;
+            border-right: 1px solid #3a3f4b;
+            padding: 0 14px 0 16px !important;
+            vertical-align: top;
+            font-weight: normal;
+        }
+
+        .vs-body .hljs-ln-code {
+            padding: 0 16px !important;
+        }
+
+        .vs-body .hljs-ln {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .vs-body .hljs-ln td {
+            padding: 0;
+        }
+
+        .vs-body::-webkit-scrollbar {
+            height: 10px;
+        }
+
+        .vs-body::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+
+        .vs-body::-webkit-scrollbar-thumb {
+            background: #424242;
+            border-radius: 5px;
+        }
+
+        .vs-body code.hljs,
+        .vs-body .hljs {
+            background: transparent !important;
+            padding: 0 !important;
+            overflow: visible !important;
+        }
+
+        /* ==================== TASK SECTION ==================== */
+        .task-section {
+            background: linear-gradient(135deg, #fff7ed, #fef3c7);
+            border: 2px solid #f59e0b;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 40px;
+        }
+
+        .task-section h2 {
+            color: #b45309;
+            margin-top: 0;
+        }
+
+        .task-section table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 12px 0;
+            font-size: 0.9rem;
+        }
+
+        .task-section th,
+        .task-section td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .task-section th {
+            background: #fde68a;
+            color: #78350f;
+        }
+
+        .task-section code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+        }
+
+        /* ==================== DEMO SPECIFIC STYLES ==================== */
+        .q161-demo .btn-demo {
+            background: #4f46e5;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .q161-demo .btn-demo:hover {
+            background: #ef4444;
+        }
+
+        .q161-demo .pseudo-demo::before {
+            content: "👉 ";
+            color: #4f46e5;
+            font-weight: bold;
+        }
+
+        .q162-demo .title-demo {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #1f2937;
+        }
+
+        .q162-demo .title-demo::before {
+            content: "★ ";
+            color: #f59e0b;
+        }
+
+        .q162-demo .title-demo::after {
+            content: " →";
+            color: #10b981;
+        }
+
+        .q163-demo .list-demo {
+            background: #fff;
+            border: 1px solid #ccc;
+            padding: 16px;
+            border-radius: 8px;
+            list-style: none;
+            margin: 0;
+        }
+
+        .q163-demo .list-demo li {
+            padding: 8px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .q163-demo .list-demo li:last-child {
+            border-bottom: none;
+        }
+
+        .q163-demo .list-demo li:nth-child(2) {
+            color: #ef4444;
+            font-weight: bold;
+            background: #fef2f2;
+        }
+
+        .q163-demo .list-demo li:nth-of-type(3) {
+            color: #3b82f6;
+            font-weight: bold;
+            background: #eff6ff;
+        }
+
+        .q164-demo .group {
+            margin-bottom: 10px;
+        }
+
+        .q164-demo :is(h4, h5, h6) {
+            color: #4f46e5;
+            margin: 0;
+        }
+
+        .q164-demo :where(.card, .panel) {
+            background: #e0e7ff;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 5px;
+        }
+
+        .q164-demo button:not(.disabled) {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .q164-demo button.disabled {
+            background: #9ca3af;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: not-allowed;
+        }
+
+        .q165-demo .cards-container {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .q165-demo .card {
+            border: 2px solid #ccc;
+            padding: 16px;
+            border-radius: 8px;
+            width: 150px;
+        }
+
+        .q165-demo .card:has(img) {
+            border-color: #10b981;
+            background: #ecfdf5;
+        }
+
+        .q165-demo .card img {
+            width: 100%;
+            border-radius: 4px;
+        }
+
+        .q166-demo .color-box {
+            color: #4f46e5;
+            border: 4px solid currentColor;
+            padding: 16px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .q167-demo .img-row {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .q167-demo .img-box {
+            width: 150px;
+            height: 150px;
+            background: #e5e7eb;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .q167-demo .img-box img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .q167-demo .img-cover {
+            object-fit: cover;
+        }
+
+        .q167-demo .img-contain {
+            object-fit: contain;
+            background: #f3f4f6;
+        }
+
+        .q168-demo .compare-box {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .q168-demo .item-box {
+            flex: 1;
+            min-width: 200px;
+            height: 150px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .q168-demo .bg-image {
+            background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect width="400" height="300" fill="%234f46e5"/%3E%3Ccircle cx="200" cy="150" r="100" fill="%23f59e0b"/%3E%3C/svg%3E');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .q168-demo .img-tag img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .q169-demo .aspect-container {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .q169-demo .aspect-box {
+            flex: 1;
+            min-width: 200px;
+            aspect-ratio: 16 / 9;
+            background: #4f46e5;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .q170-demo .will-change-demo {
+            padding: 20px;
+            background: #e5e7eb;
+            border-radius: 8px;
+            text-align: center;
+            transition: background 0.3s;
+            cursor: pointer;
+        }
+
+        .q170-demo .will-change-demo:hover {
+            background: #10b981;
+            color: white;
+        }
+
+        .q170-demo .optimized {
+            will-change: background-color;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="../../index.html" class="back-home">← Back to Home</a>
+
+    <header class="page-header">
+        <h1>HTML &amp; CSS Questions — Part 17 (161 → 170)</h1>
+        <p>Questions + Answers + VS Code-style code + Live demos that match the code exactly</p>
+    </header>
+
+    <div class="container">
+
+        <!-- Q161 -->
+        <section class="q-section">
+            <h2>Q161 — What is the difference between a pseudo-class and a pseudo-element? <span
+                    class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                A <strong>pseudo-class</strong> targets an element based on a particular <strong>state or
+                    condition</strong> (e.g., <code>:hover</code>, <code>:focus</code>,
+                <code>:first-child</code>).<br><br>
+                A <strong>pseudo-element</strong> targets a specific <strong>part of an element</strong> or creates a
+                generated piece of content (e.g., <code>::first-line</code>, <code>::before</code>).
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Why does ::before usually require content?</span>
+                <span class="a">Because <code>::before</code> creates a generated pseudo-element, and the
+                    <code>content</code> property controls its generated content. Even an empty value such as
+                    <code>content: "";</code> is commonly used when the pseudo-element is only needed for
+                    styling.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">/* Pseudo-class */
+.btn-demo:hover { background: #ef4444; }
+
+/* Pseudo-element */
+.pseudo-demo::before { content: "👉 "; }</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q161-demo">
+                <button class="btn-demo">Hover Me (Pseudo-class)</button>
+                <p class="pseudo-demo" style="margin-top: 15px; font-size: 1.1rem;">This text has a pseudo-element
+                    (::before).</p>
+            </div>
+        </section>
+
+        <!-- Q162 -->
+        <section class="q-section">
+            <h2>Q162 — What is the difference between ::before and ::after? <span class="badge medium">Easy →
+                    Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                Both create pseudo-elements associated with an element.<br><br>
+                <code>::before</code> is inserted as the <strong>first child</strong> of the element's generated
+                content.<br>
+                <code>::after</code> is inserted as the <strong>last child</strong>.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Are ::before and ::after real DOM elements?</span>
+                <span class="a"><strong>No.</strong> They are CSS-generated pseudo-elements and aren't represented as
+                    normal DOM nodes that you can select with JavaScript.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.title-demo::before { content: "★ "; color: #f59e0b; }
+.title-demo::after { content: " →"; color: #10b981; }</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q162-demo">
+                <div class="title-demo">Star and Arrow</div>
+            </div>
+        </section>
+
+        <!-- Q163 -->
+        <section class="q-section">
+            <h2>Q163 — What is the difference between :nth-child() and :nth-of-type()? <span
+                    class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>:nth-child()</code> counts <strong>all siblings</strong>.<br><br>
+                <code>:nth-of-type()</code> counts only siblings of the <strong>same element type</strong>.<br><br>
+                Given a div with an <code>h2</code> followed by two <code>p</code> tags: <code>p:nth-child(2)</code>
+                selects the first paragraph (since it's the 2nd child overall). <code>p:nth-of-type(2)</code> selects
+                the second paragraph.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Why?</span>
+                <span class="a">Because <code>nth-child()</code> counts all children, while <code>nth-of-type()</code>
+                    counts only elements of the same type.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">li:nth-child(2) { color: red; }
+li:nth-of-type(3) { color: blue; }</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q163-demo">
+                <ul class="list-demo">
+                    <li>Item 1 (No style)</li>
+                    <li>Item 2 (nth-child(2) - Red)</li>
+                    <li>Item 3 (nth-of-type(3) - Blue)</li>
+                    <li>Item 4 (No style)</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Q164 -->
+        <section class="q-section">
+            <h2>Q164 — What is the difference between :not(), :is(), and :where()? <span class="badge hard">Hard</span>
+            </h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>:not()</code> matches elements that <strong>don't match</strong> the selector inside it.<br><br>
+                <code>:is()</code> allows <strong>grouping</strong> alternative selectors and takes the specificity of
+                its most specific argument.<br><br>
+                <code>:where()</code> has similar grouping functionality but <strong>always contributes zero
+                    specificity</strong>. This makes it useful for easily overridable styles.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What's the key specificity difference between :is() and :where()?</span>
+                <span class="a"><code>:is()</code> takes the specificity of its most specific argument, while
+                    <code>:where()</code> has zero specificity.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">:is(h4, h5, h6) { color: #4f46e5; }
+:where(.card, .panel) { background: #e0e7ff; padding: 10px; }
+button:not(.disabled) { background: #10b981; }</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q164-demo">
+                <div class="group">
+                    <h4>:is() Demo - H4</h4>
+                    <h5>:is() Demo - H5</h5>
+                </div>
+                <div class="group">
+                    <div class="card">:where() Demo - Card</div>
+                    <div class="panel">:where() Demo - Panel</div>
+                </div>
+                <div class="group">
+                    <button>Enabled Button</button>
+                    <button class="disabled">Disabled Button</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q165 -->
+        <section class="q-section">
+            <h2>Q165 — What does the CSS :has() pseudo-class do? <span class="badge hard">Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>:has()</code> allows selecting an element based on whether it <strong>has a matching relative
+                    selector inside</strong> its relational scope.<br><br>
+                For example, <code>.card:has(img)</code> selects <code>.card</code> elements that contain an
+                <code>img</code> descendant.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Why is :has() sometimes called a "parent selector"?</span>
+                <span class="a">Because it allows styling an element based on something inside it, which historically
+                    wasn't possible with normal CSS selectors.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.card:has(img) {
+  border-color: #10b981;
+  background: #ecfdf5;
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q165-demo">
+                <div class="cards-container">
+                    <div class="card">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='80'%3E%3Crect width='150' height='80' fill='%233b82f6'/%3E%3C/svg%3E"
+                            alt="Blue box">
+                        <p style="margin: 10px 0 0; font-size: 0.85rem;">Has an image (Green border)</p>
+                    </div>
+                    <div class="card">
+                        <p style="margin: 0; font-size: 0.85rem;">No image (Default border)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q166 -->
+        <section class="q-section">
+            <h2>Q166 — What does currentColor mean in CSS? <span class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>currentColor</code> represents the element's <strong>computed color value</strong>.<br><br>
+                For example, if an element has <code>color: blue;</code> and a
+                <code>border: 1px solid currentColor;</code>, the border will be blue.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can an SVG use currentColor?</span>
+                <span class="a"><strong>Yes.</strong> An SVG using <code>fill: currentColor;</code> can inherit the text
+                    color of its parent.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.color-box {
+  color: #4f46e5;
+  border: 4px solid currentColor;
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q166-demo">
+                <div class="color-box">My border uses currentColor!</div>
+            </div>
+        </section>
+
+        <!-- Q167 -->
+        <section class="q-section">
+            <h2>Q167 — What is object-fit, and why is it useful for images? <span class="badge medium">Medium</span>
+            </h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>object-fit</code> controls how replaced content such as an image fits inside its specified
+                box.<br><br>
+                <code>cover</code>: Fills the box while preserving aspect ratio (may crop).<br>
+                <code>contain</code>: Entire image visible while preserving aspect ratio (may leave empty space).
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: When would you use contain instead of cover?</span>
+                <span class="a">For product images, logos, or assets where I don't want important parts of the image
+                    cropped.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover; /* or contain */
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q167-demo">
+                <div class="img-row">
+                    <div>
+                        <div class="img-box"><img class="img-cover"
+                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='150'%3E%3Crect width='300' height='150' fill='%234f46e5'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-family='sans-serif' font-size='20' text-anchor='middle'%3EWide Image%3C/text%3E%3C/svg%3E"
+                                alt="Cover"></div>
+                        <p style="text-align: center; font-size: 0.85rem;">object-fit: cover</p>
+                    </div>
+                    <div>
+                        <div class="img-box"><img class="img-contain"
+                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='150'%3E%3Crect width='300' height='150' fill='%2310b981'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-family='sans-serif' font-size='20' text-anchor='middle'%3EWide Image%3C/text%3E%3C/svg%3E"
+                                alt="Contain"></div>
+                        <p style="text-align: center; font-size: 0.85rem;">object-fit: contain</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q168 -->
+        <section class="q-section">
+            <h2>Q168 — What is the difference between object-fit and background-size: cover? <span
+                    class="badge hard">Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>object-fit</code> controls how the content of a replaced element such as <code>&lt;img&gt;</code>
+                fits within its box.<br><br>
+                <code>background-size: cover</code> controls how a CSS background image is sized inside an
+                element.<br><br>
+                Semantically, an <code>&lt;img&gt;</code> is generally preferable when the image is actual content. A
+                background image is often more appropriate when the image is decorative.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: For a product photo in an e-commerce application, which would you
+                    prefer?</span>
+                <span class="a">Usually an <code>&lt;img&gt;</code> because the product image is meaningful content, and
+                    I can also provide useful alt text and responsive image behavior.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.img-content { object-fit: cover; }
+.bg-image { background-size: cover; background-position: center; }</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q168-demo">
+                <div class="compare-box">
+                    <div>
+                        <div class="item-box img-tag"><img
+                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%234f46e5'/%3E%3Ccircle cx='200' cy='150' r='100' fill='%23f59e0b'/%3E%3C/svg%3E"
+                                alt="Content"></div>
+                        <p style="text-align: center; font-size: 0.85rem;">&lt;img&gt; (Content)</p>
+                    </div>
+                    <div>
+                        <div class="item-box bg-image"></div>
+                        <p style="text-align: center; font-size: 0.85rem;">background-image (Decorative)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q169 -->
+        <section class="q-section">
+            <h2>Q169 — What is aspect-ratio and why is it useful? <span class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>aspect-ratio</code> defines the preferred width-to-height ratio of an element.<br><br>
+                It helps maintain consistent dimensions while the element's size changes. It's especially useful for
+                image cards, video containers, responsive media, and preventing layout shifts.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can you use aspect-ratio without explicitly setting both width and
+                    height?</span>
+                <span class="a"><strong>Yes.</strong> The browser can use the aspect ratio together with a definite
+                    dimension or available size to determine the other dimension.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.card-image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo (Resize window)</h3>
+            <div class="demo-box q169-demo">
+                <div class="aspect-container">
+                    <div class="aspect-box">16:9 Box</div>
+                    <div class="aspect-box" style="aspect-ratio: 1 / 1; background: #10b981;">1:1 Box</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q170 -->
+        <section class="q-section">
+            <h2>Q170 — What is will-change, and why shouldn't it be overused? <span class="badge hard">Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>will-change</code> tells the browser that an element is likely to change certain properties,
+                potentially allowing the browser to <strong>optimize rendering ahead of time</strong>.<br><br>
+                It should be used carefully because excessive or unnecessary use can <strong>increase memory
+                    consumption</strong> and create additional rendering resources rather than improving performance.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Would you put this globally? `* { will-change: transform; }`</span>
+                <span class="a"><strong>No.</strong> That would be excessive and potentially harmful. I'd use it
+                    selectively for elements that have a known upcoming animation or transformation.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.card {
+  will-change: transform; /* Hint to browser */
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q170-demo">
+                <div class="will-change-demo optimized">
+                    Hover over me! (I have <code>will-change: background-color</code>)
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== STUDENT TASK ==================== -->
+        <section class="task-section">
+            <h2>🧑‍🎓 Student Task — Advanced Selectors & Media</h2>
+            <p>Build <strong>one HTML page</strong> (+ CSS file) that applies <strong>all 10 concepts</strong> from Part
+                17. Submit as a zipped folder.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Concept</th>
+                        <th>What you must do</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>161</td>
+                        <td>Pseudo-class/element</td>
+                        <td>Create a button with a `:hover` state and a paragraph with a `::before` decoration.</td>
+                    </tr>
+                    <tr>
+                        <td>162</td>
+                        <td>::before/::after</td>
+                        <td>Use `::before` to add a quote symbol and `::after` to add a period to a blockquote.</td>
+                    </tr>
+                    <tr>
+                        <td>163</td>
+                        <td>:nth-child</td>
+                        <td>Create a list and use `:nth-child(even)` to alternate background colors.</td>
+                    </tr>
+                    <tr>
+                        <td>164</td>
+                        <td>:is() and :where()</td>
+                        <td>Group an `h1, h2, h3` selector using `:is()`. Then create a `:where(.dark, .light)` rule and
+                            observe the specificity.</td>
+                    </tr>
+                    <tr>
+                        <td>165</td>
+                        <td>:has()</td>
+                        <td>Create a card. Add a red border only if the card contains an image using `.card:has(img)`.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>166</td>
+                        <td>currentColor</td>
+                        <td>Create a button with `color: blue; border: 2px solid currentColor;`.</td>
+                    </tr>
+                    <tr>
+                        <td>167</td>
+                        <td>object-fit</td>
+                        <td>Create a 200x200 container and put a wide image inside. Use `object-fit: cover`.</td>
+                    </tr>
+                    <tr>
+                        <td>168</td>
+                        <td>Background vs Img</td>
+                        <td>Add a comment explaining when you would use `<img>` vs `background-image`.</td>
+                    </tr>
+                    <tr>
+                        <td>169</td>
+                        <td>aspect-ratio</td>
+                        <td>Create a responsive video container using `aspect-ratio: 16 / 9`.</td>
+                    </tr>
+                    <tr>
+                        <td>170</td>
+                        <td>will-change</td>
+                        <td>Add `will-change: transform` to a card that has a hover transform effect.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>📦 Submission rules</h3>
+            <ul>
+                <li><strong>File names:</strong> <code>index.html</code>, <code>styles.css</code></li>
+                <li><strong>Comments:</strong> above each section, e.g. <code>/* Q165: :has() selector */</code></li>
+                <li><strong>README.md</strong> with 3 answers:
+                    <ol>
+                        <li>What is the difference between `:is()` and `:where()` in terms of specificity?</li>
+                        <li>Why is `:has()` considered a "parent selector"?</li>
+                        <li>Why shouldn't you use `will-change` globally on all elements?</li>
+                    </ol>
+                </li>
+            </ul>
+
+            <h3>🎯 Grading (out of 10)</h3>
+            <p>1 point per row. ":has()" and "will-change" rows are worth double if the README explanation is correct.
+            </p>
+        </section>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.hljs) {hljs.highlightAll(); if (hljs.lineNumbersBlock) {document.querySelectorAll('pre code').forEach(function (el) {hljs.lineNumbersBlock(el);});} }
+        });
+    </script>
+</body>
+
+</html>

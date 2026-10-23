@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML &amp; CSS Questions — Part 16 (151–160)</title>
+
+    <!-- ===== Favicon: inline SVG (works offline) ===== -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%234f46e5'/%3E%3Cstop%20offset='1'%20stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='url(%23g)'/%3E%3Cpath%20d='M22%2022%20L14%2032%20L22%2042%20M42%2022%20L50%2032%20L42%2042'%20stroke='white'%20stroke-width='4'%20stroke-linecap='round'%20stroke-linejoin='round'%20fill='none'/%3E%3C/svg%3E" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css" />
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            background: #f4f6fa;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        /* ==================== BACK TO HOME BUTTON ==================== */
+        .back-home {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 9999;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 16px rgba(79, 70, 229, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .back-home:hover {
+            background: linear-gradient(135deg, #4338ca, #6d28d9);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(79, 70, 229, 0.5);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 640px) {
+            .back-home {
+                top: 12px;
+                left: 12px;
+                padding: 8px 14px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* ==================== PAGE HEADER ==================== */
+        .page-header {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            margin: 0 0 8px;
+            font-size: 2rem;
+        }
+
+        .page-header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 24px 20px;
+        }
+
+        .q-section {
+            background: #fff;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 28px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+        }
+
+        .q-section h2 {
+            margin-top: 0;
+            color: #4f46e5;
+            border-bottom: 2px solid #eef;
+            padding-bottom: 10px;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            background: #dcfce7;
+            color: #166534;
+            margin-left: 8px;
+            vertical-align: middle;
+            font-weight: 600;
+        }
+
+        .badge.medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge.hard {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .q-section h3 {
+            color: #374151;
+            margin-top: 22px;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .answer {
+            background: #ecfdf5;
+            border-left: 4px solid #10b981;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 10px 0;
+        }
+
+        .answer strong.label {
+            display: block;
+            font-size: 0.75rem;
+            color: #059669;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .followup {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 12px 0;
+        }
+
+        .followup .q {
+            font-weight: 600;
+            color: #1d4ed8;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .followup .a {
+            color: #1e3a8a;
+        }
+
+        .demo-box {
+            background: #fafbff;
+            border: 1px dashed #c7d2fe;
+            border-radius: 10px;
+            padding: 16px;
+            margin: 12px 0;
+        }
+
+        .demo-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .demo-label.bad {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .demo-label.good {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        /* ==================== VS CODE ==================== */
+        .vs-code {
+            background: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 16px 0;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #2d2d2d;
+        }
+
+        .vs-titlebar {
+            background: #3c3c3c;
+            padding: 9px 14px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px solid #2d2d2d;
+        }
+
+        .vs-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .vs-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .vs-dot.red {
+            background: #ff5f56;
+        }
+
+        .vs-dot.yellow {
+            background: #ffbd2e;
+        }
+
+        .vs-dot.green {
+            background: #27c93f;
+        }
+
+        .vs-title {
+            position: absolute;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 12px;
+            color: #cccccc;
+            pointer-events: none;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+
+        .vs-tabbar {
+            background: #252526;
+            display: flex;
+        }
+
+        .vs-tab {
+            background: #2d2d2d;
+            color: #969696;
+            padding: 9px 20px;
+            font-size: 12.5px;
+            border-right: 1px solid #1e1e1e;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .vs-tab.active {
+            background: #1e1e1e;
+            color: #ffffff;
+        }
+
+        .vs-tab.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #007acc;
+        }
+
+        .file-icon {
+            display: inline-block;
+            width: 9px;
+            height: 9px;
+            border-radius: 2px;
+        }
+
+        .file-icon.html {
+            background: #e44d26;
+        }
+
+        .file-icon.css {
+            background: #264de4;
+        }
+
+        .file-icon.js {
+            background: #f7df1e;
+        }
+
+        .vs-body {
+            margin: 0 !important;
+            padding: 16px 0 !important;
+            background: #1e1e1e !important;
+            overflow-x: auto;
+            font-size: 13px !important;
+            line-height: 1.65 !important;
+            color: #dcdcdc;
+            border-radius: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+        }
+
+        .vs-body code {
+            background: transparent !important;
+            padding: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+            font-size: inherit !important;
+            color: inherit;
+            white-space: pre;
+        }
+
+        .vs-body .hljs-ln-numbers {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            text-align: right;
+            color: #858585 !important;
+            border-right: 1px solid #3a3f4b;
+            padding: 0 14px 0 16px !important;
+            vertical-align: top;
+            font-weight: normal;
+        }
+
+        .vs-body .hljs-ln-code {
+            padding: 0 16px !important;
+        }
+
+        .vs-body .hljs-ln {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .vs-body .hljs-ln td {
+            padding: 0;
+        }
+
+        .vs-body::-webkit-scrollbar {
+            height: 10px;
+        }
+
+        .vs-body::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+
+        .vs-body::-webkit-scrollbar-thumb {
+            background: #424242;
+            border-radius: 5px;
+        }
+
+        .vs-body code.hljs,
+        .vs-body .hljs {
+            background: transparent !important;
+            padding: 0 !important;
+            overflow: visible !important;
+        }
+
+        /* ==================== TASK SECTION ==================== */
+        .task-section {
+            background: linear-gradient(135deg, #fff7ed, #fef3c7);
+            border: 2px solid #f59e0b;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 40px;
+        }
+
+        .task-section h2 {
+            color: #b45309;
+            margin-top: 0;
+        }
+
+        .task-section table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 12px 0;
+            font-size: 0.9rem;
+        }
+
+        .task-section th,
+        .task-section td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .task-section th {
+            background: #fde68a;
+            color: #78350f;
+        }
+
+        .task-section code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+        }
+
+        /* ==================== DEMO SPECIFIC STYLES ==================== */
+        /* Q151 & Q152 Specificity */
+        .q151-demo p {
+            color: blue;
+        }
+
+        .q151-demo .text {
+            color: green;
+        }
+
+        .q151-demo #title {
+            color: red;
+            font-weight: bold;
+        }
+
+        .q152-demo div {
+            color: gray;
+        }
+
+        .q152-demo .box {
+            color: green;
+            font-weight: bold;
+        }
+
+        .q152-demo .box:hover {
+            color: orange;
+        }
+
+        .q152-demo #box {
+            color: red;
+            font-weight: bold;
+        }
+
+        /* Q153 Important */
+        .q153-demo .btn {
+            background: #3b82f6;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .q153-demo .btn-danger {
+            background: #ef4444 !important;
+        }
+
+        /* Q154 & Q155 Custom Properties */
+        .q154-demo,
+        .q155-demo {
+            border: 2px solid var(--primary, #2563eb);
+            padding: 16px;
+            border-radius: 8px;
+            background: #fff;
+            transition: border-color 0.3s;
+        }
+
+        .q154-demo h4,
+        .q155-demo h4 {
+            color: var(--primary, #2563eb);
+            margin-top: 0;
+            transition: color 0.3s;
+        }
+
+        .q154-demo button,
+        .q155-demo button {
+            background: var(--primary, #2563eb);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        /* Q156 & Q157 Stacking Context */
+        .q156-demo .stack-container {
+            position: relative;
+            height: 250px;
+            background: #f3f4f6;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .q156-demo .box {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            border-radius: 8px;
+        }
+
+        .q156-demo .box-a {
+            background: #3b82f6;
+            top: 20px;
+            left: 20px;
+            z-index: 2;
+        }
+
+        .q156-demo .box-b {
+            background: #10b981;
+            top: 50px;
+            left: 50px;
+            z-index: 1;
+        }
+
+        .q157-demo .parent {
+            position: relative;
+            z-index: 1;
+            transform: translateZ(0);
+            background: #e5e7eb;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border: 2px dashed #9ca3af;
+        }
+
+        .q157-demo .child {
+            position: relative;
+            z-index: 9999;
+            background: #ef4444;
+            color: white;
+            padding: 15px;
+            border-radius: 6px;
+            width: 200px;
+        }
+
+        .q157-demo .sibling {
+            position: relative;
+            z-index: 2;
+            background: #8b5cf6;
+            color: white;
+            padding: 15px;
+            border-radius: 6px;
+            width: 200px;
+            margin-top: -10px;
+            margin-left: 30px;
+        }
+
+        /* Q158 Transition vs Animation */
+        .q158-demo .flex-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .q158-demo .box {
+            width: 100px;
+            height: 100px;
+            background: #4f46e5;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+
+        .q158-demo .transition-box {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .q158-demo .transition-box:hover {
+            background: #ef4444;
+            transform: scale(1.1);
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-30px);
+            }
+        }
+
+        .q158-demo .animation-box {
+            animation: bounce 1.5s infinite ease-in-out;
+            background: #10b981;
+        }
+
+        /* Q159 Transform vs Top/Left */
+        .q159-demo .track {
+            position: relative;
+            height: 60px;
+            background: #f3f4f6;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .q159-demo .runner {
+            width: 50px;
+            height: 50px;
+            background: #4f46e5;
+            border-radius: 6px;
+            position: absolute;
+            top: 5px;
+        }
+
+        .q159-demo .runner-transform {
+            transition: transform 0.5s ease;
+        }
+
+        .q159-demo .runner-top {
+            transition: left 0.5s ease;
+        }
+
+        .q159-demo .track:hover .runner-transform {
+            transform: translateX(calc(100% + 300px));
+        }
+
+        .q159-demo .track:hover .runner-top {
+            left: calc(100% - 50px);
+        }
+
+        .q159-demo .text-sm {
+            font-size: 0.85rem;
+            color: #6b7280;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        /* Q160 Units */
+        .q160-demo .box-rem {
+            font-size: 2rem;
+            background: #eef2ff;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border-left: 4px solid #4f46e5;
+        }
+
+        .q160-demo .box-em {
+            font-size: 1.5em;
+            background: #ecfdf5;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border-left: 4px solid #10b981;
+        }
+
+        .q160-demo .box-vw {
+            font-size: 3vw;
+            background: #fef3c7;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .q160-demo .box-vh {
+            height: 20vh;
+            background: #fce7f3;
+            padding: 10px;
+            border-radius: 4px;
+            border-left: 4px solid #ec4899;
+            display: flex;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="../../index.html" class="back-home">← Back to Home</a>
+
+    <header class="page-header">
+        <h1>HTML &amp; CSS Questions — Part 16 (151 → 160)</h1>
+        <p>Questions + Answers + VS Code-style code + Live demos that match the code exactly</p>
+    </header>
+
+    <div class="container">
+
+        <!-- Q151 -->
+        <section class="q-section">
+            <h2>Q151 — What is CSS specificity, and how is it calculated? <span class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                Specificity is a mechanism used by the CSS cascade to determine which selector has higher priority when
+                multiple selectors target the same element.<br><br>
+                Hierarchy: <strong>Inline styles</strong> > <strong>IDs</strong> >
+                <strong>Classes/Attributes/Pseudo-classes</strong> > <strong>Elements/Pseudo-elements</strong>.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Which is more specific? `#app .card p` or `.card p`</span>
+                <span class="a"><code>#app .card p</code> because it contains an ID in addition to the class and element
+                    selectors.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">p { color: blue; }           /* 0,0,1 */
+.text { color: green; }      /* 0,1,0 */
+#title { color: red; }       /* 1,0,0 ← Wins */</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q151-demo">
+                <p id="title" class="text">What color am I? (ID wins)</p>
+            </div>
+        </section>
+
+        <!-- Q152 -->
+        <section class="q-section">
+            <h2>Q152 — Which is more specific: #id, .class, [attribute], :hover, or div? <span
+                    class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                Hierarchy: <strong>ID selector</strong> > <strong>Class / attribute / pseudo-class</strong> >
+                <strong>Element / pseudo-element</strong>.<br><br>
+                So <code>#box</code> > <code>.box</code> > <code>div</code>. And <code>.box:hover</code> has the
+                specificity of one class plus one pseudo-class.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Does :hover have the same specificity as an element selector?</span>
+                <span class="a"><strong>No.</strong> <code>:hover</code> is a pseudo-class and has the same specificity
+                    category as a class selector.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">div { color: gray; }        /* Element */
+.box { color: green; }      /* Class */
+.box:hover { color: orange; } /* Class + Pseudo-class */
+#box { color: red; }        /* ID ← Wins */</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q152-demo">
+                <div id="box" class="box">Hover over me! I stay Red because ID wins.</div>
+            </div>
+        </section>
+
+        <!-- Q153 -->
+        <section class="q-section">
+            <h2>Q153 — What does !important do, and why should you avoid overusing it? <span
+                    class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>!important</code> gives a declaration <strong>increased priority</strong> in the cascade.<br><br>
+                Overusing it makes CSS harder to maintain because it makes normal overrides more difficult. I would
+                first try to solve the problem using proper selectors, component styles, or better CSS architecture.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: If two declarations both use !important, which one wins?</span>
+                <span class="a">The normal cascade rules still apply among declarations with comparable importance,
+                    including origin/layer and then specificity and source order.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.btn { background: #3b82f6; }
+.btn-danger { background: #ef4444 !important; } /* Overrides .btn */</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q153-demo">
+                <button class="btn btn-danger">Delete Account (Danger)</button>
+            </div>
+        </section>
+
+        <!-- Q154 -->
+        <section class="q-section">
+            <h2>Q154 — What is a CSS custom property? <span class="badge medium">Easy → Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                A CSS custom property (CSS variable) is a user-defined property that can <strong>store a reusable
+                    value</strong>.<br><br>
+                It helps with consistency, theming, and maintainability.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Where can you define custom properties?</span>
+                <span class="a">They can be defined on <strong>any element</strong>, and their values participate in CSS
+                    inheritance. For global variables, we commonly define them on <code>:root</code>.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">:root {
+  --primary-color: #2563eb;
+}
+
+.button {
+  background-color: var(--primary-color);
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q154-demo" id="q154-box">
+                <h4>Dynamic Theme</h4>
+                <p>This box uses <code>var(--primary)</code>.</p>
+                <button onclick="document.getElementById('q154-box').style.setProperty('--primary', '#10b981')">Change
+                    Theme (Green)</button>
+            </div>
+        </section>
+
+        <!-- Q155 -->
+        <section class="q-section">
+            <h2>Q155 — What is the difference between CSS variables and Sass variables? <span
+                    class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                Sass variables (e.g., <code>$primary: blue;</code>) are processed by Sass during
+                <strong>compilation</strong>.<br><br>
+                CSS custom properties (e.g., <code>--primary: blue;</code>) exist in the browser at
+                <strong>runtime</strong>.<br><br>
+                CSS custom properties can be changed dynamically via JS and participate in inheritance and the cascade.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can CSS custom properties be changed based on a class?</span>
+                <span class="a"><strong>Yes.</strong> For example, <code>.dark { --primary: black; }</code> will update
+                    components inside it.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">/* Sass (Compile time) */
+$primary: blue;
+
+/* CSS Custom Property (Runtime) */
+:root { --primary: blue; }
+
+.dark { --primary: black; }</code></pre>
+            </div>
+        </section>
+
+        <!-- Q156 -->
+        <section class="q-section">
+            <h2>Q156 — What is a stacking context, and how is it related to z-index? <span
+                    class="badge hard">Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                A stacking context is a conceptual layering context in which elements are painted relative to each
+                other.<br><br>
+                <code>z-index</code> controls the stacking order of positioned elements <strong>within their relevant
+                    stacking context</strong>.<br><br>
+                Properties that create a new stacking context include: <code>opacity < 1</code>, <code>transform</code>,
+                <code>isolation: isolate</code>, and positioned elements with <code>z-index</code>.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Why doesn't increasing z-index: 999999 always put an element above
+                    everything?</span>
+                <span class="a">Because <code>z-index</code> is evaluated within stacking contexts. An element cannot
+                    simply escape its parent's stacking context to compete globally with another higher stacking
+                    context.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.box-a { position: absolute; z-index: 2; }
+.box-b { position: absolute; z-index: 1; } /* Behind box-a */</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q156-demo">
+                <div class="stack-container">
+                    <div class="box box-a">Box A (z:2)</div>
+                    <div class="box box-b">Box B (z:1)</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q157 -->
+        <section class="q-section">
+            <h2>Q157 — How can transform affect z-index or stacking behavior? <span class="badge hard">Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                Applying a non-none transform (like <code>transform: translateZ(0);</code>) can <strong>create a new
+                    stacking context</strong>.<br><br>
+                This can change how descendants participate in stacking relative to other elements. A child with a very
+                high <code>z-index</code> may still appear underneath an element outside its parent's stacking context.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can the child necessarily appear above an unrelated element with a lower
+                    z-index outside the parent's stacking context?</span>
+                <span class="a"><strong>No.</strong> The child's <code>z-index</code> is constrained by its parent's
+                    stacking context.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.parent { transform: translateZ(0); z-index: 1; }
+.child { z-index: 9999; } /* Trapped inside parent! */
+.sibling { z-index: 2; }  /* Appears ABOVE the child */</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q157-demo">
+                <p style="font-size: 0.85rem; margin-top: 0;">Child has <code>z-index: 9999</code>, but appears below
+                    the purple sibling because of the parent's transform!</p>
+                <div class="parent">
+                    <div class="child">Child (z:9999)</div>
+                </div>
+                <div class="sibling">Sibling (z:2)</div>
+            </div>
+        </section>
+
+        <!-- Q158 -->
+        <section class="q-section">
+            <h2>Q158 — What is the difference between a CSS transition and a CSS animation? <span
+                    class="badge medium">Easy → Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                A <strong>transition</strong> animates a property when it changes from one state to another (e.g., on
+                hover).<br><br>
+                An <strong>animation</strong> uses <code>@keyframes</code> and can define multiple stages. It can run
+                without user interaction.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can an animation run without user interaction?</span>
+                <span class="a"><strong>Yes.</strong> CSS animations can start automatically when the element is
+                    rendered.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">/* Transition */
+.button { transition: background-color 0.3s ease; }
+.button:hover { background-color: blue; }
+
+/* Animation */
+@keyframes bounce { 50% { transform: translateY(-30px); } }
+.box { animation: bounce 1.5s infinite; }</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q158-demo">
+                <div class="flex-row">
+                    <div class="box transition-box">Hover Me<br>(Transition)</div>
+                    <div class="box animation-box">Auto-running<br>(Animation)</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q159 -->
+        <section class="q-section">
+            <h2>Q159 — Why is transform: translate() often preferred over changing top or left for animations? <span
+                    class="badge hard">Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>transform</code> is preferable because it can <strong>avoid triggering layout recalculation
+                    (Reflow)</strong> that changing layout properties such as <code>top</code> or <code>left</code> may
+                cause.<br><br>
+                This results in smoother animations, especially when the browser can handle the transform efficiently
+                during compositing.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Does using transform guarantee GPU acceleration?</span>
+                <span class="a"><strong>No.</strong> It's a common optimization-friendly property, but we shouldn't
+                    assume that every transform automatically guarantees better performance in every case.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">/* Smooth (No Reflow) */
+.box { transition: transform 0.5s ease; }
+.box:hover { transform: translateX(100px); }
+
+/* Janky (Triggers Reflow) */
+.box-bad { transition: left 0.5s ease; }
+.box-bad:hover { left: 100px; }</code></pre>
+            </div>
+            <h3>🔴 Live demo — Hover over the tracks</h3>
+            <div class="demo-box q159-demo">
+                <span class="text-sm">transform: translateX (Smooth)</span>
+                <div class="track">
+                    <div class="runner runner-transform"></div>
+                </div>
+                <span class="text-sm">left (May cause jank)</span>
+                <div class="track">
+                    <div class="runner runner-top"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q160 -->
+        <section class="q-section">
+            <h2>Q160 — What is the difference between em, rem, %, vw, and vh? <span class="badge medium">Medium</span>
+            </h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <ul style="margin:6px 0">
+                    <li><code>rem</code>: Relative to the <strong>root element's</strong> font size.</li>
+                    <li><code>em</code>: Relative to the <strong>element's</strong> (or parent's) font size.</li>
+                    <li><code>%</code>: Relative to a containing/reference dimension.</li>
+                    <li><code>vw</code>: 1% of the viewport width.</li>
+                    <li><code>vh</code>: 1% of the viewport height.</li>
+                </ul>
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Why do developers often prefer rem over px for typography?</span>
+                <span class="a">Because <code>rem</code> scales relative to the root font size and can make typography
+                    more adaptable and accessible, especially when users change their browser's default font
+                    size.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">html { font-size: 16px; }
+
+.rem-box { font-size: 2rem; } /* 32px */
+.em-box { font-size: 1.5em; }
+.vw-box { font-size: 3vw; }
+.vh-box { height: 20vh; }</code></pre>
+            </div>
+            <h3>🔴 Live demo — Resize the window</h3>
+            <div class="demo-box q160-demo">
+                <div class="box-rem">2rem (Relative to Root)</div>
+                <div class="box-em">1.5em (Relative to Parent)</div>
+                <div class="box-vw">3vw (Relative to Viewport Width)</div>
+                <div class="box-vh">20vh (Relative to Viewport Height)</div>
+            </div>
+        </section>
+
+        <!-- ==================== STUDENT TASK ==================== -->
+        <section class="task-section">
+            <h2>🧑‍🎓 Student Task — CSS Architecture & Motion</h2>
+            <p>Build <strong>one HTML page</strong> (+ CSS file) that applies <strong>all 10 concepts</strong> from Part
+                16. Submit as a zipped folder.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Concept</th>
+                        <th>What you must do</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>151</td>
+                        <td>Specificity</td>
+                        <td>Create an element with 3 rules targeting it (element, class, ID). Add a comment explaining
+                            which wins.</td>
+                    </tr>
+                    <tr>
+                        <td>152</td>
+                        <td>Pseudo-class Specificity</td>
+                        <td>Add a `:hover` rule and a class rule. Explain why the class or pseudo-class wins based on
+                            order and specificity.</td>
+                    </tr>
+                    <tr>
+                        <td>153</td>
+                        <td>!important</td>
+                        <td>Add an `!important` to one rule and write a comment explaining why you should avoid it.</td>
+                    </tr>
+                    <tr>
+                        <td>154</td>
+                        <td>CSS Variables</td>
+                        <td>Define `--primary-color` in `:root` and use it for a button and a header.</td>
+                    </tr>
+                    <tr>
+                        <td>155</td>
+                        <td>Sass vs CSS Vars</td>
+                        <td>Add a comment explaining one advantage of CSS Variables over Sass variables.</td>
+                    </tr>
+                    <tr>
+                        <td>156</td>
+                        <td>Stacking Context</td>
+                        <td>Create two overlapping boxes. Give the first `z-index: 10` and the second `z-index: 5`.</td>
+                    </tr>
+                    <tr>
+                        <td>157</td>
+                        <td>Transform Stacking</td>
+                        <td>Add `transform: translateZ(0)` to a parent. Try to put a child with `z-index: 9999` above an
+                            external element.</td>
+                    </tr>
+                    <tr>
+                        <td>158</td>
+                        <td>Transition vs Animation</td>
+                        <td>Create a button that fades in on hover (transition) and a box that bounces infinitely
+                            (animation).</td>
+                    </tr>
+                    <tr>
+                        <td>159</td>
+                        <td>Performance</td>
+                        <td>Animate a box using `transform: translateX()` and not `left`.</td>
+                    </tr>
+                    <tr>
+                        <td>160</td>
+                        <td>Units</td>
+                        <td>Set the root font size to `16px`. Make a heading `2rem` and a container `50vh`.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>📦 Submission rules</h3>
+            <ul>
+                <li><strong>File names:</strong> <code>index.html</code>, <code>styles.css</code></li>
+                <li><strong>Comments:</strong> above each section, e.g. <code>/* Q154: CSS Variables */</code></li>
+                <li><strong>README.md</strong> with 3 answers:
+                    <ol>
+                        <li>Why is `transform` better for animations than `left`?</li>
+                        <li>What is the main difference between CSS Variables and Sass Variables?</li>
+                        <li>How does `transform` affect stacking contexts?</li>
+                    </ol>
+                </li>
+            </ul>
+
+            <h3>🎯 Grading (out of 10)</h3>
+            <p>1 point per row. "Specificity" and "Stacking Context" rows are worth double if the README explanation is
+                correct.</p>
+        </section>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.hljs) {hljs.highlightAll(); if (hljs.lineNumbersBlock) {document.querySelectorAll('pre code').forEach(function (el) {hljs.lineNumbersBlock(el);});} }
+        });
+    </script>
+</body>
+
+</html>

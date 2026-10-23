@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML &amp; CSS Questions — Part 1 (1–10)</title>
+
+    <!-- ===== Favicon: inline SVG (works offline) ===== -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%234f46e5'/%3E%3Cstop%20offset='1'%20stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='url(%23g)'/%3E%3Cpath%20d='M22%2022%20L14%2032%20L22%2042%20M42%2022%20L50%2032%20L42%2042'%20stroke='white'%20stroke-width='4'%20stroke-linecap='round'%20stroke-linejoin='round'%20fill='none'/%3E%3C/svg%3E" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css" />
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            background: #f4f6fa;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        /* ==================== BACK TO HOME BUTTON ==================== */
+        .back-home {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 9999;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 16px rgba(79, 70, 229, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            border: 1px solid transparent;
+        }
+
+        .back-home:hover {
+            background: linear-gradient(135deg, #4338ca, #6d28d9);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(79, 70, 229, 0.5);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 640px) {
+            .back-home {
+                top: 12px;
+                left: 12px;
+                padding: 8px 14px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* ==================== PAGE HEADER ==================== */
+        .page-header {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            margin: 0 0 8px;
+            font-size: 2rem;
+        }
+
+        .page-header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 24px 20px;
+        }
+
+        .q-section {
+            background: #fff;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 28px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+        }
+
+        .q-section h2 {
+            margin-top: 0;
+            color: #4f46e5;
+            border-bottom: 2px solid #eef;
+            padding-bottom: 10px;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            background: #dcfce7;
+            color: #166534;
+            margin-left: 8px;
+            vertical-align: middle;
+            font-weight: 600;
+        }
+
+        .badge.medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge.hard {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .q-section h3 {
+            color: #374151;
+            margin-top: 22px;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .answer {
+            background: #ecfdf5;
+            border-left: 4px solid #10b981;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 10px 0;
+        }
+
+        .answer strong.label {
+            display: block;
+            font-size: 0.75rem;
+            color: #059669;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .followup {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 12px 0;
+        }
+
+        .followup .q {
+            font-weight: 600;
+            color: #1d4ed8;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .followup .a {
+            color: #1e3a8a;
+        }
+
+        .demo-box {
+            background: #fafbff;
+            border: 1px dashed #c7d2fe;
+            border-radius: 10px;
+            padding: 16px;
+            margin: 12px 0;
+        }
+
+        .demo-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .demo-label.bad {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .demo-label.good {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        /* ==================== VS CODE ==================== */
+        .vs-code {
+            background: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 16px 0;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #2d2d2d;
+        }
+
+        .vs-titlebar {
+            background: #3c3c3c;
+            padding: 9px 14px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px solid #2d2d2d;
+        }
+
+        .vs-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .vs-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .vs-dot.red {
+            background: #ff5f56;
+        }
+
+        .vs-dot.yellow {
+            background: #ffbd2e;
+        }
+
+        .vs-dot.green {
+            background: #27c93f;
+        }
+
+        .vs-title {
+            position: absolute;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 12px;
+            color: #cccccc;
+            pointer-events: none;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+
+        .vs-tabbar {
+            background: #252526;
+            display: flex;
+        }
+
+        .vs-tab {
+            background: #2d2d2d;
+            color: #969696;
+            padding: 9px 20px;
+            font-size: 12.5px;
+            border-right: 1px solid #1e1e1e;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .vs-tab.active {
+            background: #1e1e1e;
+            color: #ffffff;
+        }
+
+        .vs-tab.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #007acc;
+        }
+
+        .file-icon {
+            display: inline-block;
+            width: 9px;
+            height: 9px;
+            border-radius: 2px;
+        }
+
+        .file-icon.html {
+            background: #e44d26;
+        }
+
+        .file-icon.css {
+            background: #264de4;
+        }
+
+        .file-icon.js {
+            background: #f7df1e;
+        }
+
+        .vs-body {
+            margin: 0 !important;
+            padding: 16px 0 !important;
+            background: #1e1e1e !important;
+            overflow-x: auto;
+            font-size: 13px !important;
+            line-height: 1.65 !important;
+            color: #dcdcdc;
+            border-radius: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+        }
+
+        .vs-body code {
+            background: transparent !important;
+            padding: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+            font-size: inherit !important;
+            color: inherit;
+            white-space: pre;
+        }
+
+        .vs-body .hljs-ln-numbers {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            text-align: right;
+            color: #858585 !important;
+            border-right: 1px solid #3a3f4b;
+            padding: 0 14px 0 16px !important;
+            vertical-align: top;
+            font-weight: normal;
+        }
+
+        .vs-body .hljs-ln-code {
+            padding: 0 16px !important;
+        }
+
+        .vs-body .hljs-ln {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .vs-body .hljs-ln td {
+            padding: 0;
+        }
+
+        .vs-body::-webkit-scrollbar {
+            height: 10px;
+        }
+
+        .vs-body::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+
+        .vs-body::-webkit-scrollbar-thumb {
+            background: #424242;
+            border-radius: 5px;
+        }
+
+        .vs-body code.hljs,
+        .vs-body .hljs {
+            background: transparent !important;
+            padding: 0 !important;
+            overflow: visible !important;
+        }
+
+        /* ==================== TASK SECTION ==================== */
+        .task-section {
+            background: linear-gradient(135deg, #fff7ed, #fef3c7);
+            border: 2px solid #f59e0b;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 40px;
+        }
+
+        .task-section h2 {
+            color: #b45309;
+            margin-top: 0;
+        }
+
+        .task-section table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 12px 0;
+            font-size: 0.9rem;
+        }
+
+        .task-section th,
+        .task-section td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .task-section th {
+            background: #fde68a;
+            color: #78350f;
+        }
+
+        .task-section code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+        }
+
+        /* ==================== DEMO SPECIFIC STYLES ==================== */
+
+        /* Q2 – element anatomy */
+        .q2-demo .anatomy {
+            display: inline-block;
+            font-family: 'Fira Code', Consolas, monospace;
+            background: #1e1e1e;
+            color: #dcdcdc;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .q2-demo .anatomy .tag {
+            color: #569cd6;
+        }
+
+        .q2-demo .anatomy .content {
+            color: #ce9178;
+        }
+
+        .q2-demo .anatomy .arrow {
+            color: #6b7280;
+            margin-left: 8px;
+            font-size: 0.85rem;
+        }
+
+        /* Q3 – tag vs element */
+        .q3-demo .row {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .q3-demo .pill {
+            background: #1e1e1e;
+            color: #dcdcdc;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-family: 'Fira Code', Consolas, monospace;
+            font-size: 0.95rem;
+        }
+
+        /* Q4 – document tree */
+        .q4-demo .tree {
+            background: #fff;
+            border: 2px dashed #c7d2fe;
+            padding: 14px;
+            border-radius: 8px;
+            font-family: 'Fira Code', Consolas, monospace;
+            font-size: 0.9rem;
+            color: #1f2937;
+            white-space: pre;
+            line-height: 1.6;
+        }
+
+        /* Q5 – lang demo */
+        .q5-demo .lang-row {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            padding: 12px 14px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .q5-demo .lang-tag {
+            display: inline-block;
+            background: #eef2ff;
+            color: #4f46e5;
+            font-family: 'Fira Code', Consolas, monospace;
+            font-size: 0.8rem;
+            padding: 2px 8px;
+            border-radius: 6px;
+            margin-left: 8px;
+        }
+
+        .q5-demo .arabic {
+            font-family: 'Noto Naskh Arabic', 'Segoe UI', Tahoma, sans-serif;
+            direction: rtl;
+            display: inline-block;
+        }
+
+        /* Q6 – void elements grid */
+        .q6-demo .void-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 10px;
+        }
+
+        .q6-demo .void-chip {
+            background: #1e1e1e;
+            color: #9cdcfe;
+            font-family: 'Fira Code', Consolas, monospace;
+            font-size: 0.9rem;
+            padding: 10px 14px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .q6-demo .void-chip .slash {
+            color: #6b7280;
+            font-size: 0.75rem;
+            display: block;
+            margin-top: 4px;
+        }
+
+        /* Q7 – entities */
+        .q7-demo .entity-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .q7-demo .entity-card {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 12px 14px;
+            text-align: center;
+            min-width: 120px;
+            flex: 1;
+        }
+
+        .q7-demo .entity-code {
+            font-family: 'Fira Code', Consolas, monospace;
+            font-size: 0.9rem;
+            color: #4f46e5;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .q7-demo .entity-result {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #10b981;
+        }
+
+        /* Q8 – URL demo */
+        .q8-demo .url-card {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+        }
+
+        .q8-demo .url-label {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 2px 10px;
+            border-radius: 20px;
+            margin-bottom: 6px;
+        }
+
+        .q8-demo .url-label.absolute {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .q8-demo .url-label.root-rel {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .q8-demo .url-label.doc-rel {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .q8-demo .url-code {
+            font-family: 'Fira Code', Consolas, monospace;
+            font-size: 0.9rem;
+            color: #1f2937;
+            background: #f3f4f6;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        /* Q9 – inputs grid */
+        .q9-demo .input-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+        }
+
+        .q9-demo .input-cell {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 10px 12px;
+        }
+
+        .q9-demo .input-cell label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #4f46e5;
+            display: block;
+            margin-bottom: 6px;
+            font-family: 'Fira Code', Consolas, monospace;
+        }
+
+        .q9-demo .input-cell input,
+        .q9-demo .input-cell select {
+            width: 100%;
+            padding: 7px 9px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        /* Q10 – table */
+        .q10-demo table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            font-size: 0.9rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+
+        .q10-demo thead {
+            background: #eef2ff;
+        }
+
+        .q10-demo th {
+            text-align: left;
+            padding: 10px 14px;
+            color: #4f46e5;
+            font-weight: 700;
+        }
+
+        .q10-demo td {
+            padding: 10px 14px;
+            border-top: 1px solid #e5e7eb;
+            color: #374151;
+        }
+
+        .q10-demo tfoot {
+            background: #f9fafb;
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ==================== BACK TO HOME BUTTON ==================== -->
+    <a href="../../index.html" class="back-home">← Back to Home</a>
+
+    <!-- ==================== PAGE HEADER ==================== -->
+    <header class="page-header">
+        <h1>HTML &amp; CSS Questions — Part 1 (1 → 10)</h1>
+        <p>Questions + Answers + VS Code-style code + Live demos that match the code exactly</p>
+    </header>
+
+    <div class="container">
+
+        <!-- ==================== Q1 ==================== -->
+        <section class="q-section">
+            <h2>Q1 — What is HTML? <span class="badge">Easy</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                HTML stands for <strong>HyperText Markup Language</strong>. It is the standard markup language used to
+                structure content on web pages.<br><br>
+                It defines the structure and meaning of content using elements such as headings, paragraphs, and
+                links.<br><br>
+                HTML itself is <strong>not a programming language</strong> because it doesn't contain programming
+                logic like loops, conditions, or functions.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What are CSS and JavaScript used for?</span>
+                <span class="a">
+                    • <strong>HTML</strong> → Structure / semantics<br>
+                    • <strong>CSS</strong> → Presentation / styling<br>
+                    • <strong>JavaScript</strong> → Behavior / logic
+                </span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;h1&gt;Title&lt;/h1&gt;
+&lt;p&gt;Paragraph&lt;/p&gt;
+&lt;a href="/about"&gt;About&lt;/a&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box">
+                <h1 style="margin:0 0 6px; color:#4f46e5; font-size:1.6rem;">Title</h1>
+                <p style="margin:0 0 10px;">Paragraph</p>
+                <a href="#" style="color:#4f46e5; font-weight:700;">About</a>
+            </div>
+        </section>
+
+        <!-- ==================== Q2 ==================== -->
+        <section class="q-section">
+            <h2>Q2 — What is an HTML element? <span class="badge">Easy</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                An HTML element is a complete unit of HTML structure. It can contain an <strong>opening tag</strong>,
+                <strong>content</strong>, and a <strong>closing tag</strong>.<br><br>
+                The complete structure is the element.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Are all HTML elements made of opening and closing tags?</span>
+                <span class="a"><strong>No.</strong> Some are <strong>void elements</strong> and don't have closing
+                    tags — for example: <code>&lt;img&gt;</code>, <code>&lt;input&gt;</code>, <code>&lt;br&gt;</code>,
+                    <code>&lt;hr&gt;</code>, <code>&lt;meta&gt;</code>, <code>&lt;link&gt;</code>.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;p&gt;Hello&lt;/p&gt;
+
+&lt;!--
+  &lt;p&gt;      → opening tag
+  Hello    → content
+  &lt;/p&gt;     → closing tag
+  The complete thing is the element.
+--&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — element anatomy</h3>
+            <div class="demo-box q2-demo">
+                <div class="anatomy">
+                    <span class="tag">&lt;p&gt;</span><span class="content">Hello</span><span
+                        class="tag">&lt;/p&gt;</span>
+                    <span class="arrow">← full element</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Q3 ==================== -->
+        <section class="q-section">
+            <h2>Q3 — What is the difference between an HTML tag and an HTML element? <span class="badge">Easy</span>
+            </h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                A <strong>tag</strong> is the markup syntax itself (e.g., <code>&lt;p&gt;</code>).<br><br>
+                An <strong>element</strong> is the complete structure, including the opening tag, content, and closing
+                tag (e.g., <code>&lt;p&gt;Hello&lt;/p&gt;</code>).
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What about &lt;img src="cat.jpg"&gt;?</span>
+                <span class="a"><code>&lt;img&gt;</code> is a <strong>void element</strong>, so there is no closing
+                    <code>&lt;/img&gt;</code> tag.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can an element have multiple attributes?</span>
+                <span class="a"><strong>Yes.</strong> For example:
+                    <code>&lt;img src="plant.jpg" alt="Green plant" width="300"&gt;</code>.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;!-- Tag --&gt;
+&lt;p&gt;
+
+&lt;!-- Element --&gt;
+&lt;p&gt;Hello&lt;/p&gt;
+
+&lt;!-- Element with multiple attributes --&gt;
+&lt;img src="plant.jpg" alt="Green plant" width="300"&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q3-demo">
+                <div class="row">
+                    <span class="pill">&lt;p&gt; ← tag</span>
+                    <span class="pill">&lt;p&gt;Hello&lt;/p&gt; ← element</span>
+                    <span class="pill">&lt;img …&gt; ← void element</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Q4 ==================== -->
+        <section class="q-section">
+            <h2>Q4 — What is the basic structure of an HTML document? <span class="badge">Easy</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                An HTML document has a root <code>&lt;html&gt;</code> element with two main children:
+                <code>&lt;head&gt;</code> and <code>&lt;body&gt;</code>.<br><br>
+                <code>&lt;head&gt;</code> contains metadata and resources.<br>
+                <code>&lt;body&gt;</code> contains the page content.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Is content inside &lt;head&gt; displayed as normal page content?</span>
+                <span class="a"><strong>Generally no.</strong> The head contains document metadata, the title, links to
+                    resources, and scripts/configuration.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Where would you put a CSS file?</span>
+                <span class="a">Using <code>&lt;link rel="stylesheet" href="styles.css"&gt;</code>, usually inside
+                    <code>&lt;head&gt;</code>.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;My Page&lt;/title&gt;
+  &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;h1&gt;Hello&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — document tree</h3>
+            <div class="demo-box q4-demo">
+                <div class="tree">html
+                    ├── head
+                    │ ├── meta charset
+                    │ ├── title
+                    │ └── link stylesheet
+                    └── body
+                    └── h1</div>
+            </div>
+        </section>
+
+        <!-- ==================== Q5 ==================== -->
+        <section class="q-section">
+            <h2>Q5 — Why is the lang attribute important? <span class="badge">Easy</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                The <code>lang</code> attribute specifies the language of the document or element.<br><br>
+                For English: <code>&lt;html lang="en"&gt;</code><br>
+                For Arabic: <code>&lt;html lang="ar"&gt;</code><br><br>
+                It helps browsers, search engines, translation tools, and assistive technologies understand the
+                language correctly.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can you change language for only part of a page?</span>
+                <span class="a"><strong>Yes.</strong> For example:
+                    <code>&lt;p&gt;Hello &lt;span lang="ar"&gt;مرحبا&lt;/span&gt;&lt;/p&gt;</code>.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Why should lang normally be placed on &lt;html&gt;?</span>
+                <span class="a">It establishes the <strong>default language for the document</strong>. Individual
+                    elements can
+                    override it when their content is in another language.<br><br>
+                    Example:
+                    <pre
+                        style="margin:8px 0;background:#f3f4f6;padding:10px;border-radius:6px;font-size:0.8rem;font-family:'Fira Code',Consolas,monospace;overflow-x:auto;">&lt;html lang="en"&gt;
+  &lt;body&gt;
+    &lt;p&gt;Hello&lt;/p&gt;
+
+    &lt;p lang="ar"&gt;
+      أهلاً وسهلاً
+    &lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+                </span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;html lang="en"&gt;
+  &lt;body&gt;
+    &lt;p&gt;
+      Hello
+      &lt;span lang="ar" dir="rtl"&gt;مرحبا&lt;/span&gt;
+    &lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q5-demo">
+                <div class="lang-row">
+                    Hello <span class="lang-tag">lang="en"</span>
+                </div>
+                <div class="lang-row">
+                    <span class="arabic">مرحبا</span> <span class="lang-tag">lang="ar" dir="rtl"</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Q6 ==================== -->
+        <section class="q-section">
+            <h2>Q6 — What are void elements in HTML? <span class="badge medium">Easy → Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                Void elements are HTML elements that <strong>cannot have child content</strong> and
+                <strong>don't use a closing tag</strong>.<br><br>
+                Examples: <code>&lt;img&gt;</code>, <code>&lt;input&gt;</code>, <code>&lt;br&gt;</code>,
+                <code>&lt;hr&gt;</code>, <code>&lt;meta&gt;</code>, <code>&lt;link&gt;</code>,
+                <code>&lt;source&gt;</code>, <code>&lt;area&gt;</code>, <code>&lt;base&gt;</code>,
+                <code>&lt;embed&gt;</code>, <code>&lt;param&gt;</code>, <code>&lt;track&gt;</code>,
+                <code>&lt;wbr&gt;</code>.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What about &lt;input /&gt;?</span>
+                <span class="a">The slash is allowed in HTML syntax but doesn't make the element "more void". The
+                    element is already a void element.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;img src="plant.jpg" alt="Plant"&gt;
+&lt;input type="text"&gt;
+&lt;br&gt;
+&lt;hr&gt;
+&lt;meta charset="UTF-8"&gt;
+&lt;link rel="stylesheet" href="styles.css"&gt;
+
+&lt;!-- There is NO closing &lt;/img&gt; or &lt;/input&gt; --&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — common void elements</h3>
+            <div class="demo-box q6-demo">
+                <div class="void-grid">
+                    <div class="void-chip">&lt;img&gt;<span class="slash">no closing</span></div>
+                    <div class="void-chip">&lt;input&gt;<span class="slash">no closing</span></div>
+                    <div class="void-chip">&lt;br&gt;<span class="slash">no closing</span></div>
+                    <div class="void-chip">&lt;hr&gt;<span class="slash">no closing</span></div>
+                    <div class="void-chip">&lt;meta&gt;<span class="slash">no closing</span></div>
+                    <div class="void-chip">&lt;link&gt;<span class="slash">no closing</span></div>
+                    <div class="void-chip">&lt;source&gt;<span class="slash">no closing</span></div>
+                    <div class="void-chip">&lt;wbr&gt;<span class="slash">no closing</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Q7 ==================== -->
+        <section class="q-section">
+            <h2>Q7 — What is the difference between HTML entities and normal characters? <span
+                    class="badge medium">Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                HTML character references (entities) allow us to represent characters that have special meaning in
+                HTML, or characters that are hard to type directly.<br><br>
+                Examples: <code>&amp;lt;</code>, <code>&amp;gt;</code>, <code>&amp;amp;</code>,
+                <code>&amp;quot;</code>, <code>&amp;nbsp;</code>.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Why can't we simply write &lt; inside normal text?</span>
+                <span class="a">Because <code>&lt;</code> has special meaning in HTML and could be interpreted as the
+                    start of a tag.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Why can't I simply write &lt; everywhere in HTML text?</span>
+                <span class="a">Because <code>&lt;</code> can start markup syntax. When we need it as literal text in
+                    contexts
+                    where it's ambiguous, using <code>&amp;lt;</code> avoids interpreting it as markup.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Trap: don't confuse entities with URL encoding.</span>
+                <span class="a">HTML entities live in the <strong>HTML source</strong>, while URL encoding (like
+                    <code>%20</code>) is for <strong>URLs</strong>.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;p&gt;5 &amp;lt; 10&lt;/p&gt;
+
+&lt;!-- Common entities --&gt;
+&amp;lt;   → &lt;
+&amp;gt;   → &gt;
+&amp;amp;  → &amp;
+&amp;quot; → "
+&amp;nbsp; → non-breaking space</code></pre>
+            </div>
+
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q7-demo">
+                <div class="entity-row">
+                    <div class="entity-card">
+                        <span class="entity-code">&amp;lt;</span>
+                        <span class="entity-result">&lt;</span>
+                    </div>
+                    <div class="entity-card">
+                        <span class="entity-code">&amp;gt;</span>
+                        <span class="entity-result">&gt;</span>
+                    </div>
+                    <div class="entity-card">
+                        <span class="entity-code">&amp;amp;</span>
+                        <span class="entity-result">&amp;</span>
+                    </div>
+                    <div class="entity-card">
+                        <span class="entity-code">&amp;quot;</span>
+                        <span class="entity-result">"</span>
+                    </div>
+                    <div class="entity-card">
+                        <span class="entity-code">&amp;nbsp;</span>
+                        <span class="entity-result">␣</span>
+                    </div>
+                </div>
+                <p style="margin:12px 0 0; font-size:0.9rem;">
+                    Rendered: <strong>5 &lt; 10</strong> — the browser shows <code>&lt;</code>, not a tag.
+                </p>
+            </div>
+        </section>
+
+        <!-- ==================== Q8 ==================== -->
+        <section class="q-section">
+            <h2>Q8 — What is the difference between absolute and relative URLs in HTML? <span
+                    class="badge medium">Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                An <strong>absolute URL</strong> contains the complete address (protocol + host + path).<br><br>
+                A <strong>relative URL</strong> is resolved relative to the current document or base URL.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What's the difference between /about and about?</span>
+                <span class="a"><code>/about</code> is <strong>root-relative</strong> (resolved from the site root).
+                    <code>about</code> is <strong>document-relative</strong> (resolved from the current URL's
+                    folder).</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Trap: don't assume every relative URL starts with /.</span>
+                <span class="a">Only <strong>root-relative</strong> URLs start with <code>/</code>. Document-relative
+                    URLs don't, and <code>../</code> can be used to go up one level.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;!-- Absolute --&gt;
+&lt;a href="https://example.com/about"&gt;About&lt;/a&gt;
+
+&lt;!-- Root-relative --&gt;
+&lt;a href="/about"&gt;About&lt;/a&gt;
+
+&lt;!-- Document-relative --&gt;
+&lt;a href="about.html"&gt;About&lt;/a&gt;
+&lt;a href="../images/photo.jpg"&gt;Photo&lt;/a&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q8-demo">
+                <div class="url-card">
+                    <span class="url-label absolute">absolute</span><br>
+                    <span class="url-code">https://example.com/about</span>
+                </div>
+                <div class="url-card">
+                    <span class="url-label root-rel">root-relative</span><br>
+                    <span class="url-code">/about</span>
+                </div>
+                <div class="url-card">
+                    <span class="url-label doc-rel">document-relative</span><br>
+                    <span class="url-code">about.html</span><br>
+                    <span class="url-code">../images/photo.jpg</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Q9 ==================== -->
+        <section class="q-section">
+            <h2>Q9 — What are the different types of &lt;input&gt;? <span class="badge medium">Easy → Medium</span>
+            </h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                HTML provides many input types, including: <code>text</code>, <code>email</code>,
+                <code>password</code>, <code>number</code>, <code>tel</code>, <code>url</code>,
+                <code>search</code>, <code>date</code>, <code>time</code>, <code>datetime-local</code>,
+                <code>month</code>, <code>week</code>, <code>checkbox</code>, <code>radio</code>,
+                <code>file</code>, <code>color</code>, <code>range</code>, <code>hidden</code>,
+                <code>submit</code>, <code>reset</code>, <code>button</code>.<br><br>
+                Using the appropriate type gives the browser semantics and built-in validation, and can show a better
+                UI on devices.
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Why use type="email" instead of type="text" for an email field?</span>
+                <span class="a">It provides <strong>email-specific semantics and validation</strong>, and on some
+                    devices it produces a more appropriate keyboard.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;input type="email"&gt;
+&lt;input type="date"&gt;
+&lt;input type="checkbox"&gt;
+&lt;input type="file"&gt;
+&lt;input type="range"&gt;
+&lt;input type="color"&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q9-demo">
+                <div class="input-grid">
+                    <div class="input-cell">
+                        <label>type="text"</label>
+                        <input type="text" placeholder="Text...">
+                    </div>
+                    <div class="input-cell">
+                        <label>type="email"</label>
+                        <input type="email" placeholder="you@example.com">
+                    </div>
+                    <div class="input-cell">
+                        <label>type="password"</label>
+                        <input type="password" placeholder="••••••••">
+                    </div>
+                    <div class="input-cell">
+                        <label>type="number"</label>
+                        <input type="number" value="5">
+                    </div>
+                    <div class="input-cell">
+                        <label>type="date"</label>
+                        <input type="date">
+                    </div>
+                    <div class="input-cell">
+                        <label>type="color"</label>
+                        <input type="color" value="#4f46e5">
+                    </div>
+                    <div class="input-cell">
+                        <label>type="range"</label>
+                        <input type="range" min="0" max="100" value="50">
+                    </div>
+                    <div class="input-cell">
+                        <label>type="file"</label>
+                        <input type="file">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== Q10 ==================== -->
+        <section class="q-section">
+            <h2>Q10 — What is the difference between &lt;table&gt;, &lt;thead&gt;, &lt;tbody&gt;, &lt;tfoot&gt;, and
+                &lt;tr&gt;? <span class="badge medium">Easy → Medium</span></h2>
+
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <ul style="margin:6px 0">
+                    <li><code>&lt;table&gt;</code> → the entire table</li>
+                    <li><code>&lt;thead&gt;</code> → header section</li>
+                    <li><code>&lt;tbody&gt;</code> → main data section</li>
+                    <li><code>&lt;tfoot&gt;</code> → footer/summary section</li>
+                    <li><code>&lt;tr&gt;</code> → a table row</li>
+                    <li><code>&lt;th&gt;</code> → header cell</li>
+                    <li><code>&lt;td&gt;</code> → data cell</li>
+                </ul>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What's the difference between &lt;th&gt; and &lt;td&gt;?</span>
+                <span class="a"><code>&lt;th&gt;</code> is a <strong>header cell</strong> (bold and centered by
+                    default), while <code>&lt;td&gt;</code> is a <strong>data cell</strong>.</span>
+            </div>
+
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Name&lt;/th&gt;
+      &lt;th&gt;Role&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Youssef&lt;/td&gt;
+      &lt;td&gt;Frontend Developer&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+
+  &lt;tfoot&gt;
+    &lt;tr&gt;
+      &lt;td colspan="2"&gt;1 member&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tfoot&gt;
+&lt;/table&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q10-demo">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Youssef</td>
+                            <td>Frontend Developer</td>
+                        </tr>
+                        <tr>
+                            <td>Sara</td>
+                            <td>Designer</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="2">2 members</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </section>
+
+        <!-- ==================== STUDENT TASK ==================== -->
+        <section class="task-section">
+            <h2>🧑‍🎓 Student Task — HTML Fundamentals</h2>
+            <p>Build <strong>one HTML page</strong> applying <strong>all 10 concepts</strong>. Submit as a zipped
+                folder or CodePen link.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Concept</th>
+                        <th>What you must do</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>HTML basics</td>
+                        <td>Create a page containing at least one heading, one paragraph, and one link.</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Element structure</td>
+                        <td>Add a comment above a <code>&lt;p&gt;</code> explaining the opening tag, content, and
+                            closing tag.</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Tag vs Element</td>
+                        <td>Show one example of a void element (e.g., <code>&lt;img&gt;</code>) and one regular element
+                            (e.g., <code>&lt;p&gt;</code>).</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Document structure</td>
+                        <td>Include <code>&lt;!DOCTYPE html&gt;</code>, <code>&lt;html&gt;</code>,
+                            <code>&lt;head&gt;</code>
+                            (with <code>&lt;title&gt;</code>), and <code>&lt;body&gt;</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>lang attribute</td>
+                        <td>Set <code>&lt;html lang="en"&gt;</code> and include one Arabic word using
+                            <code>lang="ar" dir="rtl"</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Void elements</td>
+                        <td>Use at least three void elements (e.g., <code>&lt;img&gt;</code>, <code>&lt;br&gt;</code>,
+                            <code>&lt;input&gt;</code>).
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>Entities</td>
+                        <td>Write the text <code>5 &lt; 10 &amp; 3 &gt; 1</code> using HTML entities, not raw
+                            characters.</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>URLs</td>
+                        <td>Add three links: one absolute, one root-relative, and one document-relative.</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>Inputs</td>
+                        <td>Create a form with at least four different input types (e.g., email, date, checkbox,
+                            file).</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>Tables</td>
+                        <td>Build a table using <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>, and
+                            <code>&lt;tfoot&gt;</code>.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>📦 Submission rules</h3>
+            <ul>
+                <li><strong>File name:</strong> <code>index.html</code></li>
+                <li><strong>Comments:</strong> above each section, e.g. <code>&lt;!-- Q6: void elements --&gt;</code>
+                </li>
+                <li><strong>README.md</strong> with 3 answers:
+                    <ol>
+                        <li>What is the difference between a tag and an element?</li>
+                        <li>Why is <code>lang</code> on <code>&lt;html&gt;</code> important?</li>
+                        <li>Name three void elements and explain why they don't need closing tags.</li>
+                    </ol>
+                </li>
+            </ul>
+
+            <h3>🎯 Grading (out of 10)</h3>
+            <p>1 point per row. "Entities" and "Tables" rows are worth double if the README explanation is correct.</p>
+        </section>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.hljs) {
+                hljs.highlightAll();
+                if (hljs.lineNumbersBlock) {
+                    document.querySelectorAll('pre code').forEach(function (el) {
+                        hljs.lineNumbersBlock(el);
+                    });
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>

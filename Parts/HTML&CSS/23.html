@@ -1,0 +1,1563 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML &amp; CSS Questions — Part 23 (221–230)</title>
+
+    <!-- ===== Favicon: inline SVG (works offline) ===== -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%234f46e5'/%3E%3Cstop%20offset='1'%20stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='url(%23g)'/%3E%3Cpath%20d='M22%2022%20L14%2032%20L22%2042%20M42%2022%20L50%2032%20L42%2042'%20stroke='white'%20stroke-width='4'%20stroke-linecap='round'%20stroke-linejoin='round'%20fill='none'/%3E%3C/svg%3E" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css" />
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            background: #f4f6fa;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        /* ==================== BACK TO HOME BUTTON ==================== */
+        .back-home {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 9999;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 16px rgba(79, 70, 229, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .back-home:hover {
+            background: linear-gradient(135deg, #4338ca, #6d28d9);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(79, 70, 229, 0.5);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 640px) {
+            .back-home {
+                top: 12px;
+                left: 12px;
+                padding: 8px 14px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* ==================== PAGE HEADER ==================== */
+        .page-header {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            margin: 0 0 8px;
+            font-size: 2rem;
+        }
+
+        .page-header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 24px 20px;
+        }
+
+        .q-section {
+            background: #fff;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 28px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+        }
+
+        .q-section h2 {
+            margin-top: 0;
+            color: #4f46e5;
+            border-bottom: 2px solid #eef;
+            padding-bottom: 10px;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            background: #dcfce7;
+            color: #166534;
+            margin-left: 8px;
+            vertical-align: middle;
+            font-weight: 600;
+        }
+
+        .badge.medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge.hard {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .q-section h3 {
+            color: #374151;
+            margin-top: 22px;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .answer {
+            background: #ecfdf5;
+            border-left: 4px solid #10b981;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 10px 0;
+        }
+
+        .answer strong.label {
+            display: block;
+            font-size: 0.75rem;
+            color: #059669;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .followup {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 12px 0;
+        }
+
+        .followup .q {
+            font-weight: 600;
+            color: #1d4ed8;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .followup .a {
+            color: #1e3a8a;
+        }
+
+        .demo-box {
+            background: #fafbff;
+            border: 1px dashed #c7d2fe;
+            border-radius: 10px;
+            padding: 16px;
+            margin: 12px 0;
+        }
+
+        /* ==================== VS CODE ==================== */
+        .vs-code {
+            background: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 16px 0;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #2d2d2d;
+        }
+
+        .vs-titlebar {
+            background: #3c3c3c;
+            padding: 9px 14px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px solid #2d2d2d;
+        }
+
+        .vs-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .vs-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .vs-dot.red {
+            background: #ff5f56;
+        }
+
+        .vs-dot.yellow {
+            background: #ffbd2e;
+        }
+
+        .vs-dot.green {
+            background: #27c93f;
+        }
+
+        .vs-title {
+            position: absolute;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 12px;
+            color: #cccccc;
+            pointer-events: none;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+
+        .vs-tabbar {
+            background: #252526;
+            display: flex;
+        }
+
+        .vs-tab {
+            background: #2d2d2d;
+            color: #969696;
+            padding: 9px 20px;
+            font-size: 12.5px;
+            border-right: 1px solid #1e1e1e;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .vs-tab.active {
+            background: #1e1e1e;
+            color: #ffffff;
+        }
+
+        .vs-tab.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #007acc;
+        }
+
+        .file-icon {
+            display: inline-block;
+            width: 9px;
+            height: 9px;
+            border-radius: 2px;
+        }
+
+        .file-icon.html {
+            background: #e44d26;
+        }
+
+        .file-icon.css {
+            background: #264de4;
+        }
+
+        .file-icon.js {
+            background: #f7df1e;
+        }
+
+        .vs-body {
+            margin: 0 !important;
+            padding: 16px 0 !important;
+            background: #1e1e1e !important;
+            overflow-x: auto;
+            font-size: 13px !important;
+            line-height: 1.65 !important;
+            color: #dcdcdc;
+            border-radius: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+        }
+
+        .vs-body code {
+            background: transparent !important;
+            padding: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+            font-size: inherit !important;
+            color: inherit;
+            white-space: pre;
+        }
+
+        .vs-body .hljs-ln-numbers {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            text-align: right;
+            color: #858585 !important;
+            border-right: 1px solid #3a3f4b;
+            padding: 0 14px 0 16px !important;
+            vertical-align: top;
+            font-weight: normal;
+        }
+
+        .vs-body .hljs-ln-code {
+            padding: 0 16px !important;
+        }
+
+        .vs-body .hljs-ln {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .vs-body .hljs-ln td {
+            padding: 0;
+        }
+
+        .vs-body::-webkit-scrollbar {
+            height: 10px;
+        }
+
+        .vs-body::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+
+        .vs-body::-webkit-scrollbar-thumb {
+            background: #424242;
+            border-radius: 5px;
+        }
+
+        .vs-body code.hljs,
+        .vs-body .hljs {
+            background: transparent !important;
+            padding: 0 !important;
+            overflow: visible !important;
+        }
+
+        /* ==================== TASK SECTION ==================== */
+        .task-section {
+            background: linear-gradient(135deg, #fff7ed, #fef3c7);
+            border: 2px solid #f59e0b;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 40px;
+        }
+
+        .task-section h2 {
+            color: #b45309;
+            margin-top: 0;
+        }
+
+        .task-section table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 12px 0;
+            font-size: 0.9rem;
+        }
+
+        .task-section th,
+        .task-section td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .task-section th {
+            background: #fde68a;
+            color: #78350f;
+        }
+
+        .task-section code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+        }
+
+        /* ==================== DEMO SPECIFIC STYLES ==================== */
+
+        /* Q221 – tabindex */
+        .q221-demo .tab-row {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .q221-demo .tab-item {
+            background: #fff;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 10px 14px;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .q221-demo .tab-item:focus,
+        .q221-demo .tab-item:focus-visible {
+            border-color: #4f46e5;
+            background: #eef2ff;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+        }
+
+        .q221-demo .tab-item .tag {
+            display: inline-block;
+            font-family: 'Fira Code', Consolas, monospace;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: #eef2ff;
+            color: #4338ca;
+            margin-right: 8px;
+        }
+
+        .q221-demo .tab-item.tab-natural {
+            border-left: 4px solid #10b981;
+        }
+
+        .q221-demo .tab-item.tab-programmatic {
+            border-left: 4px solid #f59e0b;
+        }
+
+        .q221-demo .tab-item.tab-positive {
+            border-left: 4px solid #ef4444;
+        }
+
+        .q221-demo .hint {
+            font-size: 0.8rem;
+            color: #6b7280;
+            margin-top: 10px;
+        }
+
+        /* Q222 – accessible name */
+        .q222-demo .demo-btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .q222-demo .demo-btn {
+            background: #4f46e5;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .q222-demo .demo-btn.icon-only {
+            padding: 10px 14px;
+        }
+
+        .q222-demo .demo-form {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            max-width: 300px;
+        }
+
+        .q222-demo .demo-form input {
+            padding: 8px 12px;
+            border: 2px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 0.95rem;
+        }
+
+        .q222-demo .demo-form label {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #374151;
+        }
+
+        /* Q223 – native vs custom */
+        .q223-demo .compare-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+        }
+
+        .q223-demo .compare-card {
+            background: #fff;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 14px;
+        }
+
+        .q223-demo .compare-card h4 {
+            margin: 0 0 10px;
+            font-size: 0.9rem;
+        }
+
+        .q223-demo .compare-card.good {
+            border-color: #10b981;
+        }
+
+        .q223-demo .compare-card.good h4 {
+            color: #10b981;
+        }
+
+        .q223-demo .compare-card.bad {
+            border-color: #ef4444;
+        }
+
+        .q223-demo .compare-card.bad h4 {
+            color: #ef4444;
+        }
+
+        .q223-demo .compare-card button {
+            background: #4f46e5;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .q223-demo .compare-card .fake-btn {
+            display: inline-block;
+            background: #4f46e5;
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .q223-demo .compare-card p {
+            margin: 8px 0 0;
+            font-size: 0.8rem;
+            color: #6b7280;
+        }
+
+        /* Q224 – aria-hidden vs DOM remove */
+        .q224-demo .toggle-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .q224-demo .toggle-row button {
+            background: #4f46e5;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .q224-demo .stars-box {
+            background: #fff;
+            border: 2px dashed #c7d2fe;
+            border-radius: 10px;
+            padding: 16px;
+            text-align: center;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 1.5rem;
+            color: #f59e0b;
+        }
+
+        .q224-demo .status {
+            font-size: 0.85rem;
+            color: #6b7280;
+            margin-top: 8px;
+        }
+
+        /* Q225 – hidden vs aria-hidden vs CSS */
+        .q225-demo .compare-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .q225-demo .compare-card {
+            background: #fff;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 12px;
+        }
+
+        .q225-demo .compare-card h4 {
+            margin: 0 0 8px;
+            font-size: 0.82rem;
+            font-family: 'Fira Code', Consolas, monospace;
+            color: #4f46e5;
+        }
+
+        .q225-demo .compare-card .demo-target {
+            background: #4f46e5;
+            color: #fff;
+            padding: 12px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+        }
+
+        .q225-demo .compare-card p {
+            margin: 0;
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+
+        .q225-demo .visually-hidden-style {
+            display: none;
+        }
+
+        .q225-demo .aria-hidden-style {
+            /* Visually visible but hidden from AT — can't demo visually */
+            outline: 2px dashed #f59e0b;
+            outline-offset: 2px;
+        }
+
+        /* Q226 – hidden vs display none */
+        .q226-demo .toggle-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .q226-demo .toggle-row button {
+            background: #4f46e5;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .q226-demo .demo-target {
+            background: #4f46e5;
+            color: #fff;
+            padding: 14px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .q226-demo .note {
+            font-size: 0.8rem;
+            color: #6b7280;
+            margin-top: 8px;
+        }
+
+        /* Q227 – details/summary */
+        .q227-demo details {
+            background: #fff;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin-bottom: 10px;
+            transition: border-color 0.2s;
+        }
+
+        .q227-demo details[open] {
+            border-color: #4f46e5;
+        }
+
+        .q227-demo summary {
+            cursor: pointer;
+            font-weight: 700;
+            color: #4f46e5;
+            padding: 4px 0;
+            outline: none;
+        }
+
+        .q227-demo summary:hover {
+            color: #4338ca;
+        }
+
+        .q227-demo details p {
+            margin: 10px 0 0;
+            color: #374151;
+            font-size: 0.9rem;
+        }
+
+        /* Q228 – dialog */
+        .q228-demo button.demo-open {
+            background: #4f46e5;
+            color: #fff;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .q228-demo button.demo-open:hover {
+            background: #4338ca;
+        }
+
+        .q228-demo dialog {
+            border: none;
+            border-radius: 14px;
+            padding: 22px 26px;
+            max-width: 380px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+        }
+
+        .q228-demo dialog h4 {
+            margin: 0 0 8px;
+            color: #4f46e5;
+        }
+
+        .q228-demo dialog p {
+            margin: 0 0 16px;
+            color: #374151;
+        }
+
+        .q228-demo dialog .actions {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+        }
+
+        .q228-demo dialog .actions button {
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .q228-demo dialog .actions .cancel {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        .q228-demo dialog .actions .confirm {
+            background: #ef4444;
+            color: #fff;
+        }
+
+        .q228-demo dialog::backdrop {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(4px);
+        }
+
+        /* Q229 – datalist */
+        .q229-demo .field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            max-width: 300px;
+        }
+
+        .q229-demo label {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #374151;
+        }
+
+        .q229-demo input {
+            padding: 10px 12px;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        .q229-demo input:focus {
+            outline: none;
+            border-color: #4f46e5;
+        }
+
+        /* Q230 – output */
+        .q230-demo form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 320px;
+        }
+
+        .q230-demo .row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .q230-demo .row label {
+            font-weight: 600;
+            font-size: 0.85rem;
+            min-width: 60px;
+            color: #374151;
+        }
+
+        .q230-demo .row input {
+            padding: 8px 12px;
+            border: 2px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            width: 100%;
+            max-width: 120px;
+        }
+
+        .q230-demo output {
+            display: block;
+            background: #ecfdf5;
+            border-left: 4px solid #10b981;
+            padding: 10px 14px;
+            border-radius: 0 8px 8px 0;
+            font-weight: 700;
+            color: #065f46;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="../../index.html" class="back-home">← Back to Home</a>
+
+    <header class="page-header">
+        <h1>HTML &amp; CSS Questions — Part 23 (221 → 230)</h1>
+        <p>Questions + Answers + VS Code-style code + Live demos that match the code exactly</p>
+    </header>
+
+    <div class="container">
+
+        <!-- Q221 -->
+        <section class="q-section">
+            <h2>Q221 — What is tabindex? <span class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>tabindex</code> controls whether an element can receive focus through keyboard navigation and
+                can influence its position in the sequential focus order.<br><br>
+                <code>tabindex="0"</code> allows an otherwise non-focusable element to participate in the normal tab
+                order.<br>
+                <code>tabindex="-1"</code> allows the element to be programmatically focused but normally removes it
+                from sequential keyboard navigation.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What about tabindex="5"?</span>
+                <span class="a">Positive tabindex values create an explicit focus order and are generally discouraged
+                    because they can make keyboard navigation confusing and difficult to maintain. Prefer natural
+                    document order and <code>tabindex="0"</code> / <code>-1</code> when appropriate.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;!-- Natural tab order (recommended) --&gt;
+&lt;div tabindex="0"&gt;
+  Focusable content
+&lt;/div&gt;
+
+&lt;!-- Programmatic focus only --&gt;
+&lt;div tabindex="-1"&gt;
+  Focusable via JS only
+&lt;/div&gt;
+
+&lt;!-- ⚠️ Positive values — discouraged --&gt;
+&lt;div tabindex="5"&gt;
+  Custom order
+&lt;/div&gt;</code></pre>
+            </div>
+            <h3>🔴 Live demo — Press Tab inside the box</h3>
+            <div class="demo-box q221-demo">
+                <div class="tab-row">
+                    <div class="tab-item tab-natural" tabindex="0">
+                        <span class="tag">tabindex="0"</span> Participates in normal tab order ✅
+                    </div>
+                    <div class="tab-item tab-programmatic" tabindex="-1" id="q221-neg">
+                        <span class="tag">tabindex="-1"</span> Skipped by Tab, focused by JS only
+                    </div>
+                    <div class="tab-item">
+                        <span class="tag">&lt;div&gt; without tabindex</span> Not focusable
+                    </div>
+                </div>
+                <p class="hint">
+                    👉 Press <kbd>Tab</kbd>: the first item is reachable. The second item is skipped (only focused via
+                    JS). The third is not focusable at all.
+                    <br>
+                    <button onclick="document.getElementById('q221-neg').focus()"
+                        style="margin-top:8px;background:#4f46e5;color:#fff;border:none;padding:6px 12px;border-radius:6px;cursor:pointer;font-weight:700;font-size:0.8rem;">JS-focus
+                        the tabindex="-1" item</button>
+                </p>
+            </div>
+        </section>
+
+        <!-- Q222 -->
+        <section class="q-section">
+            <h2>Q222 — What is an accessible name? <span class="badge hard">Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                An accessible name is the name that assistive technologies can use to identify an interface element to
+                the user.<br><br>
+                The visible text <code>Save</code> can provide a button's accessible name. For an input, a
+                <code>&lt;label&gt;</code> can provide the accessible name.<br><br>
+                Other mechanisms can also contribute to an accessible name, including ARIA attributes such as
+                <code>aria-label</code> and <code>aria-labelledby</code>.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Why is this important?</span>
+                <span class="a">A screen reader needs a meaningful name to announce controls to the user. Without an
+                    accessible name, a control may be announced without enough information for the user to understand
+                    its purpose.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;!-- Accessible name from visible text --&gt;
+&lt;button&gt;
+  Save
+&lt;/button&gt;
+
+&lt;!-- Accessible name from a label --&gt;
+&lt;label for="email"&gt;Email&lt;/label&gt;
+&lt;input id="email"&gt;
+
+&lt;!-- Accessible name from ARIA --&gt;
+&lt;button aria-label="Close dialog"&gt;✕&lt;/button&gt;</code></pre>
+            </div>
+            <h3>🔴 Live demo — Inspect accessible names</h3>
+            <div class="demo-box q222-demo">
+                <div class="demo-btn-group">
+                    <button class="demo-btn">Save</button>
+                    <button class="demo-btn icon-only" aria-label="Close dialog">✕</button>
+                </div>
+                <div class="demo-form">
+                    <label for="q222-email">Email</label>
+                    <input id="q222-email" type="email" placeholder="you@example.com">
+                </div>
+                <p style="font-size:0.8rem;color:#6b7280;margin:10px 0 0;">
+                    The first button's accessible name is <strong>"Save"</strong>. The second button's accessible
+                    name is <strong>"Close dialog"</strong> (from <code>aria-label</code>), not <code>✕</code>. The
+                    input's accessible name is <strong>"Email"</strong> from the <code>&lt;label&gt;</code>.
+                </p>
+            </div>
+        </section>
+
+        <!-- Q223 -->
+        <section class="q-section">
+            <h2>Q223 — Why should you prefer native HTML controls over custom controls? <span
+                    class="badge hard">Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                Native controls already provide a lot of behavior that custom controls would otherwise need to
+                recreate. For example, a native <code>&lt;button&gt;</code> provides:
+                <ul style="margin:6px 0">
+                    <li>Semantics</li>
+                    <li>Keyboard interaction</li>
+                    <li>Focus behavior</li>
+                    <li>Browser integration</li>
+                    <li>Assistive technology support</li>
+                </ul>
+                A custom <code>&lt;div&gt;</code>-based button requires developers to implement much of this behavior
+                themselves. Therefore, when a native element matches the required behavior, I prefer using it.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: When would you create a custom control?</span>
+                <span class="a">When the required UI behavior cannot be adequately represented by existing native
+                    controls or components, while ensuring that the custom control implements the required keyboard,
+                    focus, semantic, and assistive-technology behavior.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;!-- ✅ Native — full behavior for free --&gt;
+&lt;button&gt;
+  Submit
+&lt;/button&gt;
+
+&lt;!-- ⚠️ Custom — you must re-implement everything --&gt;
+&lt;div role="button" tabindex="0"&gt;
+  Submit
+&lt;/div&gt;</code></pre>
+            </div>
+            <h3>🔴 Live demo — Try both with keyboard</h3>
+            <div class="demo-box q223-demo">
+                <div class="compare-grid">
+                    <div class="compare-card good">
+                        <h4>✅ &lt;button&gt;</h4>
+                        <button type="button" onclick="alert('Native button clicked!')">Submit</button>
+                        <p>Focusable, clickable, and announced as a button by screen readers — automatically.</p>
+                    </div>
+                    <div class="compare-card bad">
+                        <h4>⚠️ &lt;div role="button"&gt;</h4>
+                        <div class="fake-btn" role="button" tabindex="0"
+                            onclick="alert('Div with role=button clicked')">Submit</div>
+                        <p>Needs manual keyboard handling (Enter/Space) and is only announced correctly because of the
+                            role.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q224 -->
+        <section class="q-section">
+            <h2>Q224 — What is the difference between aria-hidden="true" and removing an element from the DOM? <span
+                    class="badge hard">Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>aria-hidden="true"</code> tells assistive technologies that the element and its subtree should
+                <strong>not be exposed in the accessibility tree</strong>.<br><br>
+                The element still exists in the DOM and can still be affected by CSS and JavaScript.<br><br>
+                Removing the element from the DOM is different: the element <strong>no longer exists</strong> as part
+                of the document structure.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Should you put aria-hidden="true" on a focusable element?</span>
+                <span class="a"><strong>Generally no.</strong> If an element can receive focus but is hidden from
+                    assistive technologies, keyboard and screen-reader users can encounter confusing or inaccessible
+                    behavior.<br><br>
+                    Also, if content is visually hidden and should truly be unavailable to users, the appropriate
+                    mechanism depends on the intended behavior.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;!-- Hidden from AT, still in the DOM --&gt;
+&lt;span aria-hidden="true"&gt;★&lt;/span&gt;
+
+&lt;!-- Removed entirely from the DOM --&gt;
+&lt;!-- (element is not present at all) --&gt;</code></pre>
+            </div>
+            <h3>🔴 Live demo — Toggle between the two</h3>
+            <div class="demo-box q224-demo">
+                <div class="toggle-row">
+                    <button onclick="q224SetMode('visible')">Visible</button>
+                    <button onclick="q224SetMode('aria')">aria-hidden="true"</button>
+                    <button onclick="q224SetMode('removed')">Removed from DOM</button>
+                </div>
+                <div id="q224-host" style="display:flex;align-items:center;justify-content:center;"></div>
+                <p class="status" id="q224-status">Mode: visible</p>
+            </div>
+        </section>
+
+        <!-- Q225 -->
+        <section class="q-section">
+            <h2>Q225 — What is the difference between hidden, aria-hidden, and CSS hiding? <span
+                    class="badge hard">Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                These mechanisms have different meanings:
+                <ul style="margin:6px 0">
+                    <li><code>hidden</code> (HTML attribute) — element is not currently relevant/presented; user
+                        agents generally don't render it.</li>
+                    <li><code>aria-hidden="true"</code> — hides the element from the accessibility tree, but does
+                        <strong>not inherently hide it visually</strong>.
+                    </li>
+                    <li>CSS <code>display: none</code> — removes the element from normal rendering/layout.</li>
+                    <li>CSS <code>visibility: hidden</code> — keeps layout space while making it visually hidden.</li>
+                </ul>
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can I use aria-hidden="true" to hide a modal visually?</span>
+                <span class="a"><strong>No.</strong> <code>aria-hidden</code> is not a visual hiding mechanism.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;div hidden&gt;Hidden via attribute&lt;/div&gt;
+
+&lt;div aria-hidden="true"&gt;Hidden from AT only&lt;/div&gt;
+
+&lt;div style="display: none;"&gt;Hidden via CSS&lt;/div&gt;
+
+&lt;div style="visibility: hidden;"&gt;Invisible but keeps space&lt;/div&gt;</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q225-demo">
+                <div class="compare-grid">
+                    <div class="compare-card">
+                        <h4>hidden</h4>
+                        <div class="demo-target" hidden>Content</div>
+                        <p>Not rendered (browser default).</p>
+                    </div>
+                    <div class="compare-card">
+                        <h4>aria-hidden="true"</h4>
+                        <div class="demo-target aria-hidden-style" aria-hidden="true">Content</div>
+                        <p>Still visible — hidden from screen readers only.</p>
+                    </div>
+                    <div class="compare-card">
+                        <h4>display: none</h4>
+                        <div class="demo-target visually-hidden-style">Content</div>
+                        <p>Not rendered.</p>
+                    </div>
+                    <div class="compare-card">
+                        <h4>visibility: hidden</h4>
+                        <div class="demo-target" style="visibility:hidden;">Content</div>
+                        <p>Invisible but keeps layout space.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q226 -->
+        <section class="q-section">
+            <h2>Q226 — What is the difference between hidden and display: none? <span class="badge hard">Hard</span>
+            </h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                The <code>hidden</code> attribute is an HTML <strong>semantic/state</strong> mechanism indicating that
+                the element is not currently relevant or should not be presented.<br><br>
+                Browsers typically render it similarly to <code>display: none</code> by default. But conceptually
+                they're different:
+                <ul style="margin:6px 0">
+                    <li><code>hidden</code> → HTML state/meaning</li>
+                    <li><code>display: none</code> → CSS presentation rule</li>
+                </ul>
+                JavaScript can toggle the HTML state: <code>element.hidden = false;</code>
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can CSS override the visual effect of hidden?</span>
+                <span class="a"><strong>Yes</strong>, CSS can potentially override the user-agent styling associated
+                    with the hidden state. But doing so carelessly can create a mismatch between the HTML state and
+                    what users/assistive technologies experience.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;div hidden&gt;Hidden content&lt;/div&gt;
+
+&lt;!-- Toggle via JS --&gt;
+&lt;script&gt;
+  element.hidden = false; // show
+  element.hidden = true;  // hide
+&lt;/script&gt;</code></pre>
+            </div>
+            <h3>🔴 Live demo — Toggle the hidden attribute</h3>
+            <div class="demo-box q226-demo">
+                <div class="toggle-row">
+                    <button
+                        onclick="document.getElementById('q226-box').hidden = !document.getElementById('q226-box').hidden">Toggle
+                        hidden attribute</button>
+                </div>
+                <div class="demo-target" id="q226-box">This element toggles via the <code>hidden</code> attribute</div>
+                <p class="note">The button uses <code>el.hidden = !el.hidden</code> — that's the semantic HTML state,
+                    not <code>display: none</code>.</p>
+            </div>
+        </section>
+
+        <!-- Q227 -->
+        <section class="q-section">
+            <h2>Q227 — What is the purpose of &lt;details&gt; and &lt;summary&gt;? <span
+                    class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>&lt;details&gt;</code> represents a disclosure widget that the user can open and
+                close.<br><br>
+                <code>&lt;summary&gt;</code> provides the visible label that controls the disclosure.<br><br>
+                The browser provides the basic open/close behavior without requiring JavaScript. You can also control
+                the initial state using <code>open</code>.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: How would you know whether &lt;details&gt; is currently open?</span>
+                <span class="a">You can check whether the <code>open</code> attribute is present. With JavaScript:
+                    <code>details.open</code></span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;details&gt;
+  &lt;summary&gt;What is Angular?&lt;/summary&gt;
+
+  &lt;p&gt;
+    Angular is a web framework for building applications.
+  &lt;/p&gt;
+&lt;/details&gt;
+
+&lt;!-- Open by default --&gt;
+&lt;details open&gt;
+  &lt;summary&gt;Details&lt;/summary&gt;
+  &lt;p&gt;Visible initially.&lt;/p&gt;
+&lt;/details&gt;</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q227-demo">
+                <details>
+                    <summary>What is Angular?</summary>
+                    <p>Angular is a web framework for building applications.</p>
+                </details>
+                <details open>
+                    <summary>Open by default</summary>
+                    <p>This <code>&lt;details&gt;</code> has the <code>open</code> attribute, so it's expanded
+                        initially.</p>
+                </details>
+            </div>
+        </section>
+
+        <!-- Q228 -->
+        <section class="q-section">
+            <h2>Q228 — What is the purpose of the &lt;dialog&gt; element? <span class="badge medium">Medium</span>
+            </h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>&lt;dialog&gt;</code> represents a dialog box or other interactive modal/non-modal
+                dialog.<br><br>
+                JavaScript can open it as a modal using <code>dialog.showModal();</code> and close it with
+                <code>dialog.close();</code>.<br><br>
+                A modal dialog opened with <code>showModal()</code> is placed into the browser's top layer and blocks
+                interaction with the rest of the document.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What's the difference between show() and showModal()?</span>
+                <span class="a"><code>show()</code> → non-modal dialog.<br>
+                    <code>showModal()</code> → modal dialog that blocks interaction with the rest of the
+                    document.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;dialog id="confirmDialog"&gt;
+  &lt;p&gt;Are you sure?&lt;/p&gt;
+  &lt;button type="button"&gt;Cancel&lt;/button&gt;
+  &lt;button type="button"&gt;Confirm&lt;/button&gt;
+&lt;/dialog&gt;
+
+&lt;script&gt;
+  dialog.showModal(); // modal
+  dialog.close();     // close
+&lt;/script&gt;</code></pre>
+            </div>
+            <h3>🔴 Live demo — Open the modal</h3>
+            <div class="demo-box q228-demo">
+                <button class="demo-open" onclick="document.getElementById('q228-dialog').showModal()">Open
+                    Modal</button>
+                <dialog id="q228-dialog">
+                    <h4>Confirm action</h4>
+                    <p>Are you sure you want to continue?</p>
+                    <div class="actions">
+                        <button type="button" class="cancel"
+                            onclick="document.getElementById('q228-dialog').close()">Cancel</button>
+                        <button type="button" class="confirm"
+                            onclick="document.getElementById('q228-dialog').close()">Confirm</button>
+                    </div>
+                </dialog>
+            </div>
+        </section>
+
+        <!-- Q229 -->
+        <section class="q-section">
+            <h2>Q229 — What is the &lt;datalist&gt; element? <span class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>&lt;datalist&gt;</code> provides a list of suggested values for an input.<br><br>
+                The user can generally type a custom value instead of being restricted to the provided suggestions.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What's the difference between &lt;datalist&gt; and &lt;select&gt;?</span>
+                <span class="a"><code>select</code> → choose from defined options only.<br>
+                    <code>datalist</code> → provides suggestions, but the user can generally enter another
+                    value.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;label for="browser"&gt;Browser&lt;/label&gt;
+
+&lt;input
+  id="browser"
+  name="browser"
+  list="browsers"
+&gt;
+
+&lt;datalist id="browsers"&gt;
+  &lt;option value="Chrome"&gt;
+  &lt;option value="Firefox"&gt;
+  &lt;option value="Edge"&gt;
+&lt;/datalist&gt;</code></pre>
+            </div>
+            <h3>🔴 Live demo — Start typing in the input</h3>
+            <div class="demo-box q229-demo">
+                <div class="field">
+                    <label for="q229-browser">Browser (suggestions appear as you type)</label>
+                    <input id="q229-browser" name="browser" list="q229-browsers"
+                        placeholder="e.g. Chrome, Firefox, Edge...">
+                    <datalist id="q229-browsers">
+                        <option value="Chrome">
+                        <option value="Firefox">
+                        <option value="Edge">
+                        <option value="Safari">
+                        <option value="Brave">
+                    </datalist>
+                </div>
+                <p style="font-size:0.8rem;color:#6b7280;margin:10px 0 0;">
+                    You can pick one of the suggestions, or type any custom value.
+                </p>
+            </div>
+        </section>
+
+        <!-- Q230 -->
+        <section class="q-section">
+            <h2>Q230 — What is the purpose of the &lt;output&gt; element? <span class="badge medium">Medium</span>
+            </h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>&lt;output&gt;</code> represents the result of a calculation or user action.<br><br>
+                The <code>for</code> attribute can identify the controls that contributed to the result.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Is &lt;output&gt; the same thing as &lt;input type="text"&gt;?</span>
+                <span class="a"><strong>No.</strong> <code>&lt;output&gt;</code> has semantic meaning as a result of a
+                    calculation or user action, while an input represents user input.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;form oninput="result.value = Number(a.value) + Number(b.value)"&gt;
+  &lt;input id="a" type="number" value="10"&gt;
+  &lt;input id="b" type="number" value="20"&gt;
+
+  &lt;output name="result" for="a b"&gt;
+    30
+  &lt;/output&gt;
+&lt;/form&gt;</code></pre>
+            </div>
+            <h3>🔴 Live demo — Type in the inputs</h3>
+            <div class="demo-box q230-demo">
+                <form oninput="q230result.value = Number(q230a.value) + Number(q230b.value)">
+                    <div class="row">
+                        <label for="q230a">A:</label>
+                        <input id="q230a" type="number" value="10">
+                    </div>
+                    <div class="row">
+                        <label for="q230b">B:</label>
+                        <input id="q230b" type="number" value="20">
+                    </div>
+                    <output id="q230result" name="q230result" for="q230a q230b">30</output>
+                </form>
+            </div>
+        </section>
+
+        <!-- ==================== STUDENT TASK ==================== -->
+        <section class="task-section">
+            <h2>🧑‍🎓 Student Task — Accessibility, Native Elements &amp; Focus</h2>
+            <p>Build <strong>one HTML page</strong> (+ CSS file + optional JS file) that applies <strong>all 10
+                    concepts</strong> from Part 23. Submit as a zipped folder.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Concept</th>
+                        <th>What you must do</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>221</td>
+                        <td>tabindex</td>
+                        <td>Create a <code>&lt;div tabindex="0"&gt;</code> that participates in tab order, and a
+                            second <code>&lt;div tabindex="-1"&gt;</code> that's focused only via JS.</td>
+                    </tr>
+                    <tr>
+                        <td>222</td>
+                        <td>Accessible name</td>
+                        <td>Create a button with visible text, a button with only <code>aria-label</code>, and an input
+                            with a <code>&lt;label for&gt;</code>.</td>
+                    </tr>
+                    <tr>
+                        <td>223</td>
+                        <td>Native vs custom</td>
+                        <td>Add a comment comparing <code>&lt;button&gt;</code> with
+                            <code>&lt;div role="button"&gt;</code> in terms of keyboard behavior.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>224</td>
+                        <td>aria-hidden vs remove</td>
+                        <td>Create a decorative icon and mark it with <code>aria-hidden="true"</code>. Add a comment
+                            explaining why you didn't remove it from the DOM.</td>
+                    </tr>
+                    <tr>
+                        <td>225</td>
+                        <td>hidden vs aria-hidden vs CSS</td>
+                        <td>Create four versions of the same element: <code>hidden</code>,
+                            <code>aria-hidden="true"</code>, <code>display: none</code>, <code>visibility:
+                                hidden</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>226</td>
+                        <td>hidden vs display: none</td>
+                        <td>Toggle a <code>&lt;div&gt;</code> between visible and hidden using the HTML
+                            <code>hidden</code> attribute via JS.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>227</td>
+                        <td>&lt;details&gt; &amp; &lt;summary&gt;</td>
+                        <td>Create an FAQ using <code>&lt;details&gt;</code>. One item should be open by default.</td>
+                    </tr>
+                    <tr>
+                        <td>228</td>
+                        <td>&lt;dialog&gt;</td>
+                        <td>Create a confirmation modal using <code>&lt;dialog&gt;</code> and open it with
+                            <code>showModal()</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>229</td>
+                        <td>&lt;datalist&gt;</td>
+                        <td>Create an input for a country with <code>&lt;datalist&gt;</code> suggestions (Egypt,
+                            UAE, KSA, etc.).</td>
+                    </tr>
+                    <tr>
+                        <td>230</td>
+                        <td>&lt;output&gt;</td>
+                        <td>Create a simple calculator using two number inputs and an <code>&lt;output&gt;</code>.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>📦 Submission rules</h3>
+            <ul>
+                <li><strong>File names:</strong> <code>index.html</code>, <code>styles.css</code>,
+                    <code>app.js</code>
+                </li>
+                <li><strong>Comments:</strong> above each section, e.g.
+                    <code>&lt;!-- Q228: &lt;dialog&gt; modal --&gt;</code>
+                </li>
+                <li><strong>README.md</strong> with 3 answers:
+                    <ol>
+                        <li>Why are positive <code>tabindex</code> values discouraged?</li>
+                        <li>What is the difference between <code>aria-hidden="true"</code> and removing the element
+                            from the DOM?</li>
+                        <li>Why is <code>&lt;button&gt;</code> usually better than
+                            <code>&lt;div role="button"&gt;</code>?
+                        </li>
+                    </ol>
+                </li>
+            </ul>
+
+            <h3>🎯 Grading (out of 10)</h3>
+            <p>1 point per row. "Accessible name" and "aria-hidden vs remove" rows are worth double if the README
+                explanation is correct.</p>
+        </section>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.hljs) {hljs.highlightAll(); if (hljs.lineNumbersBlock) {document.querySelectorAll('pre code').forEach(function (el) {hljs.lineNumbersBlock(el);});} }
+        });
+
+        // Q224 – aria-hidden vs removed from DOM
+        let q224Mode = 'visible';
+        function q224SetMode(mode) {
+            q224Mode = mode;
+            const host = document.getElementById('q224-host');
+            const status = document.getElementById('q224-status');
+            if (mode === 'visible') {
+                host.innerHTML = '<div class="stars-box"><span aria-hidden="true">★★★★★</span></div>';
+                status.textContent = 'Mode: visible — stars visible AND exposed to assistive technologies.';
+            } else if (mode === 'aria') {
+                host.innerHTML = '<div class="stars-box"><span aria-hidden="true">★★★★★</span></div>';
+                status.textContent = 'Mode: aria-hidden="true" — stars still visible on screen, but hidden from screen readers.';
+            } else if (mode === 'removed') {
+                host.innerHTML = '<div class="stars-box" style="color:#9ca3af;">(element removed from DOM)</div>';
+                status.textContent = 'Mode: removed from DOM — the element is not present at all.';
+            }
+        }
+        // Initialize Q224
+        q224SetMode('visible');
+    </script>
+</body>
+
+</html>

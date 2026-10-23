@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML &amp; CSS Questions — Part 20 (191–200)</title>
+
+    <!-- ===== Favicon: inline SVG (works offline) ===== -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%234f46e5'/%3E%3Cstop%20offset='1'%20stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='url(%23g)'/%3E%3Cpath%20d='M22%2022%20L14%2032%20L22%2042%20M42%2022%20L50%2032%20L42%2042'%20stroke='white'%20stroke-width='4'%20stroke-linecap='round'%20stroke-linejoin='round'%20fill='none'/%3E%3C/svg%3E" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css" />
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            background: #f4f6fa;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        /* ==================== BACK TO HOME BUTTON ==================== */
+        .back-home {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 9999;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 16px rgba(79, 70, 229, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .back-home:hover {
+            background: linear-gradient(135deg, #4338ca, #6d28d9);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(79, 70, 229, 0.5);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 640px) {
+            .back-home {
+                top: 12px;
+                left: 12px;
+                padding: 8px 14px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* ==================== PAGE HEADER ==================== */
+        .page-header {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            margin: 0 0 8px;
+            font-size: 2rem;
+        }
+
+        .page-header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 24px 20px;
+        }
+
+        .q-section {
+            background: #fff;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 28px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+        }
+
+        .q-section h2 {
+            margin-top: 0;
+            color: #4f46e5;
+            border-bottom: 2px solid #eef;
+            padding-bottom: 10px;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            background: #dcfce7;
+            color: #166534;
+            margin-left: 8px;
+            vertical-align: middle;
+            font-weight: 600;
+        }
+
+        .badge.medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge.hard {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .q-section h3 {
+            color: #374151;
+            margin-top: 22px;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .answer {
+            background: #ecfdf5;
+            border-left: 4px solid #10b981;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 10px 0;
+        }
+
+        .answer strong.label {
+            display: block;
+            font-size: 0.75rem;
+            color: #059669;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .followup {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 12px 0;
+        }
+
+        .followup .q {
+            font-weight: 600;
+            color: #1d4ed8;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .followup .a {
+            color: #1e3a8a;
+        }
+
+        .demo-box {
+            background: #fafbff;
+            border: 1px dashed #c7d2fe;
+            border-radius: 10px;
+            padding: 16px;
+            margin: 12px 0;
+        }
+
+        .demo-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .demo-label.bad {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .demo-label.good {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        /* ==================== VS CODE ==================== */
+        .vs-code {
+            background: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 16px 0;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #2d2d2d;
+        }
+
+        .vs-titlebar {
+            background: #3c3c3c;
+            padding: 9px 14px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            border-bottom: 1px solid #2d2d2d;
+        }
+
+        .vs-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .vs-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .vs-dot.red {
+            background: #ff5f56;
+        }
+
+        .vs-dot.yellow {
+            background: #ffbd2e;
+        }
+
+        .vs-dot.green {
+            background: #27c93f;
+        }
+
+        .vs-title {
+            position: absolute;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 12px;
+            color: #cccccc;
+            pointer-events: none;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+
+        .vs-tabbar {
+            background: #252526;
+            display: flex;
+        }
+
+        .vs-tab {
+            background: #2d2d2d;
+            color: #969696;
+            padding: 9px 20px;
+            font-size: 12.5px;
+            border-right: 1px solid #1e1e1e;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .vs-tab.active {
+            background: #1e1e1e;
+            color: #ffffff;
+        }
+
+        .vs-tab.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #007acc;
+        }
+
+        .file-icon {
+            display: inline-block;
+            width: 9px;
+            height: 9px;
+            border-radius: 2px;
+        }
+
+        .file-icon.html {
+            background: #e44d26;
+        }
+
+        .file-icon.css {
+            background: #264de4;
+        }
+
+        .file-icon.js {
+            background: #f7df1e;
+        }
+
+        .vs-body {
+            margin: 0 !important;
+            padding: 16px 0 !important;
+            background: #1e1e1e !important;
+            overflow-x: auto;
+            font-size: 13px !important;
+            line-height: 1.65 !important;
+            color: #dcdcdc;
+            border-radius: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+        }
+
+        .vs-body code {
+            background: transparent !important;
+            padding: 0 !important;
+            font-family: 'Fira Code', Consolas, 'Courier New', monospace !important;
+            font-size: inherit !important;
+            color: inherit;
+            white-space: pre;
+        }
+
+        .vs-body .hljs-ln-numbers {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            text-align: right;
+            color: #858585 !important;
+            border-right: 1px solid #3a3f4b;
+            padding: 0 14px 0 16px !important;
+            vertical-align: top;
+            font-weight: normal;
+        }
+
+        .vs-body .hljs-ln-code {
+            padding: 0 16px !important;
+        }
+
+        .vs-body .hljs-ln {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .vs-body .hljs-ln td {
+            padding: 0;
+        }
+
+        .vs-body::-webkit-scrollbar {
+            height: 10px;
+        }
+
+        .vs-body::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+
+        .vs-body::-webkit-scrollbar-thumb {
+            background: #424242;
+            border-radius: 5px;
+        }
+
+        .vs-body code.hljs,
+        .vs-body .hljs {
+            background: transparent !important;
+            padding: 0 !important;
+            overflow: visible !important;
+        }
+
+        /* ==================== TASK SECTION ==================== */
+        .task-section {
+            background: linear-gradient(135deg, #fff7ed, #fef3c7);
+            border: 2px solid #f59e0b;
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 40px;
+        }
+
+        .task-section h2 {
+            color: #b45309;
+            margin-top: 0;
+        }
+
+        .task-section table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 12px 0;
+            font-size: 0.9rem;
+        }
+
+        .task-section th,
+        .task-section td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .task-section th {
+            background: #fde68a;
+            color: #78350f;
+        }
+
+        .task-section code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+        }
+
+        /* ==================== DEMO SPECIFIC STYLES ==================== */
+        /* Q191 Reflow vs Repaint */
+        .q191-demo .flex-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .q191-demo .track {
+            position: relative;
+            height: 60px;
+            width: 300px;
+            background: #f3f4f6;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .q191-demo .runner {
+            width: 50px;
+            height: 50px;
+            background: #4f46e5;
+            border-radius: 6px;
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            transition: all 0.5s ease;
+        }
+
+        .q191-demo .track:hover .runner-transform {
+            transform: translateX(240px);
+        }
+
+        .q191-demo .track:hover .runner-width {
+            width: 290px;
+        }
+
+        /* Q192 Compositing */
+        .q192-demo .layer-box {
+            width: 100px;
+            height: 100px;
+            background: #4f46e5;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            transition: opacity 0.5s;
+            will-change: opacity;
+        }
+
+        .q192-demo .layer-box:hover {
+            opacity: 0.5;
+        }
+
+        /* Q193 & Q194 Logical Properties */
+        .q193-demo .dir-container {
+            background: #eef2ff;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 2px solid #4f46e5;
+            transition: all 0.3s;
+        }
+
+        .q193-demo .logical-box {
+            background: #4f46e5;
+            color: white;
+            padding: 10px;
+            border-radius: 4px;
+            margin-inline-start: 40px;
+            transition: all 0.3s;
+        }
+
+        .q193-demo button {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .q194-demo .dir-container {
+            background: #fdf4ff;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 2px solid #d946ef;
+        }
+
+        /* Q195 Accessible Form */
+        .q195-demo form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 300px;
+        }
+
+        .q195-demo label {
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .q195-demo input {
+            padding: 8px;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .q195-demo input:focus-visible {
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.3);
+        }
+
+        .q195-demo .error-msg {
+            color: #ef4444;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 4px;
+        }
+
+        .q195-demo button {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Q196 Accent Color */
+        .q196-demo .form-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .q196-demo input[type="checkbox"],
+        .q196-demo input[type="radio"] {
+            accent-color: #4f46e5;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        /* Q197 Responsive Images */
+        .q197-demo .img-container {
+            width: 100%;
+            max-width: 600px;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 10px;
+            background: #fff;
+        }
+
+        .q197-demo img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            display: block;
+        }
+
+        /* Q198 Object Position */
+        .q198-demo .img-row {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .q198-demo .img-box {
+            width: 150px;
+            height: 150px;
+            background: #e5e7eb;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .q198-demo .img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .q198-demo .pos-center {
+            object-position: center;
+        }
+
+        .q198-demo .pos-top-left {
+            object-position: top left;
+        }
+
+        /* Q199 CSS Nesting */
+        .q199-demo .card {
+            background: #fff;
+            border: 1px solid #ccc;
+            padding: 16px;
+            border-radius: 8px;
+            transition: transform 0.2s;
+
+            & .title {
+                font-weight: bold;
+                color: #4f46e5;
+                margin-bottom: 8px;
+            }
+
+            &:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        /* Q200 Angular CSS Architecture */
+        .q200-demo .arch-tree {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .q200-demo .folder {
+            background: #f3f4f6;
+            border-left: 4px solid #9ca3af;
+            padding: 8px 12px;
+            border-radius: 0 4px 4px 0;
+            font-weight: bold;
+        }
+
+        .q200-demo .folder-inner {
+            margin-left: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+        .q200-demo .file {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="../../index.html" class="back-home">← Back to Home</a>
+
+    <header class="page-header">
+        <h1>HTML &amp; CSS Questions — Part 20 (191 → 200)</h1>
+        <p>Questions + Answers + VS Code-style code + Live demos that match the code exactly</p>
+    </header>
+
+    <div class="container">
+
+        <!-- Q191 -->
+        <section class="q-section">
+            <h2>Q191 — What is the difference between reflow (layout) and repaint? <span class="badge hard">Hard</span>
+            </h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <strong>Reflow/Layout</strong> happens when the browser needs to recalculate the geometry or position of
+                elements (e.g., changing <code>width</code>, <code>margin</code>).<br><br>
+                <strong>Repaint</strong> happens when the browser needs to redraw pixels without necessarily
+                recalculating layout (e.g., changing <code>background-color</code>).<br><br>
+                Changing <code>transform</code> or <code>opacity</code> can often skip layout and paint, going straight
+                to compositing.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Which is generally cheaper: changing transform or changing width during an
+                    animation?</span>
+                <span class="a"><code>transform</code> is often more animation-friendly because it can avoid layout
+                    recalculation, whereas changing <code>width</code> generally affects layout.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">/* Triggers Repaint + Composite */
+.transform-box:hover { transform: translateX(100px); }
+
+/* Triggers Layout/Reflow + Paint + Composite */
+.width-box:hover { width: 200px; }</code></pre>
+            </div>
+            <h3>🔴 Live demo — Hover the tracks</h3>
+            <div class="demo-box q191-demo">
+                <span style="font-size: 0.85rem; color: #6b7280; display: block; margin-bottom: 5px;">transform:
+                    translateX (Smooth)</span>
+                <div class="track">
+                    <div class="runner runner-transform"></div>
+                </div>
+                <span
+                    style="font-size: 0.85rem; color: #6b7280; display: block; margin-top: 15px; margin-bottom: 5px;">width:
+                    290px (Janky / Reflow)</span>
+                <div class="track">
+                    <div class="runner runner-width"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q192 -->
+        <section class="q-section">
+            <h2>Q192 — What is compositing in browser rendering? <span class="badge hard">Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                After layout and paint, the browser may divide content into <strong>layers</strong> and composite those
+                layers together to produce the final image.<br><br>
+                Properties such as <code>transform</code> and <code>opacity</code> can often be handled efficiently
+                during compositing without requiring layout recalculation.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Why can transform and opacity be good choices for animations?</span>
+                <span class="a">They can often be updated during the compositing stage without requiring layout
+                    recalculation, which can make animations smoother.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.layer-box {
+  will-change: opacity; /* Hint to browser to composite this layer */
+  transition: opacity 0.5s;
+}
+.layer-box:hover { opacity: 0.5; }</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q192-demo">
+                <div class="layer-box">Hover Me</div>
+                <p style="font-size: 0.85rem; color: #6b7280; margin-top: 10px;">This box is promoted to its own layer
+                    using `will-change`, so opacity changes are handled via compositing.</p>
+            </div>
+        </section>
+
+        <!-- Q193 -->
+        <section class="q-section">
+            <h2>Q193 — What are CSS logical properties, and why are they useful? <span class="badge hard">Medium →
+                    Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                Logical properties describe dimensions and spacing based on the <strong>writing direction</strong>,
+                rather than physical left/right/top/bottom directions.<br><br>
+                Instead of <code>margin-left: 20px;</code>, we use <code>margin-inline-start: 20px;</code>. This makes
+                layouts adapt naturally to LTR (English) and RTL (Arabic) without rewriting CSS.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Why is this particularly useful for Arabic applications?</span>
+                <span class="a">Arabic uses RTL text direction. Logical properties allow the layout to adapt more
+                    naturally without manually replacing every left with right.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.box {
+  margin-inline-start: 20px; /* Left in LTR, Right in RTL */
+  padding-block-start: 10px; /* Top in horizontal writing modes */
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo — Toggle Direction</h3>
+            <div class="demo-box q193-demo">
+                <button onclick="toggleDir('q193-container')">Toggle LTR / RTL</button>
+                <div class="dir-container" id="q193-container" dir="ltr">
+                    <div class="logical-box">margin-inline-start: 40px</div>
+                </div>
+                <p style="font-size: 0.85rem; color: #6b7280; margin-top: 10px;">Notice how the margin follows the text
+                    direction.</p>
+            </div>
+        </section>
+
+        <!-- Q194 -->
+        <section class="q-section">
+            <h2>Q194 — What is the difference between direction: ltr/rtl and dir="ltr/rtl"? <span
+                    class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>dir</code> is an <strong>HTML attribute</strong> that defines the text direction and is generally
+                preferred when the direction is semantic/document-level information.<br><br>
+                <code>direction: rtl;</code> is a <strong>CSS property</strong> that controls the direction visually. In
+                a web application, I'd generally use the HTML <code>dir</code> attribute for document direction and use
+                CSS logical properties for styling.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: How would you support an application that can switch between Arabic and
+                    English?</span>
+                <span class="a">I can switch the document direction using <code>&lt;html dir="rtl"&gt;</code>
+                    dynamically, while using logical CSS properties (e.g., <code>margin-inline-start</code>) instead of
+                    hardcoded left/right styles.</span>
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What is the purpose of the dir attribute?</span>
+                <span class="a"><code>dir</code> specifies the directionality of text.<br><br>
+                    Common values:<br>
+                    <code>ltr</code> → left-to-right<br>
+                    <code>rtl</code> → right-to-left<br>
+                    <code>auto</code> → browser determines direction based on content<br><br>
+                    For example:<br>
+                    <code>&lt;html lang="ar" dir="rtl"&gt;</code><br>
+                    For English:<br>
+                    <code>&lt;html lang="en" dir="ltr"&gt;</code></span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Is dir the same as CSS direction?</span>
+                <span class="a">They're <strong>related but not identical</strong>.<br><br>
+                    <code>dir</code> is an HTML <strong>semantic attribute</strong> describing text directionality and
+                    can affect
+                    bidi behavior. CSS <code>direction</code> is a CSS property controlling direction in
+                    presentation/layout
+                    contexts.<br><br>
+                    For document text direction, using the semantic HTML <code>dir</code> attribute is often
+                    preferable.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;html dir="rtl"&gt; &lt;!-- Semantic HTML direction --&gt;
+  &lt;body&gt;
+    &lt;div style="direction: ltr;"&gt;CSS direction override&lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q194-demo">
+                <div class="dir-container" dir="rtl" style="direction: rtl;">
+                    <p style="margin: 0; text-align: right;">هذا النص موجه من اليمين لليسار (dir="rtl")</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q195 -->
+        <section class="q-section">
+            <h2>Q195 — How do you make a CSS form accessible? <span class="badge hard">Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                I'd combine semantic HTML with appropriate CSS. I would ensure:
+                <ul style="margin:6px 0">
+                    <li>Every input has an associated <code>&lt;label&gt;</code>.</li>
+                    <li>Focus states are clearly visible (e.g., using <code>:focus-visible</code>).</li>
+                    <li>Error states aren't communicated only through color (add icons/text).</li>
+                    <li>Sufficient color contrast is maintained.</li>
+                </ul>
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Is color alone enough to communicate an error?</span>
+                <span class="a"><strong>No.</strong> For example, I shouldn't rely only on a red border. I should also
+                    provide text or another accessible indication.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">input:focus-visible {
+  outline: 3px solid #4f46e5;
+  outline-offset: 2px;
+}
+
+.error-msg {
+  color: #ef4444;
+  /* Include an icon or text to avoid relying on color alone */
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo — Use Tab and inspect the error</h3>
+            <div class="demo-box q195-demo">
+                <form onsubmit="event.preventDefault();">
+                    <div>
+                        <label for="email-acc">Email</label>
+                        <input type="email" id="email-acc" placeholder="Enter your email">
+                    </div>
+                    <div>
+                        <label for="err-acc">Invalid Field</label>
+                        <input type="text" id="err-acc" value="wrong input" style="border-color: #ef4444;">
+                        <div class="error-msg">⚠️ Please enter a valid format.</div>
+                    </div>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Q196 -->
+        <section class="q-section">
+            <h2>Q196 — What is accent-color in CSS? <span class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>accent-color</code> allows us to customize the accent color used by certain native form controls
+                (like checkboxes and radio buttons). This provides visual customization while keeping the browser's
+                native control behavior.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Does accent-color completely redesign the checkbox?</span>
+                <span class="a"><strong>No.</strong> It primarily changes the accent color. If I need complete visual
+                    control, I may need custom styling, but then I have to be careful not to break accessibility.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">input[type="checkbox"],
+input[type="radio"] {
+  accent-color: #4f46e5;
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q196-demo">
+                <div class="form-row">
+                    <input type="checkbox" id="check1" checked>
+                    <label for="check1">Subscribe to newsletter</label>
+                </div>
+                <div class="form-row">
+                    <input type="radio" name="radio-group" id="radio1" checked>
+                    <label for="radio1">Option A</label>
+                </div>
+                <div class="form-row">
+                    <input type="radio" name="radio-group" id="radio2">
+                    <label for="radio2">Option B</label>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q197 -->
+        <section class="q-section">
+            <h2>Q197 — What are responsive images, and why are srcset and sizes useful? <span
+                    class="badge hard">Hard</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                Responsive images allow the browser to choose an appropriate image resource based on factors such as
+                viewport size and display density.<br><br>
+                <code>srcset</code> provides multiple image candidates. <code>sizes</code> tells the browser
+                approximately how much viewport width the image will occupy under different conditions. This can prevent
+                downloading unnecessarily large images.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Why not always send the largest image?</span>
+                <span class="a">Because it wastes bandwidth and can increase loading time, especially on mobile or
+                    slower connections.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;img
+  src="small.jpg"
+  srcset="
+    small.jpg 480w,
+    medium.jpg 800w,
+    large.jpg 1200w
+  "
+  sizes="(max-width: 768px) 100vw, 50vw"
+  alt="Plant"
+&gt;</code></pre>
+            </div>
+            <h3>🔴 Live demo (Resize window slowly)</h3>
+            <div class="demo-box q197-demo">
+                <div class="img-container">
+                    <img src="https://placehold.co/400x200/c7d2fe/3730a3?text=Small+(400px)" srcset="
+              https://placehold.co/400x200/c7d2fe/3730a3?text=Small+(400px) 400w,
+              https://placehold.co/800x400/a5b4fc/3730a3?text=Medium+(800px) 800w,
+              https://placehold.co/1200x600/4f46e5/ffffff?text=Large+(1200px) 1200w
+            " sizes="(max-width: 600px) 100vw, 50vw" alt="Responsive demo">
+                </div>
+                <p style="font-size: 0.85rem; color: #6b7280; margin-top: 10px;">The browser chooses the best image size
+                    based on your screen width.</p>
+            </div>
+        </section>
+
+        <!-- Q198 -->
+        <section class="q-section">
+            <h2>Q198 — What is object-position? <span class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                <code>object-position</code> controls the position of replaced content such as an image within its
+                content box, especially when using <code>object-fit: cover</code>. If the image gets cropped,
+                <code>object-position</code> determines which part remains visible.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What happens with `object-position: center;`?</span>
+                <span class="a">The image is positioned around its center, so cropping is generally distributed around
+                    the center rather than favoring one edge.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">img {
+  object-fit: cover;
+  object-position: center top;
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q198-demo">
+                <div class="img-row">
+                    <div>
+                        <div class="img-box"><img class="pos-center"
+                                src="https://placehold.co/300x150/e5e7eb/4f46e5?text=Wide+Image+(Center+Crop)"
+                                alt="Center"></div>
+                        <p style="text-align: center; font-size: 0.85rem;">object-position: center</p>
+                    </div>
+                    <div>
+                        <div class="img-box"><img class="pos-top-left"
+                                src="https://placehold.co/300x150/e5e7eb/10b981?text=Wide+Image+(Top+Left+Crop)"
+                                alt="Top Left"></div>
+                        <p style="text-align: center; font-size: 0.85rem;">object-position: top left</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q199 -->
+        <section class="q-section">
+            <h2>Q199 — What is CSS nesting? <span class="badge medium">Medium</span></h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                CSS nesting allows selectors to be <strong>nested inside another CSS rule</strong>.<br><br>
+                It provides some of the nesting convenience historically associated with preprocessors like Sass, while
+                being supported natively by modern browsers.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Is CSS nesting the same as Sass nesting?</span>
+                <span class="a">They solve a similar problem but aren't identical technologies. Native CSS nesting is
+                    implemented by the browser, while Sass nesting is processed during compilation.</span>
+            </div>
+            <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">.card {
+  padding: 20px;
+
+  & .title {
+    font-size: 20px;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+}</code></pre>
+            </div>
+            <h3>🔴 Live demo</h3>
+            <div class="demo-box q199-demo">
+                <div class="card">
+                    <div class="title">Nested Title</div>
+                    <p style="margin: 0; font-size: 0.85rem;">Hover over this card. The styles are applied using native
+                        CSS nesting.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q200 -->
+        <section class="q-section">
+            <h2>Q200 — How would you organize CSS in a large Angular application? <span class="badge hard">Hard</span>
+            </h2>
+            <div class="answer">
+                <strong class="label">✅ Ideal answer</strong>
+                I would avoid putting everything into one huge global stylesheet. I'd separate styles based on
+                responsibility:
+                <ul style="margin:6px 0">
+                    <li><strong>Global:</strong> variables/tokens, typography, reset/base, utilities.</li>
+                    <li><strong>Components:</strong> buttons, forms, cards, tables.</li>
+                    <li><strong>Pages/Layouts:</strong> dashboard, authentication, application shell.</li>
+                </ul>
+                In Angular, I'd primarily keep component-specific styles close to their components and reserve global
+                styles for things that genuinely need to be global. I'd also minimize <code>!important</code> and reuse
+                design tokens.
+            </div>
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Suppose your Angular application uses PrimeNG + Tailwind. How would you
+                    prevent style conflicts?</span>
+                <span class="a">Establish clear responsibilities: PrimeNG for component behavior, Tailwind for
+                    utility/layout, component styles for local customization, and a global theme for design tokens.
+                    Avoid randomly mixing competing approaches on the same property.</span>
+            </div>
+            <h3>🔴 Live demo — Architecture Visualization</h3>
+            <div class="demo-box q200-demo">
+                <div class="arch-tree">
+                    <div class="folder">📁 Global
+                        <div class="folder-inner">
+                            <div class="file">variables.scss (Tokens, Colors)</div>
+                            <div class="file">typography.scss</div>
+                            <div class="file">reset.scss</div>
+                        </div>
+                    </div>
+                    <div class="folder">📁 Components
+                        <div class="folder-inner">
+                            <div class="file">button.component.scss</div>
+                            <div class="file">form.component.scss</div>
+                            <div class="file">card.component.scss</div>
+                        </div>
+                    </div>
+                    <div class="folder">📁 Pages
+                        <div class="folder-inner">
+                            <div class="file">dashboard.component.scss</div>
+                            <div class="file">login.component.scss</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== STUDENT TASK ==================== -->
+        <section class="task-section">
+            <h2>🧑‍🎓 Student Task — Performance, A11y & Architecture</h2>
+            <p>Build <strong>one HTML page</strong> (+ CSS file) that applies <strong>all 10 concepts</strong> from Part
+                20. Submit as a zipped folder.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Concept</th>
+                        <th>What you must do</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>191</td>
+                        <td>Reflow vs Repaint</td>
+                        <td>Create two animated boxes: one animates `width` and one animates `transform`. Add a comment
+                            explaining the performance difference.</td>
+                    </tr>
+                    <tr>
+                        <td>192</td>
+                        <td>Compositing</td>
+                        <td>Add `will-change: opacity` to a button that changes opacity on hover.</td>
+                    </tr>
+                    <tr>
+                        <td>193</td>
+                        <td>Logical Properties</td>
+                        <td>Use `margin-inline-start` instead of `margin-left` for a card component.</td>
+                    </tr>
+                    <tr>
+                        <td>194</td>
+                        <td>Dir Attribute</td>
+                        <td>Create a container with `<div dir="rtl">` and add some Arabic text.</td>
+                    </tr>
+                    <tr>
+                        <td>195</td>
+                        <td>Accessible Forms</td>
+                        <td>Ensure all inputs have `<label>` and add a visible `:focus-visible` outline.</td>
+                    </tr>
+                    <tr>
+                        <td>196</td>
+                        <td>Accent Color</td>
+                        <td>Add `accent-color: #10b981;` to all checkboxes and radio buttons.</td>
+                    </tr>
+                    <tr>
+                        <td>197</td>
+                        <td>srcset</td>
+                        <td>Use `<img srcset="..." sizes="...">` to provide 2 image resolutions.</td>
+                    </tr>
+                    <tr>
+                        <td>198</td>
+                        <td>object-position</td>
+                        <td>Use `object-fit: cover; object-position: top;` on an image.</td>
+                    </tr>
+                    <tr>
+                        <td>199</td>
+                        <td>CSS Nesting</td>
+                        <td>Use native CSS nesting (`&:hover`, `& .child`) to style a card.</td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>CSS Architecture</td>
+                        <td>Create a comment block at the top of your CSS file explaining your folder structure (Global,
+                            Components, Pages).</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>📦 Submission rules</h3>
+            <ul>
+                <li><strong>File names:</strong> <code>index.html</code>, <code>styles.css</code></li>
+                <li><strong>Comments:</strong> above each section, e.g.
+                    <code>/* Q193: Logical Properties for RTL support */</code>
+                </li>
+                <li><strong>README.md</strong> with 3 answers:
+                    <ol>
+                        <li>Why is `transform` better for performance than `width`?</li>
+                        <li>How do logical properties help with Arabic applications?</li>
+                        <li>How does `@supports` help with progressive enhancement?</li>
+                    </ol>
+                </li>
+            </ul>
+
+            <h3>🎯 Grading (out of 10)</h3>
+            <p>1 point per row. "Reflow vs Repaint" and "CSS Architecture" rows are worth double if the README
+                explanation is correct.</p>
+        </section>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.hljs) {hljs.highlightAll(); if (hljs.lineNumbersBlock) {document.querySelectorAll('pre code').forEach(function (el) {hljs.lineNumbersBlock(el);});} }
+        });
+
+        // Q193 Toggle Direction
+        function toggleDir(id) {
+            const el = document.getElementById(id);
+            if (el.getAttribute('dir') === 'rtl') {
+                el.setAttribute('dir', 'ltr');
+            } else {
+                el.setAttribute('dir', 'rtl');
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -699,13 +699,43 @@
 
             <h3>🔴 Live demo — click to change the tab title</h3>
             <div class="demo-box q21-demo">
-                <p>The text inside <code>&lt;title&gt;</code> is shown in the browser tab at the top of your screen.</p>
-                <button
-                    onclick="document.title = 'Changed via <head>!'; setTimeout(() => document.title = 'HTML & CSS Questions — Part 4 (31–40)', 2000);">
-                    Click to change &lt;title&gt;
-                </button>
+                <p>The text inside <code>&lt;title&gt;</code> is shown in the browser tab. Here is a simulated tab:</p>
+
+                <!-- Fake Browser Tab UI -->
+                <div
+                    style="background: #e5e7eb; padding: 10px 10px 0; border-radius: 8px 8px 0 0; display: inline-block; min-width: 280px; margin-bottom: 0;">
+                    <div id="fake-title-tab"
+                        style="background: #fff; padding: 8px 16px; border-radius: 8px 8px 0 0; font-family: system-ui, sans-serif; font-size: 13px; font-weight: 600; color: #374151; box-shadow: 0 -2px 5px rgba(0,0,0,0.05); transition: all 0.3s;">
+                        My Page Title
+                    </div>
+                </div>
+                <div
+                    style="background: #fff; padding: 20px; border-radius: 0 8px 8px 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #e5e7eb;">
+                    <button onclick="changeFakeTitle()"
+                        style="background: #4f46e5; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; transition: background 0.2s;"
+                        onmouseover="this.style.background='#4338ca'" onmouseout="this.style.background='#4f46e5'">
+                        Click to change &lt;title&gt;
+                    </button>
+                </div>
             </div>
         </section>
+
+        <!-- ضيف السكريبت ده في آخر الملف قبل قفل الـ body -->
+        <script>
+            function changeFakeTitle() {
+                const tab = document.getElementById('fake-title-tab');
+
+                // تغيير النص
+                tab.textContent = 'Changed via <head>!';
+                tab.style.color = '#4f46e5'; // تغيير اللون للتوضيح
+
+                // إرجاع النص الأصلي بعد ثانيتين
+                setTimeout(() => {
+                    tab.textContent = 'My Page Title';
+                    tab.style.color = '#374151';
+                }, 2000);
+            }
+        </script>
 
         <!-- ==================== Q32 ==================== -->
         <section class="q-section">
@@ -742,24 +772,187 @@
 &lt;!-- ❌ Missing (page will zoom out on mobile) --&gt;</code></pre>
             </div>
 
+            <!-- CSS المخصص للديمو -->
+            <style>
+                .q22-demo .mockup-container {
+                    display: flex;
+                    gap: 30px;
+                    justify-content: center;
+                    flex-wrap: wrap;
+                    padding: 24px;
+                    background: #e5e7eb;
+                    border-radius: 12px;
+                    margin: 12px 0;
+                    font-family: system-ui, -apple-system, sans-serif;
+                }
+
+                .q22-demo .phone-wrapper {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 12px;
+                }
+
+                .q22-demo .phone-label {
+                    font-weight: 700;
+                    font-size: 0.85rem;
+                    padding: 4px 12px;
+                    border-radius: 20px;
+                }
+
+                .q22-demo .phone-label.bad {
+                    background: #fee2e2;
+                    color: #991b1b;
+                    border: 1px solid #fecaca;
+                }
+
+                .q22-demo .phone-label.good {
+                    background: #dcfce7;
+                    color: #166534;
+                    border: 1px solid #bbf7d0;
+                }
+
+                .q22-demo .phone {
+                    width: 220px;
+                    height: 440px;
+                    border: 10px solid #1f2937;
+                    border-radius: 32px;
+                    position: relative;
+                    overflow: hidden;
+                    background: #fff;
+                    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+                }
+
+                .q22-demo .phone::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    width: 90px;
+                    height: 20px;
+                    background: #1f2937;
+                    border-radius: 0 0 12px 12px;
+                    z-index: 10;
+                }
+
+                .q22-demo .screen {
+                    width: 100%;
+                    height: 100%;
+                    overflow: hidden;
+                    position: relative;
+                    background: #f9fafb;
+                }
+
+                /* حالة بدون Viewport: صفحة ديسكتوب مصغرة */
+                .q22-demo .desktop-site {
+                    width: 980px;
+                    height: 980px;
+                    transform: scale(0.22);
+                    transform-origin: top left;
+                    padding: 20px;
+                    background: #fff;
+                }
+
+                .q22-demo .desktop-site .nav {
+                    display: flex;
+                    justify-content: space-between;
+                    background: #4f46e5;
+                    color: #fff;
+                    padding: 15px 30px;
+                    border-radius: 8px;
+                    margin-bottom: 20px;
+                    font-size: 24px;
+                }
+
+                .q22-demo .desktop-site h2 {
+                    font-size: 48px;
+                    margin: 10px 0;
+                    color: #1f2937;
+                }
+
+                .q22-demo .desktop-site p {
+                    font-size: 20px;
+                    color: #4b5563;
+                    line-height: 1.6;
+                }
+
+                /* حالة مع Viewport: صفحة موبايل متجاوبة */
+                .q22-demo .mobile-site {
+                    width: 100%;
+                    height: 100%;
+                    padding: 30px 16px 16px;
+                    background: #fff;
+                }
+
+                .q22-demo .mobile-site .nav {
+                    display: flex;
+                    justify-content: space-between;
+                    background: #10b981;
+                    color: #fff;
+                    padding: 10px 15px;
+                    border-radius: 6px;
+                    margin-bottom: 20px;
+                    font-size: 14px;
+                    font-weight: bold;
+                }
+
+                .q22-demo .mobile-site h2 {
+                    font-size: 24px;
+                    margin: 10px 0;
+                    color: #1f2937;
+                }
+
+                .q22-demo .mobile-site p {
+                    font-size: 14px;
+                    color: #4b5563;
+                    line-height: 1.5;
+                }
+
+                .q22-demo .mobile-site button {
+                    background: #4f46e5;
+                    color: #fff;
+                    border: none;
+                    padding: 10px;
+                    border-radius: 6px;
+                    width: 100%;
+                    margin-top: 15px;
+                    font-size: 14px;
+                    font-weight: bold;
+                    cursor: pointer;
+                }
+            </style>
+
             <h3>🔴 Live demo — Compare the mobile viewports</h3>
             <div class="demo-box q22-demo">
-                <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;">
-                    <div>
-                        <div class="iframe-label bad">❌ Without viewport</div>
-                        <div class="mobile-frame">
-                            <div class="content-without-viewport"><span class="badge-small">Virtual width ~980px</span>
-                                <h3>Looks tiny!</h3>
-                                <p>The browser zooms out to fit a desktop site.</p>
+                <div class="mockup-container">
+                    <!-- Phone 1: Without Viewport -->
+                    <div class="phone-wrapper">
+                        <div class="phone-label bad">❌ Without viewport</div>
+                        <div class="phone">
+                            <div class="screen">
+                                <div class="desktop-site">
+                                    <div class="nav">Logo <span>Menu</span></div>
+                                    <h2>Welcome to our site</h2>
+                                    <p>This looks tiny because the browser assumes a 980px wide virtual screen and
+                                        scales it down to fit the mobile screen.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div>
-                        <div class="iframe-label good">✅ With viewport</div>
-                        <div class="mobile-frame">
-                            <div class="content-with-viewport"><span class="badge-small">Virtual width = 320px</span>
-                                <h3>Looks perfect!</h3>
-                                <p>The width matches the device. Media queries work as expected.</p>
+
+                    <!-- Phone 2: With Viewport -->
+                    <div class="phone-wrapper">
+                        <div class="phone-label good">✅ With viewport</div>
+                        <div class="phone">
+                            <div class="screen">
+                                <div class="mobile-site">
+                                    <div class="nav">Logo <span>☰</span></div>
+                                    <h2>Welcome to our site</h2>
+                                    <p>This looks perfect. <code>width=device-width</code> tells the browser to match
+                                        the CSS width to the physical screen width.</p>
+                                    <button>Click Me</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -982,16 +1175,320 @@ async
 &lt;script src="script3.js" defer&gt;&lt;/script&gt;</code></pre>
             </div>
 
+            <!-- ==================== الديمو الجديد المظبوط ==================== -->
+            <style>
+                .q35-sim-container {
+                    background: #f8fafc;
+                    border: 1px solid #e2e8f0;
+                    border-radius: 12px;
+                    padding: 20px;
+                    margin: 16px 0;
+                    font-family: system-ui, -apple-system, sans-serif;
+                }
+
+                .q35-legend {
+                    display: flex;
+                    gap: 16px;
+                    flex-wrap: wrap;
+                    margin-bottom: 20px;
+                    font-size: 0.8rem;
+                    font-weight: 600;
+                    color: #475569;
+                }
+
+                .q35-legend-item {
+                    display: flex;
+                    align-items: center;
+                    gap: 6px;
+                }
+
+                .q35-legend-color {
+                    width: 14px;
+                    height: 14px;
+                    border-radius: 4px;
+                }
+
+                .q35-c-parse {
+                    background: #cbd5e1;
+                }
+
+                .q35-c-download {
+                    background: #3b82f6;
+                }
+
+                .q35-c-block {
+                    background: #ef4444;
+                }
+
+                .q35-c-exec {
+                    background: #10b981;
+                }
+
+                .q35-timeline {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 16px;
+                    margin-bottom: 24px;
+                }
+
+                .q35-row {
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                }
+
+                .q35-label {
+                    width: 80px;
+                    font-family: 'Fira Code', Consolas, monospace;
+                    font-size: 0.85rem;
+                    font-weight: 700;
+                    text-align: right;
+                    color: #1e293b;
+                    flex-shrink: 0;
+                }
+
+                .q35-track-wrapper {
+                    flex: 1;
+                    height: 42px;
+                    background: #e2e8f0;
+                    border-radius: 6px;
+                    position: relative;
+                    overflow: hidden;
+                }
+
+                .q35-bar {
+                    position: absolute;
+                    top: 0;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 0.7rem;
+                    font-weight: 700;
+                    color: #fff;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    transition: width 0.3s ease, left 0.3s ease;
+                    opacity: 0;
+                }
+
+                .q35-bar.active {
+                    opacity: 1;
+                }
+
+                .q35-bar.parse {
+                    background: #cbd5e1;
+                    color: #475569;
+                    z-index: 1;
+                }
+
+                .q35-bar.download {
+                    background: #3b82f6;
+                    z-index: 2;
+                }
+
+                .q35-bar.block {
+                    background: #ef4444;
+                    z-index: 3;
+                }
+
+                .q35-bar.exec {
+                    background: #10b981;
+                    z-index: 4;
+                }
+
+                .q35-playhead {
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    width: 2px;
+                    background: #6366f1;
+                    z-index: 10;
+                    left: 0;
+                    opacity: 0;
+                    transition: left 0.3s linear;
+                }
+
+                .q35-controls {
+                    display: flex;
+                    justify-content: center;
+                }
+
+                .q35-btn {
+                    background: #4f46e5;
+                    color: #fff;
+                    border: none;
+                    padding: 10px 24px;
+                    border-radius: 8px;
+                    font-weight: 700;
+                    cursor: pointer;
+                    transition: background 0.2s;
+                }
+
+                .q35-btn:hover {
+                    background: #4338ca;
+                }
+
+                .q35-btn:disabled {
+                    background: #9ca3af;
+                    cursor: not-allowed;
+                }
+            </style>
+
             <h3>🔴 Live demo — Run the simulation</h3>
-            <div class="demo-box q25-demo">
-                <button onclick="runAsyncDeferSim()">▶ Run Simulation</button>
-                <div class="timeline">
-                    <div class="phase" id="phase-parse">1. HTML Parsing</div>
-                    <div class="phase" id="phase-download">2. Downloading</div>
-                    <div class="phase" id="phase-execute">3. Executing</div>
+            <div class="demo-box q35-sim-container">
+                <div class="q35-legend">
+                    <div class="q35-legend-item">
+                        <div class="q35-legend-color q35-c-parse"></div> HTML Parsing
+                    </div>
+                    <div class="q35-legend-item">
+                        <div class="q35-legend-color q35-c-download"></div> Downloading
+                    </div>
+                    <div class="q35-legend-item">
+                        <div class="q35-legend-color q35-c-block"></div> Blocking Execution
+                    </div>
+                    <div class="q35-legend-item">
+                        <div class="q35-legend-color q35-c-exec"></div> Non-blocking Execution
+                    </div>
                 </div>
-                <div class="log" id="q25-log">Click "Run Simulation" to see the execution order.</div>
+
+                <div class="q35-timeline" id="q35-timeline">
+                    <div class="q35-playhead" id="q35-playhead"></div>
+
+                    <!-- Normal Row -->
+                    <div class="q35-row">
+                        <div class="q35-label">Normal</div>
+                        <div class="q35-track-wrapper">
+                            <div class="q35-bar parse" id="n-parse1" style="left: 0%; width: 0%;">Parse</div>
+                            <div class="q35-bar download" id="n-dl" style="left: 0%; width: 0%;">Download</div>
+                            <div class="q35-bar block" id="n-block" style="left: 0%; width: 0%;">Blocked</div>
+                            <div class="q35-bar parse" id="n-parse2" style="left: 0%; width: 0%;">Resume</div>
+                        </div>
+                    </div>
+
+                    <!-- Async Row -->
+                    <div class="q35-row">
+                        <div class="q35-label">Async</div>
+                        <div class="q35-track-wrapper">
+                            <div class="q35-bar parse" id="a-parse1" style="left: 0%; width: 0%;">Parse</div>
+                            <div class="q35-bar download" id="a-dl" style="left: 0%; width: 0%;">Download</div>
+                            <div class="q35-bar block" id="a-block" style="left: 0%; width: 0%;">Blocked</div>
+                            <div class="q35-bar parse" id="a-parse2" style="left: 0%; width: 0%;">Resume</div>
+                        </div>
+                    </div>
+
+                    <!-- Defer Row -->
+                    <div class="q35-row">
+                        <div class="q35-label">Defer</div>
+                        <div class="q35-track-wrapper">
+                            <div class="q35-bar parse" id="d-parse" style="left: 0%; width: 0%;">Parse (Continuous)
+                            </div>
+                            <div class="q35-bar download" id="d-dl" style="left: 0%; width: 0%;">Download</div>
+                            <div class="q35-bar exec" id="d-exec" style="left: 0%; width: 0%;">Executes</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="q35-controls">
+                    <button class="q35-btn" id="q35-run-btn" onclick="runNewSim()">▶ Run Simulation</button>
+                </div>
             </div>
+
+            <script>
+                function runNewSim() {
+                    const btn = document.getElementById('q35-run-btn');
+                    const playhead = document.getElementById('q35-playhead');
+                    btn.disabled = true;
+                    btn.textContent = '⏳ Running...';
+
+                    // Reset function
+                    const resetBar = (id) => {
+                        const el = document.getElementById(id);
+                        if (el) {
+                            el.classList.remove('active');
+                            el.style.width = '0%';
+                            el.style.left = '0%';
+                        }
+                    };
+
+                    // Reset all
+                    ['n-parse1', 'n-dl', 'n-block', 'n-parse2', 'a-parse1', 'a-dl', 'a-block', 'a-parse2', 'd-parse', 'd-dl', 'd-exec'].forEach(resetBar);
+                    playhead.style.transition = 'none';
+                    playhead.style.left = '0%';
+                    playhead.style.opacity = '0';
+
+                    // Force reflow
+                    void playhead.offsetWidth;
+
+                    playhead.style.transition = 'left 0.3s linear';
+                    playhead.style.opacity = '1';
+
+                    // Helper to set bar properties
+                    const setBar = (id, left, width) => {
+                        const el = document.getElementById(id);
+                        if (el) {
+                            el.classList.add('active');
+                            el.style.left = left + '%';
+                            el.style.width = width + '%';
+                        }
+                    };
+
+                    // --- TIMELINE EVENTS ---
+
+                    // T=0s: Normal parse starts, Async parse starts, Defer parse starts
+                    setTimeout(() => {
+                        setBar('n-parse1', 0, 30);
+                        setBar('a-parse1', 0, 50);
+                        setBar('d-parse', 0, 100);
+                        playhead.style.left = '10%';
+                    }, 100);
+
+                    // T=1s: Downloads start for all
+                    setTimeout(() => {
+                        setBar('n-dl', 20, 30);
+                        setBar('a-dl', 20, 30);
+                        setBar('d-dl', 20, 30);
+                        playhead.style.left = '30%';
+                    }, 1000);
+
+                    // T=2s: Normal parser gets blocked. Async & Defer continue.
+                    setTimeout(() => {
+                        setBar('n-parse1', 0, 50); // Normal Parse stops at 50%
+                        setBar('n-block', 50, 15); // Normal Block starts
+                        playhead.style.left = '50%';
+                    }, 2000);
+
+                    // T=3s: Normal resumes. Async gets blocked.
+                    setTimeout(() => {
+                        setBar('n-block', 50, 0); // Normal Block ends
+                        setBar('n-parse2', 50, 50); // Normal Parse resumes
+
+                        setBar('a-parse1', 0, 65); // Async Parse stops at 65%
+                        setBar('a-block', 65, 15); // Async Block starts
+                        playhead.style.left = '65%';
+                    }, 3000);
+
+                    // T=4s: Async resumes. Defer is still parsing.
+                    setTimeout(() => {
+                        setBar('a-block', 65, 0); // Async Block ends
+                        setBar('a-parse2', 65, 35); // Async Parse resumes
+                        playhead.style.left = '80%';
+                    }, 4000);
+
+                    // T=5s: Defer finishes parsing, then executes.
+                    setTimeout(() => {
+                        setBar('d-exec', 100, 15); // Defer Executes after parsing
+                        playhead.style.left = '100%';
+                    }, 5000);
+
+                    // T=6s: Done
+                    setTimeout(() => {
+                        playhead.style.opacity = '0';
+                        btn.disabled = false;
+                        btn.textContent = '▶ Run Simulation Again';
+                    }, 6000);
+                }
+            </script>
         </section>
 
         <!-- ==================== Q36 ==================== -->
@@ -1186,11 +1683,6 @@ async
                     <li><strong>value</strong> represents the actual current value.</li>
                     <li><strong>autocomplete</strong> gives the browser information about the expected data type.</li>
                 </ul>
-            </div>
-
-            <div class="followup">
-                <span class="q">🔁 Follow-up: Should placeholder replace a label?</span>
-                <span class="a">No. It's not a proper replacement because it disappears when the user types.</span>
             </div>
 
             <div class="followup">

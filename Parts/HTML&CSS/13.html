@@ -995,9 +995,12 @@
         </section>
 
         <!-- Task -->
+        <!-- Task -->
         <section class="task-section">
             <h2>🧑‍🎓 Student Task — Advanced CSS Layouts</h2>
-            <p>Build <strong>one HTML page</strong> (+ CSS file). Submit as a zipped folder.</p>
+            <p>Build <strong>one HTML page</strong> (+ CSS file) that applies <strong>all 10 concepts</strong> from
+                Part 13. Submit as a zipped folder or CodePen link.</p>
+
             <table>
                 <thead>
                     <tr>
@@ -1009,60 +1012,158 @@
                 <tbody>
                     <tr>
                         <td>121</td>
-                        <td>Box Sizing</td>
-                        <td>Create two divs with `width: 200px; padding: 20px; border: 2px solid;`. Make one
-                            `content-box` and one `border-box`.</td>
+                        <td>content-box vs border-box</td>
+                        <td>Create <strong>two</strong> divs with <code>width: 200px; padding: 20px; border: 5px
+                        solid</code>. Set the first to <code>box-sizing: content-box</code> and the second to
+                            <code>box-sizing: border-box</code>. Add a comment above each stating the <strong>actual
+                                rendered width</strong> (250px vs 200px) and confirm with DevTools.
+                        </td>
                     </tr>
                     <tr>
                         <td>122</td>
-                        <td>Global Box Sizing</td>
-                        <td>Apply `*, *::before, *::after { box-sizing: border-box; }`.</td>
+                        <td>Global box-sizing</td>
+                        <td>Add the modern reset at the top of your CSS:
+                            <code>*, *::before, *::after { box-sizing: border-box; }</code>. Then explain in a comment
+                            <strong>why</strong> <code>::before</code> and <code>::after</code> must be included
+                            separately
+                            (the <code>*</code> selector does not match pseudo-elements).
+                        </td>
                     </tr>
                     <tr>
                         <td>123</td>
-                        <td>Position</td>
-                        <td>Create a card with `position: relative` and a close button pinned with `position: absolute`.
+                        <td>Positioning</td>
+                        <td>Create a <strong>card</strong> with <code>position: relative</code> and a <strong>close
+                                button</strong> pinned to the top-right corner using <code>position: absolute</code> +
+                            <code>top: 8px; right: 8px</code>. Add a comment explaining why the parent must be
+                            <code>position: relative</code> for the absolute child to anchor to it.
                         </td>
                     </tr>
                     <tr>
                         <td>124</td>
-                        <td>Fixed Position</td>
-                        <td>Create a "Scroll to Top" button using `position: fixed`.</td>
+                        <td>Fixed positioning</td>
+                        <td>Create a <strong>"Scroll to Top"</strong> button pinned to the bottom-right of the viewport
+                            with <code>position: fixed</code>. Make it appear only after the user scrolls down 300px
+                            (JS or CSS-only). Add a comment describing the difference between <code>fixed</code> and
+                            <code>absolute</code> in one sentence.
+                        </td>
                     </tr>
                     <tr>
                         <td>125</td>
                         <td>Overflow</td>
-                        <td>Create a fixed-height box with long text and `overflow: auto`.</td>
+                        <td>Create a fixed-height box (<code>height: 200px</code>) containing long text. Add buttons to
+                            toggle <code>overflow</code> between <code>visible | hidden | scroll | auto</code>. Add a
+                            comment explaining the difference between <code>scroll</code> and <code>auto</code> — one
+                            always shows scrollbars, the other only when needed.</td>
                     </tr>
                     <tr>
                         <td>126</td>
-                        <td>Clip vs Hidden</td>
-                        <td>Add a comment explaining when to use `overflow: clip` instead of `hidden`.</td>
+                        <td>clip vs hidden</td>
+                        <td>Create two boxes with the same overflowing content. Give one
+                            <code>overflow: hidden</code> and the other <code>overflow: clip</code>. Try to
+                            <strong>scroll them programmatically</strong> with
+                            <code>element.scrollTop = 100</code>. Add a comment describing which one scrolls and why
+                            (<code>hidden</code> creates a scroll container, <code>clip</code> does not).
+                        </td>
                     </tr>
                     <tr>
                         <td>127</td>
-                        <td>Margin Collapse</td>
-                        <td>Stack two paragraphs with `margin-bottom: 40px` and `margin-top: 20px`. Add a comment
-                            explaining the result.</td>
+                        <td>Margin collapsing</td>
+                        <td>Stack two paragraphs with <code>margin-bottom: 40px</code> and
+                            <code>margin-top: 20px</code>. Add a comment stating the resulting gap (40px, not 60px) and
+                            <strong>why</strong> (collapsing takes the larger value). Then add a
+                            <code>display: flow-root</code> wrapper and observe how the gap stays the same but the
+                            parent now contains the margins.
+                        </td>
                     </tr>
                     <tr>
                         <td>128</td>
-                        <td>BFC</td>
-                        <td>Add `display: flow-root` to a parent containing a float.</td>
+                        <td>Block Formatting Context</td>
+                        <td>Create a parent <code>div</code> with a floated child. Show that without a BFC, the parent
+                            <strong>collapses to zero height</strong> and the next element overlaps. Then add
+                            <code>display: flow-root</code> to the parent and observe it expanding to contain the float.
+                            Add a comment: why does this work?
+                        </td>
                     </tr>
                     <tr>
                         <td>129</td>
                         <td>Clearfix</td>
-                        <td>Add a comment explaining the clearfix hack.</td>
+                        <td>Recreate the old clearfix hack:
+                            <code>.clearfix::after { content: ""; display: table; clear: both; }</code>. Apply it to
+                            the same floated-child parent from Q128 and confirm the parent now contains the float. Add
+                            a comment: <strong>why is <code>display: flow-root</code> preferred today?</strong>
+                        </td>
                     </tr>
                     <tr>
                         <td>130</td>
-                        <td>Flexbox</td>
-                        <td>Build a navigation bar using `justify-content: space-between` and `align-items: center`.
+                        <td>Flexbox navbar</td>
+                        <td>Build a navigation bar with a <strong>logo on the left</strong>, <strong>links in the
+                                middle</strong>, and a <strong>button on the right</strong>. Use
+                            <code>display: flex</code>, <code>justify-content: space-between</code>, and
+                            <code>align-items: center</code>. Add a comment explaining what the main axis and cross axis
+                            are in this layout.
                         </td>
                     </tr>
                 </tbody>
             </table>
+
+            <h3>📦 Submission rules</h3>
+            <ul>
+                <li><strong>File names:</strong> <code>index.html</code>, <code>styles.css</code>,
+                    <code>app.js</code> (optional)
+                </li>
+                <li><strong>Comments:</strong> above each section, e.g.
+                    <code>&lt;!-- Q123: card with absolute close button --&gt;</code>
+                </li>
+                <li><strong>README.md</strong> with <strong>4 answers</strong>:
+                    <ol>
+                        <li>Why is <code>box-sizing: border-box</code> preferred over <code>content-box</code> for most
+                            layouts?</li>
+                        <li>What is the difference between <code>position: absolute</code>, <code>fixed</code>, and
+                            <code>sticky</code>?
+                        </li>
+                        <li>Why does <code>overflow: hidden</code> create a scroll container while
+                            <code>overflow: clip</code> does not — and when does that difference matter?
+                        </li>
+                        <li>What is a Block Formatting Context, and how does <code>display: flow-root</code> replace
+                            the clearfix hack?</li>
+                    </ol>
+                </li>
+            </ul>
+
+            <h3>⭐ Bonus</h3>
+            <ul>
+                <li><strong>Sticky header:</strong> Add a header with <code>position: sticky; top: 0</code> — scroll
+                    the page and observe it stay at the top. Add a comment describing the exact moment it switches
+                    from relative to fixed.</li>
+                <li><strong>Overflow trap:</strong> Create a dropdown menu positioned absolutely inside a parent with
+                    <code>overflow: hidden</code> — the menu will be clipped. Fix it with <code>overflow: clip</code>
+                    + <code>overflow-clip-margin: 50px</code>. Add a screenshot showing the fix.
+                </li>
+                <li><strong>Flexbox alignment grid:</strong> Build a 2×3 grid of cards using only Flexbox (with
+                    <code>flex-wrap: wrap</code>). Compare the result to a Grid-based version in a comment — which was
+                    easier, and why?
+                </li>
+            </ul>
+
+            <h3>🎯 Grading (out of 10)</h3>
+            <p>
+                1 point per row. The <strong>"Margin collapsing"</strong>, <strong>"BFC"</strong>,
+                <strong>"clip vs hidden"</strong>, and <strong>"Flexbox navbar"</strong> rows are worth double if
+                both the code AND the README explanation are correct.
+            </p>
+
+            <h3>💡 Hints for getting started</h3>
+            <ul>
+                <li><strong>For Q126 (clip vs hidden):</strong> after clicking the overflow toggle, try
+                    <code>document.querySelector('.box').scrollTop = 50</code> in the console — you'll see which one
+                    allows the scroll and which one stays frozen.
+                </li>
+                <li><strong>For Q128 (BFC):</strong> add a colored background to the parent — if it has zero height,
+                    it will be invisible, and you'll immediately see the problem.</li>
+                <li><strong>For Q130 (Flexbox):</strong> if the logo and button end up unevenly spaced, check that
+                    the middle links container has <code>flex: 1</code> or <code>margin: 0 auto</code> to push the
+                    logo left and the button right.</li>
+            </ul>
         </section>
 
     </div>

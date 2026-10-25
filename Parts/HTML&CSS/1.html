@@ -901,25 +901,6 @@
                     <code>&lt;p&gt;Hello &lt;span lang="ar"&gt;مرحبا&lt;/span&gt;&lt;/p&gt;</code>.</span>
             </div>
 
-            <div class="followup">
-                <span class="q">🔁 Follow-up: Why should lang normally be placed on &lt;html&gt;?</span>
-                <span class="a">It establishes the <strong>default language for the document</strong>. Individual
-                    elements can
-                    override it when their content is in another language.<br><br>
-                    Example:
-                    <pre
-                        style="margin:8px 0;background:#f3f4f6;padding:10px;border-radius:6px;font-size:0.8rem;font-family:'Fira Code',Consolas,monospace;overflow-x:auto;">&lt;html lang="en"&gt;
-  &lt;body&gt;
-    &lt;p&gt;Hello&lt;/p&gt;
-
-    &lt;p lang="ar"&gt;
-      أهلاً وسهلاً
-    &lt;/p&gt;
-  &lt;/body&gt;
-&lt;/html&gt;</pre>
-                </span>
-            </div>
-
             <h3>💻 Code</h3>
             <div class="vs-code">
                 <div class="vs-titlebar">
@@ -1026,19 +1007,6 @@
                     start of a tag.</span>
             </div>
 
-            <div class="followup">
-                <span class="q">🔁 Follow-up: Why can't I simply write &lt; everywhere in HTML text?</span>
-                <span class="a">Because <code>&lt;</code> can start markup syntax. When we need it as literal text in
-                    contexts
-                    where it's ambiguous, using <code>&amp;lt;</code> avoids interpreting it as markup.</span>
-            </div>
-
-            <div class="followup">
-                <span class="q">🔁 Trap: don't confuse entities with URL encoding.</span>
-                <span class="a">HTML entities live in the <strong>HTML source</strong>, while URL encoding (like
-                    <code>%20</code>) is for <strong>URLs</strong>.</span>
-            </div>
-
             <h3>💻 Code</h3>
             <div class="vs-code">
                 <div class="vs-titlebar">
@@ -1105,12 +1073,6 @@
                 <span class="a"><code>/about</code> is <strong>root-relative</strong> (resolved from the site root).
                     <code>about</code> is <strong>document-relative</strong> (resolved from the current URL's
                     folder).</span>
-            </div>
-
-            <div class="followup">
-                <span class="q">🔁 Trap: don't assume every relative URL starts with /.</span>
-                <span class="a">Only <strong>root-relative</strong> URLs start with <code>/</code>. Document-relative
-                    URLs don't, and <code>../</code> can be used to go up one level.</span>
             </div>
 
             <h3>💻 Code</h3>

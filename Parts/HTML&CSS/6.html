@@ -596,26 +596,28 @@
 
         <!-- ==================== Q51 ==================== -->
         <section class="q-section">
-            <h2>Q51 — What is the difference between &lt;header&gt;, &lt;nav&gt;, &lt;main&gt;, &lt;aside&gt;, and
-                &lt;footer&gt;? <span class="badge medium">Easy → Medium</span></h2>
+            <h2>Q51 — What is the difference between &lt;br&gt; and &lt;hr&gt;? <span class="badge">Easy</span></h2>
 
             <div class="answer">
                 <strong class="label">✅ Ideal answer</strong>
-                They are semantic elements that describe different structural parts of a page:
+                Both are <strong>void elements</strong> (they don't have a closing tag), but they serve completely
+                different purposes:
                 <ul style="margin:6px 0">
-                    <li><code>&lt;header&gt;</code> represents introductory content for a page or section.</li>
-                    <li><code>&lt;nav&gt;</code> contains major navigation links.</li>
-                    <li><code>&lt;main&gt;</code> contains the primary content of the document.</li>
-                    <li><code>&lt;aside&gt;</code> contains related or supplementary content.</li>
-                    <li><code>&lt;footer&gt;</code> contains footer information for a page or section.</li>
+                    <li><code>&lt;br&gt;</code> is a <strong>Line Break</strong>. It forces the text to go to the next
+                        line. It is used <em>inside</em> text, like in a poem or an address.</li>
+                    <li><code>&lt;hr&gt;</code> is a <strong>Horizontal Rule</strong> (or Thematic Break). It creates a
+                        visual horizontal line that represents a shift in topic or a separation between sections of
+                        content.</li>
                 </ul>
             </div>
 
             <div class="followup">
-                <span class="q">🔁 Follow-up: Can a page have multiple &lt;header&gt; or &lt;footer&gt; elements?</span>
-                <span class="a"><strong>Yes.</strong> They can be used for the document itself or for individual
-                    sections/articles. However, a document should generally have one primary <code>&lt;main&gt;</code>
-                    element.</span>
+                <span class="q">🔁 Follow-up: Should I use multiple &lt;br&gt; tags to create spacing between
+                    paragraphs?</span>
+                <span class="a"><strong>No.</strong> Using multiple <code>&lt;br&gt;</code> for layout is bad practice.
+                    Use CSS <code>margin</code> or <code>padding</code> to create space, and use <code>&lt;p&gt;</code>
+                    tags for paragraphs. <code>&lt;br&gt;</code> should only be used when the line break is <em>part of
+                        the actual content</em>.</span>
             </div>
 
             <h3>💻 Code</h3>
@@ -628,42 +630,74 @@
                 <div class="vs-tabbar">
                     <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
                 </div>
-                <pre class="vs-body"><code class="language-html">&lt;header&gt;Header&lt;/header&gt;
-&lt;nav&gt;Navigation&lt;/nav&gt;
-&lt;main&gt;Main Content&lt;/main&gt;
-&lt;aside&gt;Sidebar&lt;/aside&gt;
-&lt;footer&gt;Footer&lt;/footer&gt;</code></pre>
+                <pre class="vs-body"><code class="language-html">&lt;!-- br: Line break inside text --&gt;
+&lt;p&gt;
+  123 Main Street&lt;br&gt;
+  Cairo, Egypt&lt;br&gt;
+  Postal Code: 11511
+&lt;/p&gt;
+
+&lt;!-- hr: Thematic break between sections --&gt;
+&lt;p&gt;This is the end of Chapter 1.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Welcome to Chapter 2.&lt;/p&gt;</code></pre>
             </div>
 
-            <h3>🔴 Live demo (Layout representation)</h3>
+            <h3>🔴 Live demo</h3>
             <div class="demo-box q51-demo">
-                <header>&lt;header&gt;</header>
-                <nav>&lt;nav&gt;</nav>
-                <main>&lt;main&gt;</main>
-                <aside>&lt;aside&gt;</aside>
-                <footer>&lt;footer&gt;</footer>
+                <div class="text-container">
+                    <span class="label-tag">&lt;br&gt; (Line Break)</span>
+                    <p style="margin: 0;">
+                        123 Main Street<br>
+                        Cairo, Egypt<br>
+                        Postal Code: 11511
+                    </p>
+
+                    <hr>
+
+                    <span class="label-tag">&lt;hr&gt; (Horizontal Rule)</span>
+                    <p style="margin: 0;">This is the end of the first section.</p>
+                    <hr>
+                    <p style="margin: 0;">This is the start of the second section.</p>
+                </div>
             </div>
         </section>
 
         <!-- ==================== Q52 ==================== -->
         <section class="q-section">
-            <h2>Q52 — Can an HTML page have multiple &lt;main&gt; elements? <span class="badge medium">Medium</span>
-            </h2>
+            <h2>Q52 — Why doesn't <code>height: 100%</code> work on a <code>&lt;div&gt;</code>? <span
+                    class="badge medium">Medium</span></h2>
 
             <div class="answer">
                 <strong class="label">✅ Ideal answer</strong>
-                A document should have only <strong>one visible <code>&lt;main&gt;</code> element</strong> representing
-                the dominant content of the document.<br><br>
-                If I have multiple sections or views, I wouldn't normally put multiple visible <code>&lt;main&gt;</code>
-                elements on the same page.
+                Because <strong>percentage heights are resolved against the height of the parent</strong>.
+                If the parent has no explicit height, then its height is determined by its content, and the browser
+                cannot compute what "100%" means.<br><br>
+                In other words: <code>height: 100%</code> means "100% of my parent's height". If the parent's height is
+                <code>auto</code>, the percentage resolves to <code>auto</code> and does nothing.
             </div>
 
             <div class="followup">
-                <span class="q">🔁 Follow-up: Can the &lt;main&gt; element be nested inside &lt;article&gt; or
-                    &lt;section&gt;?</span>
-                <span class="a">Normally, <code>&lt;main&gt;</code> should represent the main content of the document
-                    and <strong>shouldn't be nested</strong> inside elements such as <code>article</code>,
-                    <code>aside</code>, <code>footer</code>, <code>header</code>, or <code>nav</code>.</span>
+                <span class="q">🔁 Follow-up: How would you fix it?</span>
+                <span class="a">There are multiple valid ways:
+                    <ul style="margin:6px 0">
+                        <li>Give the parent an explicit height (<code>height: 300px</code>, <code>height: 50vh</code>,
+                            etc.)</li>
+                        <li>Use viewport units on the child: <code>height: 100vh</code> (doesn't need the parent's
+                            height)</li>
+                        <li>Use Flexbox or Grid on the parent — children stretch by default</li>
+                        <li>Use <code>min-height</code> instead of <code>height</code> to avoid content overflow</li>
+                    </ul>
+                </span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Why does <code>width: 100%</code> work but not
+                    <code>height: 100%</code>?</span>
+                <span class="a">Because block elements have a parent width <strong>by default</strong> (they take the
+                    full available width). But their height defaults to <strong>auto</strong> (determined by content).
+                    That's why width percentages almost always work, but height percentages usually fail unless the
+                    parent height is set.</span>
             </div>
 
             <h3>💻 Code</h3>
@@ -671,46 +705,108 @@
                 <div class="vs-titlebar">
                     <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
                             class="vs-dot green"></span></div>
-                    <div class="vs-title">index.html — Visual Studio Code</div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
                 </div>
                 <div class="vs-tabbar">
-                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
                 </div>
-                <pre class="vs-body"><code class="language-html">&lt;!-- ✅ Correct: One main element --&gt;
-&lt;main&gt;
-  &lt;h1&gt;Welcome&lt;/h1&gt;
-&lt;/main&gt;
+                <pre class="vs-body"><code class="language-css">/* ❌ Broken: parent has no height */
+.parent {
+  /* height: auto (default) */
+  background: #fecaca;
+}
+.child {
+  height: 100%; /* Resolves to "auto" → does nothing */
+  background: #ef4444;
+}
 
-&lt;!-- ❌ Invalid: Multiple main elements --&gt;
-&lt;main&gt;View 1&lt;/main&gt;
-&lt;main&gt;View 2&lt;/main&gt;</code></pre>
+/* ✅ Fix 1: Explicit parent height */
+.parent { height: 300px; }
+.child  { height: 100%; }
+
+/* ✅ Fix 2: Use viewport units */
+.child { height: 100vh; }
+
+/* ✅ Fix 3: Use Flexbox */
+.parent { display: flex; height: 300px; }
+.child  { flex: 1; }</code></pre>
             </div>
 
-            <h3>🔴 Live demo</h3>
-            <div class="demo-box"
-                style="background: #ecfdf5; border-color: #10b981; padding: 16px; border-radius: 8px;">
-                <p style="margin:0; font-weight: bold; color: #047857;">✅ This entire white box is the one and only
-                    <code>&lt;main&gt;</code> element for this page.</p>
+            <h3>🔴 Live demo — Why 100% fails without a parent height</h3>
+            <div class="demo-box q52-demo">
+
+                <div class="demo-stage">
+                    <span class="stage-label">❌ Broken — height: 100% (no parent height)</span>
+                    <div class="broken-parent">
+                        <div class="broken-child">height: 100% → nothing happens</div>
+                    </div>
+                </div>
+
+                <div class="demo-stage">
+                    <span class="stage-label">✅ Fixed — parent has height: 120px</span>
+                    <div class="fixed-parent">
+                        <div class="fixed-child">height: 100% → works!</div>
+                    </div>
+                </div>
+
+                <div class="demo-stage">
+                    <span class="stage-label">✅ Alternative — child uses height: 30vh</span>
+                    <div class="vh-parent">
+                        <div class="vh-child">height: 30vh → works without parent</div>
+                    </div>
+                </div>
+
+                <div class="demo-stage">
+                    <span class="stage-label">✅ Alternative — Flexbox stretches the child</span>
+                    <div class="flex-parent">
+                        <div class="flex-child">flex: 1 → fills parent height</div>
+                    </div>
+                </div>
+
+                <div class="demo-stage" style="margin-bottom: 0;">
+                    <span class="stage-label">✅ Alternative — Grid stretches the child</span>
+                    <div class="grid-parent">
+                        <div class="grid-child">stretches to fill the grid row</div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
         <!-- ==================== Q53 ==================== -->
         <section class="q-section">
-            <h2>Q53 — What is the difference between &lt;br&gt; and &lt;p&gt;? <span class="badge">Easy</span></h2>
+            <h2>Q53 — What is the difference between &lt;p&gt; and &lt;pre&gt;? <span class="badge">Easy</span></h2>
 
             <div class="answer">
                 <strong class="label">✅ Ideal answer</strong>
-                <code>&lt;p&gt;</code> represents a <strong>paragraph</strong>, while <code>&lt;br&gt;</code> represents
-                a <strong>line break</strong> within the current text flow.<br><br>
-                A <code>&lt;br&gt;</code> can be used when an actual line break is part of the content:<br>
-                <code>Address Line 1&lt;br&gt;Address Line 2</code>
+                <code>&lt;p&gt;</code> represents a <strong>paragraph of text</strong>. It is semantic, wraps text
+                normally,
+                and <strong>collapses whitespace</strong> (multiple spaces and line breaks become a single
+                space).<br><br>
+
+                <code>&lt;pre&gt;</code> represents <strong>preformatted text</strong>. It
+                <strong>preserves spaces and line breaks exactly</strong> as written in the HTML source, and is
+                typically
+                rendered in a monospace font. It is commonly used for code snippets, logs, or ASCII art.<br><br>
+
+                So: use <code>&lt;p&gt;</code> for normal prose, and <code>&lt;pre&gt;</code> when whitespace is
+                <strong>part of the content</strong>.
             </div>
 
             <div class="followup">
-                <span class="q">🔁 Follow-up: Should I use multiple &lt;br&gt; elements to create vertical
-                    spacing?</span>
-                <span class="a"><strong>No.</strong> Layout and spacing should generally be handled with CSS such as
-                    <code>margin</code> and <code>padding</code>.</span>
+                <span class="q">🔁 Follow-up: Should I use &lt;pre&gt; for normal paragraphs?</span>
+                <span class="a"><strong>No.</strong> Use <code>&lt;p&gt;</code> for prose. <code>&lt;pre&gt;</code>
+                    preserves
+                    whitespace and does not wrap by default, so long lines can overflow. It is meant for content where
+                    spacing matters.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can &lt;pre&gt; contain &lt;code&gt;?</span>
+                <span class="a"><strong>Yes.</strong> A very common pattern for code blocks is:
+                    <code>&lt;pre&gt;&lt;code&gt;...&lt;/code&gt;&lt;/pre&gt;</code>. The <code>&lt;pre&gt;</code>
+                    preserves
+                    the formatting, and <code>&lt;code&gt;</code> adds semantic meaning.</span>
             </div>
 
             <h3>💻 Code</h3>
@@ -723,22 +819,33 @@
                 <div class="vs-tabbar">
                     <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
                 </div>
-                <pre class="vs-body"><code class="language-html">&lt;p&gt;This is a paragraph.&lt;/p&gt;
-
+                <pre class="vs-body"><code class="language-html">&lt;!-- p: whitespace is collapsed --&gt;
 &lt;p&gt;
-  Address Line 1&lt;br&gt;
-  Address Line 2
-&lt;/p&gt;</code></pre>
+  This     is a paragraph.
+  Line breaks and extra spaces are collapsed.
+&lt;/p&gt;
+
+&lt;!-- pre: whitespace is preserved --&gt;
+&lt;pre&gt;
+This     is preformatted text.
+   Spaces and line breaks are preserved.
+&lt;/pre&gt;
+
+&lt;!-- Common pattern for code --&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;div class="card"&amp;gt;Hello&amp;lt;/div&amp;gt;&lt;/code&gt;&lt;/pre&gt;</code></pre>
             </div>
 
             <h3>🔴 Live demo</h3>
             <div class="demo-box q53-demo">
                 <div class="addr-box">
-                    <p>This is a paragraph.</p>
                     <p>
-                        Address Line 1<br>
-                        Address Line 2
+                        This is a paragraph.
+                        Line breaks and extra spaces are collapsed.
                     </p>
+
+                    <pre
+                        style="margin: 0; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px; overflow: auto;">This     is preformatted text.
+   Spaces and line breaks are preserved.</pre>
                 </div>
             </div>
         </section>
@@ -1007,7 +1114,9 @@
             <div class="followup">
                 <span class="q">🔁 Follow-up: Can a user select multiple options?</span>
                 <span class="a"><strong>Yes.</strong> The <code>&lt;select&gt;</code> element can have the
-                    <code>multiple</code> attribute.</span>
+                    <code>multiple</code> attribute. Users then hold <kbd>Ctrl</kbd> (or <kbd>Cmd</kbd> on macOS) to
+                    select more than one option. Tip: pair it with the <code>size</code> attribute so several options
+                    are visible at once instead of a single-line dropdown.</span>
             </div>
 
             <h3>💻 Code</h3>
@@ -1020,7 +1129,8 @@
                 <div class="vs-tabbar">
                     <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
                 </div>
-                <pre class="vs-body"><code class="language-html">&lt;select name="country"&gt;
+                <pre class="vs-body"><code class="language-html">&lt;!-- Single select (default) --&gt;
+&lt;select name="country"&gt;
   &lt;optgroup label="Africa"&gt;
     &lt;option value="eg"&gt;Egypt&lt;/option&gt;
     &lt;option value="ma"&gt;Morocco&lt;/option&gt;
@@ -1028,10 +1138,18 @@
   &lt;optgroup label="Europe"&gt;
     &lt;option value="fr"&gt;France&lt;/option&gt;
   &lt;/optgroup&gt;
+&lt;/select&gt;
+
+&lt;!-- Multiple select: user can pick more than one --&gt;
+&lt;select name="skills" multiple size="4"&gt;
+  &lt;option value="html"&gt;HTML&lt;/option&gt;
+  &lt;option value="css"&gt;CSS&lt;/option&gt;
+  &lt;option value="js"&gt;JavaScript&lt;/option&gt;
+  &lt;option value="ts"&gt;TypeScript&lt;/option&gt;
 &lt;/select&gt;</code></pre>
             </div>
 
-            <h3>🔴 Live demo</h3>
+            <h3>🔴 Live demo — Single select</h3>
             <div class="demo-box q58-demo">
                 <select name="country">
                     <optgroup label="Africa">
@@ -1041,6 +1159,16 @@
                     <optgroup label="Europe">
                         <option value="fr">France</option>
                     </optgroup>
+                </select>
+            </div>
+
+            <h3>🔴 Live demo — Multiple select (hold Ctrl / Cmd to pick more than one)</h3>
+            <div class="demo-box q58-demo">
+                <select name="skills" multiple size="4">
+                    <option value="html">HTML</option>
+                    <option value="css">CSS</option>
+                    <option value="js">JavaScript</option>
+                    <option value="ts">TypeScript</option>
                 </select>
             </div>
         </section>
@@ -1103,6 +1231,7 @@
             </div>
         </section>
 
+        <!-- ==================== Q60 ==================== -->
         <!-- ==================== Q60 ==================== -->
         <section class="q-section">
             <h2>Q60 — What is HTML form validation, and why is it useful? <span class="badge medium">Medium</span></h2>
@@ -1185,17 +1314,42 @@
                 <div class="vs-tabbar">
                     <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
                 </div>
-                <pre class="vs-body"><code class="language-html">&lt;form id="q60-form"&gt;
+                <pre class="vs-body"><code class="language-html">&lt;!-- 1) Email validation (type + required) --&gt;
+&lt;form id="q60-form"&gt;
   &lt;input
     type="email"
     name="email"
     required
     placeholder="Enter a valid email"&gt;
   &lt;button type="submit"&gt;Submit&lt;/button&gt;
-&lt;/form&gt;</code></pre>
+&lt;/form&gt;
+
+&lt;!-- 2) Pattern validation (custom regex) --&gt;
+&lt;form id="q60-pattern-form"&gt;
+  &lt;input
+    type="text"
+    name="zip"
+    required
+    pattern="\d{5}"
+    title="Please enter exactly 5 digits (e.g. 11511)"
+    placeholder="ZIP code (5 digits)"&gt;
+  &lt;button type="submit"&gt;Submit&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;script&gt;
+  // Optional: show a custom error message on invalid input
+  const zip = document.querySelector('#q60-pattern-form input[name="zip"]');
+  zip.addEventListener('input', () =&gt; {
+    if (zip.validity.patternMismatch) {
+      zip.setCustomValidity('ZIP code must be exactly 5 digits.');
+    } else {
+      zip.setCustomValidity('');
+    }
+  });
+&lt;/script&gt;</code></pre>
             </div>
 
-            <h3>🔴 Live demo — Try submitting empty or invalid</h3>
+            <h3>🔴 Live demo 1 — Email validation (type + required)</h3>
             <div class="demo-box q60-demo">
                 <form id="q60-form"
                     onsubmit="event.preventDefault(); document.getElementById('q60-output').style.display='block';">
@@ -1204,11 +1358,22 @@
                 </form>
                 <div class="result" id="q60-output">✅ Form submitted successfully! (Validation passed)</div>
             </div>
+
+            <h3>🔴 Live demo 2 — Pattern validation (ZIP code: <code>\d{5}</code>)</h3>
+            <div class="demo-box q60-demo">
+                <form id="q60-pattern-form"
+                    onsubmit="event.preventDefault(); document.getElementById('q60-pattern-output').style.display='block';">
+                    <input type="text" name="zip" required pattern="\d{5}"
+                        title="Please enter exactly 5 digits (e.g. 11511)" placeholder="ZIP code (5 digits)">
+                    <button type="submit">Submit</button>
+                </form>
+                <div class="result" id="q60-pattern-output">✅ ZIP code is valid! (matches \d{5})</div>
+            </div>
         </section>
 
         <!-- ==================== STUDENT TASK ==================== -->
         <section class="task-section">
-            <h2>🧑‍🎓 Student Task — Feedback & Registration Form</h2>
+            <h2>🧑‍🎓 Student Task — Feedback &amp; Registration Form</h2>
             <p>Build <strong>one HTML page</strong> (+ CSS file + optional JS file) that applies <strong>all 10
                     concepts</strong> from Part 6. Submit as a zipped folder or CodePen link.</p>
 
@@ -1223,32 +1388,54 @@
                 <tbody>
                     <tr>
                         <td>51</td>
-                        <td>Layout tags</td>
-                        <td>Use <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>,
-                            <code>&lt;aside&gt;</code>, and <code>&lt;footer&gt;</code> to build your page layout.</td>
+                        <td>br vs hr</td>
+                        <td>
+                            Add an address block inside a <code>&lt;p&gt;</code> using <code>&lt;br&gt;</code> for the
+                            line
+                            breaks (e.g., "123 Main St.&lt;br&gt;City, Country"). Then add an <code>&lt;hr&gt;</code> to
+                            separate two thematic sections of your page (e.g., between the form and the footer).
+                            Add a comment explaining why you used <code>&lt;br&gt;</code> in one place and
+                            <code>&lt;hr&gt;</code> in the other.
+                        </td>
                     </tr>
                     <tr>
                         <td>52</td>
-                        <td>Single main</td>
-                        <td>Ensure there is only one <code>&lt;main&gt;</code> element wrapping your primary content.
+                        <td>height: 100%</td>
+                        <td>
+                            Create a parent <code>&lt;div&gt;</code> containing a child with <code>height: 100%</code>.
+                            First show it failing when the parent has no explicit height (add a comment explaining why).
+                            Then fix it using one of: explicit parent height, <code>vh</code> units, Flexbox, or Grid.
+                            Add a comment describing the fix you chose.
                         </td>
                     </tr>
                     <tr>
                         <td>53</td>
-                        <td>br vs p</td>
-                        <td>Use a <code>&lt;br&gt;</code> inside your footer for an address line (e.g., "123 Main
-                            St.<br>City, Country").</td>
+                        <td>p vs pre</td>
+                        <td>
+                            Write a normal description using <code>&lt;p&gt;</code>. Then display a short code snippet
+                            or
+                            ASCII layout using <code>&lt;pre&gt;</code> (optionally
+                            <code>&lt;pre&gt;&lt;code&gt;...&lt;/code&gt;&lt;/pre&gt;</code>) where spaces and line
+                            breaks
+                            must be preserved. Add a comment explaining why <code>&lt;p&gt;</code> was used for the
+                            prose and
+                            <code>&lt;pre&gt;</code> for the preformatted content.
+                        </td>
                     </tr>
                     <tr>
                         <td>54</td>
                         <td>p vs div</td>
-                        <td>Write a paragraph description using <code>&lt;p&gt;</code> and a layout wrapper using
-                            <code>&lt;div&gt;</code>.</td>
+                        <td>
+                            Write a paragraph description using <code>&lt;p&gt;</code> and a layout wrapper using
+                            <code>&lt;div&gt;</code>. Add a comment explaining why you used <code>&lt;p&gt;</code> for
+                            the
+                            text and <code>&lt;div&gt;</code> for the wrapper.
+                        </td>
                     </tr>
                     <tr>
                         <td>55</td>
                         <td>textarea</td>
-                        <td>Add a "Message" field using <code>&lt;textarea&gt;</code>.</td>
+                        <td>Add a "Message" field using <code>&lt;textarea&gt;</code> (multi-line).</td>
                     </tr>
                     <tr>
                         <td>56</td>
@@ -1258,25 +1445,35 @@
                     <tr>
                         <td>57</td>
                         <td>Radio buttons</td>
-                        <td>Create a "Contact Preference" radio group (e.g., Email, Phone) using the same
-                            <code>name</code>.</td>
+                        <td>
+                            Create a "Contact Preference" radio group (e.g., Email, Phone) using the
+                            <strong>same</strong>
+                            <code>name</code> for all radios in the group.
+                        </td>
                     </tr>
                     <tr>
                         <td>58</td>
                         <td>optgroup</td>
-                        <td>Create a dropdown for "Department" with <code>&lt;optgroup&gt;</code> for "Engineering" and
-                            "Design".</td>
+                        <td>
+                            Create a dropdown for "Department" with <code>&lt;optgroup&gt;</code> for "Engineering" and
+                            "Design".
+                        </td>
                     </tr>
                     <tr>
                         <td>59</td>
                         <td>checked/selected</td>
-                        <td>Make the "Phone" radio checked by default, and select "Engineering" by default.</td>
+                        <td>
+                            Make the "Phone" radio <code>checked</code> by default, and make "Engineering"
+                            <code>selected</code> by default in the dropdown.
+                        </td>
                     </tr>
                     <tr>
                         <td>60</td>
                         <td>Validation</td>
-                        <td>Add <code>required</code> to the Email input and use <code>type="email"</code> to enforce
-                            validation.</td>
+                        <td>
+                            Add <code>required</code> to the Email input and use <code>type="email"</code> to enforce
+                            validation. Add a comment explaining why client-side validation is not enough for security.
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -1286,7 +1483,8 @@
                 <li><strong>File names:</strong> <code>index.html</code>, <code>styles.css</code>, <code>app.js</code>
                 </li>
                 <li><strong>Comments:</strong> above each section, e.g.
-                    <code>&lt;!-- Q57: Same name for radio group --&gt;</code></li>
+                    <code>&lt;!-- Q57: Same name for radio group --&gt;</code>
+                </li>
                 <li><strong>README.md</strong> with 3 answers:
                     <ol>
                         <li>Why is it bad to use a <code>&lt;div&gt;</code> instead of a <code>&lt;p&gt;</code> for

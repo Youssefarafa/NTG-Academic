@@ -604,23 +604,45 @@
 
         <!-- ==================== Q71 ==================== -->
         <section class="q-section">
-            <h2>Q71 — What is the difference between class and id in CSS and JavaScript? <span class="badge medium">Easy
+            <h2>Q71 — What is the difference between &lt;blockquote&gt; and &lt;q&gt;? <span class="badge medium">Easy
                     → Medium</span></h2>
 
             <div class="answer">
                 <strong class="label">✅ Ideal answer</strong>
-                An <code>id</code> is intended to <strong>uniquely identify one element</strong>, while a
-                <code>class</code> can be <strong>shared by multiple elements</strong>.<br><br>
-                In CSS: <code>#header</code> targets an ID, while <code>.card</code> targets a class.<br>
-                In JavaScript: <code>document.getElementById('header')</code> vs
-                <code>document.querySelector('.card')</code>.<br><br>
-                For reusable styling or behavior, classes are generally more appropriate.
+                Both <code>&lt;blockquote&gt;</code> and <code>&lt;q&gt;</code> are <strong>semantic elements for
+                    quotations</strong>, but they serve different purposes:<br><br>
+                <ul>
+                    <li><code>&lt;blockquote&gt;</code> is a <strong>block-level</strong> element for <strong>long,
+                            multi-line quotes</strong> that should stand apart from the surrounding text. It does
+                        <em>not</em> add quotation marks by default.
+                    </li>
+                    <li><code>&lt;q&gt;</code> is an <strong>inline</strong> element for <strong>short quotes</strong>
+                        inside a paragraph. Browsers automatically wrap it in language-appropriate quotation marks
+                        (controlled by the <code>quotes</code> CSS property and the <code>::before</code> /
+                        <code>::after</code> pseudo-elements).
+                    </li>
+                </ul>
+                Both accept the <code>cite</code> attribute (a URL pointing to the source), but it is
+                <strong>metadata only</strong> — it renders nothing and does not make the element a link.<br><br>
+                For the visible source text, use a nested <code>&lt;cite&gt;</code> (often inside a
+                <code>&lt;footer&gt;</code> within the <code>&lt;blockquote&gt;</code>).
             </div>
 
             <div class="followup">
-                <span class="q">🔁 Follow-up: Can an element have multiple classes?</span>
-                <span class="a"><strong>Yes.</strong>
-                    <code>&lt;div class="card active featured"&gt;&lt;/div&gt;</code></span>
+                <span class="q">🔁 Follow-up: Should I use &lt;blockquote&gt; for pull quotes?</span>
+                <span class="a"><strong>No.</strong>
+                    A pull quote is a visual design element, not a quotation from another source. Use a
+                    <code>&lt;div&gt;</code> or <code>&lt;aside&gt;</code> styled with CSS instead — reserving
+                    <code>&lt;blockquote&gt;</code> for actual quoted content keeps the document semantics
+                    honest.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Does the cite attribute on &lt;blockquote&gt; do anything?</span>
+                <span class="a"><strong>No visual effect.</strong>
+                    <code>cite</code> is intended for machines (search engines, screen readers, scrapers). To make the
+                    source clickable for users, add an explicit <code>&lt;a&gt;</code> or <code>&lt;cite&gt;</code>
+                    inside the quote.</span>
             </div>
 
             <h3>💻 Code</h3>
@@ -633,39 +655,64 @@
                 <div class="vs-tabbar">
                     <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
                 </div>
-                <pre class="vs-body"><code class="language-html">&lt;div id="unique-header"&gt;Unique ID&lt;/div&gt;
+                <pre class="vs-body"><code class="language-html">&lt;!-- Inline short quote --&gt;
+&lt;p&gt;She said &lt;q cite="https://example.com/speech"&gt;less is more&lt;/q&gt; and walked away.&lt;/p&gt;
 
-&lt;div class="card"&gt;Shared Class 1&lt;/div&gt;
-&lt;div class="card active"&gt;Shared Class 2 + Active&lt;/div&gt;</code></pre>
+&lt;!-- Block-level long quote --&gt;
+&lt;blockquote cite="https://example.com/article"&gt;
+    &lt;p&gt;Any sufficiently advanced technology is indistinguishable from magic.&lt;/p&gt;
+    &lt;footer&gt;— &lt;cite&gt;Arthur C. Clarke&lt;/cite&gt;&lt;/footer&gt;
+&lt;/blockquote&gt;</code></pre>
             </div>
 
             <h3>🔴 Live demo</h3>
             <div class="demo-box q71-demo">
-                <div id="unique-header">Unique ID (#unique-header)</div>
-                <div class="card">Shared Class 1 (.card)</div>
-                <div class="card active">Shared Class 2 + Active (.card.active)</div>
+                <p style="margin:0 0 16px;">
+                    Inline: She said <q cite="https://example.com/speech">less is more</q> and walked away.
+                </p>
+                <blockquote cite="https://example.com/article"
+                    style="margin:0; padding:12px 16px; border-left:4px solid #3b5bdb; background:#f3f6ff; border-radius:0 6px 6px 0;">
+                    <p style="margin:0 0 8px;">Any sufficiently advanced technology is indistinguishable from magic.</p>
+                    <footer style="font-size:0.85rem; color:#666;">— <cite>Arthur C. Clarke</cite></footer>
+                </blockquote>
             </div>
         </section>
-
+        <!-- ==================== Q72 ==================== -->
         <!-- ==================== Q72 ==================== -->
         <section class="q-section">
-            <h2>Q72 — What is the difference between name and id in HTML forms? <span class="badge medium">Medium</span>
+            <h2>Q72 — What is the purpose of the &lt;time&gt; element, and why does it need a
+                <code>datetime</code> attribute? <span class="badge medium">Medium</span>
             </h2>
 
             <div class="answer">
                 <strong class="label">✅ Ideal answer</strong>
-                <code>id</code> uniquely identifies an element in the document and can be used to associate a
-                <code>&lt;label&gt;</code> with a form control.<br><br>
-                <code>name</code> identifies the form control when its data is included in <strong>native form
-                    submission</strong>.<br><br>
-                The <code>id</code> connects the label to the input, while <code>name</code> is used as the key when
-                submitting form data.
+                <code>&lt;time&gt;</code> is a <strong>semantic inline element that marks a specific
+                    date or time</strong>. Browsers render it exactly like plain text — no default
+                styling — but the element makes the value <strong>machine-readable</strong>.<br><br>
+                The <code>datetime</code> attribute supplies the machine-readable version when the visible
+                text is <em>human-friendly but ambiguous</em>:<br>
+                <code>&lt;time datetime="2025-10-25T14:00"&gt;tomorrow at 2pm&lt;/time&gt;</code><br><br>
+                If the visible text is <em>already</em> in a valid machine-readable format
+                (<code>YYYY-MM-DD</code>, <code>HH:MM</code>, <code>YYYY-MM-DDTHH:MM</code>, etc.),
+                <code>datetime</code> can be omitted.<br><br>
+                The value is consumed by search engines (for rich results), calendar apps, screen readers,
+                and feeds — none of which can interpret "tomorrow at 2pm" on their own.
             </div>
 
             <div class="followup">
-                <span class="q">🔁 Follow-up: Can two inputs have the same name?</span>
-                <span class="a"><strong>Yes.</strong> This is common with radio buttons, where multiple options share
-                    the same name.</span>
+                <span class="q">🔁 Follow-up: Do search engines actually use the datetime value?</span>
+                <span class="a"><strong>Yes.</strong>
+                    Google uses <code>&lt;time&gt;</code> markup (often combined with schema.org
+                    <code>datePublished</code> / <code>dateModified</code>) to display publish dates in rich
+                    results and to order articles in search.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can I omit the datetime attribute?</span>
+                <span class="a"><strong>Only if the visible text is already a valid machine-readable format.</strong>
+                    <code>&lt;time&gt;2025-10-20&lt;/time&gt;</code> is fine. But
+                    <code>&lt;time&gt;Christmas Day&lt;/time&gt;</code> is invalid — you must add
+                    <code>datetime="2025-12-25"</code>.</span>
             </div>
 
             <h3>💻 Code</h3>
@@ -678,22 +725,42 @@
                 <div class="vs-tabbar">
                     <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
                 </div>
-                <pre class="vs-body"><code class="language-html">&lt;form id="q72-form"&gt;
-  &lt;label for="email"&gt;Email&lt;/label&gt;
-  &lt;input id="email" name="email" type="email" value="test@example.com"&gt;
-  &lt;button type="submit"&gt;Submit&lt;/button&gt;
-&lt;/form&gt;</code></pre>
+                <pre class="vs-body"><code class="language-html">&lt;!-- Human-friendly text, precise machine value --&gt;
+&lt;p&gt;Release: &lt;time datetime="2025-12-25"&gt;Christmas Day&lt;/time&gt;&lt;/p&gt;
+
+&lt;!-- Readable text + timezone-aware datetime --&gt;
+&lt;p&gt;Meeting: &lt;time datetime="2025-10-25T14:00"&gt;tomorrow at 2pm&lt;/time&gt;&lt;/p&gt;
+
+&lt;!-- Visible text is already machine-readable → datetime can be omitted --&gt;
+&lt;p&gt;Posted: &lt;time&gt;2025-10-20&lt;/time&gt;&lt;/p&gt;</code></pre>
             </div>
 
-            <h3>🔴 Live demo — Click the label, then Submit</h3>
+            <h3>🔴 Live demo — What the user sees vs what a machine sees</h3>
             <div class="demo-box q72-demo">
-                <form id="q72-form">
-                    <label for="email">Email (Click me to focus input)</label>
-                    <input id="email" name="email" type="email" value="test@example.com">
-                    <button type="submit">Submit</button>
-                </form>
-                <div class="result" id="q72-output">Submit to see how `name` forms the data key.</div>
+                <p>Release: <time datetime="2025-12-25">Christmas Day</time></p>
+                <p>Meeting: <time datetime="2025-10-25T14:00">tomorrow at 2pm</time></p>
+                <p>Posted: <time>2025-10-20</time></p>
+                <button type="button" id="q72-inspect">🔍 Inspect machine-readable values</button>
+                <div class="result" id="q72-output">Click the button to see what a search engine or calendar app reads.
+                </div>
             </div>
+
+            <script>
+                (function () {
+                    const btn = document.getElementById('q72-inspect');
+                    const out = document.getElementById('q72-output');
+                    const times = document.querySelectorAll('.q72-demo time');
+
+                    btn.addEventListener('click', () => {
+                        out.innerHTML = [...times].map((t, i) => {
+                            const dt = t.getAttribute('datetime');
+                            const val = dt ? dt : t.textContent.trim();
+                            const note = dt ? 'from datetime attribute' : 'from visible text';
+                            return `<div><strong>#${i + 1}</strong> visible: "${t.textContent}" → machine reads: <code>"${val}"</code> <em>(${note})</em></div>`;
+                        }).join('');
+                    });
+                })();
+            </script>
         </section>
 
         <!-- ==================== Q73 ==================== -->
@@ -804,14 +871,6 @@
             </div>
 
             <div class="followup">
-                <span class="q">🔁 Follow-up: Why use &lt;source&gt; instead of directly specifying one file?</span>
-                <span class="a">
-                    It allows us to provide <strong>multiple media sources</strong> in different formats so the browser
-                    can select a compatible source.
-                </span>
-            </div>
-
-            <div class="followup">
                 <span class="q">🔁 Follow-up: What are the controls, autoplay, muted, and loop attributes?</span>
                 <span class="a">
                     <code>controls</code>: shows native playback controls.<br>
@@ -827,14 +886,6 @@
                     <code>&lt;video loop&gt;</code>
                     <br><br>
                     These are <strong>boolean HTML attributes</strong>.
-                </span>
-            </div>
-
-            <div class="followup">
-                <span class="q">🔁 Follow-up: Why is autoplay commonly combined with muted for video?</span>
-                <span class="a">
-                    Browsers commonly restrict autoplay with sound to avoid unwanted audio. <strong>Muted
-                        autoplay</strong> is generally more likely to be permitted.
                 </span>
             </div>
 
@@ -927,24 +978,25 @@
             <div class="answer">
                 <strong class="label">✅ Ideal answer</strong>
                 <code>&lt;canvas&gt;</code> provides a <strong>bitmap drawing surface</strong> that JavaScript can
-                manipulate, while <strong>SVG</strong> is a <strong>vector-based markup format</strong> where graphical
-                elements are represented as DOM nodes.<br><br>
+                manipulate, while <strong>SVG is a vector-based markup format</strong> where graphical elements are
+                represented as <strong>DOM nodes</strong>.<br><br>
                 Canvas is often useful for games, image processing, and dynamic drawings. SVG is useful for scalable
                 graphics, icons, diagrams, and accessible DOM elements.
             </div>
 
             <div class="followup">
                 <span class="q">🔁 Follow-up: Which one scales without losing quality?</span>
-                <span class="a"><strong>SVG</strong> is vector-based, so it scales without pixelation.</span>
+                <span class="a">SVG is vector-based, so it scales without pixelation.</span>
             </div>
 
             <div class="followup">
                 <span class="q">🔁 Follow-up 2: Can I style SVG elements with CSS?</span>
-                <span class="a"><strong>Yes.</strong> SVG elements can often be styled and manipulated using CSS and
-                    JavaScript.</span>
+                <span class="a">Yes. SVG elements can often be styled and manipulated using CSS and JavaScript.</span>
             </div>
 
             <h3>💻 Code</h3>
+
+            <!-- ---------- HTML ---------- -->
             <div class="vs-code">
                 <div class="vs-titlebar">
                     <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
@@ -954,32 +1006,252 @@
                 <div class="vs-tabbar">
                     <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
                 </div>
-                <pre class="vs-body"><code class="language-html">&lt;canvas id="myCanvas" width="100" height="100"&gt;&lt;/canvas&gt;
-
-&lt;svg width="100" height="100"&gt;
-  &lt;circle cx="50" cy="50" r="40" fill="blue" /&gt;
-&lt;/svg&gt;</code></pre>
+                <pre class="vs-body"><code class="language-html">&lt;div class="q77-stage"&gt;
+  &lt;div class="q77-panel"&gt;
+    &lt;div class="q77-label"&gt;Canvas (bitmap)&lt;/div&gt;
+    &lt;canvas id="q77-canvas" width="100" height="100"&gt;&lt;/canvas&gt;
+  &lt;/div&gt;
+  &lt;div class="q77-panel"&gt;
+    &lt;div class="q77-label"&gt;SVG (vector)&lt;/div&gt;
+    &lt;svg id="q77-svg" width="100" height="100" viewBox="0 0 100 100"&gt;
+      &lt;circle cx="50" cy="50" r="40" fill="#3b5bdb" /&gt;
+      &lt;text x="50" y="55" text-anchor="middle" fill="#fff"
+            font-size="14" font-family="sans-serif" font-weight="bold"&gt;SVG&lt;/text&gt;
+    &lt;/svg&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;button type="button" id="q77-zoom"&gt;Zoom 3×&lt;/button&gt;
+&lt;p id="q77-status"&gt;&lt;/p&gt;</code></pre>
             </div>
 
-            <h3>🔴 Live demo</h3>
+            <!-- ---------- CSS ---------- -->
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">styles.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>styles.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">/* Smooth scaling when we later change width/height via JS */
+#q77-canvas,
+#q77-svg {
+  display: block;
+  transition: width 0.4s ease, height 0.4s ease;
+  border-radius: 6px;
+}
+
+/* SVG circle is a real DOM node — CSS targets it directly */
+#q77-svg circle {
+  cursor: pointer;
+  transition: fill 0.25s ease;
+}
+
+#q77-svg circle:hover {
+  fill: #0ca678; /* turns green on hover */
+}
+
+/* Canvas has no per-pixel node — only the whole element is stylable */
+#q77-canvas:hover {
+  outline: 2px dashed #3b5bdb;
+}</code></pre>
+            </div>
+
+            <!-- ---------- JS ---------- -->
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">script.js — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon js"></span>script.js</div>
+                </div>
+                <pre class="vs-body"><code class="language-js">const canvas  = document.getElementById('q77-canvas');
+const svg     = document.getElementById('q77-svg');
+const zoomBtn = document.getElementById('q77-zoom');
+const status  = document.getElementById('q77-status');
+
+// 1) Draw the same shape on canvas — pixels only, no DOM node for the circle
+const ctx = canvas.getContext('2d');
+ctx.fillStyle = '#3b5bdb';
+ctx.beginPath();
+ctx.arc(50, 50, 40, 0, Math.PI * 2);
+ctx.fill();
+ctx.fillStyle = '#fff';
+ctx.font = 'bold 13px sans-serif';
+ctx.textAlign = 'center';
+ctx.textBaseline = 'middle';
+ctx.fillText('Canvas', 50, 50);
+
+// 2) SVG circle is a real DOM node — JS can attach events to it
+svg.querySelector('circle').addEventListener('click', function () {
+  status.textContent = 'SVG circle clicked — it is a real DOM node with an event listener.';
+});
+
+// 3) Zoom both by changing CSS width/height.
+//    Canvas: stretches its 100×100 bitmap  → blurry / pixelated
+//    SVG:    re-renders its vectors from viewBox  → stays crisp
+let zoomed = false;
+zoomBtn.addEventListener('click', function () {
+  zoomed = !zoomed;
+  const size = zoomed ? '300px' : '100px';
+  canvas.style.width  = size;
+  canvas.style.height = size;
+  svg.style.width     = size;
+  svg.style.height    = size;
+
+  zoomBtn.textContent = zoomed ? 'Reset' : 'Zoom 3×';
+  status.textContent = zoomed
+    ? 'Zoomed 3×: canvas is pixelated (bitmap stretched), SVG is crisp (vector re-rendered).'
+    : 'Reset. Hover the SVG circle — it turns green. The canvas cannot respond per-shape.';
+});</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Hover the shapes, click the SVG circle, then Zoom 3×</h3>
             <div class="demo-box q77-demo">
-                <div class="compare-box">
-                    <div class="box">
-                        <strong>Canvas (Bitmap)</strong><br>
+                <div class="q77-stage">
+                    <div class="q77-panel">
+                        <div class="q77-label">Canvas (bitmap)</div>
                         <canvas id="q77-canvas" width="100" height="100"></canvas>
-                        <div style="font-size:0.8rem; color:#666;">Drawn via JS. Pixelates if zoomed.</div>
                     </div>
-                    <div class="box">
-                        <strong>SVG (Vector)</strong><br>
-                        <svg width="100" height="100">
-                            <circle cx="50" cy="50" r="40" fill="#4f46e5" />
+                    <div class="q77-panel">
+                        <div class="q77-label">SVG (vector)</div>
+                        <svg id="q77-svg" width="100" height="100" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="40" fill="#3b5bdb" />
+                            <text x="50" y="55" text-anchor="middle" fill="#fff" font-size="14" font-family="sans-serif"
+                                font-weight="bold">SVG</text>
                         </svg>
-                        <div style="font-size:0.8rem; color:#666;">DOM node. Scales infinitely.</div>
                     </div>
                 </div>
+                <div class="q77-controls">
+                    <button type="button" id="q77-zoom">Zoom 3×</button>
+                </div>
+                <p id="q77-status" class="result">
+                    Hover the SVG circle → it turns green (real DOM node). Click it → it responds.
+                    Hover the canvas → only the whole element reacts.
+                    Click <em>Zoom 3×</em> to see the scaling difference.
+                </p>
             </div>
-        </section>
 
+            <style>
+                .q77-demo .q77-stage {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 24px;
+                    align-items: center;
+                    justify-items: center;
+                    min-height: 340px;
+                    padding: 16px 0;
+                }
+
+                .q77-demo .q77-panel {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 8px;
+                }
+
+                .q77-demo .q77-label {
+                    font-size: 0.72rem;
+                    font-weight: 700;
+                    text-transform: uppercase;
+                    letter-spacing: 1.2px;
+                    color: #888;
+                }
+
+                .q77-demo #q77-canvas,
+                .q77-demo #q77-svg {
+                    display: block;
+                    border-radius: 6px;
+                    transition: width 0.4s ease, height 0.4s ease;
+                }
+
+                .q77-demo #q77-svg circle {
+                    cursor: pointer;
+                    transition: fill 0.25s ease;
+                }
+
+                .q77-demo #q77-svg circle:hover {
+                    fill: #0ca678;
+                }
+
+                .q77-demo #q77-canvas:hover {
+                    outline: 2px dashed #3b5bdb;
+                }
+
+                .q77-demo .q77-controls {
+                    display: flex;
+                    justify-content: center;
+                    margin-top: 8px;
+                }
+
+                .q77-demo #q77-zoom {
+                    padding: 8px 18px;
+                    border: 1px solid #3b5bdb;
+                    background: #3b5bdb;
+                    color: #fff;
+                    border-radius: 6px;
+                    cursor: pointer;
+                    font-weight: 600;
+                    font-size: 0.85rem;
+                }
+
+                .q77-demo #q77-zoom:hover {
+                    background: #2f4bb8;
+                }
+
+                .q77-demo #q77-status {
+                    margin: 12px 0 0;
+                    text-align: center;
+                    font-size: 0.85rem;
+                }
+            </style>
+
+            <script>
+                (function () {
+                    const canvas = document.getElementById('q77-canvas');
+                    const svg = document.getElementById('q77-svg');
+                    const zoomBtn = document.getElementById('q77-zoom');
+                    const status = document.getElementById('q77-status');
+
+                    // Draw the same shape on the canvas
+                    const ctx = canvas.getContext('2d');
+                    ctx.fillStyle = '#3b5bdb';
+                    ctx.beginPath();
+                    ctx.arc(50, 50, 40, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.fillStyle = '#fff';
+                    ctx.font = 'bold 13px sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText('Canvas', 50, 50);
+
+                    // SVG circle is a real DOM node — attach a click
+                    svg.querySelector('circle').addEventListener('click', function () {
+                        status.textContent = 'SVG circle clicked — it is a real DOM node with an event listener.';
+                    });
+
+                    // Zoom toggle
+                    let zoomed = false;
+                    zoomBtn.addEventListener('click', function () {
+                        zoomed = !zoomed;
+                        const size = zoomed ? '300px' : '100px';
+                        canvas.style.width = size;
+                        canvas.style.height = size;
+                        svg.style.width = size;
+                        svg.style.height = size;
+
+                        zoomBtn.textContent = zoomed ? 'Reset' : 'Zoom 3×';
+                        status.textContent = zoomed
+                            ? 'Zoomed 3×: canvas is pixelated (bitmap stretched), SVG is crisp (vector re-rendered).'
+                            : 'Reset. Hover the SVG circle — it turns green. The canvas cannot respond per-shape.';
+                    });
+                })();
+            </script>
+        </section>
+        <!-- ==================== Q78 ==================== -->
         <!-- ==================== Q78 ==================== -->
         <section class="q-section">
             <h2>Q78 — What is the difference between &lt;template&gt; and normal HTML elements? <span
@@ -999,7 +1271,62 @@
                     document.</span>
             </div>
 
+            <div class="followup">
+                <span class="q">🔁 Follow-up 2: What is the difference between using &lt;template&gt; and building HTML
+                    with a backtick string + innerHTML?</span>
+                <span class="a"><strong>Both work</strong>, but they differ in <em>parsing</em>, <em>safety</em>, and
+                    <em>how you bind events</em>:</span>
+            </div>
+
+            <h3>🆚 Comparison — &lt;template&gt; + cloneNode vs Backtick + innerHTML</h3>
+            <div class="demo-box q78-compare-wrap">
+                <table class="q78-compare">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>&lt;template&gt; + cloneNode</th>
+                            <th>Backtick string + innerHTML</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>Parsing</th>
+                            <td>Parsed <strong>once</strong>, cloned many times</td>
+                            <td>String re-parsed on <strong>every</strong> insertion</td>
+                        </tr>
+                        <tr>
+                            <th>When it exists</th>
+                            <td>In the DOM from the start, but <em>inert</em> (not rendered, scripts don't run, images
+                                don't load)</td>
+                            <td>Nothing exists until the string is injected — then everything fires immediately</td>
+                        </tr>
+                        <tr>
+                            <th>Safety</th>
+                            <td>Safe by default — fill placeholders with <code>textContent</code></td>
+                            <td><strong>XSS risk</strong> if you interpolate untrusted data</td>
+                        </tr>
+                        <tr>
+                            <th>Event handlers</th>
+                            <td>Attach directly to the cloned node</td>
+                            <td>Must re-query after insertion or use event delegation</td>
+                        </tr>
+                        <tr>
+                            <th>Element refs</th>
+                            <td>Available via <code>.content.querySelector()</code> before cloning</td>
+                            <td>Only after insertion</td>
+                        </tr>
+                        <tr>
+                            <th>Best for</th>
+                            <td>Repeated list items, Web Components, big batches</td>
+                            <td>One-off HTML, quick prototyping</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
             <h3>💻 Code</h3>
+
+            <!-- ---------- HTML ---------- -->
             <div class="vs-code">
                 <div class="vs-titlebar">
                     <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
@@ -1009,34 +1336,398 @@
                 <div class="vs-tabbar">
                     <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
                 </div>
-                <pre class="vs-body"><code class="language-html">&lt;template id="user-card"&gt;
+                <pre class="vs-body"><code class="language-html">&lt;!-- The reusable template (hidden by default) --&gt;
+&lt;template id="user-card"&gt;
   &lt;div class="user-card"&gt;
     &lt;h3&gt;User Name&lt;/h3&gt;
+    &lt;button class="remove-btn"&gt;×&lt;/button&gt;
   &lt;/div&gt;
 &lt;/template&gt;
 
-&lt;script&gt;
-  const template = document.getElementById('user-card');
-  const clone = template.content.cloneNode(true);
-  document.body.appendChild(clone);
-&lt;/script&gt;</code></pre>
+&lt;!-- Two containers to compare the two approaches --&gt;
+&lt;div id="out-template"&gt;&lt;/div&gt;
+&lt;div id="out-innerhtml"&gt;&lt;/div&gt;</code></pre>
             </div>
 
-            <h3>🔴 Live demo — Click the button</h3>
+            <!-- ---------- JS — Approach A ---------- -->
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">approach-a.js — &lt;template&gt; + cloneNode</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon js"></span>approach-a.js</div>
+                </div>
+                <pre class="vs-body"><code class="language-js">const tpl = document.getElementById('user-card');
+const out = document.getElementById('out-template');
+
+function addCard(name) {
+  // 1. Clone the pre-parsed fragment — fast, no re-parsing
+  const clone = tpl.content.cloneNode(true);
+
+  // 2. Fill placeholders safely with textContent (no XSS)
+  clone.querySelector('h3').textContent = name;
+
+  // 3. Attach event listeners directly on the cloned node
+  clone.querySelector('.remove-btn').addEventListener('click', e =&gt; {
+    e.currentTarget.closest('.user-card').remove();
+  });
+
+  // 4. Insert
+  out.appendChild(clone);
+}</code></pre>
+            </div>
+
+            <!-- ---------- JS — Approach B ---------- -->
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">approach-b.js — Backtick + innerHTML</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon js"></span>approach-b.js</div>
+                </div>
+                <pre class="vs-body"><code class="language-js">const out2 = document.getElementById('out-innerhtml');
+
+function addCardHTML(name) {
+  // ⚠️ If `name` comes from user input, this is an XSS hole.
+  //    Escape it (or use textContent) before interpolating.
+  out2.insertAdjacentHTML('beforeend', `
+    &lt;div class="user-card"&gt;
+      &lt;h3&gt;${name}&lt;/h3&gt;
+      &lt;button class="remove-btn"&gt;×&lt;/button&gt;
+    &lt;/div&gt;
+  `);
+}
+
+// Handlers can't be attached to nodes that don't exist yet,
+// so use event delegation on the container instead:
+out2.addEventListener('click', e =&gt; {
+  if (e.target.classList.contains('remove-btn')) {
+    e.target.closest('.user-card').remove();
+  }
+});</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Add cards both ways, then run the benchmark</h3>
             <div class="demo-box q78-demo">
-                <button onclick="useTemplate()">Clone & Insert Template</button>
-                <div class="template-output" id="q78-output">
-                    <span style="color: #9ca3af; font-size: 0.9rem;">Templates will appear here...</span>
+                <div class="q78-controls">
+                    <button type="button" id="q78-add-template">+ Add via &lt;template&gt;</button>
+                    <button type="button" id="q78-add-innerhtml">+ Add via innerHTML</button>
+                    <button type="button" id="q78-benchmark">⚡ Benchmark 1000 inserts</button>
+                    <button type="button" id="q78-reset">Reset</button>
                 </div>
 
-                <!-- The Hidden Template -->
+                <div class="q78-grid">
+                    <div class="q78-col">
+                        <div class="q78-col-title">&lt;template&gt; + cloneNode</div>
+                        <div id="q78-out-template" class="q78-output">
+                            <span class="q78-empty">Click “Add via &lt;template&gt;”.</span>
+                        </div>
+                    </div>
+                    <div class="q78-col">
+                        <div class="q78-col-title">innerHTML (backtick)</div>
+                        <div id="q78-out-innerhtml" class="q78-output">
+                            <span class="q78-empty">Click “Add via innerHTML”.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="q78-bench-output" class="q78-bench-output"></div>
+
+                <!-- Hidden template used by the demo -->
                 <template id="q78-template">
                     <div class="user-card">
-                        <h3 style="margin:0;">Cloned User Card</h3>
-                        <p style="margin: 4px 0 0; font-size: 0.85rem; color: #555;">I was inside a template tag!</p>
+                        <h3>Cloned User Card</h3>
+                        <button class="remove-btn" type="button">×</button>
                     </div>
                 </template>
             </div>
+
+            <style>
+                .q78-compare-wrap {
+                    padding: 0;
+                    overflow-x: auto;
+                }
+
+                .q78-compare {
+                    width: 100%;
+                    border-collapse: collapse;
+                    font-size: 0.85rem;
+                }
+
+                .q78-compare th,
+                .q78-compare td {
+                    padding: 10px 14px;
+                    border-bottom: 1px solid #eaeaea;
+                    text-align: left;
+                    vertical-align: top;
+                }
+
+                .q78-compare thead th {
+                    background: #f3f6ff;
+                    color: #3b5bdb;
+                    font-weight: 700;
+                    font-size: 0.8rem;
+                    border-bottom: 2px solid #3b5bdb;
+                }
+
+                .q78-compare tbody th {
+                    font-weight: 600;
+                    color: #555;
+                    width: 130px;
+                    background: #fafafa;
+                }
+
+                .q78-compare code {
+                    background: #f3f3f3;
+                    padding: 1px 5px;
+                    border-radius: 3px;
+                    font-size: 0.82em;
+                }
+
+                /* Demo */
+                .q78-demo .q78-controls {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 8px;
+                    margin-bottom: 16px;
+                }
+
+                .q78-demo .q78-controls button {
+                    padding: 7px 14px;
+                    border: 1px solid #3b5bdb;
+                    background: #fff;
+                    color: #3b5bdb;
+                    border-radius: 6px;
+                    cursor: pointer;
+                    font-size: 0.82rem;
+                    font-weight: 600;
+                    font-family: inherit;
+                }
+
+                .q78-demo .q78-controls button:hover {
+                    background: #f0f3ff;
+                }
+
+                .q78-demo #q78-benchmark {
+                    background: #3b5bdb;
+                    color: #fff;
+                }
+
+                .q78-demo #q78-benchmark:hover {
+                    background: #2f4bb8;
+                }
+
+                .q78-demo #q78-reset {
+                    border-color: #ccc;
+                    color: #666;
+                }
+
+                .q78-demo #q78-reset:hover {
+                    background: #f5f5f5;
+                }
+
+                .q78-demo .q78-grid {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 12px;
+                }
+
+                .q78-demo .q78-col-title {
+                    font-size: 0.7rem;
+                    text-transform: uppercase;
+                    letter-spacing: 1.2px;
+                    color: #888;
+                    font-weight: 700;
+                    margin-bottom: 8px;
+                }
+
+                .q78-demo .q78-output {
+                    min-height: 160px;
+                    max-height: 280px;
+                    overflow-y: auto;
+                    padding: 10px;
+                    background: #fff;
+                    border: 1px solid #eaeaea;
+                    border-radius: 6px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 6px;
+                }
+
+                .q78-demo .q78-empty {
+                    color: #9ca3af;
+                    font-size: 0.82rem;
+                }
+
+                .q78-demo .user-card {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    gap: 8px;
+                    padding: 8px 12px;
+                    background: #f3f6ff;
+                    border: 1px solid #c9d4f0;
+                    border-radius: 5px;
+                    font-size: 0.85rem;
+                }
+
+                .q78-demo .user-card h3 {
+                    margin: 0;
+                    font-size: 0.85rem;
+                    font-weight: 600;
+                    color: #333;
+                }
+
+                .q78-demo .remove-btn {
+                    border: 0;
+                    background: #c92a2a;
+                    color: #fff;
+                    width: 22px;
+                    height: 22px;
+                    border-radius: 50%;
+                    cursor: pointer;
+                    font-size: 0.85rem;
+                    line-height: 1;
+                    flex-shrink: 0;
+                }
+
+                .q78-demo .remove-btn:hover {
+                    background: #a51e1e;
+                }
+
+                .q78-demo .q78-bench-output {
+                    margin-top: 14px;
+                    padding: 10px 14px;
+                    font-size: 0.85rem;
+                    background: #1e1e1e;
+                    color: #d4d4d4;
+                    border-radius: 6px;
+                    font-family: "SF Mono", "Consolas", monospace;
+                    display: none;
+                }
+
+                .q78-demo .q78-bench-output.visible {
+                    display: block;
+                }
+
+                .q78-demo .q78-bench-output code {
+                    color: #ce9178;
+                }
+            </style>
+
+            <script>
+                (function () {
+                    const tpl = document.getElementById('q78-template');
+                    const outTpl = document.getElementById('q78-out-template');
+                    const outHtml = document.getElementById('q78-out-innerhtml');
+                    const benchOut = document.getElementById('q78-bench-output');
+                    const sandbox = document.createElement('div');
+                    document.body.appendChild(sandbox);
+                    sandbox.style.display = 'none';
+
+                    let counter = 0;
+
+                    function label(prefix) {
+                        counter++;
+                        return prefix + ' #' + counter;
+                    }
+
+                    // -------- Approach A: <template> + cloneNode --------
+                    document.getElementById('q78-add-template').addEventListener('click', () => {
+                        const clone = tpl.content.cloneNode(true);
+                        clone.querySelector('h3').textContent = label('Cloned');
+                        clone.querySelector('.remove-btn').addEventListener('click', e => {
+                            e.currentTarget.closest('.user-card').remove();
+                        });
+                        const empty = outTpl.querySelector('.q78-empty');
+                        if (empty) empty.remove();
+                        outTpl.appendChild(clone);
+                    });
+
+                    // -------- Approach B: backtick + insertAdjacentHTML --------
+                    document.getElementById('q78-add-innerhtml').addEventListener('click', () => {
+                        const empty = outHtml.querySelector('.q78-empty');
+                        if (empty) empty.remove();
+                        outHtml.insertAdjacentHTML('beforeend', `
+                    <div class="user-card">
+                        <h3>${label('Built')}</h3>
+                        <button class="remove-btn" type="button">×</button>
+                    </div>
+                `);
+                    });
+
+                    // Event delegation for approach B (handlers can't attach to not-yet-created nodes)
+                    outHtml.addEventListener('click', e => {
+                        if (e.target.classList.contains('remove-btn')) {
+                            e.target.closest('.user-card').remove();
+                        }
+                    });
+
+                    // -------- Reset --------
+                    document.getElementById('q78-reset').addEventListener('click', () => {
+                        outTpl.innerHTML = '<span class="q78-empty">Click “Add via &lt;template&gt;”.</span>';
+                        outHtml.innerHTML = '<span class="q78-empty">Click “Add via innerHTML”.</span>';
+                        benchOut.classList.remove('visible');
+                        benchOut.innerHTML = '';
+                        counter = 0;
+                    });
+
+                    // -------- Benchmark --------
+                    document.getElementById('q78-benchmark').addEventListener('click', () => {
+                        const N = 1000;
+                        benchOut.classList.add('visible');
+                        benchOut.textContent = 'Running ' + N + ' inserts…';
+
+                        // Let the "Running" text paint before the synchronous work
+                        setTimeout(() => {
+                            // Warm up
+                            for (let i = 0; i < 50; i++) {
+                                sandbox.appendChild(tpl.content.cloneNode(true));
+                            }
+                            sandbox.innerHTML = '';
+
+                            // Template approach
+                            const t0 = performance.now();
+                            for (let i = 0; i < N; i++) {
+                                sandbox.appendChild(tpl.content.cloneNode(true));
+                            }
+                            const t1 = performance.now();
+                            sandbox.innerHTML = '';
+
+                            // innerHTML approach
+                            const htmlStr = `
+                        <div class="user-card">
+                            <h3>Cloned User Card</h3>
+                            <button class="remove-btn" type="button">×</button>
+                        </div>
+                    `;
+                            const t2 = performance.now();
+                            for (let i = 0; i < N; i++) {
+                                sandbox.insertAdjacentHTML('beforeend', htmlStr);
+                            }
+                            const t3 = performance.now();
+                            sandbox.innerHTML = '';
+
+                            const tplMs = (t1 - t0).toFixed(1);
+                            const htmlMs = (t3 - t2).toFixed(1);
+                            const ratio = (t3 - t2) / Math.max(t1 - t0, 0.01);
+
+                            benchOut.innerHTML =
+                                '<strong>' + N + ' insertions:</strong><br>' +
+                                '· &lt;template&gt; + cloneNode: <code>' + tplMs + ' ms</code><br>' +
+                                '· insertAdjacentHTML (backtick): <code>' + htmlMs + ' ms</code><br>' +
+                                '<span style="color:#888; font-size:0.78rem;">' +
+                                'Approximate — innerHTML was ~' + ratio.toFixed(1) + '× slower here. ' +
+                                'The gap grows with list size because innerHTML re-parses each time.' +
+                                '</span>';
+                        }, 60);
+                    });
+                })();
+            </script>
         </section>
 
         <!-- ==================== Q79 ==================== -->
@@ -1130,7 +1821,7 @@
 
         <!-- ==================== STUDENT TASK ==================== -->
         <section class="task-section">
-            <h2>🧑‍🎓 Student Task — Media & Interactive Gallery</h2>
+            <h2>🧑‍🎓 Student Task — Semantic + Media & Interactive Gallery</h2>
             <p>Build <strong>one HTML page</strong> (+ CSS file + optional JS file) that applies <strong>all 10
                     concepts</strong> from Part 8. Submit as a zipped folder or CodePen link.</p>
 
@@ -1145,16 +1836,30 @@
                 <tbody>
                     <tr>
                         <td>71</td>
-                        <td>ID vs Class</td>
-                        <td>Create a <code>&lt;nav id="main-nav"&gt;</code> with 3 links. Give all links a
-                            <code>class="nav-link"</code> and style them using the class.
+                        <td>&lt;blockquote&gt; vs &lt;q&gt;</td>
+                        <td>Add a paragraph containing an inline <code>&lt;q&gt;</code> short quote, then a separate
+                            <code>&lt;blockquote&gt;</code> for a long quote with a nested
+                            <code>&lt;footer&gt;&lt;cite&gt;…&lt;/cite&gt;&lt;/footer&gt;</code> for the source.
+                            Add a comment explaining when to use each.
                         </td>
                     </tr>
                     <tr>
                         <td>72</td>
-                        <td>Name vs ID</td>
-                        <td>Add a form with a <code>&lt;label for="username"&gt;</code> and an
-                            <code>&lt;input id="username" name="user_name"&gt;</code>. Comment the difference.
+                        <td>&lt;time&gt; + datetime</td>
+                        <td>Add <strong>three</strong> <code>&lt;time&gt;</code> elements:
+                            <ol>
+                                <li>Human-friendly text + <code>datetime</code> attribute — e.g.
+                                    <code>&lt;time datetime="2025-12-25"&gt;Christmas Day&lt;/time&gt;</code>
+                                </li>
+                                <li>Human-friendly text + full datetime with time — e.g.
+                                    <code>&lt;time datetime="2025-10-25T14:00"&gt;tomorrow at 2pm&lt;/time&gt;</code>
+                                </li>
+                                <li>Visible text is already machine-readable — e.g.
+                                    <code>&lt;time&gt;2025-10-20&lt;/time&gt;</code> (no <code>datetime</code> needed)
+                                </li>
+                            </ol>
+                            Add a comment explaining why case 1 and 2 <em>require</em> <code>datetime</code> but case 3
+                            does not.
                         </td>
                     </tr>
                     <tr>
@@ -1169,7 +1874,7 @@
                     </tr>
                     <tr>
                         <td>75</td>
-                        <td>Video/Audio</td>
+                        <td>Video / Audio</td>
                         <td>Embed a <code>&lt;video&gt;</code> with <code>controls</code> and an
                             <code>&lt;audio&gt;</code> tag with <code>controls</code>.
                         </td>
@@ -1177,34 +1882,46 @@
                     <tr>
                         <td>76</td>
                         <td>&lt;source&gt;</td>
-                        <td>Add two <code>&lt;source&gt;</code> tags inside your video element (e.g., <code>.mp4</code>
-                            and <code>.webm</code>).</td>
+                        <td>Add two <code>&lt;source&gt;</code> tags inside your video element (e.g. <code>.mp4</code>
+                            and <code>.webm</code>), plus a text fallback inside the element.</td>
                     </tr>
                     <tr>
                         <td>77</td>
                         <td>Canvas vs SVG</td>
-                        <td>Place a <code>&lt;canvas&gt;</code> next to an <code>&lt;svg&gt;</code> drawing a circle.
-                            Add
-                            a comment explaining the main difference.</td>
+                        <td>Place a <code>&lt;canvas&gt;</code> next to an <code>&lt;svg&gt;</code>, both drawing a
+                            circle. Add a <strong>"Zoom 3×"</strong> button that resizes both — the canvas should
+                            pixelate, the SVG should stay crisp. Add a CSS rule that changes the SVG circle's fill on
+                            hover (to prove SVG is a real DOM node). Comment the main difference.</td>
                     </tr>
                     <tr>
                         <td>78</td>
-                        <td>&lt;template&gt;</td>
-                        <td>Create a <code>&lt;template&gt;</code> for a "Comment" box, and use JS to append a new
-                            comment to the page when a button is clicked.</td>
+                        <td>&lt;template&gt; vs innerHTML</td>
+                        <td>Build a "Comment" box <strong>twice</strong>:
+                            <ol>
+                                <li>Version A — using a <code>&lt;template&gt;</code> element +
+                                    <code>cloneNode(true)</code>
+                                    in JS.</li>
+                                <li>Version B — using a template literal (<code>`…`</code>) inserted via
+                                    <code>insertAdjacentHTML</code>.
+                                </li>
+                            </ol>
+                            Each version has its own "Add comment" button. Comment why Version A is <em>safer</em>
+                            (fill placeholders with <code>textContent</code>) and <em>faster</em> (no re-parsing) when
+                            the data comes from user input.
+                        </td>
                     </tr>
                     <tr>
                         <td>79</td>
                         <td>contenteditable</td>
                         <td>Create a <code>&lt;div contenteditable="true"&gt;</code> that lets the user edit their
-                            "Bio".
-                        </td>
+                            "Bio".</td>
                     </tr>
                     <tr>
                         <td>80</td>
                         <td>tabindex</td>
                         <td>Add <code>tabindex="0"</code> to a custom <code>&lt;div class="custom-button"&gt;</code> so
-                            it can be focused using the keyboard.</td>
+                            it can be focused using the keyboard. Add a <code>&lt;button tabindex="-1"&gt;</code> next
+                            to it and comment why it is skipped by <kbd>Tab</kbd>.</td>
                     </tr>
                 </tbody>
             </table>
@@ -1215,24 +1932,33 @@
                 </li>
                 <li><strong>Comments:</strong> above each section, e.g. <code>&lt;!-- Q77: SVG vs Canvas --&gt;</code>
                 </li>
-                <li><strong>README.md</strong> with 3 answers:
+                <li><strong>README.md</strong> with 4 answers:
                     <ol>
-                        <li>Why use an SVG instead of a Canvas for a logo?</li>
-                        <li>Why is `contenteditable` dangerous if not sanitized?</li>
-                        <li>What is the problem with using `tabindex="1"`?</li>
+                        <li>When should you use <code>&lt;blockquote&gt;</code> instead of <code>&lt;q&gt;</code>, and
+                            why does the <code>cite</code> attribute alone not make the source visible to the user?</li>
+                        <li>Why does <code>&lt;time&gt;</code> need a <code>datetime</code> attribute when the visible
+                            text is human-friendly (e.g. "tomorrow at 2pm")?</li>
+                        <li>Why is the <code>&lt;template&gt;</code> + <code>cloneNode</code> approach safer and faster
+                            than a template literal + <code>innerHTML</code> when the data comes from user input?</li>
+                        <li>What is the problem with using <code>tabindex="1"</code> instead of
+                            <code>tabindex="0"</code>?</li>
                     </ol>
                 </li>
             </ul>
 
             <h3>⭐ Bonus</h3>
             <ul>
-                <li>Add `autoplay muted loop` to your video element and see if it works automatically.</li>
+                <li>Add <code>autoplay muted loop</code> to your video element and see if it works automatically.</li>
                 <li>Use the Canvas API to draw a rectangle instead of just leaving the canvas blank.</li>
+                <li>Open your page with a screen reader (or the browser's accessibility inspector) and check that
+                    <code>&lt;blockquote&gt;</code>, <code>&lt;q&gt;</code>, and <code>&lt;time&gt;</code> are
+                    announced correctly.
+                </li>
             </ul>
 
             <h3>🎯 Grading (out of 10)</h3>
-            <p>1 point per row. "Canvas vs SVG" and "Template" rows are worth double if the README explanation is
-                correct.</p>
+            <p>1 point per row. The <strong>"Canvas vs SVG"</strong> and <strong>"Template vs innerHTML"</strong>
+                rows are worth double if the README explanation is correct.</p>
         </section>
 
     </div>

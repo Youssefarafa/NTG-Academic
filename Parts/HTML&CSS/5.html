@@ -885,39 +885,126 @@
             </div>
 
             <h3>🔴 Live demo</h3>
-            <div class="demo-box q34-demo">
+            <div class="demo-box q34-demo" style="position: relative;">
+                <!-- The Fixed Element (Floating on screen) -->
+                <div class="fixed-box">fixed (viewport)</div>
+
+                <p style="font-size: 0.85rem; color: #666; margin-top: 0;">👇 Scroll inside the grey box below:</p>
+
                 <div class="pos-container">
-                    <div class="relative-box">relative (shifted)</div>
-                    <div class="absolute-box">absolute (bottom right)</div>
+                    <!-- The Sticky Element -->
                     <div class="sticky-header">sticky (scroll inside)</div>
-                    <p style="font-size: 0.8rem; color: #666; margin-top: 10px;">Scroll inside this box to see the
-                        sticky element.</p>
+
+                    <!-- The Relative Element -->
+                    <div class="relative-box">relative (shifted)</div>
+
+                    <!-- The Absolute Element -->
+                    <div class="absolute-box">absolute (bottom right)</div>
+
+                    <p
+                        style="font-size: 0.85rem; color: #666; line-height: 1.6; margin-top: 20px; padding-right: 120px;">
+                        Notice how the <strong>sticky</strong> header stays at the top when you scroll this
+                        container.<br><br>
+                        The <strong>relative</strong> box is shifted from its normal position.<br><br>
+                        The <strong>absolute</strong> box is pinned to the bottom-right of the grey container.<br><br>
+                        The purple <strong>fixed</strong> box is pinned to the bottom-right of your screen.
+                    </p>
+
+                    <!-- Spacer to enable scrolling -->
+                    <div style="height: 300px;"></div>
                 </div>
             </div>
+
+            <!-- CSS for Q44 Demo -->
+            <style>
+                .q34-demo .pos-container {
+                    position: relative;
+                    height: 250px;
+                    background: #f3f4f6;
+                    border: 2px dashed #9ca3af;
+                    border-radius: 8px;
+                    padding: 10px;
+                    overflow-y: auto;
+                    /* Fix: Allow scrolling for sticky */
+                }
+
+                .q34-demo .relative-box {
+                    position: relative;
+                    top: 10px;
+                    left: 20px;
+                    background: #3b82f6;
+                    color: white;
+                    padding: 8px 12px;
+                    border-radius: 4px;
+                    font-size: 0.85rem;
+                    width: fit-content;
+                    margin-bottom: 10px;
+                }
+
+                .q34-demo .absolute-box {
+                    position: absolute;
+                    bottom: 10px;
+                    right: 10px;
+                    background: #ef4444;
+                    color: white;
+                    padding: 8px 12px;
+                    border-radius: 4px;
+                    font-size: 0.85rem;
+                    z-index: 2;
+                }
+
+                .q34-demo .sticky-header {
+                    position: sticky;
+                    top: 0;
+                    background: #10b981;
+                    color: white;
+                    padding: 8px 12px;
+                    border-radius: 4px;
+                    font-size: 0.85rem;
+                    z-index: 10;
+                    margin-bottom: 10px;
+                }
+
+                .q34-demo .fixed-box {
+                    position: fixed;
+                    bottom: 20px;
+                    right: 20px;
+                    background: #8b5cf6;
+                    color: white;
+                    padding: 10px 14px;
+                    border-radius: 8px;
+                    font-size: 0.85rem;
+                    font-weight: bold;
+                    z-index: 9999;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+                    cursor: default;
+                }
+            </style>
         </section>
 
         <!-- ==================== Q45 ==================== -->
         <section class="q-section">
-            <h2>Q45 — What is the difference between &lt;script&gt;, &lt;script async&gt;, and &lt;script defer&gt;?
-                <span class="badge medium">Medium</span>
-            </h2>
+            <h2>Q45 — What is the difference between `text-align: center` and `margin: 0 auto`? <span
+                    class="badge">Easy</span></h2>
 
             <div class="answer">
                 <strong class="label">✅ Ideal answer</strong>
-                A normal <code>&lt;script&gt;</code> can <strong>block HTML parsing</strong> while the browser fetches
-                and executes the script.<br><br>
-                With <code>async</code>, the script downloads in parallel with HTML parsing and executes <strong>as soon
-                    as it's available</strong>. Therefore, execution order between async scripts isn't
-                guaranteed.<br><br>
-                With <code>defer</code>, the script also downloads in parallel, but execution happens <strong>after HTML
-                    parsing is complete</strong>, and deferred scripts maintain their document order.
+                Both are used to center things, but they work on completely different things:<br><br>
+                <ul style="margin:6px 0">
+                    <li><code>text-align: center</code> centers the <strong>inline content</strong> (text, images,
+                        spans, buttons) <em>inside</em> a block container. It does not center the container itself.</li>
+                    <li><code>margin: 0 auto</code> centers the <strong>block-level element itself</strong> within its
+                        parent container. It requires the element to have a <strong>defined width</strong> (less than
+                        100%).</li>
+                </ul>
             </div>
 
             <div class="followup">
-                <span class="q">🔁 Follow-up: Which one is usually appropriate for scripts that depend on the
-                    DOM?</span>
-                <span class="a"><code>defer</code> is usually a good choice because the script executes <strong>after
-                        the HTML has been parsed</strong>.</span>
+                <span class="q">🔁 Follow-up: What happens if I apply `margin: 0 auto` to a div without setting a
+                    width?</span>
+                <span class="a"><strong>Nothing happens.</strong> A block element takes up 100% of the available width
+                    by default. If the width is 100%, there is no leftover space to divide equally on the left and
+                    right, so the `auto` margins become 0.</span>
             </div>
 
             <h3>💻 Code</h3>
@@ -925,27 +1012,133 @@
                 <div class="vs-titlebar">
                     <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
                             class="vs-dot green"></span></div>
-                    <div class="vs-title">index.html — Visual Studio Code</div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
                 </div>
                 <div class="vs-tabbar">
-                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
                 </div>
-                <pre class="vs-body"><code class="language-html">&lt;script src="blocking.js"&gt;&lt;/script&gt;
-&lt;script src="async.js" async&gt;&lt;/script&gt;
-&lt;script src="defer.js" defer&gt;&lt;/script&gt;</code></pre>
+                <pre class="vs-body"><code class="language-css">/* 1. Centers the TEXT inside the box */
+.text-center {
+  text-align: center;
+  background: #e0e7ff;
+}
+
+/* 2. Centers the BOX itself inside the parent */
+.box-center {
+  width: 200px; /* Width is required! */
+  margin: 0 auto; 
+  background: #dcfce7;
+}</code></pre>
             </div>
 
-            <h3>🔴 Live demo — Run simulation</h3>
-            <div class="demo-box q35-demo">
-                <button onclick="runScriptSim()">▶ Run Simulation</button>
-                <div class="timeline">
-                    <div class="phase" id="q35-parse">1. HTML Parsing</div>
-                    <div class="phase" id="q35-download">2. Downloading</div>
-                    <div class="phase" id="q35-execute">3. Executing</div>
+            <h3>🔴 Live demo — See the difference</h3>
+            <div class="demo-box q45-basic-demo">
+
+                <!-- Example 1: text-align center -->
+                <div class="demo-row">
+                    <div class="demo-label">1. `text-align: center`</div>
+                    <div class="demo-parent text-align-center">
+                        <span class="demo-text">The text is centered inside the box.</span>
+                    </div>
+                    <p class="demo-caption">The box is full width, but the text inside is centered.</p>
                 </div>
-                <div class="log" id="q35-log">Click "Run Simulation" to see how normal, async, and defer scripts behave.
+
+                <!-- Example 2: margin auto -->
+                <div class="demo-row">
+                    <div class="demo-label">2. `margin: 0 auto`</div>
+                    <div class="demo-parent">
+                        <div class="demo-box-margin">
+                            I am a box.
+                        </div>
+                    </div>
+                    <p class="demo-caption">The box has a fixed width (150px) and is centered inside the parent.</p>
                 </div>
+
+                <!-- Example 3: margin auto WITHOUT width -->
+                <div class="demo-row">
+                    <div class="demo-label">3. `margin: 0 auto` (No width ❌)</div>
+                    <div class="demo-parent">
+                        <div class="demo-box-no-width">
+                            I am a box without width.
+                        </div>
+                    </div>
+                    <p class="demo-caption">Because it takes 100% width, `margin: 0 auto` has no effect.</p>
+                </div>
+
             </div>
+
+            <style>
+                /* Q45 Basic Demo Styles */
+                .q45-basic-demo .demo-row {
+                    margin-bottom: 24px;
+                }
+
+                .q45-basic-demo .demo-row:last-child {
+                    margin-bottom: 0;
+                }
+
+                .q45-basic-demo .demo-label {
+                    font-family: 'Fira Code', Consolas, monospace;
+                    font-weight: 700;
+                    font-size: 0.85rem;
+                    color: #4f46e5;
+                    margin-bottom: 6px;
+                }
+
+                .q45-basic-demo .demo-parent {
+                    background: #f3f4f6;
+                    border: 2px dashed #cbd5e1;
+                    border-radius: 8px;
+                    padding: 10px;
+                    margin-bottom: 6px;
+                }
+
+                /* Example 1 */
+                .q45-basic-demo .text-align-center {
+                    text-align: center;
+                    background: #e0e7ff;
+                    /* Light indigo */
+                    border-style: solid;
+                }
+
+                .q45-basic-demo .demo-text {
+                    font-weight: 600;
+                    color: #3730a3;
+                }
+
+                /* Example 2 */
+                .q45-basic-demo .demo-box-margin {
+                    width: 150px;
+                    margin: 0 auto;
+                    background: #dcfce7;
+                    /* Light green */
+                    padding: 10px;
+                    border-radius: 6px;
+                    text-align: center;
+                    font-weight: 600;
+                    color: #166534;
+                }
+
+                /* Example 3 */
+                .q45-basic-demo .demo-box-no-width {
+                    margin: 0 auto;
+                    /* Auto will not work */
+                    background: #fee2e2;
+                    /* Light red */
+                    padding: 10px;
+                    border-radius: 6px;
+                    text-align: center;
+                    font-weight: 600;
+                    color: #991b1b;
+                }
+
+                .q45-basic-demo .demo-caption {
+                    font-size: 0.78rem;
+                    color: #6b7280;
+                    margin: 0;
+                    font-style: italic;
+                }
+            </style>
         </section>
 
         <!-- ==================== Q46 ==================== -->
@@ -1002,25 +1195,44 @@
 
         <!-- ==================== Q47 ==================== -->
         <section class="q-section">
-            <h2>Q47 — What is the difference between required, disabled, and readonly? <span
-                    class="badge medium">Medium</span></h2>
+            <h2>Q48 — What is the `inert` attribute, and why is it useful? <span class="badge medium">Medium</span></h2>
 
             <div class="answer">
                 <strong class="label">✅ Ideal answer</strong>
+                The <code>inert</code> attribute is a global HTML attribute that makes an element and all of its
+                descendants
+                completely <strong>inactive</strong>.<br><br>
+                When applied, it does three things simultaneously:
                 <ul style="margin:6px 0">
-                    <li><strong>required</strong> means the user must provide a value for the field for form validation
-                        to succeed.</li>
-                    <li><strong>disabled</strong> means the control is disabled and cannot normally be interacted with;
-                        disabled form controls are generally excluded from native form submission.</li>
-                    <li><strong>readonly</strong> means the user cannot modify the value, but the control remains
-                        generally usable and its value can be submitted.</li>
+                    <li>Prevents the user from clicking or interacting with the element
+                        (<code>pointer-events: none</code>).</li>
+                    <li>Removes the element and its children from the keyboard tab order (<code>tabindex="-1"</code>).
+                    </li>
+                    <li>Hides the element from screen readers (similar to <code>aria-hidden="true"</code>).</li>
                 </ul>
+                It is extremely useful for modals, sidebars, or off-screen content to prevent users from interacting
+                with the
+                background while the modal is open.
             </div>
 
             <div class="followup">
-                <span class="q">🔁 Follow-up: If I have a disabled input, can JavaScript read its value?</span>
-                <span class="a"><strong>Yes.</strong> Disabling the input doesn't erase its value. JavaScript can still
-                    access the element and its value.</span>
+                <span class="q">🔁 Follow-up: Is `inert` the same as `disabled`?</span>
+                <span class="a"><strong>No.</strong> Both make an element non-interactive, but they differ
+                    significantly:
+                    <ul style="margin:6px 0">
+                        <li><code>disabled</code> is only valid on <strong>form controls</strong> (like
+                            <code>&lt;button&gt;</code>, <code>&lt;input&gt;</code>, <code>&lt;select&gt;</code>). It
+                            also excludes the control's value from native form submission.
+                        </li>
+                        <li><code>inert</code> is a <strong>global attribute</strong> that works on <em>any</em> element
+                            (like <code>&lt;div&gt;</code>, <code>&lt;section&gt;</code>). It makes the element and its
+                            <strong>entire subtree</strong> non-interactive, non-focusable, and hidden from screen
+                            readers.
+                        </li>
+                    </ul>
+                    So <code>disabled</code> is for disabling a single form field, while <code>inert</code> is for
+                    disabling a whole section of the page (e.g., the background while a modal is open).
+                </span>
             </div>
 
             <h3>💻 Code</h3>
@@ -1033,30 +1245,196 @@
                 <div class="vs-tabbar">
                     <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
                 </div>
-                <pre class="vs-body"><code class="language-html">&lt;input name="email" required&gt;
-&lt;input name="userId" value="123" readonly&gt;
-&lt;input name="status" value="active" disabled&gt;</code></pre>
+                <pre class="vs-body"><code class="language-html">&lt;!-- The background is inert while the modal is open --&gt;
+&lt;div id="main-content" inert&gt;
+  &lt;button&gt;Click me (I am disabled)&lt;/button&gt;
+  &lt;a href="#"&gt;Link&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;!-- The modal is outside the inert container --&gt;
+&lt;div class="modal"&gt;
+  &lt;button&gt;Close Modal&lt;/button&gt;
+&lt;/div&gt;</code></pre>
             </div>
 
-            <h3>🔴 Live demo</h3>
-            <div class="demo-box q37-demo">
-                <form onsubmit="event.preventDefault(); showFormValues(this);">
-                    <label>Required input:</label>
-                    <input name="email" required placeholder="Must type here">
+            <h3>🔴 Live demo — Toggle `inert`</h3>
+            <div class="demo-box q48-demo">
+                <p style="font-size: 0.85rem; margin-top: 0; color: #6b7280;">
+                    Try clicking the buttons or pressing <kbd>Tab</kbd> inside the grey box. Then toggle the `inert`
+                    attribute.
+                </p>
 
-                    <label>Readonly input:</label>
-                    <input name="userId" value="123" readonly>
+                <!-- The Background Layer -->
+                <div class="demo-background" id="inert-target">
+                    <div class="bg-content">
+                        <h4>Background Content</h4>
+                        <p>This represents the main page behind a modal.</p>
+                        <div class="bg-actions">
+                            <button onclick="logInteraction('Background Button Clicked!')">Click Me</button>
+                            <input type="text" placeholder="Type something..."
+                                oninput="logInteraction('Background Input Typed!')">
+                        </div>
+                    </div>
+                </div>
 
-                    <label>Disabled input:</label>
-                    <input name="status" value="active" disabled>
+                <!-- Controls to toggle inert -->
+                <div class="demo-controls">
+                    <button id="toggle-inert-btn" onclick="toggleInert()" class="btn-toggle">
+                        ☑️ Toggle `inert` on Background
+                    </button>
+                    <span id="inert-status" class="status-badge">Status: Active</span>
+                </div>
 
-                    <button type="submit">Submit Form</button>
-                </form>
-                <div class="result" id="q37-output">Click Submit to see which values pass validation and get submitted.
+                <div id="interaction-log" class="log-output">
+                    Interactions will be logged here...
                 </div>
             </div>
-        </section>
 
+            <style>
+                /* Q48 Demo Styles */
+                .q48-demo .demo-background {
+                    background: #f3f4f6;
+                    border: 2px dashed #cbd5e1;
+                    border-radius: 10px;
+                    padding: 20px;
+                    margin-bottom: 16px;
+                    transition: all 0.3s ease;
+                }
+
+                /* Visual style when inert is applied */
+                .q48-demo .demo-background[inert] {
+                    opacity: 0.4;
+                    filter: grayscale(100%);
+                    pointer-events: none;
+                    /* Note: Native inert already blocks pointer-events, this is just for visual clarity */
+                }
+
+                .q48-demo .bg-content {
+                    text-align: center;
+                }
+
+                .q48-demo .bg-content h4 {
+                    margin: 0 0 8px;
+                    color: #1f2937;
+                }
+
+                .q48-demo .bg-content p {
+                    margin: 0 0 16px;
+                    font-size: 0.85rem;
+                    color: #4b5563;
+                }
+
+                .q48-demo .bg-actions {
+                    display: flex;
+                    gap: 10px;
+                    justify-content: center;
+                }
+
+                .q48-demo .bg-actions button {
+                    background: #4f46e5;
+                    color: #fff;
+                    border: none;
+                    padding: 8px 16px;
+                    border-radius: 6px;
+                    cursor: pointer;
+                    font-weight: bold;
+                }
+
+                .q48-demo .bg-actions input {
+                    padding: 8px 12px;
+                    border: 2px solid #cbd5e1;
+                    border-radius: 6px;
+                    font-size: 0.9rem;
+                }
+
+                .q48-demo .demo-controls {
+                    display: flex;
+                    align-items: center;
+                    gap: 16px;
+                    margin-bottom: 16px;
+                    flex-wrap: wrap;
+                }
+
+                .q48-demo .btn-toggle {
+                    background: #10b981;
+                    color: #fff;
+                    border: none;
+                    padding: 10px 20px;
+                    border-radius: 8px;
+                    font-weight: 700;
+                    cursor: pointer;
+                    transition: background 0.2s;
+                }
+
+                .q48-demo .btn-toggle:hover {
+                    background: #059669;
+                }
+
+                .q48-demo .status-badge {
+                    font-size: 0.8rem;
+                    font-weight: 700;
+                    padding: 4px 12px;
+                    border-radius: 20px;
+                    background: #dcfce7;
+                    color: #166534;
+                    transition: all 0.3s;
+                }
+
+                .q48-demo .status-badge.is-inert {
+                    background: #fee2e2;
+                    color: #991b1b;
+                }
+
+                .q48-demo .log-output {
+                    font-family: 'Fira Code', Consolas, monospace;
+                    font-size: 0.85rem;
+                    background: #1e293b;
+                    color: #e2e8f0;
+                    padding: 12px;
+                    border-radius: 8px;
+                    min-height: 40px;
+                    display: flex;
+                    align-items: center;
+                }
+            </style>
+
+            <script>
+                let isInert = false;
+
+                function toggleInert() {
+                    const target = document.getElementById('inert-target');
+                    const btn = document.getElementById('toggle-inert-btn');
+                    const status = document.getElementById('inert-status');
+                    const log = document.getElementById('interaction-log');
+
+                    isInert = !isInert;
+
+                    if (isInert) {
+                        target.setAttribute('inert', '');
+                        status.textContent = 'Status: INERT (Unclickable & Unfocusable)';
+                        status.classList.add('is-inert');
+                        log.innerHTML = '🔒 Background is now <strong>inert</strong>. Try clicking the buttons or pressing Tab!';
+                        log.style.color = '#fbbf24';
+                    } else {
+                        target.removeAttribute('inert');
+                        status.textContent = 'Status: Active';
+                        status.classList.remove('is-inert');
+                        log.innerHTML = '🔓 Background is active again. You can click and Tab normally.';
+                        log.style.color = '#e2e8f0';
+                    }
+                }
+
+                function logInteraction(msg) {
+                    const log = document.getElementById('interaction-log');
+                    log.innerHTML = `✅ <strong>${msg}</strong>`;
+                    log.style.color = '#10b981';
+
+                    setTimeout(() => {
+                        log.style.color = '#e2e8f0';
+                    }, 1500);
+                }
+            </script>
+        </section>
         <!-- ==================== Q48 ==================== -->
         <section class="q-section">
             <h2>Q48 — What is the difference between hidden and display: none? <span class="badge medium">Medium</span>
@@ -1204,7 +1582,44 @@
                     <code>allow-modals</code>.</span>
             </div>
 
+            <!-- ==================== DEMO 1: IFRAME VS EMBED ==================== -->
             <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;!-- Embedding HTML content --&gt;
+&lt;iframe src="https://example.com" title="Example website"&gt;&lt;/iframe&gt;
+
+&lt;!-- Embedding an external resource (like SVG or PDF) --&gt;
+&lt;embed src="image.svg" type="image/svg+xml"&gt;</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Iframe vs Embed</h3>
+            <div class="demo-box q40-demo"
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
+                <div>
+                    <h4 style="margin: 0 0 10px; font-size: 0.9rem; color: #4f46e5;">&lt;iframe&gt; (HTML context)</h4>
+                    <iframe
+                        srcdoc="<!DOCTYPE html><html><body style='margin:0; display:flex; align-items:center; justify-content:center; height:100%; background:#eff6ff; font-family:sans-serif;'><div style='text-align:center;'><h3 style='color:#4f46e5; margin:0; font-size:1rem;'>Hello from iframe!</h3><p style='font-size:0.8rem; color:#666;'>I am a separate browsing context.</p></div></body></html>"
+                        style="height: 150px; width: 100%;"></iframe>
+                </div>
+                <div>
+                    <h4 style="margin: 0 0 10px; font-size: 0.9rem; color: #10b981;">&lt;embed&gt; (External resource)
+                    </h4>
+                    <embed
+                        src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100%' height='150'><rect width='100%' height='100%' fill='%23ecfdf5'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%2310b981' font-family='sans-serif' font-size='14'>I am an SVG embedded via &lt;embed&gt;</text></svg>"
+                        type="image/svg+xml" style="width: 100%; height: 150px;">
+                </div>
+            </div>
+
+            <!-- ==================== DEMO 2: SANDBOX PLAYGROUND ==================== -->
+            <h3>💻 Code (Sandbox)</h3>
             <div class="vs-code">
                 <div class="vs-titlebar">
                     <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
@@ -1215,70 +1630,335 @@
                     <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
                 </div>
                 <pre
-                    class="vs-body"><code class="language-html">&lt;iframe src="https://example.com" title="Example website"&gt;&lt;/iframe&gt;</code></pre>
+                    class="vs-body"><code class="language-html">&lt;iframe src="/embedded-app" sandbox="allow-scripts allow-forms" title="Embedded app"&gt;&lt;/iframe&gt;</code></pre>
             </div>
 
-            <h3>🔴 Live demo</h3>
-            <div class="demo-box q40-demo">
-                <p style="font-size: 0.9rem; margin-top: 0;">This is an <code>&lt;iframe&gt;</code> embedding a simple
-                    HTML document:</p>
-                <iframe
-                    srcdoc="<!DOCTYPE html><html><body style='margin:0; display:flex; align-items:center; justify-content:center; height:100vh; background:#eff6ff; font-family:sans-serif;'><div style='text-align:center;'><h3 style='color:#4f46e5; margin:0;'>Hello from inside the iframe!</h3><p style='font-size:0.8rem; color:#666;'>I am a separate browsing context.</p></div></body></html>"></iframe>
-            </div>
+            <h3>🔴 Live demo — Sandbox Playground</h3>
+            <div class="demo-box q40-sandbox-playground">
+                <div class="playground-layout">
 
-            <h3>💻 Code</h3>
-            <div class="vs-code">
-                <div class="vs-titlebar">
-                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
-                            class="vs-dot green"></span></div>
-                    <div class="vs-title">index.html — Visual Studio Code</div>
-                </div>
-                <div class="vs-tabbar">
-                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
-                </div>
-                <pre class="vs-body"><code class="language-html">&lt;!-- Strict sandbox: everything restricted by default --&gt;
-&lt;iframe
-  src="/embedded-app"
-  sandbox
-  title="Embedded application"
-&gt;&lt;/iframe&gt;
+                    <!-- Control Panel -->
+                    <div class="control-panel">
+                        <h4>🔧 Sandbox Tokens</h4>
+                        <p class="panel-desc">Toggle permissions to see how the iframe behaves.</p>
 
-&lt;!-- Selective sandbox: allow scripts, keep the rest restricted --&gt;
-&lt;iframe
-  src="/embedded-app"
-  sandbox="allow-scripts"
-  title="Embedded application"
-&gt;&lt;/iframe&gt;
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="token-scripts" checked onchange="updateSandbox()">
+                            <span class="slider"></span>
+                            <span class="label-text"><code>allow-scripts</code></span>
+                        </label>
 
-&lt;!-- Multiple tokens can be combined --&gt;
-&lt;iframe
-  src="/embedded-app"
-  sandbox="allow-scripts allow-forms allow-popups"
-  title="Embedded application"
-&gt;&lt;/iframe&gt;</code></pre>
-            </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="token-modals" checked onchange="updateSandbox()">
+                            <span class="slider"></span>
+                            <span class="label-text"><code>allow-modals</code></span>
+                        </label>
 
-            <h3>🔴 Live demo — Click the buttons</h3>
-            <div class="demo-box q221-demo">
-                <div class="iframe-grid">
-                    <div class="iframe-card blocked">
-                        <span class="iframe-label">sandbox</span>
-                        <iframe sandbox title="Sandbox demo"
-                            srcdoc="&lt;body style='display:flex;align-items:center;justify-content:center;height:100%;margin:0;font-family:system-ui,sans-serif;background:#f9fafb;'&gt;&lt;button onclick='this.textContent=&quot;Clicked!&quot;;this.style.background=&quot;#10b981&quot;' style='padding:8px 16px;border:none;border-radius:6px;cursor:pointer;background:#6b7280;color:#fff;font-weight:bold;font-size:0.85rem;'&gt;Click me&lt;/button&gt;&lt;/body&gt;"></iframe>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="token-popups" checked onchange="updateSandbox()">
+                            <span class="slider"></span>
+                            <span class="label-text"><code>allow-popups</code></span>
+                        </label>
+
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="token-forms" checked onchange="updateSandbox()">
+                            <span class="slider"></span>
+                            <span class="label-text"><code>allow-forms</code></span>
+                        </label>
+
+                        <div class="current-sandbox-val">
+                            <strong>Current attribute:</strong><br>
+                            <code id="sandbox-value"></code>
+                        </div>
                     </div>
-                    <div class="iframe-card allowed">
-                        <span class="iframe-label">sandbox="allow-scripts"</span>
-                        <iframe sandbox="allow-scripts" title="Sandbox allow-scripts demo"
-                            srcdoc="&lt;body style='display:flex;align-items:center;justify-content:center;height:100%;margin:0;font-family:system-ui,sans-serif;background:#f9fafb;'&gt;&lt;button onclick='this.textContent=&quot;Clicked!&quot;;this.style.background=&quot;#10b981&quot;' style='padding:8px 16px;border:none;border-radius:6px;cursor:pointer;background:#6b7280;color:#fff;font-weight:bold;font-size:0.85rem;'&gt;Click me&lt;/button&gt;&lt;/body&gt;"></iframe>
+
+                    <!-- The Iframe Display & External Log -->
+                    <div class="iframe-display">
+                        <div class="iframe-header">
+                            <span>🔒 Isolated Iframe Environment</span>
+                        </div>
+
+                        <div id="iframe-container">
+                            <!-- The iframe will be injected here by JS -->
+                        </div>
+
+                        <!-- External Log to see what happens inside the iframe -->
+                        <div class="external-log" id="external-log">
+                            <span style="color:#94a3b8;">Waiting for actions...</span>
+                        </div>
+
+                        <p class="iframe-hint">👆 Try interacting with the app. Watch the log below it!</p>
                     </div>
                 </div>
-                <p class="hint">
-                    👈 The left button has <code>sandbox</code> with no tokens — clicking it does nothing, because
-                    scripts (and even inline event handlers) are blocked.<br>
-                    👉 The right button has <code>sandbox="allow-scripts"</code> — clicking it changes its text to
-                    <strong>"Clicked!"</strong> and its color to green, because scripts are explicitly allowed.
-                </p>
             </div>
+
+            <style>
+                /* Q40 Sandbox Playground Styles */
+                .q40-sandbox-playground {
+                    background: #f8fafc;
+                    border: 1px solid #e2e8f0;
+                    border-radius: 12px;
+                    padding: 20px;
+                    font-family: system-ui, -apple-system, sans-serif;
+                }
+
+                .playground-layout {
+                    display: flex;
+                    gap: 20px;
+                    flex-wrap: wrap;
+                }
+
+                /* Control Panel */
+                .q40-sandbox-playground .control-panel {
+                    flex: 1;
+                    min-width: 280px;
+                    background: #fff;
+                    border: 1px solid #e2e8f0;
+                    border-radius: 10px;
+                    padding: 18px;
+                    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+                }
+
+                .q40-sandbox-playground .control-panel h4 {
+                    margin: 0 0 4px;
+                    color: #1e293b;
+                    font-size: 1.05rem;
+                }
+
+                .q40-sandbox-playground .panel-desc {
+                    margin: 0 0 16px;
+                    font-size: 0.8rem;
+                    color: #64748b;
+                }
+
+                /* Custom Toggle Switch */
+                .q40-sandbox-playground .toggle-switch {
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    margin-bottom: 12px;
+                    cursor: pointer;
+                    user-select: none;
+                }
+
+                .q40-sandbox-playground .toggle-switch input {
+                    display: none;
+                }
+
+                .q40-sandbox-playground .slider {
+                    position: relative;
+                    width: 40px;
+                    height: 22px;
+                    background-color: #cbd5e1;
+                    border-radius: 20px;
+                    transition: .2s;
+                    flex-shrink: 0;
+                }
+
+                .q40-sandbox-playground .slider:before {
+                    position: absolute;
+                    content: "";
+                    height: 16px;
+                    width: 16px;
+                    left: 3px;
+                    bottom: 3px;
+                    background-color: white;
+                    border-radius: 50%;
+                    transition: .2s;
+                }
+
+                .q40-sandbox-playground input:checked+.slider {
+                    background-color: #4f46e5;
+                }
+
+                .q40-sandbox-playground input:checked+.slider:before {
+                    transform: translateX(18px);
+                }
+
+                .q40-sandbox-playground .label-text code {
+                    font-size: 0.85rem;
+                    font-weight: 700;
+                    color: #334155;
+                    background: #f1f5f9;
+                    padding: 2px 6px;
+                    border-radius: 4px;
+                }
+
+                .q40-sandbox-playground .current-sandbox-val {
+                    margin-top: 20px;
+                    background: #1e293b;
+                    color: #e2e8f0;
+                    padding: 10px 12px;
+                    border-radius: 8px;
+                    font-size: 0.78rem;
+                    font-family: 'Fira Code', Consolas, monospace;
+                    word-break: break-all;
+                }
+
+                .q40-sandbox-playground .current-sandbox-val strong {
+                    color: #94a3b8;
+                    display: block;
+                    margin-bottom: 6px;
+                    font-family: system-ui, sans-serif;
+                }
+
+                .q40-sandbox-playground #sandbox-value {
+                    color: #10b981;
+                }
+
+                /* Iframe Display */
+                .q40-sandbox-playground .iframe-display {
+                    flex: 1.2;
+                    min-width: 300px;
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .q40-sandbox-playground .iframe-header {
+                    background: #e2e8f0;
+                    padding: 8px 14px;
+                    border-radius: 10px 10px 0 0;
+                    font-size: 0.8rem;
+                    font-weight: 700;
+                    color: #475569;
+                    display: flex;
+                    align-items: center;
+                    gap: 6px;
+                    border: 1px solid #cbd5e1;
+                    border-bottom: none;
+                }
+
+                .q40-sandbox-playground #iframe-container {
+                    flex: 1;
+                    background: #fff;
+                    border: 1px solid #cbd5e1;
+                    border-bottom: none;
+                    overflow: hidden;
+                    min-height: 200px;
+                }
+
+                .q40-sandbox-playground iframe {
+                    width: 100%;
+                    height: 100%;
+                    border: none;
+                    display: block;
+                }
+
+                .q40-sandbox-playground .external-log {
+                    background: #1e293b;
+                    color: #10b981;
+                    padding: 10px;
+                    border-radius: 0 0 10px 10px;
+                    font-family: 'Fira Code', Consolas, monospace;
+                    font-size: 0.8rem;
+                    min-height: 40px;
+                    border: 1px solid #cbd5e1;
+                    border-top: none;
+                }
+
+                .q40-sandbox-playground .iframe-hint {
+                    font-size: 0.8rem;
+                    color: #64748b;
+                    margin: 10px 0 0;
+                    text-align: center;
+                    font-style: italic;
+                }
+            </style>
+
+            <script>
+                // Content injected into the iframe
+                const sandboxContent = `
+            <!DOCTYPE html>
+            <html>
+            <body style='margin:0; padding:15px; font-family:system-ui, sans-serif; background:#f9fafb; display:flex; flex-direction:column; gap:8px; height:100vh; box-sizing:border-box;'>
+                <h4 style='margin:0 0 5px; color:#1e293b; font-size:0.9rem;'>Interactive App</h4>
+                
+                <button onclick="tryAction('Script', () => { document.body.style.background = '#dcfce7'; })" style='padding:8px; border:none; border-radius:4px; background:#4f46e5; color:white; font-weight:bold; cursor:pointer; font-size:0.8rem;'>1. Run Script</button>
+                
+                <button onclick="tryAction('Modal', () => { alert('Hello from sandbox!'); })" style='padding:8px; border:none; border-radius:4px; background:#4f46e5; color:white; font-weight:bold; cursor:pointer; font-size:0.8rem;'>2. Show Modal</button>
+                
+                <button onclick="tryAction('Popup', () => { window.open('', '_blank', 'width=200,height=100'); })" style='padding:8px; border:none; border-radius:4px; background:#4f46e5; color:white; font-weight:bold; cursor:pointer; font-size:0.8rem;'>3. Open Popup</button>
+
+                <form onsubmit="event.preventDefault(); tryAction('Form', () => {});" style='margin:0;'>
+                    <button type="submit" style='width:100%; padding:8px; border:none; border-radius:4px; background:#4f46e5; color:white; font-weight:bold; cursor:pointer; font-size:0.8rem;'>4. Submit Form</button>
+                </form>
+
+                <script>
+                    function tryAction(actionName, callback) {
+                        try {
+                            callback();
+                            // Tell the parent window that the action was successful
+                            window.parent.postMessage({ status: 'success', action: actionName }, '*');
+                        } catch (e) {
+                            // If the action fails (e.g., blocked by sandbox), catch the error
+                            window.parent.postMessage({ status: 'error', action: actionName, message: e.message }, '*');
+                        }
+                    }
+                <\/script>
+            </body>
+            </html>
+        `;
+
+                // Listen for messages from the iframe
+                window.addEventListener('message', function (event) {
+                    const log = document.getElementById('external-log');
+                    const data = event.data;
+
+                    if (data && data.action) {
+                        if (data.status === 'success') {
+                            log.innerHTML = `✅ <strong>[${data.action}]</strong> executed successfully!`;
+                            log.style.color = '#10b981';
+                        } else {
+                            log.innerHTML = `❌ <strong>[${data.action}]</strong> was blocked by the sandbox!`;
+                            log.style.color = '#ef4444';
+                        }
+
+                        // Reset color after 3 seconds
+                        setTimeout(() => {
+                            log.style.color = '#e2e8f0';
+                            log.innerHTML = 'Waiting for actions...';
+                        }, 3000);
+                    }
+                });
+
+                function updateSandbox() {
+                    const tokens = [];
+                    if (document.getElementById('token-scripts').checked) tokens.push('allow-scripts');
+                    if (document.getElementById('token-modals').checked) tokens.push('allow-modals');
+                    if (document.getElementById('token-popups').checked) tokens.push('allow-popups');
+                    if (document.getElementById('token-forms').checked) tokens.push('allow-forms');
+
+                    const sandboxValue = tokens.join(' ');
+                    document.getElementById('sandbox-value').textContent = `sandbox="${sandboxValue}"`;
+
+                    const container = document.getElementById('iframe-container');
+                    const externalLog = document.getElementById('external-log');
+
+                    // Reset Log
+                    externalLog.innerHTML = 'Waiting for actions...';
+                    externalLog.style.color = '#e2e8f0';
+
+                    // If scripts are disabled, warn the user
+                    if (!tokens.includes('allow-scripts')) {
+                        externalLog.innerHTML = '⚠️ <strong>allow-scripts</strong> is OFF. All JS inside the iframe is blocked.';
+                        externalLog.style.color = '#f59e0b';
+                    }
+
+                    // Recreate iframe
+                    container.innerHTML = '';
+                    const newIframe = document.createElement('iframe');
+                    newIframe.setAttribute('sandbox', sandboxValue);
+                    newIframe.setAttribute('srcdoc', sandboxContent);
+                    newIframe.setAttribute('title', 'Sandbox Playground');
+
+                    container.appendChild(newIframe);
+                }
+
+                // Initialize
+                document.addEventListener('DOMContentLoaded', () => {
+                    updateSandbox();
+                });
+            </script>
         </section>
 
         <!-- ==================== STUDENT TASK ==================== -->
@@ -1326,9 +2006,10 @@
                     </tr>
                     <tr>
                         <td>45</td>
-                        <td>Script loading</td>
-                        <td>Add an external JS file with the <code>defer</code> attribute and explain in a comment why
-                            you chose it.</td>
+                        <td>CSS Centering</td>
+                        <td>Create a full-width div with centered text using <code>text-align: center</code>. Then
+                            create a box with a fixed width centered using <code>margin: 0 auto</code>. Add a comment
+                            explaining why it fails without a width.</td>
                     </tr>
                     <tr>
                         <td>46</td>
@@ -1338,15 +2019,17 @@
                     </tr>
                     <tr>
                         <td>47</td>
-                        <td>Form attributes</td>
-                        <td>Add a required email input, a readonly "Account ID" input, and a disabled "Status" input.
-                        </td>
+                        <td>`inert` attribute</td>
+                        <td>Create a "background" section and a "modal". Apply the <code>inert</code> attribute to the
+                            background and explain in a comment how it blocks clicks, focus, and screen readers.</td>
                     </tr>
                     <tr>
                         <td>48</td>
-                        <td>hidden</td>
-                        <td>Create a <code>&lt;div hidden&gt;</code> and toggle it using JS by removing/adding the
-                            attribute.</td>
+                        <td>hidden vs display: none</td>
+                        <td>Create a <code>&lt;div hidden&gt;</code> and a
+                            <code>&lt;div style="display: none;"&gt;</code>. Toggle both using JS by removing/adding the
+                            attributes/styles.
+                        </td>
                     </tr>
                     <tr>
                         <td>49</td>
@@ -1372,8 +2055,9 @@
                 </li>
                 <li><strong>README.md</strong> with 3 answers:
                     <ol>
-                        <li>What happens to a disabled input's value when the form is submitted?</li>
-                        <li>Why did you use <code>defer</code> instead of <code>async</code>?</li>
+                        <li>Why does <code>margin: 0 auto</code> require a width to center an element?</li>
+                        <li>What is the difference between the <code>inert</code> attribute and <code>disabled</code>?
+                        </li>
                         <li>What is the layout difference between <code>display: none</code> and
                             <code>visibility: hidden</code>?
                         </li>
@@ -1388,7 +2072,8 @@
             </ul>
 
             <h3>🎯 Grading (out of 10)</h3>
-            <p>1 point per row. "Positioning" and "Visibility" rows are worth double if the README explanation is
+            <p>1 point per row. "CSS Centering" and "`inert` attribute" rows are worth double if the README explanation
+                is
                 correct.</p>
         </section>
 

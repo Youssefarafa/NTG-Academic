@@ -361,6 +361,7 @@
       overflow: visible !important;
     }
 
+    /* =========== Q11 Demo Styles =========== */
     .q1-demo header {
       background: #4f46e5;
       color: #fff;
@@ -459,6 +460,47 @@
       font-size: 0.85rem;
     }
 
+    /* =========== NEW: Q11 Layout Demo (Previously Q51) =========== */
+    .q51-demo header {
+      background: #4f46e5;
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 6px;
+    }
+
+    .q51-demo nav {
+      background: #7c3aed;
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 6px;
+      margin-top: 4px;
+    }
+
+    .q51-demo main {
+      background: #ecfdf5;
+      padding: 10px 14px;
+      border: 2px dashed #10b981;
+      border-radius: 6px;
+      margin-top: 4px;
+    }
+
+    .q51-demo aside {
+      background: #fef3c7;
+      padding: 10px 14px;
+      border: 2px dashed #f59e0b;
+      border-radius: 6px;
+      margin-top: 4px;
+    }
+
+    .q51-demo footer {
+      background: #374151;
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 6px;
+      margin-top: 4px;
+    }
+
+    /* =========== Other Demos =========== */
     .q2-demo .layout-row {
       background: #eef;
       padding: 8px;
@@ -878,6 +920,106 @@
         👀 Both demos look <strong>identical</strong> visually — but the semantic version is better for screen readers,
         search engines, and developers reading the code.
       </p>
+
+      <!-- ============================================================= -->
+      <!-- =========== NEW Follow-up 1: header / nav / main / etc. ===== -->
+      <!-- ============================================================= -->
+      <div class="followup">
+        <span class="q">🔁 Follow-up: What is the difference between &lt;header&gt;, &lt;nav&gt;, &lt;main&gt;,
+          &lt;aside&gt;, and &lt;footer&gt;?</span>
+        <span class="a">
+          They are semantic elements that describe different structural parts of a page:
+          <ul style="margin:6px 0">
+            <li><code>&lt;header&gt;</code> represents introductory content for a page or section.</li>
+            <li><code>&lt;nav&gt;</code> contains major navigation links.</li>
+            <li><code>&lt;main&gt;</code> contains the primary content of the document.</li>
+            <li><code>&lt;aside&gt;</code> contains related or supplementary content.</li>
+            <li><code>&lt;footer&gt;</code> contains footer information for a page or section.</li>
+          </ul>
+        </span>
+      </div>
+
+      <div class="followup">
+        <span class="q">🔁 Follow-up: Can a page have multiple &lt;header&gt; or &lt;footer&gt; elements?</span>
+        <span class="a"><strong>Yes.</strong> They can be used for the document itself or for individual
+          sections/articles. However, a document should generally have one primary <code>&lt;main&gt;</code>
+          element.</span>
+      </div>
+
+      <h3>💻 Code (Layout elements)</h3>
+      <div class="vs-code">
+        <div class="vs-titlebar">
+          <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+              class="vs-dot green"></span></div>
+          <div class="vs-title">index.html — Visual Studio Code</div>
+        </div>
+        <div class="vs-tabbar">
+          <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+        </div>
+        <pre class="vs-body"><code class="language-html">&lt;header&gt;Header&lt;/header&gt;
+&lt;nav&gt;Navigation&lt;/nav&gt;
+&lt;main&gt;Main Content&lt;/main&gt;
+&lt;aside&gt;Sidebar&lt;/aside&gt;
+&lt;footer&gt;Footer&lt;/footer&gt;</code></pre>
+      </div>
+
+      <h3>🔴 Live demo (Layout representation)</h3>
+      <div class="demo-box q51-demo">
+        <header>&lt;header&gt;</header>
+        <nav>&lt;nav&gt;</nav>
+        <main>&lt;main&gt;</main>
+        <aside>&lt;aside&gt;</aside>
+        <footer>&lt;footer&gt;</footer>
+      </div>
+
+      <!-- ============================================================= -->
+      <!-- =========== NEW Follow-up 2: Multiple <main> elements ======= -->
+      <!-- ============================================================= -->
+      <div class="followup">
+        <span class="q">🔁 Follow-up: Can an HTML page have multiple &lt;main&gt; elements?</span>
+        <span class="a">
+          A document should have only <strong>one visible <code>&lt;main&gt;</code> element</strong> representing
+          the dominant content of the document.<br><br>
+          If I have multiple sections or views, I wouldn't normally put multiple visible <code>&lt;main&gt;</code>
+          elements on the same page.
+        </span>
+      </div>
+
+      <div class="followup">
+        <span class="q">🔁 Follow-up: Can the &lt;main&gt; element be nested inside &lt;article&gt; or
+          &lt;section&gt;?</span>
+        <span class="a">Normally, <code>&lt;main&gt;</code> should represent the main content of the document
+          and <strong>shouldn't be nested</strong> inside elements such as <code>article</code>,
+          <code>aside</code>, <code>footer</code>, <code>header</code>, or <code>nav</code>.</span>
+      </div>
+
+      <h3>💻 Code (Multiple main)</h3>
+      <div class="vs-code">
+        <div class="vs-titlebar">
+          <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+              class="vs-dot green"></span></div>
+          <div class="vs-title">index.html — Visual Studio Code</div>
+        </div>
+        <div class="vs-tabbar">
+          <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+        </div>
+        <pre class="vs-body"><code class="language-html">&lt;!-- ✅ Correct: One main element --&gt;
+&lt;main&gt;
+  &lt;h1&gt;Welcome&lt;/h1&gt;
+&lt;/main&gt;
+
+&lt;!-- ❌ Invalid: Multiple main elements --&gt;
+&lt;main&gt;View 1&lt;/main&gt;
+&lt;main&gt;View 2&lt;/main&gt;</code></pre>
+      </div>
+
+      <h3>🔴 Live demo</h3>
+      <div class="demo-box" style="background: #ecfdf5; border-color: #10b981; padding: 16px; border-radius: 8px;">
+        <p style="margin:0; font-weight: bold; color: #047857;">✅ This entire white box is the one and only
+          <code>&lt;main&gt;</code> element for this page.
+        </p>
+      </div>
+
     </section>
 
     <!-- ==================== Q12 ==================== -->
@@ -1436,10 +1578,9 @@
         <tbody>
           <tr>
             <td>11</td>
-            <td>Semantic HTML</td>
+            <td>Semantic HTML + Layout Elements</td>
             <td>Use <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>,
-              <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;footer&gt;</code> — no
-              <code>&lt;div&gt;</code> where semantic fits.
+              <code>&lt;aside&gt;</code>, and <code>&lt;footer&gt;</code>. Use exactly one <code>&lt;main&gt;</code>.
             </td>
           </tr>
           <tr>
@@ -1500,7 +1641,7 @@
         <li><strong>Comments:</strong> above each section, e.g. <code>&lt;!-- Q18: Flexbox navbar --&gt;</code></li>
         <li><strong>README.md</strong> with 3 answers:
           <ol>
-            <li>Why did you use <code>&lt;section&gt;</code> here instead of <code>&lt;div&gt;</code>?</li>
+            <li>What is the difference between <code>&lt;section&gt;</code> and <code>&lt;div&gt;</code>?</li>
             <li>Which rule won in your specificity test — and why?</li>
             <li>When would you use Flexbox instead of Grid here?</li>
           </ol>

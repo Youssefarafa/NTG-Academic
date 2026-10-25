@@ -536,9 +536,8 @@
             white-space: pre-wrap;
         }
 
-        /* =========== Q67 & Q68: Action & GET/POST =========== */
-        .q67-demo .url-bar,
-        .q68-demo .url-bar {
+        /* =========== Q67: Form action =========== */
+        .q67-demo .url-bar {
             background: #f3f4f6;
             border: 1px solid #d1d5db;
             padding: 8px 12px;
@@ -552,22 +551,19 @@
             color: #374151;
         }
 
-        .q67-demo .url-bar span,
-        .q68-demo .url-bar span {
+        .q67-demo .url-bar span {
             color: #6b7280;
             font-size: 0.75rem;
         }
 
-        .q67-demo form,
-        .q68-demo form {
+        .q67-demo form {
             background: #fff;
             padding: 16px;
             border-radius: 8px;
             border: 1px solid #e5e7eb;
         }
 
-        .q67-demo input,
-        .q68-demo input {
+        .q67-demo input {
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 4px;
@@ -575,14 +571,111 @@
             width: 100%;
         }
 
-        .q67-demo button,
-        .q68-demo button {
+        .q67-demo button {
             background: #4f46e5;
             color: #fff;
             border: none;
             padding: 8px 16px;
             border-radius: 4px;
             cursor: pointer;
+        }
+
+        /* =========== Q68: Safe & Idempotent HTTP Methods =========== */
+        .q68-demo .matrix {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            font-size: 0.9rem;
+        }
+
+        .q68-demo .matrix th,
+        .q68-demo .matrix td {
+            padding: 10px 14px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .q68-demo .matrix th {
+            background: #e0e7ff;
+            color: #3730a3;
+            font-weight: 700;
+        }
+
+        .q68-demo .matrix tr:last-child td {
+            border-bottom: none;
+        }
+
+        .q68-demo .matrix .danger-row td {
+            background: #fef2f2;
+        }
+
+        .q68-demo .state-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        .q68-demo .state-box strong {
+            font-size: 1.4rem;
+            color: #38bdf8;
+        }
+
+        .q68-demo .sim-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .q68-demo .sim-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: #fff;
+        }
+
+        .q68-demo .sim-btn.safe {
+            background: #10b981;
+        }
+
+        .q68-demo .sim-btn.idempotent {
+            background: #3b82f6;
+        }
+
+        .q68-demo .sim-btn.danger {
+            background: #ef4444;
+        }
+
+        .q68-demo .sim-btn.reset {
+            background: #6b7280;
+        }
+
+        .q68-demo .sim-btn:hover {
+            opacity: 0.85;
+        }
+
+        .q68-demo .log {
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 12px 14px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.82rem;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            min-height: 70px;
         }
 
         /* =========== Q69 & Q70: Escaping & XSS =========== */
@@ -745,6 +838,7 @@
                     Example:<br>
                     <code>&lt;fieldset&gt;</code><br>
                     &nbsp;&nbsp;<code>&lt;legend&gt;Account Type&lt;/legend&gt;</code><br><br>
+
                     &nbsp;&nbsp;<code>&lt;label&gt;</code><br>
                     &nbsp;&nbsp;&nbsp;&nbsp;<code>&lt;input type="radio" name="type" value="employee"&gt;</code><br>
                     &nbsp;&nbsp;&nbsp;&nbsp;Employee<br>
@@ -1089,30 +1183,46 @@
 
         <!-- ==================== Q68 ==================== -->
         <section class="q-section">
-            <h2>Q68 — What is the difference between GET and POST in HTML forms? <span
+            <h2>Q68 — What is the difference between "safe" and "idempotent" HTTP methods? <span
                     class="badge medium">Medium</span></h2>
 
             <div class="answer">
                 <strong class="label">✅ Ideal answer</strong>
-                With a <strong>GET</strong> form submission, the form data is encoded into the <strong>URL query
-                    string</strong>.<br><br>
-                With <strong>POST</strong>, the form data is sent in the <strong>request body</strong>.<br><br>
-                GET is appropriate for search/filter forms where representing the state in the URL is useful. POST is
-                commonly used when submitting data that causes a server-side operation.
+                <strong>Safe</strong> methods do <strong>not modify server state</strong> — they only retrieve data.
+                Examples: <code>GET</code>, <code>HEAD</code>, <code>OPTIONS</code>.<br><br>
+
+                <strong>Idempotent</strong> methods produce the <strong>same result whether the request is made once or
+                    repeated multiple times</strong>. Examples: <code>GET</code>, <code>HEAD</code>,
+                <code>OPTIONS</code>,
+                <code>PUT</code>, <code>DELETE</code>.<br><br>
+
+                <code>POST</code> is <strong>neither safe nor idempotent</strong>.<br>
+                Every <strong>safe</strong> method is also <strong>idempotent</strong>, but not every idempotent method
+                is
+                safe (e.g. <code>DELETE</code> changes state but repeating it yields the same outcome).
             </div>
 
             <div class="followup">
-                <span class="q">🔁 Follow-up: Can GET requests modify data?</span>
-                <span class="a">Technically a server could be implemented that way, but according to HTTP semantics, GET
-                    should be <strong>safe</strong> and used for retrieving representations rather than performing
-                    state-changing operations.</span>
+                <span class="q">🔁 Follow-up: Is POST idempotent?</span>
+                <span class="a"><strong>No.</strong> Calling <code>POST</code> twice usually creates two resources (e.g.
+                    two
+                    orders). That's why browsers warn you when refreshing a page after a POST submission.</span>
             </div>
 
             <div class="followup">
-                <span class="q">🔁 Follow-up: Is POST automatically more secure than GET?</span>
-                <span class="a"><strong>No.</strong> The choice between GET and POST is not itself an encryption
-                    mechanism.
-                    Sensitive data should be protected using HTTPS and appropriate server-side security.</span>
+                <span class="q">🔁 Follow-up: Is DELETE idempotent even though it changes state?</span>
+                <span class="a"><strong>Yes.</strong> Deleting the same resource twice leaves the server in the same
+                    state as
+                    deleting it once. Idempotency is about the <em>final state</em>, not about whether the method
+                    changes
+                    data.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Is PATCH idempotent?</span>
+                <span class="a"><strong>Not necessarily.</strong> <code>PATCH</code> applies a partial modification, and
+                    some
+                    patches (e.g. <em>"increment counter by 1"</em>) are <strong>not</strong> idempotent.</span>
             </div>
 
             <h3>💻 Code</h3>
@@ -1120,36 +1230,107 @@
                 <div class="vs-titlebar">
                     <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
                             class="vs-dot green"></span></div>
-                    <div class="vs-title">index.html — Visual Studio Code</div>
+                    <div class="vs-title">requests.http — Visual Studio Code</div>
                 </div>
                 <div class="vs-tabbar">
-                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                    <div class="vs-tab active"><span class="file-icon html"></span>requests.http</div>
                 </div>
-                <pre class="vs-body"><code class="language-html">&lt;!-- GET --&gt;
-&lt;form method="GET"&gt;
-  &lt;input name="search" value="laptop"&gt;
-&lt;/form&gt;
+                <pre class="vs-body"><code class="language-http"># ✅ Safe + Idempotent
+GET    /users/1        → 200 OK          (only reads, no side effects)
 
-&lt;!-- POST --&gt;
-&lt;form method="POST"&gt;
-  &lt;input name="username" value="Youssef"&gt;
-&lt;/form&gt;</code></pre>
+# ✅ Idempotent, NOT safe
+PUT    /users/1        → 200 OK          (replaces — repeating gives same result)
+DELETE /users/1        → 204 No Content  (repeating still leaves user deleted)
+
+# ❌ NOT safe, NOT idempotent
+POST   /users          → 201 Created     (each call creates a NEW user!)</code></pre>
             </div>
 
-            <h3>🔴 Live demo — Click Submit</h3>
+            <h3>🔴 Live demo 1 — Safe &amp; Idempotent matrix</h3>
             <div class="demo-box q68-demo">
-                <p style="font-size: 0.85rem; color: #666;">Submit the GET form and look at the URL simulation below.
+                <table class="matrix">
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>Safe</th>
+                            <th>Idempotent</th>
+                            <th>Typical use</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>GET</code></td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>Read a resource</td>
+                        </tr>
+                        <tr>
+                            <td><code>HEAD</code></td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>Read headers only</td>
+                        </tr>
+                        <tr>
+                            <td><code>OPTIONS</code></td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>Discover capabilities</td>
+                        </tr>
+                        <tr>
+                            <td><code>PUT</code></td>
+                            <td>❌</td>
+                            <td>✅</td>
+                            <td>Replace a resource</td>
+                        </tr>
+                        <tr>
+                            <td><code>DELETE</code></td>
+                            <td>❌</td>
+                            <td>✅</td>
+                            <td>Remove a resource</td>
+                        </tr>
+                        <tr class="danger-row">
+                            <td><code>POST</code></td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td>Create a new resource</td>
+                        </tr>
+                        <tr class="danger-row">
+                            <td><code>PATCH</code></td>
+                            <td>❌</td>
+                            <td>⚠️ Often not</td>
+                            <td>Partial update</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>🔴 Live demo 2 — Call the same method twice and see the effect</h3>
+            <div class="demo-box q68-demo">
+                <p style="font-size: 0.85rem; color: #666; margin-top: 0;">
+                    Each button "calls" the method twice. Watch the server state to see whether repeating the call
+                    changes
+                    the result.
                 </p>
-                <form id="q68-get">
-                    <input name="search" value="laptop">
-                    <button type="submit">Submit GET</button>
-                </form>
-                <div class="result" id="q68-output"
-                    style="margin-top:10px; font-family:monospace; font-size:0.85rem; background:#1e293b; color:#e2e8f0; padding:8px; border-radius:4px;">
+
+                <div class="state-box">
+                    <span>Server state (users count):</span>
+                    <strong id="q68-state">5</strong>
                 </div>
+
+                <div class="sim-buttons">
+                    <button class="sim-btn safe" onclick="callMethod('GET')">GET</button>
+                    <button class="sim-btn safe" onclick="callMethod('HEAD')">HEAD</button>
+                    <button class="sim-btn idempotent" onclick="callMethod('PUT')">PUT</button>
+                    <button class="sim-btn idempotent" onclick="callMethod('DELETE')">DELETE</button>
+                    <button class="sim-btn danger" onclick="callMethod('POST')">POST</button>
+                    <button class="sim-btn reset" onclick="resetState()">Reset</button>
+                </div>
+
+                <div class="log" id="q68-log">Click a method to see what happens when it is called twice.</div>
             </div>
         </section>
 
+        <!-- ==================== Q69 ==================== -->
         <!-- ==================== Q69 ==================== -->
         <section class="q-section">
             <h2>Q69 — What is HTML escaping and why is it important? <span class="badge hard">Medium → Hard</span></h2>
@@ -1171,6 +1352,43 @@
                     HTML, JavaScript, CSS, and URLs require different handling.</span>
             </div>
 
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What is the difference between escaping and sanitization?</span>
+                <span class="a">
+                    They solve <strong>different problems</strong> and are often used together:<br><br>
+
+                    <strong>Escaping (Encoding)</strong><br>
+                    → Converts special characters into their <strong>safe representation</strong> so they display as
+                    <em>text</em>, not as code.<br>
+                    → Applied <strong>at output time</strong>, right before rendering.<br>
+                    → Reversible (you can decode it back), and it does <strong>not</strong> remove anything — the
+                    original
+                    characters are still there, just shown safely.<br>
+                    → Example: <code>&lt;script&gt;</code> → <code>&amp;lt;script&amp;gt;</code><br><br>
+
+                    <strong>Sanitization (Filtering)</strong><br>
+                    → Parses the input and <strong>removes or rewrites dangerous parts</strong> (e.g. strips
+                    <code>&lt;script&gt;</code> tags, event handlers like <code>onclick</code>, or
+                    <code>javascript:</code>
+                    URLs).<br>
+                    → Usually applied <strong>before storing</strong> or before displaying rich HTML the user is
+                    <em>allowed</em> to submit.<br>
+                    → Not reversible — the dangerous parts are gone.<br>
+                    → Libraries: <code>DOMPurify</code>, <code>sanitize-html</code>, <code>bleach</code>
+                    (Python).<br><br>
+
+                    <strong>Rule of thumb:</strong><br>
+                    <code>&lt;span&gt;</code> &nbsp;— you have plain text → <strong>escape</strong> it
+                    (<code>textContent</code>).<br>
+                    <code>&lt;div&gt;</code> &nbsp;— you must render <strong>rich HTML</strong> →
+                    <strong>sanitize</strong> it
+                    first, <em>then</em> insert with <code>innerHTML</code> (or better, use a trusted library).<br><br>
+
+                    <strong>⚠️ Never rely on escaping alone</strong> when the output context is not HTML text (URLs, JS
+                    strings, CSS).
+                </span>
+            </div>
+
             <h3>💻 Code</h3>
             <div class="vs-code">
                 <div class="vs-titlebar">
@@ -1187,7 +1405,15 @@
 &lt;div&gt;&lt;script&gt;alert(1)&lt;/script&gt;&lt;/div&gt;
 
 &lt;!-- ✅ Safe: Escaped --&gt;
-&lt;div&gt;&amp;lt;script&amp;gt;alert(1)&amp;lt;/script&amp;gt;&lt;/div&gt;</code></pre>
+&lt;div&gt;&amp;lt;script&amp;gt;alert(1)&amp;lt;/script&amp;gt;&lt;/div&gt;
+
+&lt;!-- ✅ Safe: Sanitized (DOMPurify) --&gt;
+&lt;div id="output"&gt;&lt;/div&gt;
+&lt;script&gt;
+  const dirty = "&lt;b&gt;Hello&lt;/b&gt;&lt;script&gt;alert(1)&lt;/script&gt;";
+  document.getElementById("output").innerHTML = DOMPurify.sanitize(dirty);
+  // Result: &lt;b&gt;Hello&lt;/b&gt;  (script removed)
+&lt;/script&gt;</code></pre>
             </div>
 
             <h3>🔴 Live demo — Type some HTML tags</h3>
@@ -1210,17 +1436,26 @@
         </section>
 
         <!-- ==================== Q70 ==================== -->
+        <!-- ==================== Q70 ==================== -->
         <section class="q-section">
-            <h2>Q70 — What is XSS? <span class="badge hard">Hard</span></h2>
+            <h2>Q70 — What is XSS, and how does it differ from CSRF? <span class="badge hard">Hard</span></h2>
 
             <div class="answer">
                 <strong class="label">✅ Ideal answer</strong>
-                XSS, or <strong>Cross-Site Scripting</strong>, is a vulnerability where an attacker manages to cause
-                malicious JavaScript or other executable content to run in another user's browser in the context of a
-                trusted website.<br><br>
-                For example, if an application unsafely renders user-controlled HTML, an attacker could inject a script
-                that executes when another user views the content.<br><br>
-                Types include: Stored XSS, Reflected XSS, and DOM-based XSS.
+
+                <strong>XSS (Cross-Site Scripting)</strong><br>
+                A vulnerability where an attacker manages to run <strong>malicious JavaScript in another user's
+                    browser</strong>, in the context of a trusted website.<br>
+                Example: if an app unsafely renders user-controlled HTML, an attacker can inject a script that runs when
+                another user views the content.<br>
+                Types: <strong>Stored</strong>, <strong>Reflected</strong>, and <strong>DOM-based</strong> XSS.<br><br>
+
+                <strong>CSRF (Cross-Site Request Forgery)</strong><br>
+                An attack where a malicious website tricks the user's browser into sending an
+                <strong>authenticated request</strong> to a trusted site where the user is already logged in — without
+                the user's knowledge.<br>
+                The attacker doesn't steal the cookie; they exploit the fact that the browser
+                <strong>automatically attaches cookies</strong> to every request to that origin.
             </div>
 
             <div class="followup">
@@ -1231,9 +1466,51 @@
             </div>
 
             <div class="followup">
-                <span class="q">🔁 Follow-up 2: What is the danger of using innerHTML with user input?</span>
+                <span class="q">🔁 Follow-up: What is the danger of using innerHTML with user input?</span>
                 <span class="a">If untrusted input is inserted as HTML without proper sanitization, an attacker may
                     inject malicious markup or scripts, creating an XSS vulnerability.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: How do XSS and CSRF differ, and how do we prevent each?</span>
+                <span class="a">
+                    They are <strong>completely different attacks</strong> — they break different trust assumptions and
+                    require different defenses.<br><br>
+
+                    <strong>XSS breaks trust in the website's content.</strong><br>
+                    The attacker gets <strong>code execution</strong> in the victim's browser, in the target site's
+                    origin.<br>
+                    → Defense: <code>textContent</code>, output encoding, sanitization (DOMPurify), CSP,
+                    <code>HttpOnly</code> cookies.<br><br>
+
+                    <strong>CSRF breaks trust in the user's browser identity.</strong><br>
+                    The attacker gets <strong>no code execution</strong> — they only cause the browser to <em>send</em>
+                    a request the user didn't intend.<br>
+                    → Defense: <strong>CSRF tokens</strong>, <code>SameSite</code> cookies, <code>Origin</code> /
+                    <code>Referer</code> checks.<br><br>
+
+                    <strong>Critical interaction:</strong> if XSS exists, CSRF protection is
+                    <strong>defeated</strong> — the injected script can read the CSRF token from the page and forge
+                    valid requests. That's why fixing XSS is a <em>prerequisite</em> for CSRF protection to be
+                    meaningful.
+                </span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: How does a CSRF token actually work?</span>
+                <span class="a">
+                    1. When the user loads a form, the server generates a <strong>random, unpredictable token</strong>
+                    and stores it in the user's session.<br>
+                    2. The server embeds the same token in a hidden input inside the form:
+                    <code>&lt;input type="hidden" name="csrf_token" value="abc123..."&gt;</code><br>
+                    3. On submit, the server checks that the token in the request <strong>matches</strong> the token
+                    stored in the session.<br>
+                    4. A malicious site cannot read the token (Same-Origin Policy), so it cannot forge a valid
+                    request.<br><br>
+                    ⚠️ The token must be <strong>tied to the user's session</strong> and must <strong>not</strong> be
+                    readable by an attacker — that's why cookies should be <code>HttpOnly</code> and
+                    <code>SameSite=Lax/Strict</code>.
+                </span>
             </div>
 
             <h3>💻 Code</h3>
@@ -1246,12 +1523,80 @@
                 <div class="vs-tabbar">
                     <div class="vs-tab active"><span class="file-icon js"></span>app.js</div>
                 </div>
-                <pre class="vs-body"><code class="language-javascript">// ❌ DANGEROUS: XSS Vulnerability
+                <pre class="vs-body"><code class="language-javascript">// ===================== XSS =====================
+// ❌ DANGEROUS: XSS Vulnerability
 const userInput = "&lt;img src=x onerror=alert('XSS!')&gt;";
 document.getElementById('output').innerHTML = userInput;
 
 // ✅ SAFE: Uses textContent (escapes HTML)
-document.getElementById('output').textContent = userInput;</code></pre>
+document.getElementById('output').textContent = userInput;
+
+
+// ===================== CSRF =====================
+// ❌ DANGEROUS: No CSRF token — a malicious site can auto-submit this
+// &lt;form action="https://bank.com/transfer" method="POST"&gt;
+//   &lt;input name="to" value="attacker"&gt;
+//   &lt;input name="amount" value="1000"&gt;
+// &lt;/form&gt;
+// The victim's cookie is sent automatically → transfer happens!
+
+// ✅ SAFE: Every state-changing form must include a CSRF token
+// &lt;form action="/transfer" method="POST"&gt;
+//   &lt;input type="hidden" name="csrf_token" value="RANDOM_TOKEN"&gt;
+//   ...
+// &lt;/form&gt;
+// Server checks: does this token match the one stored in the user's session?</code></pre>
+            </div>
+
+            <h3>📊 XSS vs CSRF — Side-by-side comparison</h3>
+            <div class="demo-box q70-demo">
+                <table class="cmp">
+                    <thead>
+                        <tr>
+                            <th>Aspect</th>
+                            <th>XSS</th>
+                            <th>CSRF</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Goal</strong></td>
+                            <td>Run malicious <strong>JavaScript</strong> in the victim's browser</td>
+                            <td>Make the victim's browser send a request they didn't intend</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Trust broken</strong></td>
+                            <td>Trust in the <strong>website's content</strong></td>
+                            <td>Trust in the <strong>user's browser identity</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Where attacker code runs</strong></td>
+                            <td>In the target site's origin</td>
+                            <td>On the attacker's site; the browser sends the request to the target</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Victim requirement</strong></td>
+                            <td>Views the injected content</td>
+                            <td>Logged in <strong>and</strong> visits the attacker's site</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Impact</strong></td>
+                            <td>Session theft, keylogging, defacement, full account takeover</td>
+                            <td>State-changing actions: transfer money, change password, delete account</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Defense</strong></td>
+                            <td>Output encoding, sanitization, CSP, <code>HttpOnly</code> cookies</td>
+                            <td>CSRF tokens, <code>SameSite</code> cookies, Origin/Referer checks</td>
+                        </tr>
+                        <tr class="danger-row">
+                            <td><strong>Interaction</strong></td>
+                            <td colspan="2">If <strong>XSS</strong> exists, <strong>CSRF protection is defeated</strong>
+                                —
+                                the injected script can read the CSRF token from the page.</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
             <h3>🔴 Live demo — Simulate XSS</h3>
@@ -1271,7 +1616,7 @@ document.getElementById('output').textContent = userInput;</code></pre>
 
         <!-- ==================== STUDENT TASK ==================== -->
         <section class="task-section">
-            <h2>🧑‍🎓 Student Task — Secure & Accessible Form</h2>
+            <h2>🧑‍🎓 Student Task — Secure &amp; Accessible Form</h2>
             <p>Build <strong>one HTML page</strong> (+ CSS file + optional JS file) that applies <strong>all 10
                     concepts</strong> from Part 7. Submit as a zipped folder or CodePen link.</p>
 
@@ -1286,7 +1631,7 @@ document.getElementById('output').textContent = userInput;</code></pre>
                 <tbody>
                     <tr>
                         <td>61</td>
-                        <td>Form & Fieldset</td>
+                        <td>Form &amp; Fieldset</td>
                         <td>Wrap your form in <code>&lt;form&gt;</code> and group related inputs using
                             <code>&lt;fieldset&gt;</code> and <code>&lt;legend&gt;</code>.
                         </td>
@@ -1301,7 +1646,7 @@ document.getElementById('output').textContent = userInput;</code></pre>
                         <td>63</td>
                         <td>Button types</td>
                         <td>Use a <code>&lt;button type="submit"&gt;</code> for form submission and include an icon
-                            inside it (e.g., `<span>💾</span> Save`).</td>
+                            inside it (e.g., <code>&lt;span&gt;💾&lt;/span&gt; Save</code>).</td>
                     </tr>
                     <tr>
                         <td>64</td>
@@ -1329,22 +1674,39 @@ document.getElementById('output').textContent = userInput;</code></pre>
                     </tr>
                     <tr>
                         <td>68</td>
-                        <td>GET vs POST</td>
-                        <td>Create a small "Search" form using <code>method="GET"</code> and a "Register" form using
-                            <code>method="POST"</code>.
+                        <td>Safe vs Idempotent</td>
+                        <td>
+                            In your <code>README.md</code>, write one line for each form you built (Search form using
+                            <code>method="GET"</code>, Register form using <code>method="POST"</code>) explaining:
+                            <em>is the method safe? is it idempotent?</em> and <strong>why</strong>. Add a short comment
+                            in your <code>app.js</code> above the submit handlers noting what happens if the user
+                            double-submits.
                         </td>
                     </tr>
                     <tr>
                         <td>69</td>
-                        <td>Escaping</td>
-                        <td>Add a comment above any text rendering explaining why escaping (<code>&amp;lt;</code>
-                            instead of <code>&lt;</code>) is important.</td>
+                        <td>Escaping vs Sanitization</td>
+                        <td>
+                            Add a comment above any text rendering explaining why escaping
+                            (<code>&amp;lt;</code> instead of <code>&lt;</code>) is important. In your
+                            <code>README.md</code>, add a short paragraph explaining the difference between
+                            <strong>escaping</strong> and <strong>sanitization</strong>, and when to use each
+                            (<code>textContent</code> vs <code>DOMPurify</code>).
+                        </td>
                     </tr>
                     <tr>
                         <td>70</td>
-                        <td>XSS Protection</td>
-                        <td>Use <code>element.textContent = userInput</code> instead of <code>innerHTML</code> in your
-                            JavaScript. Add a comment explaining why.</td>
+                        <td>XSS vs CSRF</td>
+                        <td>
+                            <strong>a)</strong> Use <code>element.textContent = userInput</code> instead of
+                            <code>innerHTML</code> in your JavaScript, and add a comment explaining why.<br>
+                            <strong>b)</strong> Add a hidden <code>&lt;input type="hidden" name="csrf_token"
+                        value="..."&gt;</code> to your POST form, and add a comment explaining how CSRF
+                            protection works.<br>
+                            <strong>c)</strong> In your <code>README.md</code>, write a short comparison between
+                            <strong>XSS</strong> and <strong>CSRF</strong>: what each attack targets, what the attacker
+                            gains, and one defense for each.
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -1354,14 +1716,16 @@ document.getElementById('output').textContent = userInput;</code></pre>
                 <li><strong>File names:</strong> <code>index.html</code>, <code>styles.css</code>, <code>app.js</code>
                 </li>
                 <li><strong>Comments:</strong> above each section, e.g.
-                    <code>&lt;!-- Q70: Safe rendering using textContent --&gt;</code>
+                    <code>&lt;!-- Q70: Safe rendering using textContent + CSRF token --&gt;</code>
                 </li>
-                <li><strong>README.md</strong> with 3 answers:
+                <li><strong>README.md</strong> with 4 answers:
                     <ol>
                         <li>What happens to disabled form controls when submitted?</li>
-                        <li>Why is server-side validation mandatory?</li>
+                        <li>Why is <code>POST</code> not idempotent, and why does that matter for double-submissions?
+                        </li>
                         <li>What is the difference between <code>innerHTML</code> and <code>textContent</code> regarding
                             XSS?</li>
+                        <li>How do XSS and CSRF differ, and how do we defend against each?</li>
                     </ol>
                 </li>
             </ul>
@@ -1370,11 +1734,13 @@ document.getElementById('output').textContent = userInput;</code></pre>
             <ul>
                 <li>Add a <code>&lt;fieldset disabled&gt;</code> to disable an entire group of inputs at once.</li>
                 <li>Use <code>pattern="[0-9]{5}"</code> on an input to validate a 5-digit ZIP code.</li>
+                <li>Add <code>SameSite=Lax</code> to a session cookie and explain in a comment how it blocks CSRF.</li>
             </ul>
 
             <h3>🎯 Grading (out of 10)</h3>
-            <p>1 point per row. "Successful controls" and "XSS Protection" rows are worth double if the README
-                explanation is correct.</p>
+            <p>1 point per row. <strong>Q70 (XSS vs CSRF)</strong> is worth double if both the XSS fix and the CSRF
+                token + README comparison are correct. <strong>Q66 (Successful controls)</strong> is worth double if
+                the README explanation is correct.</p>
         </section>
 
     </div>
@@ -1440,16 +1806,55 @@ document.getElementById('output').textContent = userInput;</code></pre>
             logFormData('q65-form', 'q65-output');
             logFormData('q66-form', 'q66-output');
 
-            // Q68 - GET Simulation
-            const q68Get = document.getElementById('q68-get');
-            if (q68Get) {
-                q68Get.addEventListener('submit', function (e) {
-                    e.preventDefault();
-                    const formData = new FormData(q68Get);
-                    const params = new URLSearchParams(formData);
-                    document.getElementById('q68-output').textContent = `URL: /search?${params.toString()}`;
-                });
-            }
+            // Q68 - Safe vs Idempotent simulation
+            let q68State = 5;
+
+            window.callMethod = function (method) {
+                const stateEl = document.getElementById('q68-state');
+                const logEl = document.getElementById('q68-log');
+
+                const before = q68State;
+                let after = before;
+                let line = '';
+
+                if (method === 'GET' || method === 'HEAD') {
+                    after = before;
+                    line =
+                        `[Call 1] ${method} → state: ${before} → ${after}   (no change)\n` +
+                        `[Call 2] ${method} → state: ${after} → ${after}   (no change)\n` +
+                        `✅ Same result — SAFE + IDEMPOTENT`;
+                } else if (method === 'PUT') {
+                    after = 10;
+                    line =
+                        `[Call 1] PUT → state: ${before} → ${after}   (set to 10)\n` +
+                        `[Call 2] PUT → state: ${after} → 10   (set to 10 again)\n` +
+                        `✅ Same final state — IDEMPOTENT (but NOT safe)`;
+                } else if (method === 'DELETE') {
+                    after = 0;
+                    line =
+                        `[Call 1] DELETE → state: ${before} → ${after}   (resource removed)\n` +
+                        `[Call 2] DELETE → state: ${after} → 0   (already removed)\n` +
+                        `✅ Same final state — IDEMPOTENT (but NOT safe)`;
+                } else if (method === 'POST') {
+                    after = before + 2;
+                    line =
+                        `[Call 1] POST → state: ${before} → ${before + 1}   (created +1)\n` +
+                        `[Call 2] POST → state: ${before + 1} → ${before + 2}   (created +1 again!)\n` +
+                        `❌ State changed twice — NOT idempotent, NOT safe`;
+                }
+
+                q68State = after;
+                if (stateEl) stateEl.textContent = q68State;
+                if (logEl) logEl.textContent = line;
+            };
+
+            window.resetState = function () {
+                q68State = 5;
+                const stateEl = document.getElementById('q68-state');
+                const logEl = document.getElementById('q68-log');
+                if (stateEl) stateEl.textContent = '5';
+                if (logEl) logEl.textContent = 'State reset to 5. Click a method to try again.';
+            };
 
             // Q69 - Escaping Demo
             window.renderEscaped = function () {

@@ -884,21 +884,54 @@ p { color: red; }</code></pre>
 
         <!-- Q115 -->
         <section class="q-section">
-            <h2>Q115 — What is the difference between *, element, class, and ID selectors? <span
-                    class="badge">Easy</span></h2>
+            <h2>Q115 — What is the <code>*</code> (universal) selector, when should you use it, and what is its most
+                famous use case? <span class="badge medium">Easy → Medium</span></h2>
+
             <div class="answer">
                 <strong class="label">✅ Ideal answer</strong>
+                The <code>*</code> (universal) selector matches <strong>every element in the document</strong> — and
+                every pseudo-element (<code>::before</code>, <code>::after</code>) when written together as
+                <code>*, *::before, *::after</code>.<br><br>
+                Its <strong>specificity is 0,0,0</strong> — the lowest possible — so any other selector (element,
+                class, ID) overrides it. That's what makes it safe as a <em>baseline</em>: it sets defaults that you
+                can always override with a more specific rule.<br><br>
+                <strong>When to use it:</strong>
                 <ul style="margin:6px 0">
-                    <li><strong>Universal (*):</strong> Targets all elements.</li>
-                    <li><strong>Element (p):</strong> Targets all specific tags.</li>
-                    <li><strong>Class (.card):</strong> Targets elements with that class.</li>
-                    <li><strong>ID (#header):</strong> Targets the unique element with that ID.</li>
+                    <li>✅ <strong>One global reset</strong> — box-sizing, margins, font inheritance, etc.</li>
+                    <li>✅ <strong>Debugging</strong> — <code>* { outline: 1px solid red }</code> to reveal every
+                        element's layout box.</li>
+                    <li>✅ <strong>Overriding user-agent defaults</strong> — zeroing padding on
+                        <code>h1</code>–<code>h6</code>,
+                        <code>ul</code>, <code>body</code>.
+                    </li>
                 </ul>
+                <strong>When NOT to use it:</strong>
+                <ul style="margin:6px 0">
+                    <li>❌ <strong>For actual styling</strong> — <code>* { color: red }</code> is a maintenance
+                        nightmare. Use classes.</li>
+                    <li>❌ <strong>For hover/focus/animations</strong> — every element reacting at once is almost never
+                        what you want.</li>
+                </ul>
+                <strong>The most famous use case</strong> is the modern box-sizing reset:
+                <pre
+                    style="background:#1e1e1e;color:#d4d4d4;padding:10px 14px;border-radius:6px;font-size:0.8rem;margin:10px 0;overflow-x:auto;"><code>*, *::before, *::after {
+  box-sizing: border-box;
+}</code></pre>
+                This single rule makes every element's <code>width</code> include its <code>padding</code> and
+                <code>border</code> — the behavior almost every developer expects. Tailwind, Bootstrap, and virtually
+                every modern CSS framework starts with this exact line.
             </div>
+
             <div class="followup">
-                <span class="q">🔁 Follow-up: Can multiple elements have the same class?</span>
-                <span class="a"><strong>Yes.</strong> That's one of the main purposes of classes.</span>
+                <span class="q">🔁 Follow-up: Does <code>*</code> override inherited styles?</span>
+                <span class="a"><strong>No — and that's the point.</strong> Inheritance and the universal selector are
+                    two different mechanisms. When you write <code>* { color: red }</code>, it doesn't "win" over an
+                    inherited value because there's no cascade competition — <code>*</code> directly targets every
+                    element. But because its <strong>specificity is 0,0,0</strong>, any explicit rule on a specific
+                    element (e.g. <code>p { color: blue }</code>) wins immediately. This is why <code>*</code> is
+                    perfect for resets: it sets a baseline that <em>any</em> specific rule can override.</span>
             </div>
+
             <h3>💻 Code</h3>
             <div class="vs-code">
                 <div class="vs-titlebar">
@@ -909,38 +942,373 @@ p { color: red; }</code></pre>
                 <div class="vs-tabbar">
                     <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
                 </div>
-                <pre class="vs-body"><code class="language-css">* { box-sizing: border-box; }
-p { color: red; }
-.card { padding: 20px; }
-#header { height: 60px; }</code></pre>
+                <pre class="vs-body"><code class="language-css">/* ✅ The most famous universal rule — modern box-sizing reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* ✅ Debug mode — reveal every element's box (temporary) */
+/* * { outline: 1px solid red; } */
+
+/* ❌ Don't do this — universal styling breaks maintainability */
+/* * { color: red; font-family: Arial; } */
+
+/* ✅ Use specific selectors for real styling */
+.card {
+  width: 200px;
+  padding: 20px;
+  border: 5px solid #4f46e5;
+}</code></pre>
             </div>
-            <h3>🔴 Live demo</h3>
-            <div class="demo-box q115-demo">
-                <div class="box box-universal">Universal Selector (*)</div>
-                <p class="box box-element" style="margin: 0 0 8px 0;">Element Selector (p)</p>
-                <div class="box box-class">Class Selector (.card)</div>
-                <div id="box-id" class="box">ID Selector (#header)</div>
+
+            <h3>🔴 Live demo — Toggle <code>* { box-sizing: border-box }</code> on and off</h3>
+            <div class="demo-box q115-demo" id="q115-demo">
+
+                <div class="q115-toggle-wrap">
+                    <label class="q115-toggle">
+                        <input type="checkbox" id="q115-toggle" checked>
+                        <span class="q115-toggle-track"></span>
+                        <span class="q115-toggle-text">
+                            <code>*, *::before, *::after { box-sizing: border-box; }</code>
+                        </span>
+                    </label>
+                </div>
+
+                <div class="q115-card-wrap">
+                    <div class="q115-card" id="q115-card">
+                        width: 200px<br>
+                        padding: 20px<br>
+                        border: 5px
+                    </div>
+                </div>
             </div>
+
+            <style>
+                .q115-demo {
+                    padding: 16px;
+                }
+
+                /* Card's default — reset the page's global border-box so the demo starts in content-box */
+                .q115-demo .q115-card {
+                    box-sizing: content-box;
+                    width: 200px;
+                    padding: 20px;
+                    border: 5px solid #4f46e5;
+                    background: #eef2ff;
+                    color: #1e1b4b;
+                    border-radius: 4px;
+                    font-size: 0.78rem;
+                    font-weight: 600;
+                    font-family: "SF Mono", Consolas, monospace;
+                    line-height: 1.6;
+                }
+
+                /* When the toggle is on — apply the universal reset inside the demo */
+                .q115-demo.q115-reset-on *,
+                .q115-demo.q115-reset-on *::before,
+                .q115-demo.q115-reset-on *::after {
+                    box-sizing: border-box;
+                }
+
+                /* Toggle switch */
+                .q115-demo .q115-toggle-wrap {
+                    padding: 10px 14px;
+                    background: #f9fafb;
+                    border: 1px solid #e5e7eb;
+                    border-radius: 8px;
+                    margin-bottom: 16px;
+                }
+
+                .q115-demo .q115-toggle {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 10px;
+                    cursor: pointer;
+                    user-select: none;
+                    font-size: 0.8rem;
+                    color: #4b5563;
+                }
+
+                .q115-demo .q115-toggle input {
+                    display: none;
+                }
+
+                .q115-demo .q115-toggle-track {
+                    width: 36px;
+                    height: 20px;
+                    background: #cbd5e1;
+                    border-radius: 999px;
+                    position: relative;
+                    transition: background 0.2s;
+                    flex-shrink: 0;
+                }
+
+                .q115-demo .q115-toggle-track::after {
+                    content: '';
+                    position: absolute;
+                    width: 16px;
+                    height: 16px;
+                    background: #fff;
+                    border-radius: 50%;
+                    top: 2px;
+                    left: 2px;
+                    transition: left 0.2s;
+                    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+                }
+
+                .q115-demo .q115-toggle input:checked+.q115-toggle-track {
+                    background: #4f46e5;
+                }
+
+                .q115-demo .q115-toggle input:checked+.q115-toggle-track::after {
+                    left: 18px;
+                }
+
+                .q115-demo .q115-toggle-text code {
+                    background: #e5e7eb;
+                    padding: 2px 8px;
+                    border-radius: 4px;
+                    font-size: 0.74rem;
+                    font-family: "SF Mono", Consolas, monospace;
+                    color: #1f2937;
+                }
+
+                /* Card area */
+                .q115-demo .q115-card-wrap {
+                    display: flex;
+                    justify-content: center;
+                    background: #f9fafb;
+                    border: 1px dashed #cbd5e1;
+                    border-radius: 8px;
+                    padding: 20px;
+                    margin-bottom: 16px;
+                    overflow-x: auto;
+                    transition: background 0.2s;
+                }
+
+                /* Stats */
+                .q115-demo .q115-stats {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                    gap: 8px;
+                    margin-bottom: 14px;
+                }
+
+                .q115-demo .q115-stat {
+                    background: #fff;
+                    border: 1px solid #e5e7eb;
+                    border-radius: 6px;
+                    padding: 8px 10px;
+                }
+
+                .q115-demo .q115-stat-total {
+                    background: #f0f3ff;
+                    border-color: #4f46e5;
+                    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.12);
+                }
+
+                .q115-demo .q115-stat-label {
+                    font-size: 0.65rem;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                    color: #9ca3af;
+                    font-weight: 700;
+                    margin-bottom: 2px;
+                }
+
+                .q115-demo .q115-stat-total .q115-stat-label {
+                    color: #4f46e5;
+                }
+
+                .q115-demo .q115-stat-value {
+                    font-family: "SF Mono", Consolas, monospace;
+                    font-size: 0.82rem;
+                    font-weight: 600;
+                    color: #1f2937;
+                }
+
+                .q115-demo .q115-hint {
+                    font-size: 0.82rem;
+                    color: #6b7280;
+                    margin: 0;
+                    line-height: 1.7;
+                }
+
+                .q115-demo .q115-hint code {
+                    background: #f3f4f6;
+                    padding: 1px 5px;
+                    border-radius: 3px;
+                    font-size: 0.85em;
+                }
+
+                .q115-demo .q115-hint-small {
+                    display: inline-block;
+                    margin-top: 6px;
+                    font-size: 0.75rem;
+                    color: #9ca3af;
+                }
+            </style>
+
+            <script>
+                (function () {
+                    const demo = document.getElementById('q115-demo');
+                    const toggle = document.getElementById('q115-toggle');
+                    const card = document.getElementById('q115-card');
+                    const boxSizingEl = document.getElementById('q115-box-sizing');
+                    const totalWidthEl = document.getElementById('q115-total-width');
+                    const overflowEl = document.getElementById('q115-overflow');
+
+                    function update() {
+                        const boxSizing = getComputedStyle(card).boxSizing;
+                        const renderedWidth = Math.round(card.getBoundingClientRect().width);
+
+                        boxSizingEl.textContent = boxSizing;
+                        totalWidthEl.textContent = renderedWidth + 'px';
+
+                        const declared = 200;
+                        const diff = renderedWidth - declared;
+
+                        if (diff === 0) {
+                            overflowEl.textContent = '0px (fits)';
+                            overflowEl.style.color = '#059669';
+                        } else {
+                            overflowEl.textContent = '+' + diff + 'px extra';
+                            overflowEl.style.color = '#dc2626';
+                        }
+                    }
+
+                    function applyReset(isOn) {
+                        demo.classList.toggle('q115-reset-on', isOn);
+                        toggle.checked = isOn;
+                        // Let the browser finish layout before measuring
+                        requestAnimationFrame(update);
+                    }
+
+                    toggle.addEventListener('change', function () {
+                        applyReset(toggle.checked);
+                    });
+
+                    // Start with the reset ON — the "famous" state
+                    applyReset(true);
+                })();
+            </script>
         </section>
 
         <!-- Q116 -->
         <section class="q-section">
-            <h2>Q116 — What is the difference between descendant and child selectors? <span
-                    class="badge medium">Medium</span></h2>
+            <h2>Q116 — What is the difference between the descendant, child, adjacent sibling, and general sibling
+                combinators? <span class="badge medium">Medium</span></h2>
+
             <div class="answer">
                 <strong class="label">✅ Ideal answer</strong>
-                The <strong>descendant selector</strong> uses a space (e.g., <code>.container p</code>). It selects any
-                <code>p</code> descendant inside <code>.container</code>.<br><br>
-                The <strong>child selector</strong> uses <code>&gt;</code> (e.g., <code>.container &gt; p</code>). It
-                selects only <code>p</code> elements that are <strong>direct children</strong> of
-                <code>.container</code>.
+                CSS has four combinators that describe the relationship between the element on the <em>left</em> and the
+                element on the <em>right</em> of the symbol:
+
+                <table class="q116-table">
+                    <thead>
+                        <tr>
+                            <th>Combinator</th>
+                            <th>Symbol</th>
+                            <th>Matches</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Descendant</strong></td>
+                            <td><code>&nbsp;</code> (space)</td>
+                            <td>Any element at <strong>any depth</strong> inside the ancestor</td>
+                            <td><code>.box p</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Child</strong></td>
+                            <td><code>&gt;</code></td>
+                            <td>Only <strong>direct children</strong></td>
+                            <td><code>.box &gt; p</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Adjacent sibling</strong></td>
+                            <td><code>+</code></td>
+                            <td>The <strong>next sibling</strong> immediately after (same parent)</td>
+                            <td><code>.first + p</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>General sibling</strong></td>
+                            <td><code>~</code></td>
+                            <td><strong>All following siblings</strong> (same parent)</td>
+                            <td><code>.first ~ p</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <strong>Key distinctions:</strong>
+                <ul style="margin:6px 0">
+                    <li><strong>Descendant vs Child:</strong> descendant goes <em>any depth</em>; child is strictly
+                        <em>one level down</em>. Child is more restrictive.
+                    </li>
+                    <li><strong>Adjacent vs General sibling:</strong> adjacent matches <em>only the next</em> element
+                        (exactly one); general matches <em>all that follow</em>. Both require the two elements to share
+                        the same parent — unlike descendant/child, siblings don't look at nesting.</li>
+                </ul>
             </div>
+
             <div class="followup">
-                <span class="q">🔁 Follow-up: Which is more restrictive?</span>
-                <span class="a">The <strong>child selector</strong> <code>&gt;</code> because it requires a direct
-                    parent-child relationship.</span>
+                <span class="q">🔁 Follow-up: Why does <code>.first + p</code> match only one element?</span>
+                <span class="a">Because <code>+</code> is the <strong>adjacent</strong> combinator — it matches the
+                    <em>very next</em> sibling of the specified type. If <code>.first</code> is a <code>&lt;p&gt;</code>
+                    and the next element is a <code>&lt;span&gt;</code>, then <code>.first + p</code> matches
+                    <strong>nothing</strong>, because the next sibling isn't a <code>p</code>. Swap the selector to
+                    <code>.first + *</code> or use <code>~</code> if you want more flexibility.</span>
             </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Does <code>~</code> also match elements inside a descendant?</span>
+                <span class="a"><strong>No.</strong> Both <code>+</code> and <code>~</code> only look at
+                    <strong>siblings within the same parent</strong>. In the demo below, <code>.first ~ p</code>
+                    matches the direct sibling paragraphs but <strong>not</strong> the <code>p</code> nested inside
+                    <code>.nested</code> — that one is a child of a different parent, so it isn't a sibling of
+                    <code>.first</code>.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: When would you choose each one in real code?</span>
+                <span class="a">
+                    <ul style="margin:6px 0">
+                        <li><strong>Descendant (space):</strong> most forgiving — safe default when you don't know how
+                            deep the target sits. Common in scoped component styles like <code>.card h2</code>.</li>
+                        <li><strong>Child (<code>&gt;</code>):</strong> when you want tight scoping — prevents styles
+                            from leaking into nested components. Very common in component CSS.</li>
+                        <li><strong>Adjacent (<code>+</code>):</strong> "style the element that <em>follows</em> this
+                            one" — perfect for spacing between specific pairs, or form labels followed by their inputs.
+                        </li>
+                        <li><strong>General sibling (<code>~</code>):</strong> "style everything after this marker" —
+                            great for state-based rules like <code>.toggle:checked ~ .panel</code> (the classic CSS-only
+                            tab/dropdown pattern).</li>
+                    </ul>
+                </span>
+            </div>
+
             <h3>💻 Code</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html + style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;div class="box"&gt;
+  &lt;p class="first"&gt;A&lt;/p&gt;
+  &lt;p&gt;B&lt;/p&gt;
+  &lt;span&gt;C&lt;/span&gt;
+  &lt;div class="nested"&gt;
+    &lt;p&gt;D&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;p&gt;E&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+
             <div class="vs-code">
                 <div class="vs-titlebar">
                     <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
@@ -950,45 +1318,494 @@ p { color: red; }
                 <div class="vs-tabbar">
                     <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
                 </div>
-                <pre class="vs-body"><code class="language-css">.container p { color: red; }   /* Descendant */
-.container > p { color: blue; }  /* Child */</code></pre>
+                <pre class="vs-body"><code class="language-css">/* 1) Descendant — any p at any depth inside .box  → A, B, D, E */
+.box p { color: #7c3aed; }
+
+/* 2) Child — only p that is a DIRECT child of .box → A, B, E */
+.box > p { color: #2563eb; }
+
+/* 3) Adjacent sibling — the p right after .first     → B only */
+.first + p { color: #16a34a; }
+
+/* 4) General sibling — all p after .first (siblings) → B, E */
+.first ~ p { color: #ea580c; }</code></pre>
             </div>
-            <h3>🔴 Live demo</h3>
+
+            <h3>🔴 Live demo — Same markup, four different combinators</h3>
             <div class="demo-box q116-demo">
-                <div class="container">
-                    <span class="label">Direct child paragraph (Green due to `>` selector)</span>
-                    <p>Direct Child</p>
-                    <section>
-                        <span class="label">Nested descendant paragraph (Red due to space selector)</span>
-                        <p>Nested Descendant</p>
-                    </section>
+
+                <p class="q116-intro">
+                    Each panel shows the same markup with a different selector applied. Matched elements are highlighted
+                    in that panel's color — <strong>hover any highlighted element to see which rule matched it</strong>.
+                </p>
+
+                <!-- Panel: Descendant -->
+                <div class="q116-panel q116-descendant" data-combinator="descendant">
+                    <div class="q116-panel-header">
+                        <code class="q116-selector">.box p</code>
+                        <span class="q116-badge">descendant · space</span>
+                        <span class="q116-count-wrap">matched: <strong class="q116-count">—</strong></span>
+                    </div>
+                    <div class="q116-markup">
+                        <div class="box">
+                            <p class="first" data-letter="A">A <small>p.first</small></p>
+                            <p data-letter="B">B <small>p</small></p>
+                            <span data-letter="C">C <small>span</small></span>
+                            <div class="nested">
+                                <p data-letter="D">D <small>p inside .nested</small></p>
+                            </div>
+                            <p data-letter="E">E <small>p</small></p>
+                        </div>
+                    </div>
+                    <div class="q116-panel-note">
+                        Matches <strong>A, B, D, E</strong> — the descendant combinator ignores depth.
+                    </div>
+                </div>
+
+                <!-- Panel: Child -->
+                <div class="q116-panel q116-child" data-combinator="child">
+                    <div class="q116-panel-header">
+                        <code class="q116-selector">.box &gt; p</code>
+                        <span class="q116-badge">child · &gt;</span>
+                        <span class="q116-count-wrap">matched: <strong class="q116-count">—</strong></span>
+                    </div>
+                    <div class="q116-markup">
+                        <div class="box">
+                            <p class="first" data-letter="A">A <small>p.first</small></p>
+                            <p data-letter="B">B <small>p</small></p>
+                            <span data-letter="C">C <small>span</small></span>
+                            <div class="nested">
+                                <p data-letter="D">D <small>p inside .nested</small></p>
+                            </div>
+                            <p data-letter="E">E <small>p</small></p>
+                        </div>
+                    </div>
+                    <div class="q116-panel-note">
+                        Matches <strong>A, B, E</strong> — <strong>not D</strong>, because D is one level too deep.
+                    </div>
+                </div>
+
+                <!-- Panel: Adjacent sibling -->
+                <div class="q116-panel q116-adjacent" data-combinator="adjacent">
+                    <div class="q116-panel-header">
+                        <code class="q116-selector">.first + p</code>
+                        <span class="q116-badge">adjacent sibling · +</span>
+                        <span class="q116-count-wrap">matched: <strong class="q116-count">—</strong></span>
+                    </div>
+                    <div class="q116-markup">
+                        <div class="box">
+                            <p class="first" data-letter="A">A <small>p.first</small></p>
+                            <p data-letter="B">B <small>p</small></p>
+                            <span data-letter="C">C <small>span</small></span>
+                            <div class="nested">
+                                <p data-letter="D">D <small>p inside .nested</small></p>
+                            </div>
+                            <p data-letter="E">E <small>p</small></p>
+                        </div>
+                    </div>
+                    <div class="q116-panel-note">
+                        Matches <strong>B only</strong> — the <em>very next</em> element after <code>.first</code>.
+                    </div>
+                </div>
+
+                <!-- Panel: General sibling -->
+                <div class="q116-panel q116-sibling" data-combinator="sibling">
+                    <div class="q116-panel-header">
+                        <code class="q116-selector">.first ~ p</code>
+                        <span class="q116-badge">general sibling · ~</span>
+                        <span class="q116-count-wrap">matched: <strong class="q116-count">—</strong></span>
+                    </div>
+                    <div class="q116-markup">
+                        <div class="box">
+                            <p class="first" data-letter="A">A <small>p.first</small></p>
+                            <p data-letter="B">B <small>p</small></p>
+                            <span data-letter="C">C <small>span</small></span>
+                            <div class="nested">
+                                <p data-letter="D">D <small>p inside .nested</small></p>
+                            </div>
+                            <p data-letter="E">E <small>p</small></p>
+                        </div>
+                    </div>
+                    <div class="q116-panel-note">
+                        Matches <strong>B, E</strong> — <em>not D</em>, because D isn't a sibling of <code>.first</code>
+                        (it's inside <code>.nested</code>).
+                    </div>
                 </div>
             </div>
+
+            <style>
+                .q116-table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    font-size: 0.82rem;
+                    margin: 10px 0 14px;
+                    background: #fff;
+                    border-radius: 6px;
+                    overflow: hidden;
+                    border: 1px solid #e5e7eb;
+                }
+
+                .q116-table thead th {
+                    background: #f3f4f6;
+                    color: #374151;
+                    text-align: left;
+                    padding: 8px 12px;
+                    font-size: 0.72rem;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                    border-bottom: 2px solid #e5e7eb;
+                }
+
+                .q116-table tbody td {
+                    padding: 8px 12px;
+                    border-bottom: 1px solid #f3f4f6;
+                    color: #4b5563;
+                }
+
+                .q116-table tbody tr:last-child td {
+                    border-bottom: 0;
+                }
+
+                .q116-table code {
+                    background: #f3f4f6;
+                    padding: 1px 6px;
+                    border-radius: 3px;
+                    font-family: "SF Mono", Consolas, monospace;
+                    font-size: 0.85em;
+                }
+
+                /* ========== Demo ========== */
+                .q116-demo {
+                    padding: 16px;
+                }
+
+                .q116-demo .q116-intro {
+                    font-size: 0.82rem;
+                    color: #6b7280;
+                    margin: 0 0 16px;
+                    line-height: 1.6;
+                }
+
+                .q116-demo .q116-panel {
+                    border: 2px solid #e5e7eb;
+                    border-radius: 8px;
+                    padding: 12px 14px;
+                    margin-bottom: 14px;
+                    background: #fff;
+                    transition: border-color 0.2s;
+                }
+
+                .q116-demo .q116-panel:last-of-type {
+                    margin-bottom: 0;
+                }
+
+                .q116-demo .q116-panel-header {
+                    display: flex;
+                    flex-wrap: wrap;
+                    align-items: center;
+                    gap: 8px;
+                    margin-bottom: 10px;
+                    padding-bottom: 10px;
+                    border-bottom: 1px dashed #e5e7eb;
+                }
+
+                .q116-demo .q116-selector {
+                    background: #1e1e1e;
+                    color: #d7ba7d;
+                    padding: 3px 10px;
+                    border-radius: 4px;
+                    font-family: "SF Mono", Consolas, monospace;
+                    font-size: 0.8rem;
+                    font-weight: 600;
+                }
+
+                .q116-demo .q116-badge {
+                    font-size: 0.65rem;
+                    font-weight: 700;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                    padding: 3px 8px;
+                    border-radius: 10px;
+                    color: #fff;
+                    font-family: "SF Mono", Consolas, monospace;
+                }
+
+                .q116-demo .q116-count-wrap {
+                    margin-left: auto;
+                    font-size: 0.72rem;
+                    color: #9ca3af;
+                    font-family: "SF Mono", Consolas, monospace;
+                    text-transform: uppercase;
+                    letter-spacing: 0.4px;
+                }
+
+                .q116-demo .q116-count {
+                    color: #1f2937;
+                    font-size: 0.9rem;
+                    font-weight: 800;
+                }
+
+                /* Markup structure */
+                .q116-demo .q116-markup .box {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 4px;
+                    padding: 6px;
+                    border: 1px dashed #cbd5e1;
+                    border-radius: 6px;
+                    background: #f9fafb;
+                    position: relative;
+                }
+
+                .q116-demo .q116-markup .box::before {
+                    content: ".box";
+                    position: absolute;
+                    top: -9px;
+                    left: 8px;
+                    background: #f9fafb;
+                    padding: 0 6px;
+                    font-family: "SF Mono", Consolas, monospace;
+                    font-size: 0.65rem;
+                    color: #94a3b8;
+                    font-weight: 700;
+                }
+
+                .q116-demo .q116-markup .nested {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 4px;
+                    padding: 6px;
+                    padding-left: 14px;
+                    border-left: 2px solid #cbd5e1;
+                    background: rgba(226, 232, 240, 0.3);
+                    border-radius: 0 4px 4px 0;
+                    position: relative;
+                }
+
+                .q116-demo .q116-markup .nested::before {
+                    content: ".nested";
+                    position: absolute;
+                    top: 4px;
+                    right: 6px;
+                    font-family: "SF Mono", Consolas, monospace;
+                    font-size: 0.6rem;
+                    color: #94a3b8;
+                    font-weight: 700;
+                }
+
+                .q116-demo .q116-markup p,
+                .q116-demo .q116-markup span {
+                    margin: 0;
+                    padding: 8px 12px;
+                    border-radius: 4px;
+                    background: #fff;
+                    border: 1px solid #e5e7eb;
+                    font-family: "SF Mono", Consolas, monospace;
+                    font-size: 0.78rem;
+                    font-weight: 600;
+                    color: #94a3b8;
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    transition: all 0.2s;
+                }
+
+                .q116-demo .q116-markup p small,
+                .q116-demo .q116-markup span small {
+                    font-size: 0.68rem;
+                    font-weight: 400;
+                    color: #cbd5e1;
+                    font-family: "SF Mono", Consolas, monospace;
+                    margin-left: auto;
+                }
+
+                /* Matched style — set per panel via CSS custom property */
+                .q116-demo .q116-panel .q116-markup .q116-match {
+                    background: var(--match-bg);
+                    border-color: var(--match-border);
+                    color: var(--match-text);
+                    box-shadow: 0 0 0 2px var(--match-shadow);
+                }
+
+                .q116-demo .q116-panel .q116-markup .q116-match small {
+                    color: var(--match-text-sub);
+                }
+
+                /* Panel color themes */
+                .q116-demo .q116-descendant {
+                    --match-bg: #ede9fe;
+                    --match-border: #a78bfa;
+                    --match-text: #5b21b6;
+                    --match-shadow: rgba(124, 58, 237, 0.15);
+                    --match-text-sub: #7c3aed;
+                    border-color: #c4b5fd;
+                }
+
+                .q116-demo .q116-descendant .q116-badge {
+                    background: #7c3aed;
+                }
+
+                .q116-demo .q116-child {
+                    --match-bg: #dbeafe;
+                    --match-border: #60a5fa;
+                    --match-text: #1e40af;
+                    --match-shadow: rgba(37, 99, 235, 0.15);
+                    --match-text-sub: #2563eb;
+                    border-color: #93c5fd;
+                }
+
+                .q116-demo .q116-child .q116-badge {
+                    background: #2563eb;
+                }
+
+                .q116-demo .q116-adjacent {
+                    --match-bg: #dcfce7;
+                    --match-border: #4ade80;
+                    --match-text: #166534;
+                    --match-shadow: rgba(22, 163, 74, 0.15);
+                    --match-text-sub: #16a34a;
+                    border-color: #86efac;
+                }
+
+                .q116-demo .q116-adjacent .q116-badge {
+                    background: #16a34a;
+                }
+
+                .q116-demo .q116-sibling {
+                    --match-bg: #ffedd5;
+                    --match-border: #fb923c;
+                    --match-text: #9a3412;
+                    --match-shadow: rgba(234, 88, 12, 0.15);
+                    --match-text-sub: #ea580c;
+                    border-color: #fdba74;
+                }
+
+                .q116-demo .q116-sibling .q116-badge {
+                    background: #ea580c;
+                }
+
+                /* Panel note */
+                .q116-demo .q116-panel-note {
+                    margin-top: 10px;
+                    padding-top: 10px;
+                    border-top: 1px dashed #e5e7eb;
+                    font-size: 0.76rem;
+                    color: #6b7280;
+                    line-height: 1.5;
+                }
+
+                .q116-demo .q116-panel-note strong {
+                    color: #1f2937;
+                }
+
+                /* Bottom hint */
+                .q116-demo .q116-hint {
+                    margin: 16px 0 0;
+                    padding: 12px 14px;
+                    background: #fffbeb;
+                    border-left: 3px solid #f59e0b;
+                    border-radius: 0 6px 6px 0;
+                    font-size: 0.82rem;
+                    color: #78350f;
+                    line-height: 1.7;
+                }
+
+                .q116-demo .q116-hint-small {
+                    display: inline-block;
+                    margin-top: 6px;
+                    font-size: 0.75rem;
+                    color: #92400e;
+                    opacity: 0.85;
+                }
+            </style>
+
+            <script>
+                (function () {
+                    const SELECTORS = {
+                        descendant: '.box p',
+                        child: '.box > p',
+                        adjacent: '.first + p',
+                        sibling: '.first ~ p'
+                    };
+
+                    document.querySelectorAll('.q116-demo .q116-panel').forEach(function (panel) {
+                        const combinator = panel.dataset.combinator;
+                        const selector = SELECTORS[combinator];
+                        if (!selector) return;
+
+                        const markupWrap = panel.querySelector('.q116-markup');
+                        const countEl = panel.querySelector('.q116-count');
+
+                        // Let the browser's real selector engine do the matching
+                        const matches = markupWrap.querySelectorAll(selector);
+                        matches.forEach(function (el) {
+                            el.classList.add('q116-match');
+                        });
+
+                        countEl.textContent = matches.length;
+
+                        // Update panel border to reflect matches
+                        if (matches.length === 0) {
+                            panel.style.opacity = '0.6';
+                        }
+                    });
+                })();
+            </script>
         </section>
 
         <!-- Q117 -->
         <section class="q-section">
-            <h2>Q117 — What is the difference between :first-child, :first-of-type, and :nth-child()? <span
-                    class="badge medium">Medium</span></h2>
+            <h2>Q117 — What is the difference between <code>:first-child</code>, <code>:first-of-type</code>,
+                and <code>:nth-child()</code>? <span class="badge medium">Medium</span></h2>
+
             <div class="answer">
                 <strong class="label">✅ Ideal answer</strong>
                 <ul style="margin:6px 0">
                     <li><code>:first-child</code> selects an element if it is the <strong>first child</strong> of its
-                        parent.</li>
+                        parent — <em>regardless</em> of what type it is.</li>
                     <li><code>:first-of-type</code> selects the first sibling of that <strong>particular element
-                            type</strong>.</li>
-                    <li><code>:nth-child(n)</code> selects an element based on its <strong>position</strong> among its
-                        parent's children.</li>
+                            type</strong> — even if other elements come before it.</li>
+                    <li><code>:nth-child(n)</code> selects an element based on its <strong>position</strong> among
+                        its parent's children — it checks the position first, then the type.</li>
                 </ul>
             </div>
+
             <div class="followup">
                 <span class="q">🔁 Follow-up: Given a <code>div</code> with an <code>h2</code> followed by two
                     <code>p</code> tags, will <code>p:first-child</code> select the first paragraph?</span>
-                <span class="a"><strong>No</strong>, because the first child of the div is the <code>&lt;h2&gt;</code>,
-                    not the <code>&lt;p&gt;</code>. But <code>p:first-of-type</code> <strong>would</strong> select the
-                    first <code>&lt;p&gt;</code>.</span>
+                <span class="a"><strong>No</strong> — because the first child of the div is the
+                    <code>&lt;h2&gt;</code>, not a <code>&lt;p&gt;</code>. But <code>p:first-of-type</code>
+                    <strong>would</strong> select the first <code>&lt;p&gt;</code>.</span>
             </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Does <code>:nth-child(2)</code> mean "the second <code>p</code>"?</span>
+                <span class="a"><strong>No — it means "the element at position 2, if it matches the type."</strong>
+                    If position 2 is a <code>&lt;span&gt;</code>, then <code>p:nth-child(2)</code> matches
+                    <strong>nothing</strong>. To mean "the second <code>p</code>", use
+                    <code>p:nth-of-type(2)</code>.</span>
+            </div>
+
             <h3>💻 Code</h3>
+
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
+                </div>
+                <pre class="vs-body"><code class="language-html">&lt;div class="container"&gt;
+  &lt;h2&gt;Title&lt;/h2&gt;              &lt;!-- position 1: first child, first h2 --&gt;
+  &lt;p&gt;First paragraph&lt;/p&gt;       &lt;!-- position 2: first p --&gt;
+  &lt;p&gt;Second paragraph&lt;/p&gt;      &lt;!-- position 3: second p --&gt;
+  &lt;span&gt;A span&lt;/span&gt;          &lt;!-- position 4: first span --&gt;
+  &lt;p&gt;Third paragraph&lt;/p&gt;       &lt;!-- position 5: third p --&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+
             <div class="vs-code">
                 <div class="vs-titlebar">
                     <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
@@ -998,37 +1815,444 @@ p { color: red; }
                 <div class="vs-tabbar">
                     <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
                 </div>
-                <pre class="vs-body"><code class="language-css">li:first-child { color: red; }
-p:first-of-type { color: blue; }
-li:nth-child(2) { background: yellow; }</code></pre>
+                <pre class="vs-body"><code class="language-css">:first-child      { /* h2 */            }
+p:first-child     { /* NOTHING */       }
+p:first-of-type   { /* first p */       }
+:first-of-type    { /* h2, first p, span */ }
+p:nth-child(2)    { /* first p */       }
+p:nth-child(4)    { /* NOTHING */       }</code></pre>
             </div>
-            <h3>🔴 Live demo</h3>
+
+            <h3>🔴 Live demo — Same markup, six selectors</h3>
             <div class="demo-box q117-demo">
-                <div class="test-container">
-                    <h2>Title (First Child)</h2>
-                    <p style="border: 2px solid #10b981;">First Paragraph (Green = :first-of-type matched)</p>
-                    <p>Second Paragraph</p>
+
+                <div class="q117-intro">
+                    <p style="margin:0 0 8px;">
+                        <strong>Same markup in every panel:</strong> one <code>h2</code>, then <code>p</code>,
+                        <code>p</code>, <code>span</code>, <code>p</code>. Each panel applies a different selector —
+                        matched elements light up in that panel's color. <strong>Panels showing 0 matches are
+                            outlined in red</strong> — they're the teaching moments.
+                    </p>
+                    <p style="margin:0; font-size:0.78rem; color:#6b7280;">
+                        💡 <strong>Position</strong> is the 1-based index among <em>all</em> siblings, regardless of
+                        type. The first <code>p</code> sits at <strong>position 2</strong> — it's the first
+                        <code>p</code>, but not the first child.
+                    </p>
                 </div>
-                <p style="font-size: 0.85rem; color: #6b7280; margin-top: 10px; margin-bottom: 0;">Notice: The first
-                    paragraph does NOT have the red background because it is not the first child.</p>
+
+                <!-- ============ Panel 1: :first-child ============ -->
+                <div class="q117-panel" data-selector=":first-child"
+                    style="--match-bg:#ede9fe;--match-border:#a78bfa;--match-text:#5b21b6;--match-shadow:rgba(124,58,237,0.15);">
+                    <div class="q117-panel-head">
+                        <code class="q117-selector">:first-child</code>
+                        <span class="q117-hint">any element that <strong>is</strong> the first child</span>
+                        <span class="q117-count">matched: <strong class="q117-count-num">—</strong></span>
+                    </div>
+                    <div class="q117-markup">
+                        <div class="q117-container">
+                            <h2>h2 <small>#1 of 5</small></h2>
+                            <p>p <small>#2 of 5</small></p>
+                            <p>p <small>#3 of 5</small></p>
+                            <span>span <small>#4 of 5</small></span>
+                            <p>p <small>#5 of 5</small></p>
+                        </div>
+                    </div>
+                    <div class="q117-verdict">h2 is the first child → <strong>1 match</strong>.</div>
+                </div>
+
+                <!-- ============ Panel 2: p:first-child ============ -->
+                <div class="q117-panel" data-selector="p:first-child"
+                    style="--match-bg:#fee2e2;--match-border:#fca5a5;--match-text:#991b1b;--match-shadow:rgba(220,38,38,0.15);">
+                    <div class="q117-panel-head">
+                        <code class="q117-selector">p:first-child</code>
+                        <span class="q117-hint">p that <strong>is</strong> the first child</span>
+                        <span class="q117-count">matched: <strong class="q117-count-num">—</strong></span>
+                    </div>
+                    <div class="q117-markup">
+                        <div class="q117-container">
+                            <h2>h2 <small>#1 of 5</small></h2>
+                            <p>p <small>#2 of 5</small></p>
+                            <p>p <small>#3 of 5</small></p>
+                            <span>span <small>#4 of 5</small></span>
+                            <p>p <small>#5 of 5</small></p>
+                        </div>
+                    </div>
+                    <div class="q117-verdict">The first child is <code>h2</code>, not <code>p</code> → <strong>0
+                            matches</strong>. This is the classic gotcha.</div>
+                </div>
+
+                <!-- ============ Panel 3: p:first-of-type ============ -->
+                <div class="q117-panel" data-selector="p:first-of-type"
+                    style="--match-bg:#dcfce7;--match-border:#86efac;--match-text:#166534;--match-shadow:rgba(22,163,74,0.15);">
+                    <div class="q117-panel-head">
+                        <code class="q117-selector">p:first-of-type</code>
+                        <span class="q117-hint">first p among its siblings</span>
+                        <span class="q117-count">matched: <strong class="q117-count-num">—</strong></span>
+                    </div>
+                    <div class="q117-markup">
+                        <div class="q117-container">
+                            <h2>h2 <small>#1 of 5</small></h2>
+                            <p>p <small>#2 of 5</small></p>
+                            <p>p <small>#3 of 5</small></p>
+                            <span>span <small>#4 of 5</small></span>
+                            <p>p <small>#5 of 5</small></p>
+                        </div>
+                    </div>
+                    <div class="q117-verdict">First <code>p</code>, regardless of what came before it → <strong>1
+                            match</strong>. This is the fix.</div>
+                </div>
+
+                <!-- ============ Panel 4: :first-of-type ============ -->
+                <div class="q117-panel" data-selector=":first-of-type"
+                    style="--match-bg:#dbeafe;--match-border:#93c5fd;--match-text:#1e40af;--match-shadow:rgba(37,99,235,0.15);">
+                    <div class="q117-panel-head">
+                        <code class="q117-selector">:first-of-type</code>
+                        <span class="q117-hint">first of <strong>each</strong> type</span>
+                        <span class="q117-count">matched: <strong class="q117-count-num">—</strong></span>
+                    </div>
+                    <div class="q117-markup">
+                        <div class="q117-container">
+                            <h2>h2 <small>#1 of 5</small></h2>
+                            <p>p <small>#2 of 5</small></p>
+                            <p>p <small>#3 of 5</small></p>
+                            <span>span <small>#4 of 5</small></span>
+                            <p>p <small>#5 of 5</small></p>
+                        </div>
+                    </div>
+                    <div class="q117-verdict">One per type (h2, first p, span) → <strong>3 matches</strong>.</div>
+                </div>
+
+                <!-- ============ Panel 5: p:nth-child(2) ============ -->
+                <div class="q117-panel" data-selector="p:nth-child(2)"
+                    style="--match-bg:#ffedd5;--match-border:#fdba74;--match-text:#9a3412;--match-shadow:rgba(234,88,12,0.15);">
+                    <div class="q117-panel-head">
+                        <code class="q117-selector">p:nth-child(2)</code>
+                        <span class="q117-hint">p at position 2</span>
+                        <span class="q117-count">matched: <strong class="q117-count-num">—</strong></span>
+                    </div>
+                    <div class="q117-markup">
+                        <div class="q117-container">
+                            <h2>h2 <small>#1 of 5</small></h2>
+                            <p>p <small>#2 of 5</small></p>
+                            <p>p <small>#3 of 5</small></p>
+                            <span>span <small>#4 of 5</small></span>
+                            <p>p <small>#5 of 5</small></p>
+                        </div>
+                    </div>
+                    <div class="q117-verdict">Position 2 is a <code>p</code> → <strong>1 match</strong>. Both position
+                        AND type must match.</div>
+                </div>
+
+                <!-- ============ Panel 6: p:nth-child(4) ============ -->
+                <div class="q117-panel" data-selector="p:nth-child(4)"
+                    style="--match-bg:#fee2e2;--match-border:#fca5a5;--match-text:#991b1b;--match-shadow:rgba(220,38,38,0.15);">
+                    <div class="q117-panel-head">
+                        <code class="q117-selector">p:nth-child(4)</code>
+                        <span class="q117-hint">p at position 4</span>
+                        <span class="q117-count">matched: <strong class="q117-count-num">—</strong></span>
+                    </div>
+                    <div class="q117-markup">
+                        <div class="q117-container">
+                            <h2>h2 <small>#1 of 5</small></h2>
+                            <p>p <small>#2 of 5</small></p>
+                            <p>p <small>#3 of 5</small></p>
+                            <span>span <small>#4 of 5</small></span>
+                            <p>p <small>#5 of 5</small></p>
+                        </div>
+                    </div>
+                    <div class="q117-verdict">Position 4 is a <code>span</code>, not a <code>p</code> → <strong>0
+                            matches</strong>. <code>nth-child</code> requires both position and type to match.</div>
+                </div>
+
             </div>
+
+            <style>
+                .q117-demo {
+                    padding: 16px;
+                }
+
+                .q117-demo .q117-intro {
+                    padding: 12px 14px;
+                    background: #f9fafb;
+                    border-radius: 6px;
+                    border: 1px solid #e5e7eb;
+                    margin-bottom: 16px;
+                    font-size: 0.82rem;
+                    color: #374151;
+                    line-height: 1.6;
+                }
+
+                .q117-demo .q117-intro code {
+                    background: #e5e7eb;
+                    padding: 1px 5px;
+                    border-radius: 3px;
+                    font-family: "SF Mono", Consolas, monospace;
+                    font-size: 0.85em;
+                    color: #1f2937;
+                }
+
+                /* ---------- Panel ---------- */
+                .q117-demo .q117-panel {
+                    border: 2px solid #e5e7eb;
+                    border-radius: 8px;
+                    padding: 12px 14px;
+                    margin-bottom: 14px;
+                    background: #fff;
+                    transition: border-color 0.2s, background 0.2s;
+                }
+
+                .q117-demo .q117-panel:last-child {
+                    margin-bottom: 0;
+                }
+
+                .q117-demo .q117-panel.q117-empty {
+                    border-color: #fca5a5;
+                    background: #fef2f2;
+                }
+
+                /* ---------- Panel header ---------- */
+                .q117-demo .q117-panel-head {
+                    display: flex;
+                    align-items: center;
+                    flex-wrap: wrap;
+                    gap: 10px;
+                    padding-bottom: 10px;
+                    margin-bottom: 10px;
+                    border-bottom: 1px dashed #e5e7eb;
+                }
+
+                .q117-demo .q117-selector {
+                    background: #1e1e1e;
+                    color: #d7ba7d;
+                    padding: 3px 10px;
+                    border-radius: 4px;
+                    font-family: "SF Mono", Consolas, monospace;
+                    font-size: 0.78rem;
+                    font-weight: 600;
+                    white-space: nowrap;
+                }
+
+                .q117-demo .q117-hint {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    flex: 1;
+                    min-width: 160px;
+                }
+
+                .q117-demo .q117-hint strong {
+                    color: #1f2937;
+                }
+
+                .q117-demo .q117-count {
+                    font-family: "SF Mono", Consolas, monospace;
+                    font-size: 0.72rem;
+                    color: #9ca3af;
+                    text-transform: uppercase;
+                    letter-spacing: 0.4px;
+                }
+
+                .q117-demo .q117-count-num {
+                    color: #1f2937;
+                    font-size: 0.9rem;
+                    font-weight: 800;
+                }
+
+                .q117-demo .q117-panel.q117-empty .q117-count {
+                    color: #dc2626;
+                }
+
+                .q117-demo .q117-panel.q117-empty .q117-count-num {
+                    color: #dc2626;
+                }
+
+                /* ---------- The markup ---------- */
+                .q117-demo .q117-markup {
+                    padding: 10px;
+                    background: #f9fafb;
+                    border: 1px dashed #cbd5e1;
+                    border-radius: 6px;
+                    margin-bottom: 10px;
+                }
+
+                .q117-demo .q117-container {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 6px;
+                    position: relative;
+                    padding: 6px;
+                }
+
+                .q117-demo .q117-container::before {
+                    content: ".q117-container";
+                    position: absolute;
+                    top: -8px;
+                    left: 8px;
+                    background: #f9fafb;
+                    padding: 0 6px;
+                    font-family: "SF Mono", Consolas, monospace;
+                    font-size: 0.6rem;
+                    color: #94a3b8;
+                    font-weight: 700;
+                }
+
+                .q117-demo .q117-container>* {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    padding: 8px 12px;
+                    margin: 0;
+                    border-radius: 4px;
+                    background: #fff;
+                    border: 1px solid #e5e7eb;
+                    font-family: "SF Mono", Consolas, monospace;
+                    font-size: 0.78rem;
+                    font-weight: 600;
+                    color: #94a3b8;
+                    min-height: 34px;
+                    transition: all 0.2s;
+                }
+
+                .q117-demo .q117-container>h2 {
+                    /* normalize h2 so it lays out like the others */
+                    font-size: 0.78rem;
+                    font-weight: 700;
+                }
+
+                .q117-demo .q117-container>* small {
+                    font-size: 0.66rem;
+                    font-weight: 500;
+                    color: #cbd5e1;
+                    margin-left: auto;
+                    font-family: "SF Mono", Consolas, monospace;
+                }
+
+                /* ---------- Matched element ---------- */
+                .q117-demo .q117-container>*.q117-match {
+                    background: var(--match-bg);
+                    border-color: var(--match-border);
+                    color: var(--match-text);
+                    box-shadow: 0 0 0 2px var(--match-shadow);
+                }
+
+                .q117-demo .q117-container>*.q117-match small {
+                    color: var(--match-text);
+                    opacity: 0.75;
+                }
+
+                /* ---------- Verdict ---------- */
+                .q117-demo .q117-verdict {
+                    font-size: 0.76rem;
+                    color: #4b5563;
+                    line-height: 1.5;
+                    padding: 8px 10px;
+                    background: #f9fafb;
+                    border-radius: 4px;
+                }
+
+                .q117-demo .q117-verdict strong {
+                    color: #1f2937;
+                }
+
+                .q117-demo .q117-verdict code {
+                    background: #e5e7eb;
+                    padding: 1px 5px;
+                    border-radius: 3px;
+                    font-family: "SF Mono", Consolas, monospace;
+                    font-size: 0.88em;
+                }
+
+                .q117-demo .q117-panel.q117-empty .q117-verdict {
+                    background: #fee2e2;
+                    color: #991b1b;
+                    font-weight: 500;
+                }
+
+                .q117-demo .q117-panel.q117-empty .q117-verdict strong {
+                    color: #dc2626;
+                }
+
+                .q117-demo .q117-panel.q117-empty .q117-verdict code {
+                    background: rgba(153, 27, 27, 0.1);
+                    color: #991b1b;
+                }
+            </style>
+
+            <script>
+                (function () {
+                    document.querySelectorAll('.q117-demo .q117-panel').forEach(function (panel) {
+                        const selector = panel.dataset.selector;
+                        if (!selector) return;
+
+                        const countNum = panel.querySelector('.q117-count-num');
+                        const container = panel.querySelector('.q117-container');
+                        if (!container) return;
+
+                        // Scope the query to THIS panel's container so each panel
+                        // independently evaluates its own markup.
+                        // Prefixing with `.q117-container > ` prevents :first-child
+                        // from matching the container itself.
+                        const matches = panel.querySelectorAll('.q117-container > ' + selector);
+
+                        matches.forEach(function (el) {
+                            el.classList.add('q117-match');
+                        });
+
+                        countNum.textContent = matches.length;
+
+                        if (matches.length === 0) {
+                            panel.classList.add('q117-empty');
+                        }
+                    });
+                })();
+            </script>
         </section>
 
         <!-- Q118 -->
         <section class="q-section">
-            <h2>Q118 — What is CSS inheritance? <span class="badge medium">Medium</span></h2>
+            <h2>Q118 — Why does <code>line-height: 1.5</code> behave differently from <code>line-height: 150%</code>
+                and <code>line-height: 1.5em</code> when inherited? <span class="badge medium">Medium</span></h2>
+
             <div class="answer">
                 <strong class="label">✅ Ideal answer</strong>
-                Inheritance means that some CSS properties can automatically take their computed value from an
-                <strong>ancestor</strong> when no value is specified on the descendant.<br><br>
-                Properties like <code>color</code>, <code>font-family</code>, and <code>font-size</code> are commonly
-                inherited.
+                All three declare the same line-height on the <em>element that writes them</em> — but they
+                <strong>inherit differently</strong>:
+                <ul style="margin:6px 0">
+                    <li><strong><code>line-height: 1.5</code></strong> (unitless) — inherits as the
+                        <strong>number 1.5</strong>. Each descendant recomputes <code>1.5 × its own font-size</code>.
+                        Result: larger text = proportionally taller lines, and vice versa.
+                    </li>
+                    <li><strong><code>line-height: 150%</code></strong> — inherits as a
+                        <strong>computed pixel value</strong> (parent's font-size × 1.5). Every descendant inherits
+                        that fixed px value — <em>even if its own font-size is much larger</em>.
+                    </li>
+                    <li><strong><code>line-height: 1.5em</code></strong> — behaves like the percentage.
+                        <code>em</code> on <code>line-height</code> resolves to pixels at the declaring element, and
+                        that px value is what inherits.
+                    </li>
+                </ul>
+                <strong>Rule of thumb:</strong> always use <strong>unitless</strong> <code>line-height</code> on
+                parents — especially on <code>body</code>. It's the only form where each element scales its
+                line-height to its own text.
             </div>
+
             <div class="followup">
-                <span class="q">🔁 Follow-up: Can I explicitly control inheritance?</span>
-                <span class="a"><strong>Yes.</strong> CSS provides keywords such as <code>inherit</code>,
-                    <code>initial</code>, <code>unset</code>, <code>revert</code>.</span>
+                <span class="q">🔁 Follow-up: Why does this only happen with <code>line-height</code> and not
+                    <code>font-size</code>?</span>
+                <span class="a">Because <code>font-size</code>'s percentage is <strong>resolved immediately against
+                        the parent</strong>, producing a fixed pixel value that children inherit as that fixed value.
+                    There's no "re-compute later" behavior. <code>line-height</code> is special because the CSS spec
+                    allows the unitless form to inherit as a <em>number</em>, which defers the multiplication to each
+                    element.</span>
             </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: What about <code>line-height: 1.5rem</code> or <code>24px</code>?</span>
+                <span class="a">Both behave like the percentage — they inherit the <strong>fixed pixel value</strong>.
+                    <code>1.5rem</code> computes to <code>1.5 × root font-size</code> (e.g. 24px) at the declaring
+                    element, and every descendant inherits 24px regardless of its own text. Only the
+                    <strong>unitless number</strong> recomputes per element.</span>
+            </div>
+
             <h3>💻 Code</h3>
             <div class="vs-code">
                 <div class="vs-titlebar">
@@ -1039,22 +2263,252 @@ li:nth-child(2) { background: yellow; }</code></pre>
                 <div class="vs-tabbar">
                     <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
                 </div>
-                <pre class="vs-body"><code class="language-css">body {
-  color: red;
+                <pre class="vs-body"><code class="language-css">/* ✅ Unitless — each element recomputes */
+.wrapper-ok {
+  font-size: 14px;
+  line-height: 1.5;    /* inherits as the NUMBER 1.5 */
 }
-/* A nested p inherits the red color unless overridden */</code></pre>
+.wrapper-ok .small { font-size: 14px; }  /* 14 × 1.5 = 21px */
+.wrapper-ok .large { font-size: 32px; }  /* 32 × 1.5 = 48px */
+
+/* ❌ Percentage — inherits a frozen pixel value */
+.wrapper-bad {
+  font-size: 14px;
+  line-height: 150%;   /* computes to 21px, then inherits as 21px */
+}
+.wrapper-bad .small { font-size: 14px; }  /* 21px */
+.wrapper-bad .large { font-size: 32px; }  /* 21px — cramped! */</code></pre>
             </div>
-            <h3>🔴 Live demo</h3>
+
+            <h3>🔴 Live demo — Same font-sizes, different line-height units</h3>
             <div class="demo-box q118-demo">
-                <div class="parent">
-                    Parent (Color: Red, Border: Red)
-                    <div class="child">
-                        Child (Inherited Color: Red, Border: Blue)
-                        <p style="margin: 0; color: black; font-size: 0.9rem;">Notice the text color was inherited, but
-                            the border was NOT inherited.</p>
+
+                <p class="q118-intro">
+                    Both panels have the <strong>same font-sizes</strong> (14px small, 32px large).
+                    The <code>line-height</code> is declared <strong>only on the wrapper</strong> — the paragraphs
+                    inherit it. Watch the large text in the right panel overlap.
+                </p>
+
+                <div class="q118-panels">
+
+                    <!-- ============ Unitless ============ -->
+                    <div class="q118-panel q118-panel-ok">
+                        <div class="q118-panel-head">
+                            <span class="q118-icon">✅</span>
+                            <div>
+                                <div class="q118-panel-title">Unitless</div>
+                                <code class="q118-panel-code">line-height: 1.5</code>
+                            </div>
+                        </div>
+
+                        <div class="q118-wrapper q118-wrapper-ok">
+                            <p class="q118-p q118-p-small">Small text (14px). This sentence wraps across two lines.</p>
+                            <p class="q118-p q118-p-large">Large text (32px). This sentence wraps across two lines and
+                                stays readable.</p>
+                        </div>
+
+                        <div class="q118-verdict q118-verdict-ok">
+                            <strong>14px → 21px</strong> · <strong>32px → 48px</strong><br>
+                            Each element recomputes from its own font-size.
+                        </div>
+                    </div>
+
+                    <!-- ============ Percentage ============ -->
+                    <div class="q118-panel q118-panel-bad">
+                        <div class="q118-panel-head">
+                            <span class="q118-icon">❌</span>
+                            <div>
+                                <div class="q118-panel-title">Percentage</div>
+                                <code class="q118-panel-code">line-height: 150%</code>
+                            </div>
+                        </div>
+
+                        <div class="q118-wrapper q118-wrapper-bad">
+                            <p class="q118-p q118-p-small">Small text (14px). This sentence wraps across two lines.</p>
+                            <p class="q118-p q118-p-large">Large text (32px). This sentence wraps across two lines and
+                                overlaps.</p>
+                        </div>
+
+                        <div class="q118-verdict q118-verdict-bad">
+                            <strong>14px → 21px</strong> · <strong>32px → 21px</strong><br>
+                            The large text is frozen at 21px — it's visibly cramped.
+                        </div>
                     </div>
                 </div>
+
+                <p class="q118-hint">
+                    🔎 <strong>Look at the 32px sentence in each panel.</strong> On the left, the lines are 48px apart
+                    — comfortable. On the right, the lines are still 21px apart even though the text is 32px tall —
+                    the descenders collide with the next line.
+                    <br>
+                    <span class="q118-hint-small">
+                        💡 Both wrappers declare <code>font-size: 14px</code>. That's why <code>150%</code> computes
+                        to <code>21px</code> once, and every child — regardless of its own font-size — inherits that
+                        fixed 21px.
+                    </span>
+                </p>
             </div>
+
+            <style>
+                .q118-demo {
+                    padding: 16px;
+                }
+
+                .q118-demo .q118-intro {
+                    font-size: 0.82rem;
+                    color: #6b7280;
+                    margin: 0 0 16px;
+                    line-height: 1.6;
+                }
+
+                .q118-demo .q118-panels {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 14px;
+                    margin-bottom: 14px;
+                }
+
+                @media (max-width: 720px) {
+                    .q118-demo .q118-panels {
+                        grid-template-columns: 1fr;
+                    }
+                }
+
+                .q118-demo .q118-panel {
+                    border-radius: 8px;
+                    padding: 14px;
+                    border: 2px solid;
+                }
+
+                .q118-demo .q118-panel-ok {
+                    background: #f0fdf4;
+                    border-color: #86efac;
+                }
+
+                .q118-demo .q118-panel-bad {
+                    background: #fef2f2;
+                    border-color: #fca5a5;
+                }
+
+                .q118-demo .q118-panel-head {
+                    display: flex;
+                    align-items: flex-start;
+                    gap: 10px;
+                    margin-bottom: 14px;
+                    padding-bottom: 10px;
+                    border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
+                }
+
+                .q118-demo .q118-icon {
+                    font-size: 1.1rem;
+                    line-height: 1.2;
+                }
+
+                .q118-demo .q118-panel-title {
+                    font-size: 0.72rem;
+                    font-weight: 700;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                    color: #374151;
+                    margin-bottom: 3px;
+                }
+
+                .q118-demo .q118-panel-code {
+                    font-family: "SF Mono", Consolas, monospace;
+                    font-size: 0.72rem;
+                    background: rgba(0, 0, 0, 0.06);
+                    padding: 2px 6px;
+                    border-radius: 3px;
+                    color: #1f2937;
+                }
+
+                /* ============================================ */
+                /* The critical line-height — declared ONCE on the wrapper */
+                /* ============================================ */
+                .q118-demo .q118-wrapper {
+                    font-size: 14px;
+                    padding: 10px;
+                    background: #fff;
+                    border-radius: 6px;
+                    margin-bottom: 12px;
+                }
+
+                .q118-demo .q118-wrapper-ok {
+                    line-height: 1.5;
+                    /* inherits as NUMBER → children recompute */
+                }
+
+                .q118-demo .q118-wrapper-bad {
+                    line-height: 150%;
+                    /* inherits as PX → children frozen */
+                }
+
+                /* The children — different font-sizes, same inherited line-height */
+                .q118-demo .q118-p {
+                    margin: 0;
+                    color: #1f2937;
+                }
+
+                .q118-demo .q118-p+.q118-p {
+                    margin-top: 10px;
+                }
+
+                .q118-demo .q118-p-small {
+                    font-size: 14px;
+                }
+
+                .q118-demo .q118-p-large {
+                    font-size: 32px;
+                    font-weight: 600;
+                    color: #1e3a8a;
+                }
+
+                .q118-demo .q118-panel-bad .q118-p-large {
+                    color: #991b1b;
+                }
+
+                /* Verdicts */
+                .q118-demo .q118-verdict {
+                    padding: 8px 12px;
+                    border-radius: 5px;
+                    font-size: 0.76rem;
+                    line-height: 1.55;
+                }
+
+                .q118-demo .q118-verdict-ok {
+                    background: #dcfce7;
+                    color: #166534;
+                    border-left: 3px solid #16a34a;
+                }
+
+                .q118-demo .q118-verdict-bad {
+                    background: #fee2e2;
+                    color: #991b1b;
+                    border-left: 3px solid #dc2626;
+                }
+
+                /* Hint */
+                .q118-demo .q118-hint {
+                    font-size: 0.8rem;
+                    color: #6b7280;
+                    margin: 0;
+                    line-height: 1.7;
+                }
+
+                .q118-demo .q118-hint code {
+                    background: #f3f4f6;
+                    padding: 1px 5px;
+                    border-radius: 3px;
+                    font-size: 0.85em;
+                }
+
+                .q118-demo .q118-hint-small {
+                    display: inline-block;
+                    margin-top: 6px;
+                    font-size: 0.75rem;
+                    color: #9ca3af;
+                }
+            </style>
         </section>
 
         <!-- Q119 -->
@@ -1105,23 +2559,51 @@ li:nth-child(2) { background: yellow; }</code></pre>
 
         <!-- Q120 -->
         <section class="q-section">
-            <h2>Q120 — What is the difference between display: none, visibility: hidden, and opacity: 0? <span
+            <h2>Q120 — What is the difference between width: min-content, max-content, and fit-content? <span
                     class="badge medium">Medium</span></h2>
+
             <div class="answer">
                 <strong class="label">✅ Ideal answer</strong>
+                All three keywords tell the browser to compute the width from the element's <strong>content</strong> —
+                but each uses a different "intrinsic" size:
                 <ul style="margin:6px 0">
-                    <li><code>display: none</code>: The element is removed from the layout. It doesn't occupy space.
-                    </li>
-                    <li><code>visibility: hidden</code>: The element is visually hidden but normally remains in the
-                        layout.</li>
-                    <li><code>opacity: 0</code>: The element becomes fully transparent but still participates in layout.
-                    </li>
+                    <li><code>min-content</code>: The width of the <strong>widest unbreakable unit</strong> (usually the
+                        longest word). Text wraps as tightly as possible.</li>
+                    <li><code>max-content</code>: The width the content would need if it were laid out on <strong>a
+                            single line</strong>. No wrapping at all. Can overflow the parent.</li>
+                    <li><code>fit-content</code>: A hybrid — shrinks to fit the parent if it's too narrow, but never
+                        grows beyond <code>max-content</code> if the parent is wide.</li>
                 </ul>
+                In one sentence: <code>min-content</code> = tightest, <code>max-content</code> = widest,
+                <code>fit-content</code> = just right.
             </div>
+
             <div class="followup">
-                <span class="q">🔁 Follow-up: Which one would you use for a fade-out animation?</span>
-                <span class="a"><code>opacity</code> is often suitable because it can be animated smoothly.</span>
+                <span class="q">🔁 Follow-up: Is <code>width: fit-content</code> the same as
+                    <code>width: auto</code>?</span>
+                <span class="a"><strong>Not for block-level elements.</strong> <code>width: auto</code> on a block makes
+                    it fill the parent's full width (default behavior). <code>fit-content</code> makes the element
+                    shrink to its content — perfect for inline-block-like behavior without changing display mode.
+                    However, for <em>flex items</em> and <em>inline-block</em> elements, <code>auto</code> already sizes
+                    to content — so <code>fit-content</code> is only interesting for regular blocks.</span>
             </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: When would I actually use these?</span>
+                <span class="a">
+                    <ul style="margin:6px 0">
+                        <li><strong><code>min-content</code></strong>: Table cells, tight columns, "no narrower than
+                            this" constraints.</li>
+                        <li><strong><code>max-content</code></strong>: Buttons that should never wrap, single-line tags,
+                            tooltips — everything keeps its natural width.</li>
+                        <li><strong><code>fit-content</code></strong>: Card titles, tags, centered content that
+                            shouldn't span the full row. Equivalent to <code>inline-block</code> but for blocks.</li>
+                    </ul>
+                    <strong>Bonus:</strong> <code>fit-content</code> also accepts an argument:
+                    <code>width: fit-content(300px)</code> — shrink to content but cap at 300px.
+                </span>
+            </div>
+
             <h3>💻 Code</h3>
             <div class="vs-code">
                 <div class="vs-titlebar">
@@ -1132,26 +2614,338 @@ li:nth-child(2) { background: yellow; }</code></pre>
                 <div class="vs-tabbar">
                     <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
                 </div>
-                <pre class="vs-body"><code class="language-css">.hidden-display { display: none; }
-.hidden-visibility { visibility: hidden; }
-.hidden-opacity { opacity: 0; }</code></pre>
+                <pre class="vs-body"><code class="language-css">.min  { width: min-content; }   /* tightest — text wraps word-by-word */
+.max  { width: max-content; }   /* widest — one long line, may overflow */
+.fit  { width: fit-content; }   /* just right — as wide as content, but ≤ parent */</code></pre>
             </div>
-            <h3>🔴 Live demo</h3>
+
+            <h3>🔴 Live demo — Drag the slider to resize the parent</h3>
             <div class="demo-box q120-demo">
-                <div class="controls">
-                    <button onclick="setQ120Class('')" class="active" id="btn-none">Reset</button>
-                    <button onclick="setQ120Class('d-none')">display: none</button>
-                    <button onclick="setQ120Class('v-hidden')">visibility: hidden</button>
-                    <button onclick="setQ120Class('o-zero')">opacity: 0</button>
+
+                <div class="q120-controls">
+                    <label for="q120-slider">Parent width:</label>
+                    <input type="range" id="q120-slider" min="120" max="780" value="520" step="10">
+                    <span class="q120-slider-val" id="q120-slider-val">520px</span>
                 </div>
-                <div class="box-wrapper">
-                    <div class="target-box" id="q120-box">Box<br><button onclick="alert('Clicked!')">Click</button>
+
+                <div class="q120-stage" id="q120-stage">
+
+                    <div class="q120-box q120-min">
+                        <div class="q120-box-head">
+                            <code>min-content</code>
+                            <span class="q120-tag">tightest</span>
+                        </div>
+                        <div class="q120-text">Antidisestablishmentarianism plus ordinary words wrap tightly.</div>
+                        <div class="q120-measure" data-kw="min-content">—</div>
                     </div>
-                    <div class="other-box">Other Box</div>
+
+                    <div class="q120-box q120-fit">
+                        <div class="q120-box-head">
+                            <code>fit-content</code>
+                            <span class="q120-tag">just right</span>
+                        </div>
+                        <div class="q120-text">Antidisestablishmentarianism plus ordinary words wrap tightly.</div>
+                        <div class="q120-measure" data-kw="fit-content">—</div>
+                    </div>
+
+                    <div class="q120-box q120-max">
+                        <div class="q120-box-head">
+                            <code>max-content</code>
+                            <span class="q120-tag">widest</span>
+                        </div>
+                        <div class="q120-text">Antidisestablishmentarianism plus ordinary words wrap tightly.</div>
+                        <div class="q120-measure" data-kw="max-content">—</div>
+                    </div>
+
                 </div>
+
+                <div class="q120-note" id="q120-note">
+                    <strong>Drag the slider.</strong> The <code>min-content</code> box never changes — its width is
+                    fixed by the longest word. The <code>max-content</code> box never changes either — its width is
+                    fixed by the full text on one line. Only <code>fit-content</code> reacts to the parent.
+                </div>
+
+                <p class="q120-hint">
+                    🔎 <strong>Watch what happens when the parent gets narrow.</strong> The <code>max-content</code>
+                    box <strong>overflows</strong> the stage (the stage scrolls horizontally) — because
+                    <code>max-content</code> ignores the parent's width. <code>fit-content</code> shrinks gracefully
+                    and stops exactly at the parent's edge.
+                    <br>
+                    <span class="q120-hint-small">
+                        💡 The measured widths below each box are read live from <code>getBoundingClientRect()</code>
+                        — not hardcoded. If the browser computes something different, the numbers will show it.
+                    </span>
+                </p>
             </div>
+
+            <style>
+                .q120-demo {
+                    padding: 16px;
+                }
+
+                .q120-demo .q120-controls {
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    padding: 10px 14px;
+                    background: #f9fafb;
+                    border: 1px solid #e5e7eb;
+                    border-radius: 8px;
+                    margin-bottom: 14px;
+                }
+
+                .q120-demo .q120-controls label {
+                    font-size: 0.8rem;
+                    font-weight: 600;
+                    color: #4b5563;
+                    white-space: nowrap;
+                }
+
+                .q120-demo #q120-slider {
+                    flex: 1;
+                    accent-color: #4f46e5;
+                }
+
+                .q120-demo .q120-slider-val {
+                    font-family: "SF Mono", Consolas, monospace;
+                    font-size: 0.82rem;
+                    font-weight: 700;
+                    color: #4f46e5;
+                    min-width: 60px;
+                    text-align: right;
+                }
+
+                /* The stage — this is the parent that shrinks */
+                .q120-demo .q120-stage {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 12px;
+                    width: 520px;
+                    max-width: 100%;
+                    padding: 14px;
+                    background: #f9fafb;
+                    border: 2px dashed #cbd5e1;
+                    border-radius: 8px;
+                    margin-bottom: 14px;
+                    overflow-x: auto;
+                    transition: width 0.15s ease;
+                }
+
+                .q120-demo .q120-stage::before {
+                    content: "parent (dashed border)";
+                    position: absolute;
+                    margin-top: -24px;
+                    font-family: "SF Mono", Consolas, monospace;
+                    font-size: 0.65rem;
+                    color: #94a3b8;
+                    font-weight: 700;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                }
+
+                /* Boxes */
+                .q120-demo .q120-box {
+                    padding: 10px 14px;
+                    border-radius: 6px;
+                    border: 2px solid;
+                    background: #fff;
+                    font-size: 0.82rem;
+                    transition: width 0.15s ease;
+                }
+
+                .q120-demo .q120-box-head {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    margin-bottom: 6px;
+                    font-family: "SF Mono", Consolas, monospace;
+                }
+
+                .q120-demo .q120-box-head code {
+                    background: #1e1e1e;
+                    color: #d7ba7d;
+                    padding: 2px 8px;
+                    border-radius: 4px;
+                    font-size: 0.72rem;
+                    font-weight: 600;
+                    white-space: nowrap;
+                }
+
+                .q120-demo .q120-tag {
+                    font-size: 0.62rem;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                    font-weight: 700;
+                    padding: 2px 8px;
+                    border-radius: 10px;
+                    background: #f3f4f6;
+                    color: #6b7280;
+                }
+
+                .q120-demo .q120-text {
+                    color: #374151;
+                    line-height: 1.5;
+                    font-size: 0.82rem;
+                }
+
+                .q120-demo .q120-measure {
+                    margin-top: 8px;
+                    padding-top: 6px;
+                    border-top: 1px dashed #e5e7eb;
+                    font-family: "SF Mono", Consolas, monospace;
+                    font-size: 0.72rem;
+                    font-weight: 700;
+                }
+
+                /* ---- min-content ---- */
+                .q120-demo .q120-min {
+                    width: min-content;
+                    border-color: #7c3aed;
+                    background: #f5f3ff;
+                }
+
+                .q120-demo .q120-min .q120-measure {
+                    color: #7c3aed;
+                }
+
+                .q120-demo .q120-min .q120-tag {
+                    background: #ede9fe;
+                    color: #5b21b6;
+                }
+
+                /* ---- fit-content ---- */
+                .q120-demo .q120-fit {
+                    width: fit-content;
+                    border-color: #2563eb;
+                    background: #eff6ff;
+                }
+
+                .q120-demo .q120-fit .q120-measure {
+                    color: #2563eb;
+                }
+
+                .q120-demo .q120-fit .q120-tag {
+                    background: #dbeafe;
+                    color: #1e40af;
+                }
+
+                /* ---- max-content ---- */
+                .q120-demo .q120-max {
+                    width: max-content;
+                    border-color: #ea580c;
+                    background: #fff7ed;
+                }
+
+                .q120-demo .q120-max .q120-measure {
+                    color: #ea580c;
+                }
+
+                .q120-demo .q120-max .q120-tag {
+                    background: #ffedd5;
+                    color: #9a3412;
+                }
+
+                /* Note box */
+                .q120-demo .q120-note {
+                    padding: 10px 14px;
+                    background: #fffbeb;
+                    border-left: 3px solid #f59e0b;
+                    border-radius: 0 6px 6px 0;
+                    font-size: 0.8rem;
+                    color: #78350f;
+                    line-height: 1.6;
+                    margin-bottom: 14px;
+                    transition: background 0.2s;
+                }
+
+                .q120-demo .q120-note code {
+                    background: rgba(120, 53, 15, 0.1);
+                    padding: 1px 5px;
+                    border-radius: 3px;
+                    font-size: 0.88em;
+                }
+
+                .q120-demo .q120-note.is-overflowing {
+                    background: #fef2f2;
+                    border-left-color: #dc2626;
+                    color: #991b1b;
+                }
+
+                .q120-demo .q120-note.is-overflowing code {
+                    background: rgba(153, 27, 27, 0.1);
+                }
+
+                /* Hint */
+                .q120-demo .q120-hint {
+                    margin: 0;
+                    font-size: 0.82rem;
+                    color: #6b7280;
+                    line-height: 1.7;
+                }
+
+                .q120-demo .q120-hint code {
+                    background: #f3f4f6;
+                    padding: 1px 5px;
+                    border-radius: 3px;
+                    font-size: 0.85em;
+                }
+
+                .q120-demo .q120-hint-small {
+                    display: inline-block;
+                    margin-top: 6px;
+                    font-size: 0.75rem;
+                    color: #9ca3af;
+                }
+            </style>
+
+            <script>
+                (function () {
+                    const stage = document.getElementById('q120-stage');
+                    const slider = document.getElementById('q120-slider');
+                    const sliderVal = document.getElementById('q120-slider-val');
+                    const note = document.getElementById('q120-note');
+
+                    function measure() {
+                        // Parent's content width (what fit-content is capped by)
+                        const stageWidth = stage.clientWidth;
+                        let overflowed = false;
+
+                        document.querySelectorAll('.q120-demo .q120-box').forEach(function (box) {
+                            const measureEl = box.querySelector('.q120-measure');
+                            if (!measureEl) return;
+
+                            const width = Math.round(box.getBoundingClientRect().width);
+                            const kw = measureEl.dataset.kw;
+
+                            let text = kw + ' → ' + width + 'px';
+                            if (width > stageWidth + 1) {
+                                text += ' (overflows!)';
+                                overflowed = true;
+                            }
+                            measureEl.textContent = text;
+                        });
+
+                        note.classList.toggle('is-overflowing', overflowed);
+                    }
+
+                    slider.addEventListener('input', function () {
+                        const w = parseInt(slider.value, 10);
+                        sliderVal.textContent = w + 'px';
+                        stage.style.width = w + 'px';
+                        // Let layout settle before measuring
+                        requestAnimationFrame(measure);
+                    });
+
+                    // Initial measurement
+                    requestAnimationFrame(measure);
+
+                    // Re-measure on window resize (the stage has max-width: 100%)
+                    window.addEventListener('resize', measure);
+                })();
+            </script>
         </section>
 
+        <!-- Task -->
         <!-- Task -->
         <section class="task-section">
             <h2>🧑‍🎓 Student Task — CSS Fundamentals Playground</h2>
@@ -1169,54 +2963,94 @@ li:nth-child(2) { background: yellow; }</code></pre>
                     <tr>
                         <td>111</td>
                         <td>What is CSS</td>
-                        <td>Create two paragraphs: one unstyled, and one styled like a warning box.</td>
+                        <td>Create two paragraphs: one unstyled (browser default), one styled like a warning box
+                            (red border, light background, bold text). Add a comment above each explaining what CSS
+                            is doing in the styled one.</td>
                     </tr>
                     <tr>
                         <td>112</td>
                         <td>Cascading</td>
-                        <td>Create two conflicting rules for an `h1`. Comment which one wins and why.</td>
+                        <td>Create <strong>three</strong> conflicting rules for the same <code>h1</code>: one by tag,
+                            one by class, one by ID. Add a comment above each rule showing its specificity
+                            (<code>0,0,1</code>, <code>0,1,0</code>, <code>1,0,0</code>) and which one wins.</td>
                     </tr>
                     <tr>
                         <td>113</td>
                         <td>Ways to apply CSS</td>
-                        <td>Use External CSS, but add an Inline rule to a button to override a color.</td>
+                        <td>Create a page with an <strong>external</strong> stylesheet. Then add an
+                            <strong>internal</strong>
+                            <code>&lt;style&gt;</code> block that overrides one rule, and an <strong>inline</strong>
+                            <code>style=""</code> on one element that overrides that again. Add a comment listing the
+                            precedence order (inline &gt; internal &gt; external, all else being equal).
+                        </td>
                     </tr>
                     <tr>
                         <td>114</td>
                         <td>Selectors</td>
-                        <td>Target a `<p>` inside a `
-                            <div class="card">` using a CSS selector.
+                        <td>Create a <code>&lt;div class="card"&gt;</code> with a nested <code>&lt;p&gt;</code>. Target
+                            the <code>p</code> using <code>.card p</code>. Then add a <strong>second</strong>
+                            <code>.card</code> with a <code>span</code> instead — confirm the <code>p</code> rule does
+                            not affect it.
                         </td>
                     </tr>
                     <tr>
                         <td>115</td>
-                        <td>Selector Types</td>
-                        <td>Target using `*`, tag, class, and ID. Give each a different color.</td>
+                        <td>Universal selector (*)</td>
+                        <td>Add the standard reset <code>*, *::before, *::after { box-sizing: border-box; }</code> at
+                            the top of your CSS. Then create a box with
+                            <code>width: 200px; padding: 20px; border: 5px</code>
+                            and <strong>comment what its total rendered width is</strong> (200px, not 250px). Then
+                            temporarily add <code>* { outline: 1px solid red; }</code> as a debug mode, screenshot the
+                            page, and remove it.
+                        </td>
                     </tr>
                     <tr>
                         <td>116</td>
-                        <td>Child vs Descendant</td>
-                        <td>Use `>` to style direct `li` children, and a space to style deeply nested `li` items.</td>
+                        <td>Four combinators</td>
+                        <td>Recreate the demo markup from Q116 (a <code>.box</code> with A, B, C, D nested, E). Apply
+                            <strong>all four</strong> combinators (<code>.box p</code>, <code>.box &gt; p</code>,
+                            <code>.first + p</code>, <code>.first ~ p</code>) with four different colors. Add a comment
+                            listing <strong>exactly which letters</strong> each selector matches.
+                        </td>
                     </tr>
                     <tr>
                         <td>117</td>
                         <td>Pseudo-classes</td>
-                        <td>Use `:first-child` and `:first-of-type` on a list. Explain the difference.</td>
+                        <td>Create a <code>&lt;div&gt;</code> containing an <code>h2</code> followed by three
+                            <code>&lt;p&gt;</code> tags. Try <code>p:first-child</code> and
+                            <code>p:first-of-type</code> — one matches nothing, one matches the first paragraph. Add a
+                            comment explaining <strong>why</strong>.
+                        </td>
                     </tr>
                     <tr>
                         <td>118</td>
-                        <td>Inheritance</td>
-                        <td>Set `color` and `border` on a parent div. Observe what the child inherits.</td>
+                        <td>line-height inheritance</td>
+                        <td>Build <strong>two</strong> identical nested divs (three levels deep with
+                            <code>font-size: 14px / 22px / 32px</code>). Set <code>line-height: 1.5</code> on one and
+                            <code>line-height: 150%</code> on the other — both on the outermost wrapper only. Screenshot
+                            the innermost paragraph in each and add a comment explaining why the 32px text overlaps
+                            in one version and not the other.
+                        </td>
                     </tr>
                     <tr>
                         <td>119</td>
-                        <td>CSS Keywords</td>
-                        <td>Use `inherit`, `initial`, `unset`, and `revert` on four buttons inside a container.</td>
+                        <td>CSS-wide keywords</td>
+                        <td>Create a parent <code>div</code> with <code>color: blue</code> and
+                            <code>border: 2px solid red</code>. Inside it, place <strong>four buttons</strong> — each
+                            one using <code>color: inherit | initial | unset | revert</code>. Add a comment describing
+                            what each button looks like and why. <em>Bonus:</em> try
+                            <code>all: unset</code> on a <code>&lt;button&gt;</code> and compare with
+                            <code>all: revert</code>.
+                        </td>
                     </tr>
                     <tr>
                         <td>120</td>
-                        <td>Visibility</td>
-                        <td>Create a modal. Hide it with `display: none`, show it with JS changing to `display: flex`.
+                        <td>Intrinsic sizing</td>
+                        <td>Create <strong>three</strong> boxes containing the same paragraph text: one with
+                            <code>width: min-content</code>, one with <code>max-content</code>, one with
+                            <code>fit-content</code>. Wrap them in a parent that you can resize. Take two screenshots
+                            (wide parent + narrow parent) and add a comment explaining which box changed and which
+                            didn't.
                         </td>
                     </tr>
                 </tbody>
@@ -1225,13 +3059,19 @@ li:nth-child(2) { background: yellow; }</code></pre>
             <h3>📦 Submission rules</h3>
             <ul>
                 <li><strong>File names:</strong> <code>index.html</code>, <code>styles.css</code></li>
-                <li><strong>Comments:</strong> above each section, e.g. <code>/* Q115: Selector types */</code></li>
-                <li><strong>README.md</strong> with 3 answers:
+                <li><strong>Comments:</strong> above each section, e.g. <code>/* Q115: Universal reset */</code>
+                </li>
+                <li><strong>README.md</strong> with <strong>4 answers</strong>:
                     <ol>
-                        <li>What is the difference between <code>display: none</code> and
-                            <code>visibility: hidden</code>?</li>
-                        <li>Why is the child selector <code>&gt;</code> more restrictive than the descendant selector
-                            (space)?</li>
+                        <li>Why is <strong>unitless</strong> <code>line-height</code> safer than <code>150%</code> or
+                            <code>1.5em</code> when inherited?
+                        </li>
+                        <li>What is the difference between the <strong>descendant</strong>, <strong>child</strong>,
+                            <strong>adjacent sibling</strong>, and <strong>general sibling</strong> combinators?
+                        </li>
+                        <li>When does <code>width: fit-content</code> differ from <code>width: auto</code> on a
+                            <strong>block</strong> element?
+                        </li>
                         <li>What is the difference between <code>inherit</code>, <code>initial</code>,
                             <code>unset</code>, and <code>revert</code>?
                         </li>
@@ -1239,9 +3079,21 @@ li:nth-child(2) { background: yellow; }</code></pre>
                 </li>
             </ul>
 
+            <h3>⭐ Bonus</h3>
+            <ul>
+                <li>Open DevTools on your Q118 demo and hover the innermost paragraph. In the Computed panel,
+                    check the <code>line-height</code> value in both versions — confirm it matches your comment.</li>
+                <li>For Q116, add a fifth panel with the selector <code>.first + *</code>. Does it match the
+                    <code>span</code> (C)? Why? Add a comment.
+                </li>
+                <li>For Q120, add a fourth box with <code>width: fit-content(200px)</code>. Describe how it behaves
+                    when the parent is 800px wide vs 150px wide.</li>
+            </ul>
+
             <h3>🎯 Grading (out of 10)</h3>
-            <p>1 point per row. "Cascading" and "CSS Keywords" rows are worth double if the README explanation is
-                correct.</p>
+            <p>1 point per row. The <strong>"Four combinators"</strong>, <strong>"line-height inheritance"</strong>,
+                and <strong>"Intrinsic sizing"</strong> rows are worth double if the README explanation and code
+                comments are correct.</p>
         </section>
 
     </div>

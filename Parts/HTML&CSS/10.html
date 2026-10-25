@@ -689,25 +689,53 @@
 
         <!-- ==================== Q91 ==================== -->
         <section class="q-section">
-            <h2>Q91 — What is the difference between block, inline, and inline-block elements? <span
-                    class="badge medium">Easy → Medium</span></h2>
+            <h2>Q91 — What is the difference between <code>&lt;code&gt;</code>, <code>&lt;kbd&gt;</code>,
+                <code>&lt;samp&gt;</code>, and <code>&lt;var&gt;</code>? <span class="badge medium">Easy →
+                    Medium</span>
+            </h2>
 
             <div class="answer">
                 <strong class="label">✅ Ideal answer</strong>
-                The difference is mainly how the element participates in the layout.
+                All four are <strong>inline semantic elements for technical content</strong>, and all four render in a
+                <strong>monospace font</strong> by default — which is exactly why developers confuse them. But each
+                carries a different <strong>meaning</strong>:
                 <ul style="margin:6px 0">
-                    <li><strong>block</strong> elements normally start on a new line and can take the available width.
-                    </li>
-                    <li><strong>inline</strong> elements flow within the surrounding text and generally don't accept
-                        width and height in the same way block-level elements do.</li>
-                    <li><strong>inline-block</strong> flows inline but still allows width and height to be applied.</li>
+                    <li><code>&lt;code&gt;</code> — a fragment of <strong>computer code</strong> (a function name,
+                        an identifier, a snippet).</li>
+                    <li><code>&lt;kbd&gt;</code> — <strong>keyboard input</strong> the user should press (a key, a
+                        shortcut, a command).</li>
+                    <li><code>&lt;samp&gt;</code> — <strong>sample output</strong> from a program or system (a
+                        console log, a terminal response).</li>
+                    <li><code>&lt;var&gt;</code> — a <strong>variable</strong> in math or programming (a placeholder
+                        that changes).</li>
                 </ul>
+                The visual result is usually identical, but the <strong>semantics</strong> differ — and that matters
+                for screen readers, syntax highlighters, and documentation generators. Use the element that matches
+                the <strong>meaning</strong>, not the appearance.
             </div>
 
             <div class="followup">
-                <span class="q">🔁 Follow-up: Is &lt;div&gt; always block and &lt;span&gt; always inline?</span>
-                <span class="a">By default, yes in normal HTML user-agent styling, but CSS can change their display
-                    behavior.</span>
+                <span class="q">🔁 Follow-up: Does this matter, or is it just cosmetic?</span>
+                <span class="a">It matters. <strong>Screen readers</strong> may announce these differently (e.g.,
+                    "code" or "variable"), which changes the listening experience.
+                    <strong>Syntax highlighters</strong> and documentation tools sometimes pick up on
+                    <code>&lt;code&gt;</code> blocks to add highlighting. And <strong>browser defaults</strong> differ
+                    slightly — <code>&lt;var&gt;</code> is often rendered in italic, while the other three are
+                    upright. But the real reason is <strong>semantics</strong>: the tag describes what the content
+                    <em>is</em>, not how it should look.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can you nest them? E.g., <code>&lt;kbd&gt;</code> inside
+                    <code>&lt;code&gt;</code>?</span>
+                <span class="a"><strong>Yes — and it's common in documentation.</strong> A shortcut inside a code
+                    example, or a variable inside a code block, is a valid and useful nesting:
+                    <br><br>
+                    <code>&lt;code&gt;git commit -m "&lt;var&gt;message&lt;/var&gt;"&lt;/code&gt;</code><br>
+                    <code>&lt;p&gt;Press &lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;C&lt;/kbd&gt; to copy.&lt;/p&gt;</code>
+                    <br><br>
+                    The outer element describes the overall context; the inner one describes a specific part.
+                </span>
             </div>
 
             <h3>💻 Code</h3>
@@ -715,29 +743,207 @@
                 <div class="vs-titlebar">
                     <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
                             class="vs-dot green"></span></div>
-                    <div class="vs-title">style.css — Visual Studio Code</div>
+                    <div class="vs-title">index.html — Visual Studio Code</div>
                 </div>
                 <div class="vs-tabbar">
-                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                    <div class="vs-tab active"><span class="file-icon html"></span>index.html</div>
                 </div>
-                <pre class="vs-body"><code class="language-css">.block { display: block; }
-.inline { display: inline; }
-.inline-block { 
-  display: inline-block;
-  width: 200px;
-  height: 100px;
-}</code></pre>
+                <pre class="vs-body"><code class="language-html">&lt;p&gt;
+  Press &lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;C&lt;/kbd&gt; to copy
+  &lt;code&gt;console.log('hi')&lt;/code&gt;.
+  If &lt;var&gt;x&lt;/var&gt; is set, you'll see
+  &lt;samp&gt;hello&lt;/samp&gt; in the console.
+&lt;/p&gt;</code></pre>
             </div>
 
-            <h3>🔴 Live demo</h3>
+            <h3>🔴 Live demo — Same sentence, four different semantic tags</h3>
             <div class="demo-box q91-demo">
-                <div class="block-el">Block Element (Takes full width)</div>
-                <span class="inline-el">Inline Element 1</span>
-                <span class="inline-el">Inline Element 2 (Width/Height ignored)</span>
-                <br><br>
-                <div class="inline-block-el">Inline-Block</div>
-                <div class="inline-block-el">Inline-Block</div>
+
+                <div class="q91-render">
+                    Press <kbd class="q91-kbd">Ctrl</kbd>+<kbd class="q91-kbd">C</kbd> to copy
+                    <code class="q91-code">console.log('hi')</code>.
+                    If <var class="q91-var">x</var> is set, you'll see
+                    <samp class="q91-samp">hello</samp> in the console.
+                </div>
+
+                <div class="q91-legend">
+                    <span class="q91-legend-item"><code class="q91-kbd">&lt;kbd&gt;</code> keyboard input</span>
+                    <span class="q91-legend-item"><code class="q91-code">&lt;code&gt;</code> computer code</span>
+                    <span class="q91-legend-item"><code class="q91-var">&lt;var&gt;</code> variable</span>
+                    <span class="q91-legend-item"><code class="q91-samp">&lt;samp&gt;</code> sample output</span>
+                </div>
+
+                <table class="q91-table">
+                    <thead>
+                        <tr>
+                            <th>Element</th>
+                            <th>Meaning</th>
+                            <th>Typical use</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>&lt;code&gt;</code></td>
+                            <td>A fragment of code</td>
+                            <td><code>Array.map()</code> · <code>npm install</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>&lt;kbd&gt;</code></td>
+                            <td>Keyboard input</td>
+                            <td><kbd>Ctrl</kbd>+<kbd>S</kbd> · <kbd>Enter</kbd> · <kbd>Esc</kbd></td>
+                        </tr>
+                        <tr>
+                            <td><code>&lt;samp&gt;</code></td>
+                            <td>Sample output from a program</td>
+                            <td><samp>Build succeeded.</samp> · <samp>404 Not Found</samp></td>
+                        </tr>
+                        <tr>
+                            <td><code>&lt;var&gt;</code></td>
+                            <td>A variable in math or code</td>
+                            <td>Let <var>x</var> = 5 · <code>const <var>name</var> = "Ada"</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p class="q91-hint">
+                    💡 <strong>Notice how similar they look.</strong> In the browser's default stylesheet, all four
+                    render in a monospace font. That's why the <em>semantic</em> choice — not the visual one — is
+                    what matters. When you write documentation, tutorials, or API references, the tag should describe
+                    the <strong>meaning</strong>, not the appearance.
+                </p>
             </div>
+
+            <style>
+                .q91-demo .q91-render {
+                    font-size: 1rem;
+                    line-height: 2.2;
+                    color: #1f2937;
+                    padding: 18px 20px;
+                    background: #fff;
+                    border: 1px solid #e5e7eb;
+                    border-radius: 8px;
+                    margin-bottom: 14px;
+                }
+
+                .q91-demo .q91-render code,
+                .q91-demo .q91-render kbd,
+                .q91-demo .q91-render samp,
+                .q91-demo .q91-render var {
+                    font-family: "SF Mono", Consolas, monospace;
+                    font-size: 0.92em;
+                    padding: 2px 6px;
+                    border-radius: 4px;
+                    border: 1px solid transparent;
+                }
+
+                .q91-demo .q91-kbd {
+                    background: #eef2ff;
+                    color: #4338ca;
+                    border-color: #c7d2fe !important;
+                }
+
+                .q91-demo .q91-code {
+                    background: #ecfdf5;
+                    color: #047857;
+                    border-color: #a7f3d0 !important;
+                }
+
+                .q91-demo .q91-var {
+                    background: #fdf2f8;
+                    color: #be185d;
+                    border-color: #fbcfe8 !important;
+                    font-style: italic;
+                }
+
+                .q91-demo .q91-samp {
+                    background: #fffbeb;
+                    color: #b45309;
+                    border-color: #fde68a !important;
+                }
+
+                .q91-demo .q91-legend {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 10px 16px;
+                    margin-bottom: 16px;
+                    font-size: 0.78rem;
+                    color: #4b5563;
+                }
+
+                .q91-demo .q91-legend-item {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 6px;
+                }
+
+                .q91-demo .q91-legend-item code {
+                    font-family: "SF Mono", Consolas, monospace;
+                    font-size: 0.78rem;
+                    padding: 2px 8px;
+                    border-radius: 4px;
+                    border: 1px solid transparent;
+                }
+
+                .q91-demo .q91-table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    font-size: 0.82rem;
+                    margin-bottom: 14px;
+                    background: #fff;
+                    border-radius: 6px;
+                    overflow: hidden;
+                }
+
+                .q91-demo .q91-table thead th {
+                    background: #f3f4f6;
+                    color: #374151;
+                    text-align: left;
+                    padding: 8px 12px;
+                    font-size: 0.72rem;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                    border-bottom: 2px solid #e5e7eb;
+                }
+
+                .q91-demo .q91-table tbody td {
+                    padding: 8px 12px;
+                    border-bottom: 1px solid #f3f4f6;
+                    color: #4b5563;
+                }
+
+                .q91-demo .q91-table tbody tr:last-child td {
+                    border-bottom: 0;
+                }
+
+                .q91-demo .q91-table code,
+                .q91-demo .q91-table kbd,
+                .q91-demo .q91-table samp,
+                .q91-demo .q91-table var {
+                    font-family: "SF Mono", Consolas, monospace;
+                    font-size: 0.85em;
+                    background: #f9fafb;
+                    padding: 1px 5px;
+                    border-radius: 3px;
+                }
+
+                .q91-demo .q91-hint {
+                    font-size: 0.8rem;
+                    color: #6b7280;
+                    margin: 0;
+                    line-height: 1.7;
+                }
+
+                .q91-demo .q91-hint code {
+                    background: #f3f4f6;
+                    padding: 1px 5px;
+                    border-radius: 3px;
+                    font-size: 0.85em;
+                }
+
+                .q91-demo .q91-hint strong {
+                    color: #374151;
+                }
+            </style>
         </section>
 
         <!-- ==================== Q92 ==================== -->
@@ -756,9 +962,9 @@
 
             <div class="followup">
                 <span class="q">🔁 Follow-up: Why can 100vw sometimes cause horizontal scrolling?</span>
-                <span class="a">Because <code>vw</code> is based on the viewport width, and depending on the browser and
-                    scrollbar behavior, <code>100vw</code> can include the scrollbar area. This can make the element
-                    slightly wider than the available layout area.</span>
+                <span class="a">Because <code>vw</code> is based on the viewport width, and depending on the browser
+                    and scrollbar behavior, <code>100vw</code> can include the scrollbar area. This can make the
+                    element slightly wider than the available layout area.</span>
             </div>
 
             <h3>💻 Code</h3>
@@ -780,11 +986,369 @@
 }</code></pre>
             </div>
 
-            <h3>🔴 Live demo — Notice the orange bar</h3>
-            <div class="demo-box q92-demo" style="overflow-x: hidden;">
-                <div class="percent-box">width: 100% (Fits inside container)</div>
-                <div class="vw-box">width: 100vw (May overflow and cause scrollbar)</div>
+            <h3>🔴 Live demo — Drag the slider to resize the iframe viewport</h3>
+            <div class="demo-box q92-demo">
+
+                <div class="q92-controls">
+                    <label for="q92-width">Iframe viewport width:</label>
+                    <input type="range" id="q92-width" min="280" max="800" value="500" step="10">
+                    <span class="q92-width-val" id="q92-width-val">500px</span>
+                </div>
+
+                <div class="q92-frame-container">
+                    <iframe id="q92-iframe" title="100% vs 100vw demo"></iframe>
+                </div>
+
+                <div class="q92-stats">
+                    <div class="q92-stat">
+                        <div class="q92-stat-label">Viewport (iframe)</div>
+                        <div class="q92-stat-value" id="q92-vp">—</div>
+                    </div>
+                    <div class="q92-stat">
+                        <div class="q92-stat-label">Parent content area</div>
+                        <div class="q92-stat-value" id="q92-parent">—</div>
+                    </div>
+                    <div class="q92-stat q92-stat-pct">
+                        <div class="q92-stat-label">.container (100%)</div>
+                        <div class="q92-stat-value" id="q92-pct">—</div>
+                    </div>
+                    <div class="q92-stat q92-stat-vw">
+                        <div class="q92-stat-label">.full-screen (100vw)</div>
+                        <div class="q92-stat-value" id="q92-vw">—</div>
+                    </div>
+                    <div class="q92-stat q92-stat-overflow">
+                        <div class="q92-stat-label">Horizontal overflow</div>
+                        <div class="q92-stat-value" id="q92-overflow">—</div>
+                    </div>
+                </div>
+
+                <div class="q92-legend">
+                    <span class="q92-legend-item">
+                        <span class="q92-dot" style="background:#10b981"></span>
+                        <code>.container { width: 100% }</code> — fits inside the parent's 20px padding
+                    </span>
+                    <span class="q92-legend-item">
+                        <span class="q92-dot" style="background:#dc2626"></span>
+                        <code>.full-screen { width: 100vw }</code> — extends past the viewport → scrollbar appears
+                    </span>
+                </div>
+
+                <p class="q92-hint">
+                    🔎 <strong>Inside the iframe:</strong> a parent with <code>width: 60%</code> and
+                    <code>padding: 20px</code> contains the two children.
+                    <code>.container</code> fills the parent's content area; <code>.full-screen</code> is
+                    <strong>viewport-wide</strong> regardless of the parent's size — so it spills out to the right.
+                    <br>
+                    <span class="q92-hint-small">
+                        💡 When you see the horizontal scrollbar inside the iframe, that's the classic
+                        <code>100vw</code> bug: the element is exactly viewport-width, but its parent has padding —
+                        so the element is wider than the layout area.
+                    </span>
+                </p>
             </div>
+
+            <style>
+                .q92-demo .q92-controls {
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    margin-bottom: 12px;
+                    padding: 10px 14px;
+                    background: #f9fafb;
+                    border: 1px solid #e5e7eb;
+                    border-radius: 8px;
+                }
+
+                .q92-demo .q92-controls label {
+                    font-size: 0.8rem;
+                    font-weight: 600;
+                    color: #4b5563;
+                    white-space: nowrap;
+                }
+
+                .q92-demo #q92-width {
+                    flex: 1;
+                    accent-color: #4f46e5;
+                }
+
+                .q92-demo .q92-width-val {
+                    font-family: "SF Mono", Consolas, monospace;
+                    font-size: 0.82rem;
+                    font-weight: 700;
+                    color: #4f46e5;
+                    min-width: 60px;
+                    text-align: right;
+                }
+
+                .q92-demo .q92-frame-container {
+                    background: #1f2937;
+                    border-radius: 8px;
+                    padding: 10px;
+                    margin-bottom: 14px;
+                    overflow-x: auto;
+                }
+
+                .q92-demo #q92-iframe {
+                    display: block;
+                    width: 500px;
+                    height: 280px;
+                    border: 0;
+                    border-radius: 4px;
+                    background: #fff;
+                }
+
+                .q92-demo .q92-stats {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                    gap: 8px;
+                    margin-bottom: 14px;
+                }
+
+                .q92-demo .q92-stat {
+                    background: #fff;
+                    border: 1px solid #e5e7eb;
+                    border-radius: 6px;
+                    padding: 8px 10px;
+                }
+
+                .q92-demo .q92-stat-pct {
+                    background: #ecfdf5;
+                    border-color: #10b981;
+                }
+
+                .q92-demo .q92-stat-vw {
+                    background: #fef2f2;
+                    border-color: #dc2626;
+                }
+
+                .q92-demo .q92-stat-overflow {
+                    background: #fffbeb;
+                    border-color: #f59e0b;
+                }
+
+                .q92-demo .q92-stat-label {
+                    font-size: 0.65rem;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                    color: #9ca3af;
+                    font-weight: 700;
+                    margin-bottom: 2px;
+                }
+
+                .q92-demo .q92-stat-pct .q92-stat-label {
+                    color: #059669;
+                }
+
+                .q92-demo .q92-stat-vw .q92-stat-label {
+                    color: #b91c1c;
+                }
+
+                .q92-demo .q92-stat-overflow .q92-stat-label {
+                    color: #b45309;
+                }
+
+                .q92-demo .q92-stat-value {
+                    font-family: "SF Mono", Consolas, monospace;
+                    font-size: 0.82rem;
+                    font-weight: 600;
+                    color: #1f2937;
+                }
+
+                .q92-demo .q92-legend {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 6px;
+                    margin-bottom: 10px;
+                    font-size: 0.78rem;
+                    color: #4b5563;
+                    line-height: 1.6;
+                }
+
+                .q92-demo .q92-legend-item {
+                    display: flex;
+                    align-items: flex-start;
+                    gap: 8px;
+                }
+
+                .q92-demo .q92-legend-item code {
+                    background: #f3f4f6;
+                    padding: 1px 5px;
+                    border-radius: 3px;
+                    font-size: 0.85em;
+                    color: #374151;
+                }
+
+                .q92-demo .q92-dot {
+                    display: inline-block;
+                    width: 10px;
+                    height: 10px;
+                    border-radius: 50%;
+                    flex-shrink: 0;
+                    margin-top: 6px;
+                }
+
+                .q92-demo .q92-hint {
+                    font-size: 0.82rem;
+                    color: #6b7280;
+                    margin: 0;
+                    line-height: 1.7;
+                }
+
+                .q92-demo .q92-hint code {
+                    background: #f3f4f6;
+                    padding: 1px 5px;
+                    border-radius: 3px;
+                    font-size: 0.85em;
+                }
+
+                .q92-demo .q92-hint-small {
+                    display: inline-block;
+                    margin-top: 6px;
+                    font-size: 0.75rem;
+                    color: #9ca3af;
+                }
+            </style>
+
+            <script>
+                (function () {
+                    const iframe = document.getElementById('q92-iframe');
+                    const slider = document.getElementById('q92-width');
+                    const sliderVal = document.getElementById('q92-width-val');
+
+                    const vpEl = document.getElementById('q92-vp');
+                    const parentEl = document.getElementById('q92-parent');
+                    const pctEl = document.getElementById('q92-pct');
+                    const vwEl = document.getElementById('q92-vw');
+                    const overflowEl = document.getElementById('q92-overflow');
+
+                    const IFRAME_CONTENT = `
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: #f9fafb;
+    min-height: 100vh;
+  }
+  .parent {
+    width: 60%;
+    margin: 50px auto 30px;
+    padding: 20px;
+    background: #e0e7ff;
+    border-radius: 8px;
+    position: relative;
+  }
+  .parent::before {
+    content: "parent (width: 60% · padding: 20px)";
+    position: absolute;
+    top: -18px;
+    left: 0;
+    font-size: 10px;
+    color: #4338ca;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .container {
+    width: 100%;
+    background: #10b981;
+    color: #fff;
+    padding: 14px 16px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3);
+  }
+  .full-screen {
+    width: 100vw;
+    background: #dc2626;
+    color: #fff;
+    padding: 14px 16px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(220, 38, 38, 0.3);
+  }
+  .label {
+    font-family: "SF Mono", Consolas, monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: block;
+    margin-bottom: 3px;
+  }
+  .caption {
+    font-size: 11px;
+    opacity: 0.9;
+    font-weight: 400;
+  }
+  .arrow {
+    font-size: 14px;
+    margin-left: 4px;
+  }
+</style>
+</head>
+<body>
+  <div class="parent">
+    <div class="container">
+      <span class="label">width: 100%</span>
+      <span class="caption">Fits the parent's content area</span>
+    </div>
+    <div class="full-screen">
+      <span class="label">width: 100vw</span>
+      <span class="caption">100% of viewport → overflows the parent <span class="arrow">→</span></span>
+    </div>
+  </div>
+</body>
+</html>`;
+
+                    iframe.addEventListener('load', function () {
+                        updateStats();
+                    });
+                    iframe.srcdoc = IFRAME_CONTENT;
+
+                    function updateStats() {
+                        try {
+                            const doc = iframe.contentDocument;
+                            const win = iframe.contentWindow;
+                            if (!doc) return;
+
+                            const container = doc.querySelector('.container');
+                            const fullscreen = doc.querySelector('.full-screen');
+                            const parent = doc.querySelector('.parent');
+                            if (!container || !fullscreen || !parent) return;
+
+                            const vp = win.innerWidth;
+                            const parentContent = parent.clientWidth -
+                                parseFloat(getComputedStyle(parent).paddingLeft) * 2;
+                            const pctW = container.getBoundingClientRect().width;
+                            const vwW = fullscreen.getBoundingClientRect().width;
+                            const scrollW = doc.documentElement.scrollWidth;
+                            const clientW = doc.documentElement.clientWidth;
+                            const overflow = Math.max(0, scrollW - clientW);
+
+                            vpEl.textContent = vp + 'px';
+                            parentEl.textContent = Math.round(parentContent) + 'px';
+                            pctEl.textContent = Math.round(pctW) + 'px';
+                            vwEl.textContent = Math.round(vwW) + 'px';
+                            overflowEl.textContent = overflow > 0 ? '+' + overflow + 'px' : '0px';
+                        } catch (e) {
+                            console.warn('iframe read failed:', e);
+                        }
+                    }
+
+                    slider.addEventListener('input', function () {
+                        const w = parseInt(slider.value, 10);
+                        sliderVal.textContent = w + 'px';
+                        iframe.style.width = w + 'px';
+                        // Give the browser a moment to re-layout the iframe
+                        setTimeout(updateStats, 60);
+                    });
+                })();
+            </script>
         </section>
 
         <!-- ==================== Q93 ==================== -->
@@ -806,8 +1370,8 @@
             <div class="followup">
                 <span class="q">🔁 Follow-up: Why is rem often preferred over em for consistent sizing systems?</span>
                 <span class="a">Because <code>rem</code> is based on the root font size, which makes sizing more
-                    predictable and avoids some of the compounding behavior that can happen with nested <code>em</code>
-                    values.</span>
+                    predictable and avoids some of the compounding behavior that can happen with nested
+                    <code>em</code> values.</span>
             </div>
 
             <h3>💻 Code</h3>
@@ -827,33 +1391,442 @@
 }</code></pre>
             </div>
 
-            <h3>🔴 Live demo</h3>
+            <h3>🔴 Live demo — em compounds, rem stays predictable</h3>
             <div class="demo-box q93-demo">
-                <div class="unit-box px">16px (Absolute)</div>
-                <div class="unit-box em">2em (Relative to parent)</div>
-                <div class="unit-box rem">2rem (Relative to root)</div>
-                <div class="unit-box percent">150% (Relative to parent)</div>
-                <div class="unit-box vw">3vw (Relative to viewport width)</div>
+
+                <div class="q93-baseline">
+                    Root font-size: <strong>16px</strong> · <code>.title { font-size: 2rem }</code> resolves to
+                    <strong><span id="q93-title-measured">32</span>px</strong>
+                </div>
+
+                <div class="q93-panels">
+
+                    <!-- em panel -->
+                    <div class="q93-panel q93-panel-em">
+                        <div class="q93-panel-title">
+                            <span class="q93-panel-badge" style="background:#ea580c">em</span>
+                            Compounds when nested
+                        </div>
+                        <div class="q93-em-1" data-measure="em level 1" data-declared="1em">
+                            <span class="q93-tag">font-size: 1em</span>
+                            <div class="q93-em-2" data-measure="em level 2" data-declared="1.5em">
+                                <span class="q93-tag">font-size: 1.5em</span>
+                                <div class="q93-em-3" data-measure="em level 3" data-declared="1.5em">
+                                    <span class="q93-tag">font-size: 1.5em</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="q93-panel-foot">
+                            Each <code>1.5em</code> multiplies the <em>parent's</em> font-size — the deeper you go,
+                            the bigger it gets.
+                        </div>
+                    </div>
+
+                    <!-- rem panel -->
+                    <div class="q93-panel q93-panel-rem">
+                        <div class="q93-panel-title">
+                            <span class="q93-panel-badge" style="background:#4f46e5">rem</span>
+                            Stays predictable
+                        </div>
+                        <div class="q93-rem-1" data-measure="rem level 1" data-declared="1rem">
+                            <span class="q93-tag">font-size: 1rem</span>
+                            <div class="q93-rem-2" data-measure="rem level 2" data-declared="1.5rem">
+                                <span class="q93-tag">font-size: 1.5rem</span>
+                                <div class="q93-rem-3" data-measure="rem level 3" data-declared="1.5rem">
+                                    <span class="q93-tag">font-size: 1.5rem</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="q93-panel-foot">
+                            Each <code>1.5rem</code> uses the <em>root's</em> font-size — levels 2 and 3 look
+                            <strong>the same size</strong>.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="q93-actions">
+                    <button type="button" class="q93-measure-btn" id="q93-measure">
+                        📏 Measure computed font sizes
+                    </button>
+                    <button type="button" class="q93-clear-btn" id="q93-clear">Clear</button>
+                </div>
+
+                <pre class="q93-output"
+                    id="q93-output">Click "Measure" to read the actual computed font-size of each nested level.</pre>
+
+                <div class="q93-units">
+                    <div class="q93-unit">
+                        <div class="q93-unit-label">%</div>
+                        <div class="q93-unit-desc">relative to a containing dimension</div>
+                    </div>
+                    <div class="q93-unit">
+                        <div class="q93-unit-label">em</div>
+                        <div class="q93-unit-desc">relative to <em>this</em> element's font-size</div>
+                    </div>
+                    <div class="q93-unit">
+                        <div class="q93-unit-label">rem</div>
+                        <div class="q93-unit-desc">relative to the <em>root</em> font-size</div>
+                    </div>
+                    <div class="q93-unit">
+                        <div class="q93-unit-label">vh</div>
+                        <div class="q93-unit-desc">1% of viewport height</div>
+                    </div>
+                    <div class="q93-unit">
+                        <div class="q93-unit-label">vw</div>
+                        <div class="q93-unit-desc">1% of viewport width</div>
+                    </div>
+                </div>
+
+                <p class="q93-hint">
+                    🔎 <strong>Notice the visual growth.</strong> In the <span
+                        style="color:#ea580c;font-weight:700">em</span> panel, each level is noticeably bigger
+                    because <code>1.5em</code> is based on the <em>parent's</em> font-size. In the
+                    <span style="color:#4f46e5;font-weight:700">rem</span> panel, levels 2 and 3 look
+                    <strong>identical</strong> because <code>1.5rem</code> always means <code>1.5 × 16 = 24px</code>
+                    regardless of nesting.
+                    <br>
+                    <span class="q93-hint-small">
+                        💡 This is why design systems prefer <code>rem</code> for typography — you get predictable
+                        scaling. <code>em</code> is useful when you <em>want</em> sizes to scale with the local
+                        context (e.g. a component that should shrink inside a small container).
+                    </span>
+                </p>
             </div>
+
+            <style>
+                .q93-demo .q93-baseline {
+                    background: #f3f4f6;
+                    border: 1px solid #e5e7eb;
+                    border-radius: 6px;
+                    padding: 10px 14px;
+                    font-size: 0.85rem;
+                    color: #4b5563;
+                    margin-bottom: 16px;
+                }
+
+                .q93-demo .q93-baseline code {
+                    background: #fff;
+                    padding: 1px 6px;
+                    border-radius: 3px;
+                    font-size: 0.85em;
+                }
+
+                .q93-demo .q93-baseline strong {
+                    color: #1f2937;
+                }
+
+                .q93-demo .q93-panels {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 14px;
+                    margin-bottom: 14px;
+                }
+
+                .q93-demo .q93-panel {
+                    background: #fff;
+                    border: 1px solid #e5e7eb;
+                    border-radius: 8px;
+                    padding: 14px;
+                    overflow: auto;
+                }
+
+                .q93-demo .q93-panel-title {
+                    font-size: 0.72rem;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                    font-weight: 700;
+                    color: #4b5563;
+                    margin-bottom: 12px;
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                }
+
+                .q93-demo .q93-panel-badge {
+                    display: inline-block;
+                    padding: 2px 8px;
+                    border-radius: 4px;
+                    color: #fff;
+                    font-family: "SF Mono", Consolas, monospace;
+                    font-size: 0.7rem;
+                    letter-spacing: 0;
+                    text-transform: none;
+                }
+
+                /* ---------- em nesting ---------- */
+                .q93-demo .q93-em-1 {
+                    font-size: 1em;
+                    padding: 0.5em;
+                    background: #fff7ed;
+                    border: 1px solid #fdba74;
+                    border-radius: 6px;
+                }
+
+                .q93-demo .q93-em-2 {
+                    font-size: 1.5em;
+                    padding: 0.5em;
+                    background: #ffedd5;
+                    border: 1px solid #fb923c;
+                    border-radius: 6px;
+                    margin-top: 0.5em;
+                }
+
+                .q93-demo .q93-em-3 {
+                    font-size: 1.5em;
+                    padding: 0.5em;
+                    background: #fed7aa;
+                    border: 1px solid #ea580c;
+                    border-radius: 6px;
+                    margin-top: 0.5em;
+                }
+
+                /* ---------- rem nesting ---------- */
+                .q93-demo .q93-rem-1 {
+                    font-size: 1rem;
+                    padding: 0.5rem;
+                    background: #eef2ff;
+                    border: 1px solid #c7d2fe;
+                    border-radius: 6px;
+                }
+
+                .q93-demo .q93-rem-2 {
+                    font-size: 1.5rem;
+                    padding: 0.5rem;
+                    background: #e0e7ff;
+                    border: 1px solid #a5b4fc;
+                    border-radius: 6px;
+                    margin-top: 0.5rem;
+                }
+
+                .q93-demo .q93-rem-3 {
+                    font-size: 1.5rem;
+                    padding: 0.5rem;
+                    background: #c7d2fe;
+                    border: 1px solid #4f46e5;
+                    border-radius: 6px;
+                    margin-top: 0.5rem;
+                }
+
+                .q93-demo .q93-tag {
+                    font-family: "SF Mono", Consolas, monospace;
+                    font-size: 0.62em;
+                    color: #6b7280;
+                    display: block;
+                    margin-bottom: 0.25em;
+                    white-space: nowrap;
+                }
+
+                .q93-demo .q93-panel-foot {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    margin-top: 12px;
+                    line-height: 1.5;
+                    padding-top: 10px;
+                    border-top: 1px dashed #e5e7eb;
+                }
+
+                .q93-demo .q93-panel-foot code {
+                    background: #f3f4f6;
+                    padding: 1px 5px;
+                    border-radius: 3px;
+                    font-size: 0.88em;
+                    color: #374151;
+                }
+
+                /* ---------- Measure controls ---------- */
+                .q93-demo .q93-actions {
+                    display: flex;
+                    gap: 8px;
+                    margin-bottom: 12px;
+                }
+
+                .q93-demo .q93-measure-btn {
+                    background: #4f46e5;
+                    color: #fff;
+                    border: 0;
+                    padding: 8px 16px;
+                    border-radius: 5px;
+                    font-size: 0.82rem;
+                    font-weight: 600;
+                    cursor: pointer;
+                    font-family: inherit;
+                }
+
+                .q93-demo .q93-measure-btn:hover {
+                    background: #4338ca;
+                }
+
+                .q93-demo .q93-clear-btn {
+                    background: #fff;
+                    color: #6b7280;
+                    border: 1px solid #d1d5db;
+                    padding: 8px 14px;
+                    border-radius: 5px;
+                    font-size: 0.82rem;
+                    cursor: pointer;
+                    font-family: inherit;
+                }
+
+                .q93-demo .q93-clear-btn:hover {
+                    background: #f9fafb;
+                }
+
+                .q93-demo .q93-output {
+                    background: #1e1e1e;
+                    color: #d4d4d4;
+                    padding: 12px 14px;
+                    border-radius: 6px;
+                    font-family: "SF Mono", Consolas, monospace;
+                    font-size: 0.76rem;
+                    line-height: 1.7;
+                    margin: 0 0 14px;
+                    white-space: pre;
+                    overflow-x: auto;
+                }
+
+                /* ---------- Units legend ---------- */
+                .q93-demo .q93-units {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+                    gap: 8px;
+                    margin-bottom: 14px;
+                }
+
+                .q93-demo .q93-unit {
+                    background: #fff;
+                    border: 1px solid #e5e7eb;
+                    border-radius: 6px;
+                    padding: 8px 12px;
+                }
+
+                .q93-demo .q93-unit-label {
+                    font-family: "SF Mono", Consolas, monospace;
+                    font-size: 0.9rem;
+                    font-weight: 700;
+                    color: #4f46e5;
+                    margin-bottom: 2px;
+                }
+
+                .q93-demo .q93-unit-desc {
+                    font-size: 0.72rem;
+                    color: #6b7280;
+                    line-height: 1.4;
+                }
+
+                .q93-demo .q93-hint {
+                    font-size: 0.82rem;
+                    color: #6b7280;
+                    margin: 0;
+                    line-height: 1.7;
+                    border-top: 1px solid #f3f4f6;
+                    padding-top: 14px;
+                }
+
+                .q93-demo .q93-hint-small {
+                    display: inline-block;
+                    margin-top: 6px;
+                    font-size: 0.75rem;
+                    color: #9ca3af;
+                }
+
+                @media (max-width: 640px) {
+                    .q93-demo .q93-panels {
+                        grid-template-columns: 1fr;
+                    }
+                }
+            </style>
+
+            <script>
+                (function () {
+                    const out = document.getElementById('q93-output');
+                    const measureBtn = document.getElementById('q93-measure');
+                    const clearBtn = document.getElementById('q93-clear');
+
+                    // Show the .title computed size on load
+                    function updateTitleReading() {
+                        const rootFs = parseFloat(getComputedStyle(document.documentElement).fontSize);
+                        const titleFs = rootFs * 2; // .title is 2rem
+                        document.getElementById('q93-title-measured').textContent = Math.round(titleFs);
+                    }
+
+                    updateTitleReading();
+                    window.addEventListener('resize', updateTitleReading);
+
+                    function measure() {
+                        const items = document.querySelectorAll('.q93-demo [data-measure]');
+                        const lines = [];
+                        lines.push('element         | declared   | computed');
+                        lines.push('----------------|------------|----------');
+
+                        items.forEach(function (el) {
+                            const name = el.dataset.measure;
+                            const declared = el.dataset.declared || '—';
+                            const fs = getComputedStyle(el).fontSize;
+                            const px = Math.round(parseFloat(fs));
+                            lines.push(
+                                name.padEnd(15) + ' | ' +
+                                declared.padEnd(10) + ' | ' +
+                                fs + ' (' + px + 'px)'
+                            );
+                        });
+
+                        lines.push('');
+                        lines.push('Key insight:');
+                        lines.push('  em  → level 2 and 3 differ (compounds)');
+                        lines.push('  rem → level 2 and 3 are identical');
+
+                        out.textContent = lines.join('\n');
+                    }
+
+                    measureBtn.addEventListener('click', measure);
+
+                    clearBtn.addEventListener('click', function () {
+                        out.textContent = 'Click "Measure" to read the actual computed font-size of each nested level.';
+                    });
+                })();
+            </script>
         </section>
 
         <!-- ==================== Q94 ==================== -->
         <section class="q-section">
-            <h2>Q94 — What is the CSS box model? <span class="badge medium">Easy → Medium</span></h2>
+            <h2>Q94 — What is the difference between <code>outline</code> and <code>border</code> in CSS? <span
+                    class="badge medium">Easy → Medium</span></h2>
 
             <div class="answer">
                 <strong class="label">✅ Ideal answer</strong>
-                The CSS box model describes how an element's dimensions are composed of:<br>
-                <strong>Content</strong> → <strong>Padding</strong> → <strong>Border</strong> →
-                <strong>Margin</strong>.<br><br>
-                The actual space occupied depends on the <code>box-sizing</code> model.
+                Both draw a line around an element, but they behave very differently in layout:
+                <ul style="margin:6px 0">
+                    <li><strong><code>border</code></strong> is part of the <strong>box model</strong>. It takes up
+                        space, increases the element's total size, and <strong>pushes sibling elements</strong> when
+                        added or removed.</li>
+                    <li><strong><code>outline</code></strong> is drawn <strong>outside</strong> the border box. It does
+                        <strong>not</strong> affect layout, size, or positioning — and it does not push siblings.
+                        It is used primarily for <strong>focus indicators</strong>.
+                    </li>
+                </ul>
+                Because of this, browsers use <code>outline</code> (not <code>border</code>) for the default
+                <code>:focus</code> ring — so adding or removing focus never shifts the layout. The
+                <code>outline-offset</code> property lets you add a gap between the element and the outline.
             </div>
 
             <div class="followup">
-                <span class="q">🔁 Follow-up: What is the difference between content-box and border-box?</span>
-                <span class="a">With <code>content-box</code>, the specified width and height apply to the content area.
-                    With <code>border-box</code>, the specified dimensions include the content, padding, and
-                    border.</span>
+                <span class="q">🔁 Follow-up: Why does <code>outline: none</code> on <code>:focus</code> harm
+                    accessibility?</span>
+                <span class="a">It removes the <strong>only visible indicator</strong> that a keyboard user has moved
+                    focus to that element — a WCAG 2.4.7 violation. Users who can't use a mouse (or who use
+                    screen readers, switch controls, or keyboard-only navigation) lose their place entirely.
+                    If you don't like the default ring, replace it — don't delete it. Use
+                    <code>:focus-visible</code> with a custom outline, box-shadow, or background change so keyboard
+                    users still see focus while mouse users don't.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Does <code>outline</code> follow <code>border-radius</code>?</span>
+                <span class="a"><strong>Modern browsers: yes</strong> (Chrome 94+, Firefox 88+, Safari 16.4+).
+                    Historically outlines were always rectangular, which is why older tutorials recommend
+                    <code>box-shadow</code> instead of <code>outline</code> on rounded elements. Today,
+                    <code>outline</code> + <code>border-radius</code> works — and <code>outline-offset</code>
+                    respects the rounded corners too.</span>
             </div>
 
             <h3>💻 Code</h3>
@@ -866,26 +1839,331 @@
                 <div class="vs-tabbar">
                     <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
                 </div>
-                <pre class="vs-body"><code class="language-css">.content-box {
-  box-sizing: content-box;
-  width: 200px;
-  padding: 20px;
-  border: 5px solid;
+                <pre class="vs-body"><code class="language-css">/* Border — takes space, affects layout */
+.box-border {
+  width: 140px;
+  padding: 12px;
+  border: 6px solid #dc2626;
+  /* total width = 140 + 24 (padding) + 12 (border) = 176px */
 }
 
-.border-box {
-  box-sizing: border-box;
-  width: 200px;
-  padding: 20px;
-  border: 5px solid;
+/* Outline — does NOT take space, does NOT affect layout */
+.box-outline {
+  width: 140px;
+  padding: 12px;
+  outline: 6px solid #4f46e5;
+  outline-offset: 0;
+  /* total width = 140 + 24 (padding) = 164px */
+  /* outline drawn outside, invisible to layout */
+}
+
+/* Focus ring — why outline is the browser default */
+button:focus-visible {
+  outline: 3px solid #4f46e5;
+  outline-offset: 2px;
 }</code></pre>
             </div>
 
-            <h3>🔴 Live demo</h3>
+            <h3>🔴 Live demo — Same content, three decoration states</h3>
             <div class="demo-box q94-demo">
-                <div class="content-box">content-box (Total Width = 250px)</div>
-                <div class="border-box">border-box (Total Width = 200px)</div>
+
+                <div class="q94-row">
+                    <!-- Card 1: no decoration — baseline -->
+                    <div class="q94-card q94-card-base">
+                        <div class="q94-card-title">No decoration</div>
+                        <div class="q94-card-body">Same content, same width.</div>
+                        <div class="q94-card-css">border: 0<br>outline: 0</div>
+                        <div class="q94-card-measure" data-card="1">—</div>
+                    </div>
+
+                    <!-- Card 2: border — visibly wider -->
+                    <div class="q94-card q94-card-border">
+                        <div class="q94-card-title">border: 6px solid</div>
+                        <div class="q94-card-body">Same content, same width.</div>
+                        <div class="q94-card-css">border: 6px solid #dc2626</div>
+                        <div class="q94-card-measure" data-card="2">—</div>
+                    </div>
+
+                    <!-- Card 3: outline — same size as baseline -->
+                    <div class="q94-card q94-card-outline">
+                        <div class="q94-card-title">outline: 6px solid</div>
+                        <div class="q94-card-body">Same content, same width.</div>
+                        <div class="q94-card-css">outline: 6px solid #4f46e5</div>
+                        <div class="q94-card-measure" data-card="3">—</div>
+                    </div>
+                </div>
+
+                <div class="q94-legend">
+                    <span class="q94-legend-item">
+                        <span class="q94-dot" style="background:#dc2626"></span>
+                        <strong>Card 2</strong> — border adds 12px to the total width (6px × 2 sides).
+                        Card 3 gets pushed to the right.
+                    </span>
+                    <span class="q94-legend-item">
+                        <span class="q94-dot" style="background:#4f46e5"></span>
+                        <strong>Card 3</strong> — outline is drawn outside the border box, invisible to layout.
+                        Its measured size matches Card 1.
+                    </span>
+                </div>
+
+                <p class="q94-hint">
+                    🔎 <strong>Look at the measured sizes below each card.</strong> Cards 1 and 3 report the
+                    <strong>same width</strong> even though Card 3 has a 6px outline — the outline doesn't count
+                    in <code>offsetWidth</code> or <code>getBoundingClientRect()</code>.<br>
+                    <span class="q94-hint-small">
+                        💡 Try this in DevTools: select Card 3, hover over it in the Elements panel — the highlight
+                        covers only the border box, not the outline. That's the browser telling you outline is
+                        outside the layout box.
+                    </span>
+                </p>
+
+                <div class="q94-focus-demo">
+                    <div class="q94-focus-title">Why browsers use outline for focus</div>
+                    <div class="q94-focus-row">
+                        <button class="q94-btn q94-btn-border" type="button">Focus me (border)</button>
+                        <button class="q94-btn q94-btn-outline" type="button">Focus me (outline)</button>
+                    </div>
+                    <p class="q94-focus-desc">
+                        Click or <kbd>Tab</kbd> into each button. The <strong>border</strong> button grows by 6px
+                        on focus, pushing its neighbor. The <strong>outline</strong> button doesn't move anything —
+                        that's why browsers default to <code>outline</code> for <code>:focus</code>.
+                    </p>
+                </div>
             </div>
+
+            <style>
+                .q94-demo {
+                    padding: 16px;
+                }
+
+                /* ---- Comparison cards ---- */
+                .q94-demo .q94-row {
+                    display: flex;
+                    gap: 24px;
+                    align-items: flex-start;
+                    padding: 12px 0 4px;
+                    margin-bottom: 16px;
+                }
+
+                .q94-demo .q94-card {
+                    width: 140px;
+                    padding: 12px;
+                    background: #f9fafb;
+                    border-radius: 6px;
+                    box-sizing: content-box;
+                    /* default — so border adds outside */
+                    font-size: 0.75rem;
+                    color: #374151;
+                    transition: border-color 0.15s;
+                }
+
+                .q94-demo .q94-card-title {
+                    font-weight: 700;
+                    font-size: 0.78rem;
+                    margin-bottom: 6px;
+                    color: #1f2937;
+                }
+
+                .q94-demo .q94-card-body {
+                    color: #6b7280;
+                    margin-bottom: 8px;
+                    line-height: 1.4;
+                }
+
+                .q94-demo .q94-card-css {
+                    font-family: "SF Mono", Consolas, monospace;
+                    font-size: 0.65rem;
+                    color: #4b5563;
+                    background: #fff;
+                    border: 1px solid #e5e7eb;
+                    border-radius: 3px;
+                    padding: 4px 6px;
+                    margin-bottom: 8px;
+                    line-height: 1.5;
+                }
+
+                .q94-demo .q94-card-measure {
+                    font-family: "SF Mono", Consolas, monospace;
+                    font-size: 0.72rem;
+                    font-weight: 700;
+                    color: #9ca3af;
+                    text-align: center;
+                    padding: 4px;
+                    border-top: 1px dashed #e5e7eb;
+                }
+
+                .q94-demo .q94-card-base {
+                    /* nothing */
+                }
+
+                .q94-demo .q94-card-border {
+                    border: 6px solid #dc2626;
+                    background: #fef2f2;
+                }
+
+                .q94-demo .q94-card-border .q94-card-measure {
+                    color: #dc2626;
+                }
+
+                .q94-demo .q94-card-outline {
+                    outline: 6px solid #4f46e5;
+                    outline-offset: 0;
+                }
+
+                .q94-demo .q94-card-outline .q94-card-measure {
+                    color: #4f46e5;
+                }
+
+                /* ---- Legend ---- */
+                .q94-demo .q94-legend {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 8px;
+                    margin-bottom: 16px;
+                    font-size: 0.78rem;
+                    color: #4b5563;
+                    line-height: 1.6;
+                }
+
+                .q94-demo .q94-legend-item {
+                    display: flex;
+                    align-items: flex-start;
+                    gap: 8px;
+                    background: #fff;
+                    border: 1px solid #e5e7eb;
+                    border-radius: 6px;
+                    padding: 8px 12px;
+                }
+
+                .q94-demo .q94-dot {
+                    display: inline-block;
+                    width: 10px;
+                    height: 10px;
+                    border-radius: 50%;
+                    flex-shrink: 0;
+                    margin-top: 6px;
+                }
+
+                /* ---- Hint ---- */
+                .q94-demo .q94-hint {
+                    font-size: 0.8rem;
+                    color: #6b7280;
+                    margin: 0 0 16px;
+                    line-height: 1.7;
+                }
+
+                .q94-demo .q94-hint-small {
+                    display: inline-block;
+                    margin-top: 4px;
+                    font-size: 0.73rem;
+                    color: #9ca3af;
+                    line-height: 1.7;
+                }
+
+                /* ---- Focus demo ---- */
+                .q94-demo .q94-focus-demo {
+                    background: #f9fafb;
+                    border: 1px solid #e5e7eb;
+                    border-radius: 8px;
+                    padding: 14px;
+                }
+
+                .q94-demo .q94-focus-title {
+                    font-size: 0.72rem;
+                    font-weight: 700;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                    color: #6b7280;
+                    margin-bottom: 10px;
+                    font-family: "SF Mono", Consolas, monospace;
+                }
+
+                .q94-demo .q94-focus-row {
+                    display: flex;
+                    gap: 12px;
+                    margin-bottom: 10px;
+                    align-items: flex-start;
+                }
+
+                .q94-demo .q94-btn {
+                    padding: 8px 16px;
+                    font-size: 0.8rem;
+                    font-weight: 600;
+                    font-family: inherit;
+                    background: #fff;
+                    color: #1f2937;
+                    border: 1px solid #d1d5db;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    outline: none;
+                    /* we override per-button */
+                }
+
+                /* Border-based focus — grows the button */
+                .q94-demo .q94-btn-border:focus {
+                    border: 6px solid #dc2626;
+                }
+
+                /* Outline-based focus — doesn't move */
+                .q94-demo .q94-btn-outline:focus {
+                    outline: 6px solid #4f46e5;
+                    outline-offset: 0;
+                }
+
+                .q94-demo .q94-focus-desc {
+                    font-size: 0.78rem;
+                    color: #6b7280;
+                    margin: 0;
+                    line-height: 1.6;
+                }
+
+                .q94-demo .q94-focus-desc kbd {
+                    background: #e5e7eb;
+                    border-radius: 3px;
+                    padding: 1px 5px;
+                    font-family: "SF Mono", Consolas, monospace;
+                    font-size: 0.72rem;
+                }
+
+                @media (max-width: 640px) {
+                    .q94-demo .q94-row {
+                        flex-direction: column;
+                        align-items: stretch;
+                    }
+
+                    .q94-demo .q94-card {
+                        width: auto;
+                    }
+                }
+            </style>
+
+            <script>
+                (function () {
+                    function measure() {
+                        document.querySelectorAll('.q94-demo .q94-card').forEach(function (card) {
+                            const el = card.querySelector('.q94-card-measure');
+                            if (!el) return;
+                            const w = card.offsetWidth;
+                            const h = card.offsetHeight;
+                            el.textContent = w + ' × ' + h + ' px';
+                        });
+                    }
+
+                    // Measure after the browser has finished layout
+                    if (document.readyState === 'complete') {
+                        measure();
+                    } else {
+                        window.addEventListener('load', measure);
+                    }
+
+                    // Re-measure on resize in case the flex layout reflows
+                    let t;
+                    window.addEventListener('resize', function () {
+                        clearTimeout(t);
+                        t = setTimeout(measure, 100);
+                    });
+                })();
+            </script>
         </section>
 
         <!-- ==================== Q95 ==================== -->
@@ -938,25 +2216,388 @@
                     Box with padding: 40px (Space is inside)
                 </div>
             </div>
+
+            <!-- Add this right after the "Does padding collapse?" follow-up -->
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: How do you <em>stop</em> margin collapsing when you need the margins to
+                    actually add up?</span>
+                <span class="a">
+                    Margin collapsing only happens in <strong>normal block flow</strong> between <strong>adjacent
+                        vertical margins</strong>. Break any of those conditions and the margins stop collapsing.
+                    The practical fixes, from best to worst:
+                    <ol style="margin:8px 0">
+                        <li><strong><code>display: flex</code> or <code>display: grid</code> on the parent</strong> —
+                            the
+                            cleanest fix. Flex and grid items <em>never</em> collapse margins. Bonus: you can use
+                            <code>gap</code> instead of margins.
+                        </li>
+                        <li><strong><code>display: flow-root</code> on the parent</strong> — creates a Block Formatting
+                            Context (BFC) without any side effects. This is the modern, purpose-built solution.</li>
+                        <li><strong>Add <code>padding</code>, <code>border</code>, or content between the
+                                elements</strong>
+                            — any physical separator breaks the adjacency.</li>
+                        <li><strong><code>overflow: hidden</code> / <code>auto</code> on the parent</strong> — also
+                            creates a BFC, but clips overflow as a side effect. Use only if that's acceptable.</li>
+                    </ol>
+                    <strong>What not to do:</strong> the old <code>::before { content: ''; display: table }</code>
+                    clearfix hack still works, but <code>display: flow-root</code> does the same thing in one line and
+                    is supported in every modern browser.
+                </span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: When does margin collapsing <em>not</em> happen?</span>
+                <span class="a">
+                    Vertical margins stop collapsing between two siblings when:
+                    <ul style="margin:6px 0">
+                        <li>The parent is a <strong>flex container</strong> or <strong>grid container</strong> (their
+                            children are flex/grid items).</li>
+                        <li>The parent establishes a <strong>Block Formatting Context</strong> —
+                            <code>overflow</code> ≠ <code>visible</code>, <code>display: flow-root</code>,
+                            <code>float</code>, <code>position: absolute</code>, etc.
+                        </li>
+                        <li>There is <strong>padding</strong>, <strong>border</strong>, or <strong>inline
+                                content</strong> between the two margins.</li>
+                        <li>Either element is <strong>floated</strong>, <strong>absolutely positioned</strong>,
+                            or <strong>inline-block</strong>.</li>
+                        <li>The elements are in different <strong>containing blocks</strong> (e.g. one is inside a
+                            <code>&lt;div&gt;</code> and the other is a sibling of that <code>&lt;div&gt;</code>).
+                        </li>
+                    </ul>
+                    It also <strong>never</strong> happens horizontally — only vertical margins (top/bottom) collapse.
+                </span>
+            </div>
+
+            <h3>💻 Code — All the fixes side by side</h3>
+            <div class="vs-code">
+                <div class="vs-titlebar">
+                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
+                            class="vs-dot green"></span></div>
+                    <div class="vs-title">style.css — Visual Studio Code</div>
+                </div>
+                <div class="vs-tabbar">
+                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
+                </div>
+                <pre class="vs-body"><code class="language-css">/* ❌ The problem — margins collapse to the larger value */
+.broken .a { margin-bottom: 40px; }
+.broken .b { margin-top: 20px; }
+/* gap = 40px (not 60px) */
+
+/* ✅ Fix 1 — flex parent (recommended) */
+.fix-flex {
+  display: flex;
+  flex-direction: column;
+  gap: 0;         /* or use gap: 60px and remove the margins */
+}
+
+/* ✅ Fix 2 — flow-root on the parent (modern BFC) */
+.fix-flow-root {
+  display: flow-root;
+}
+
+/* ✅ Fix 3 — padding on the parent (breaks adjacency) */
+.fix-padding {
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
+
+/* ✅ Fix 4 — overflow: hidden (creates a BFC) */
+.fix-overflow {
+  overflow: hidden;
+}
+
+/* ✅ Fix 5 — border between (or on the parent) */
+.fix-border {
+  border-top: 1px solid transparent;
+}
+
+/* ⚠️ Old hack — clearfix (works, but flow-root is cleaner) */
+.fix-clearfix::before,
+.fix-clearfix::after {
+  content: '';
+  display: table;
+}
+.fix-clearfix::after {
+  clear: both;
+}</code></pre>
+            </div>
+
+            <h3>🔴 Live demo — Same markup, five different parents</h3>
+            <div class="demo-box q95-fix-demo">
+
+                <!-- BEFORE: collapsed -->
+                <div class="q95-fix-card">
+                    <div class="q95-fix-title">❌ Before — margins collapse</div>
+                    <div class="q95-fix-parent q95-broken">
+                        <div class="q95-fix-a">A · margin-bottom: 40px</div>
+                        <div class="q95-fix-b">B · margin-top: 20px</div>
+                    </div>
+                    <div class="q95-fix-measure" data-measure="broken">—</div>
+                    <div class="q95-fix-desc">Resulting gap: <strong>40px</strong> — the larger of the two margins</div>
+                </div>
+
+                <!-- FIX 1: flex -->
+                <div class="q95-fix-card">
+                    <div class="q95-fix-title">✅ Fix 1 — <code>display: flex</code></div>
+                    <div class="q95-fix-parent q95-fix-flex">
+                        <div class="q95-fix-a">A · margin-bottom: 40px</div>
+                        <div class="q95-fix-b">B · margin-top: 20px</div>
+                    </div>
+                    <div class="q95-fix-measure" data-measure="flex">—</div>
+                    <div class="q95-fix-desc">Resulting gap: <strong>60px</strong> — margins add up because flex items
+                        don't collapse</div>
+                </div>
+
+                <!-- FIX 2: flow-root -->
+                <div class="q95-fix-card">
+                    <div class="q95-fix-title">✅ Fix 2 — <code>display: flow-root</code></div>
+                    <div class="q95-fix-parent q95-fix-flow-root">
+                        <div class="q95-fix-a">A · margin-bottom: 40px</div>
+                        <div class="q95-fix-b">B · margin-top: 20px</div>
+                    </div>
+                    <div class="q95-fix-measure" data-measure="flow-root">—</div>
+                    <div class="q95-fix-desc">Resulting gap: <strong>60px</strong> — flow-root creates a BFC, which
+                        disables collapsing</div>
+                </div>
+
+                <!-- FIX 3: padding -->
+                <div class="q95-fix-card">
+                    <div class="q95-fix-title">✅ Fix 3 — <code>padding: 1px</code> on parent</div>
+                    <div class="q95-fix-parent q95-fix-padding">
+                        <div class="q95-fix-a">A · margin-bottom: 40px</div>
+                        <div class="q95-fix-b">B · margin-top: 20px</div>
+                    </div>
+                    <div class="q95-fix-measure" data-measure="padding">—</div>
+                    <div class="q95-fix-desc">Resulting gap: <strong>60px</strong> — padding separates the margins
+                        physically</div>
+                </div>
+
+                <!-- FIX 4: overflow -->
+                <div class="q95-fix-card">
+                    <div class="q95-fix-title">✅ Fix 4 — <code>overflow: hidden</code></div>
+                    <div class="q95-fix-parent q95-fix-overflow">
+                        <div class="q95-fix-a">A · margin-bottom: 40px</div>
+                        <div class="q95-fix-b">B · margin-top: 20px</div>
+                    </div>
+                    <div class="q95-fix-measure" data-measure="overflow">—</div>
+                    <div class="q95-fix-desc">Resulting gap: <strong>60px</strong> — creates a BFC (but clips overflow
+                        as a side effect)</div>
+                </div>
+
+                <p class="q95-fix-hint">
+                    🔎 <strong>Compare the measured gaps.</strong> Each card reads the actual
+                    <code>getBoundingClientRect().top</code> of B minus the bottom of A — so you see the browser's
+                    real computed gap, not a guess.
+                    <br>
+                    <span class="q95-fix-hint-small">
+                        💡 The <strong>flex</strong> and <strong>flow-root</strong> fixes are the modern, safe choices.
+                        <code>overflow: hidden</code> works but has the side effect of clipping
+                        <code>position: absolute</code> children and hiding focus rings that extend outside. Padding
+                        and border work but change the parent's dimensions — sometimes that's fine, sometimes it's not.
+                    </span>
+                </p>
+            </div>
+
+            <style>
+                .q95-fix-demo {
+                    padding: 16px;
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+                    gap: 14px;
+                }
+
+                .q95-fix-demo .q95-fix-card {
+                    background: #fff;
+                    border: 1px solid #e5e7eb;
+                    border-radius: 8px;
+                    padding: 14px;
+                }
+
+                .q95-fix-demo .q95-fix-title {
+                    font-size: 0.78rem;
+                    font-weight: 700;
+                    color: #1f2937;
+                    margin-bottom: 10px;
+                    font-family: "SF Mono", Consolas, monospace;
+                }
+
+                .q95-fix-demo .q95-fix-title code {
+                    background: #f3f4f6;
+                    padding: 1px 5px;
+                    border-radius: 3px;
+                    font-size: 0.85em;
+                    color: #4b5563;
+                }
+
+                .q95-fix-demo .q95-fix-parent {
+                    background: #f9fafb;
+                    border: 1px dashed #cbd5e1;
+                    border-radius: 6px;
+                    padding: 8px;
+                    margin-bottom: 10px;
+                }
+
+                .q95-fix-demo .q95-fix-a,
+                .q95-fix-demo .q95-fix-b {
+                    padding: 10px 12px;
+                    border-radius: 4px;
+                    font-size: 0.75rem;
+                    font-weight: 600;
+                    color: #fff;
+                    font-family: "SF Mono", Consolas, monospace;
+                }
+
+                .q95-fix-demo .q95-fix-a {
+                    background: #4f46e5;
+                    margin-bottom: 40px;
+                }
+
+                .q95-fix-demo .q95-fix-b {
+                    background: #7c3aed;
+                    margin-top: 20px;
+                }
+
+                /* Fix 1 — flex */
+                .q95-fix-demo .q95-fix-flex {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                /* Fix 2 — flow-root */
+                .q95-fix-demo .q95-fix-flow-root {
+                    display: flow-root;
+                }
+
+                /* Fix 3 — padding */
+                .q95-fix-demo .q95-fix-padding {
+                    padding-top: 1px;
+                    padding-bottom: 1px;
+                }
+
+                /* Fix 4 — overflow */
+                .q95-fix-demo .q95-fix-overflow {
+                    overflow: hidden;
+                }
+
+                .q95-fix-demo .q95-fix-measure {
+                    font-family: "SF Mono", Consolas, monospace;
+                    font-size: 0.75rem;
+                    font-weight: 700;
+                    text-align: center;
+                    padding: 6px;
+                    background: #f3f4f6;
+                    border-radius: 4px;
+                    color: #374151;
+                    margin-bottom: 8px;
+                }
+
+                .q95-fix-demo .q95-fix-desc {
+                    font-size: 0.72rem;
+                    color: #6b7280;
+                    line-height: 1.5;
+                }
+
+                .q95-fix-demo .q95-fix-desc strong {
+                    color: #1f2937;
+                }
+
+                .q95-fix-demo .q95-fix-hint {
+                    grid-column: 1 / -1;
+                    font-size: 0.82rem;
+                    color: #6b7280;
+                    margin: 4px 0 0;
+                    line-height: 1.7;
+                    border-top: 1px solid #f3f4f6;
+                    padding-top: 14px;
+                }
+
+                .q95-fix-demo .q95-fix-hint code {
+                    background: #f3f4f6;
+                    padding: 1px 5px;
+                    border-radius: 3px;
+                    font-size: 0.85em;
+                }
+
+                .q95-fix-demo .q95-fix-hint-small {
+                    display: inline-block;
+                    margin-top: 6px;
+                    font-size: 0.75rem;
+                    color: #9ca3af;
+                }
+            </style>
+
+            <script>
+                (function () {
+                    function measure() {
+                        document.querySelectorAll('.q95-fix-demo .q95-fix-measure').forEach(function (el) {
+                            const key = el.dataset.measure;
+                            const parent = el.closest('.q95-fix-card').querySelector('.q95-fix-parent');
+                            const a = parent.querySelector('.q95-fix-a');
+                            const b = parent.querySelector('.q95-fix-b');
+                            if (!a || !b) return;
+
+                            const gap = b.getBoundingClientRect().top - a.getBoundingClientRect().bottom;
+                            const rounded = Math.round(gap);
+                            el.textContent = 'measured gap: ' + rounded + 'px';
+                            el.style.color = rounded > 50 ? '#059669' : '#b91c1c';
+                        });
+                    }
+
+                    if (document.readyState === 'complete') {
+                        measure();
+                    } else {
+                        window.addEventListener('load', measure);
+                    }
+
+                    let t;
+                    window.addEventListener('resize', function () {
+                        clearTimeout(t);
+                        t = setTimeout(measure, 100);
+                    });
+                })();
+            </script>
         </section>
 
         <!-- ==================== Q96 ==================== -->
         <section class="q-section">
-            <h2>Q96 — What is CSS specificity? <span class="badge medium">Medium</span></h2>
+            <h2>Q96 — What is the difference between <code>opacity</code> and <code>rgba()</code> when making an
+                element semi-transparent? <span class="badge medium">Medium</span></h2>
 
             <div class="answer">
                 <strong class="label">✅ Ideal answer</strong>
-                Specificity is the algorithm browsers use to determine which competing CSS selector has higher
-                priority.<br><br>
-                Simplified hierarchy:<br>
-                <strong>Inline styles</strong> → <strong>IDs</strong> →
-                <strong>Classes/Attributes/Pseudo-classes</strong> → <strong>Elements</strong>.
+                Both make an element semi-transparent, but they apply transparency to <strong>different
+                    things</strong>:
+                <ul style="margin:6px 0">
+                    <li><strong><code>opacity: 0.5</code></strong> makes the <strong>entire element — including all its
+                            children and their text — 50% transparent</strong>. Transparency is applied as a
+                        post-rendering step to the whole subtree.</li>
+                    <li><strong><code>background: rgba(0, 0, 0, 0.5)</code></strong> (or <code>rgb(0 0 0 / 0.5)</code>)
+                        makes <strong>only that specific property (the background) 50% transparent</strong>. Children
+                        keep their own opacity — text stays fully solid.</li>
+                </ul>
+                Rule of thumb: use <code>opacity</code> when you want to fade the entire element (e.g. a disabled
+                card). Use <code>rgba()</code> when you only want to fade one thing — usually a background or
+                border — while keeping the text readable.
             </div>
 
             <div class="followup">
-                <span class="q">🔁 Follow-up: What is !important?</span>
-                <span class="a"><code>!important</code> changes the priority of a declaration within the cascade, but it
-                    should be used sparingly because excessive use makes CSS harder to maintain.</span>
+                <span class="q">🔁 Follow-up: How do you make a semi-transparent background without fading the
+                    text?</span>
+                <span class="a">Use <code>background: rgba(...)</code> instead of <code>opacity</code>. Example:
+                    <code>background: rgba(79, 70, 229, 0.2)</code> gives a faint purple background while the text
+                    stays fully opaque. If you <em>must</em> use <code>opacity</code>, wrap the background in a
+                    pseudo-element or an overlay child, and apply the opacity to that layer only.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Does <code>opacity</code> affect anything besides visual
+                    transparency?</span>
+                <span class="a"><strong>Yes.</strong> Any <code>opacity</code> value less than <code>1</code> creates
+                    a new <strong>stacking context</strong> — which can unexpectedly affect <code>z-index</code>
+                    behavior. It also triggers <strong>compositing</strong> and can cause performance costs on large
+                    animated elements. And it disables <strong>sub-pixel text anti-aliasing</strong> on some browsers
+                    — text can look slightly blurrier.</span>
             </div>
 
             <h3>💻 Code</h3>
@@ -969,34 +2610,299 @@
                 <div class="vs-tabbar">
                     <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
                 </div>
-                <pre class="vs-body"><code class="language-css">div { color: blue; }        /* Element  (0,0,1) */
-.my-class { color: green; } /* Class    (0,1,0) */
-#my-id { color: red; }      /* ID       (1,0,0) */</code></pre>
+                <pre class="vs-body"><code class="language-css">/* ❌ opacity on parent — fades EVERYTHING (text included) */
+.card-opacity {
+  background: #4f46e5;
+  color: #fff;
+  opacity: 0.5;   /* title, text, icons — all 50% transparent */
+}
+
+/* ✅ rgba() background — fades ONLY the background */
+.card-rgba {
+  background: rgba(79, 70, 229, 0.5);  /* 50% purple */
+  color: #4f46e5;
+  /* text stays fully opaque because it's a separate color */
+}
+
+/* ✅ Modern syntax (identical to rgba) */
+.card-modern {
+  background: rgb(79 70 229 / 0.5);
+  color: #4f46e5;
+}</code></pre>
             </div>
 
-            <h3>🔴 Live demo</h3>
+            <h3>🔴 Live demo — Same card, two transparency approaches</h3>
             <div class="demo-box q96-demo">
-                <div id="my-id" class="my-class">What color am I? (ID wins)</div>
+
+                <div class="q96-row">
+                    <div class="q96-card q96-card-opacity">
+                        <div class="q96-card-badge">❌ opacity: 0.5</div>
+                        <div class="q96-card-title">Card Title</div>
+                        <div class="q96-card-body">
+                            This text is also faded. Reading it is harder than it needs to be.
+                        </div>
+                        <button class="q96-card-btn" type="button">Button</button>
+                    </div>
+
+                    <div class="q96-card q96-card-rgba">
+                        <div class="q96-card-badge">✅ background: rgba(...)</div>
+                        <div class="q96-card-title">Card Title</div>
+                        <div class="q96-card-body">
+                            This text is fully solid. Only the background is semi-transparent.
+                        </div>
+                        <button class="q96-card-btn" type="button">Button</button>
+                    </div>
+                </div>
+
+                <div class="q96-stats">
+                    <div class="q96-stat">
+                        <div class="q96-stat-label">Left card · computed opacity</div>
+                        <div class="q96-stat-value" id="q96-opacity">—</div>
+                    </div>
+                    <div class="q96-stat">
+                        <div class="q96-stat-label">Left card · text opacity (inherited)</div>
+                        <div class="q96-stat-value" id="q96-opacity-text">—</div>
+                    </div>
+                    <div class="q96-stat">
+                        <div class="q96-stat-label">Right card · computed opacity</div>
+                        <div class="q96-stat-value" id="q96-rgba">—</div>
+                    </div>
+                    <div class="q96-stat">
+                        <div class="q96-stat-label">Right card · text opacity</div>
+                        <div class="q96-stat-value" id="q96-rgba-text">—</div>
+                    </div>
+                </div>
+
+                <p class="q96-hint">
+                    🔎 <strong>Compare the readability of the text.</strong> On the left, the <code>opacity: 0.5</code>
+                    on the parent makes the <strong>entire card</strong> 50% transparent — title, body, and button
+                    all fade. On the right, <code>rgba()</code> only affects the background; the text stays fully
+                    solid.
+                    <br>
+                    <span class="q96-hint-small">
+                        💡 Check the stats below — <code>getComputedStyle</code> proves the difference. The left
+                        card's text inherits the parent's <code>opacity: 0.5</code> visually; the right card's text
+                        has <code>opacity: 1</code> and only its background is tinted.
+                    </span>
+                </p>
             </div>
+
+            <style>
+                .q96-demo {
+                    padding: 16px;
+                }
+
+                .q96-demo .q96-row {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 16px;
+                    margin-bottom: 14px;
+                }
+
+                .q96-demo .q96-card {
+                    padding: 16px;
+                    border-radius: 10px;
+                    font-size: 0.85rem;
+                    line-height: 1.5;
+                }
+
+                .q96-demo .q96-card-badge {
+                    display: inline-block;
+                    font-size: 0.65rem;
+                    font-weight: 700;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                    padding: 3px 8px;
+                    border-radius: 10px;
+                    margin-bottom: 10px;
+                    font-family: "SF Mono", Consolas, monospace;
+                }
+
+                .q96-demo .q96-card-title {
+                    font-size: 1.05rem;
+                    font-weight: 700;
+                    margin-bottom: 6px;
+                }
+
+                .q96-demo .q96-card-body {
+                    margin-bottom: 12px;
+                }
+
+                .q96-demo .q96-card-btn {
+                    padding: 6px 14px;
+                    border-radius: 5px;
+                    border: 0;
+                    font-size: 0.8rem;
+                    font-weight: 600;
+                    cursor: pointer;
+                    font-family: inherit;
+                }
+
+                /* Left — opacity on parent */
+                .q96-demo .q96-card-opacity {
+                    background: #4f46e5;
+                    color: #ffffff;
+                    opacity: 0.5;
+                }
+
+                .q96-demo .q96-card-opacity .q96-card-badge {
+                    background: #ffffff;
+                    color: #4f46e5;
+                }
+
+                .q96-demo .q96-card-opacity .q96-card-btn {
+                    background: #ffffff;
+                    color: #4f46e5;
+                }
+
+                /* Right — rgba background, solid text */
+                .q96-demo .q96-card-rgba {
+                    background: rgba(79, 70, 229, 0.15);
+                    color: #1f2937;
+                    border: 1px solid rgba(79, 70, 229, 0.3);
+                    /* note: no opacity property — text stays solid */
+                }
+
+                .q96-demo .q96-card-rgba .q96-card-badge {
+                    background: #4f46e5;
+                    color: #ffffff;
+                }
+
+                .q96-demo .q96-card-rgba .q96-card-btn {
+                    background: #4f46e5;
+                    color: #ffffff;
+                }
+
+                /* Stats grid */
+                .q96-demo .q96-stats {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+                    gap: 8px;
+                    margin-bottom: 14px;
+                }
+
+                .q96-demo .q96-stat {
+                    background: #fff;
+                    border: 1px solid #e5e7eb;
+                    border-radius: 6px;
+                    padding: 8px 10px;
+                }
+
+                .q96-demo .q96-stat-label {
+                    font-size: 0.65rem;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                    color: #9ca3af;
+                    font-weight: 700;
+                    margin-bottom: 2px;
+                }
+
+                .q96-demo .q96-stat-value {
+                    font-family: "SF Mono", Consolas, monospace;
+                    font-size: 0.82rem;
+                    font-weight: 600;
+                    color: #1f2937;
+                }
+
+                .q96-demo .q96-hint {
+                    font-size: 0.82rem;
+                    color: #6b7280;
+                    margin: 0;
+                    line-height: 1.7;
+                }
+
+                .q96-demo .q96-hint code {
+                    background: #f3f4f6;
+                    padding: 1px 5px;
+                    border-radius: 3px;
+                    font-size: 0.85em;
+                }
+
+                .q96-demo .q96-hint-small {
+                    display: inline-block;
+                    margin-top: 6px;
+                    font-size: 0.75rem;
+                    color: #9ca3af;
+                }
+
+                @media (max-width: 640px) {
+                    .q96-demo .q96-row {
+                        grid-template-columns: 1fr;
+                    }
+                }
+            </style>
+
+            <script>
+                (function () {
+                    function measure() {
+                        const opacityCard = document.querySelector('.q96-demo .q96-card-opacity');
+                        const opacityText = opacityCard.querySelector('.q96-card-title');
+                        const rgbaCard = document.querySelector('.q96-demo .q96-card-rgba');
+                        const rgbaText = rgbaCard.querySelector('.q96-card-title');
+
+                        document.getElementById('q96-opacity').textContent =
+                            getComputedStyle(opacityCard).opacity;
+                        document.getElementById('q96-opacity-text').textContent =
+                            getComputedStyle(opacityText).opacity + ' (inherited from parent)';
+                        document.getElementById('q96-rgba').textContent =
+                            getComputedStyle(rgbaCard).opacity;
+                        document.getElementById('q96-rgba-text').textContent =
+                            getComputedStyle(rgbaText).opacity + ' (solid)';
+                    }
+
+                    if (document.readyState === 'complete') {
+                        measure();
+                    } else {
+                        window.addEventListener('load', measure);
+                    }
+                })();
+            </script>
         </section>
 
         <!-- ==================== Q97 ==================== -->
         <section class="q-section">
-            <h2>Q97 — What is the difference between pseudo-class and pseudo-element? <span
-                    class="badge medium">Medium</span></h2>
+            <h2>Q97 — What is the difference between <code>box-shadow</code> and <code>filter: drop-shadow()</code>?
+                <span class="badge medium">Medium</span>
+            </h2>
 
             <div class="answer">
                 <strong class="label">✅ Ideal answer</strong>
-                A <strong>pseudo-class</strong> represents a <em>state or condition</em> of an element (e.g.,
-                <code>:hover</code>, <code>:focus</code>).<br><br>
-                A <strong>pseudo-element</strong> represents a <em>particular part</em> of an element or generated
-                content (e.g., <code>::before</code>, <code>::first-letter</code>).
+                Both draw a shadow, but they follow <strong>different shapes</strong>:
+                <ul style="margin:6px 0">
+                    <li><strong><code>box-shadow</code></strong> follows the element's <strong>border-box (a
+                            rectangle)</strong>. It ignores the visible pixels of the element. A transparent PNG or an
+                        SVG with an irregular shape still gets a <strong>rectangular shadow</strong>.</li>
+                    <li><strong><code>filter: drop-shadow()</code></strong> looks at the element's <strong>actual
+                            rendered pixels (alpha channel)</strong> and generates a shadow that traces the visible
+                        shape. This is what makes a star, a heart, or a transparent logo get a shadow that matches
+                        its silhouette.</li>
+                </ul>
+                In short: <code>box-shadow</code> = rectangular by design; <code>drop-shadow</code> = follows the
+                shape.
             </div>
 
             <div class="followup">
-                <span class="q">🔁 Follow-up: What's the difference between :hover and ::before?</span>
-                <span class="a"><code>:hover</code> targets an element when it is in a particular state, while
-                    <code>::before</code> represents a pseudo-element generated before the element's content.</span>
+                <span class="q">🔁 Follow-up: Which one should I use for an icon or a transparent PNG?</span>
+                <span class="a"><code>filter: drop-shadow()</code> — every time. <code>box-shadow</code> will draw a
+                    rectangle around the invisible bounding box, which looks wrong for any element whose visible
+                    shape isn't a rectangle. For photos (which <em>are</em> rectangular), <code>box-shadow</code> is
+                    fine and cheaper to render.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Is there a performance difference?</span>
+                <span class="a"><strong>Yes.</strong> <code>box-shadow</code> is computed from geometry — cheap.
+                    <code>filter: drop-shadow()</code> has to rasterize the element, read its alpha channel, and
+                    blur that — more expensive, especially on large or animated elements. Use
+                    <code>drop-shadow</code> only where you need its shape-following behavior.</span>
+            </div>
+
+            <div class="followup">
+                <span class="q">🔁 Follow-up: Can I use <code>drop-shadow</code> on text?</span>
+                <span class="a"><strong>Yes, but <code>text-shadow</code> is usually better.</strong>
+                    <code>filter: drop-shadow()</code> on a text container will work, but it applies the filter to
+                    the whole element (including its background if any) and is heavier. <code>text-shadow</code> is
+                    purpose-built for text, cheaper, and supports multiple shadows at once.</span>
             </div>
 
             <h3>💻 Code</h3>
@@ -1009,19 +2915,167 @@
                 <div class="vs-tabbar">
                     <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
                 </div>
-                <pre class="vs-body"><code class="language-css">/* Pseudo-class */
-button:hover { background: red; }
+                <pre class="vs-body"><code class="language-css">/* ❌ box-shadow — always rectangular, ignores the shape */
+.star-box-shadow {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  /* a shadow around the invisible rectangular bounding box */
+}
 
-/* Pseudo-element */
-p::before { content: "👉 "; }</code></pre>
+/* ✅ drop-shadow — follows the visible shape (alpha channel) */
+.star-drop-shadow {
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.4));
+  /* a shadow that traces the star's silhouette */
+}
+
+/* Photos and rectangular blocks: box-shadow is fine and faster */
+.card {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}</code></pre>
             </div>
 
-            <h3>🔴 Live demo</h3>
+            <h3>🔴 Live demo — Same star, two shadow types</h3>
             <div class="demo-box q97-demo">
-                <button class="hover-btn">Hover over me (:hover)</button>
-                <p class="before-el" style="margin-top: 15px; font-size: 1.1rem;">This text has a pseudo-element
-                    (::before).</p>
+
+                <div class="q97-row">
+                    <div class="q97-panel">
+                        <div class="q97-panel-title">❌ box-shadow</div>
+                        <div class="q97-stage">
+                            <svg class="q97-shape q97-shape-box" width="140" height="140" viewBox="0 0 140 140">
+                                <polygon points="70,10 86,54 134,54 96,82 110,126 70,100 30,126 44,82 6,54 54,54"
+                                    fill="#4f46e5" />
+                            </svg>
+                        </div>
+                        <div class="q97-panel-desc">
+                            The shadow is a <strong>rectangular outline</strong> around the SVG element — even though
+                            the visible shape is a star. The transparent corners show the "wrong" shadow.
+                        </div>
+                    </div>
+
+                    <div class="q97-panel">
+                        <div class="q97-panel-title">✅ filter: drop-shadow()</div>
+                        <div class="q97-stage">
+                            <svg class="q97-shape q97-shape-drop" width="140" height="140" viewBox="0 0 140 140">
+                                <polygon points="70,10 86,54 134,54 96,82 110,126 70,100 30,126 44,82 6,54 54,54"
+                                    fill="#4f46e5" />
+                            </svg>
+                        </div>
+                        <div class="q97-panel-desc">
+                            The shadow <strong>traces the star's silhouette</strong> — you can see the star points in
+                            the shadow itself. This is why icons and transparent PNGs should use
+                            <code>drop-shadow</code>.
+                        </div>
+                    </div>
+                </div>
+
+                <p class="q97-hint">
+                    🔎 <strong>Look at the corners.</strong> In the left panel, the shadow fills the entire
+                    <strong>rectangle</strong> around the star, including the four transparent corner areas. In the
+                    right panel, the shadow only appears <strong>around the visible star edges</strong> — the
+                    transparent corners have no shadow at all.
+                    <br>
+                    <span class="q97-hint-small">
+                        💡 Try this in DevTools: inspect the left SVG and add <code>background: pink</code> — you'll
+                        see the "invisible" bounding box that <code>box-shadow</code> was shadowing. That box is
+                        what <code>box-shadow</code> uses; <code>drop-shadow</code> ignores it and looks only at the
+                        alpha channel.
+                    </span>
+                </p>
             </div>
+
+            <style>
+                .q97-demo {
+                    padding: 16px;
+                }
+
+                .q97-demo .q97-row {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 16px;
+                    margin-bottom: 14px;
+                }
+
+                .q97-demo .q97-panel {
+                    background: #fff;
+                    border: 1px solid #e5e7eb;
+                    border-radius: 8px;
+                    padding: 14px;
+                }
+
+                .q97-demo .q97-panel-title {
+                    font-size: 0.72rem;
+                    font-weight: 700;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                    color: #6b7280;
+                    margin-bottom: 12px;
+                    font-family: "SF Mono", Consolas, monospace;
+                }
+
+                .q97-demo .q97-stage {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 180px;
+                    background: #f9fafb;
+                    border-radius: 6px;
+                    margin-bottom: 10px;
+                }
+
+                /* The SVG itself — transparent background, only the star is filled */
+                .q97-demo .q97-shape {
+                    display: block;
+                    /* no background — so box-shadow's "rectangle" is visible */
+                }
+
+                /* box-shadow version — rectangular shadow */
+                .q97-demo .q97-shape-box {
+                    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.45);
+                }
+
+                /* drop-shadow version — silhouette shadow */
+                .q97-demo .q97-shape-drop {
+                    filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.45));
+                }
+
+                .q97-demo .q97-panel-desc {
+                    font-size: 0.78rem;
+                    color: #6b7280;
+                    line-height: 1.6;
+                }
+
+                .q97-demo .q97-panel-desc strong {
+                    color: #1f2937;
+                }
+
+                .q97-demo .q97-hint {
+                    font-size: 0.82rem;
+                    color: #6b7280;
+                    margin: 0;
+                    line-height: 1.7;
+                    border-top: 1px solid #f3f4f6;
+                    padding-top: 14px;
+                }
+
+                .q97-demo .q97-hint code {
+                    background: #f3f4f6;
+                    padding: 1px 5px;
+                    border-radius: 3px;
+                    font-size: 0.85em;
+                }
+
+                .q97-demo .q97-hint-small {
+                    display: inline-block;
+                    margin-top: 6px;
+                    font-size: 0.75rem;
+                    color: #9ca3af;
+                }
+
+                @media (max-width: 640px) {
+                    .q97-demo .q97-row {
+                        grid-template-columns: 1fr;
+                    }
+                }
+            </style>
         </section>
 
         <!-- ==================== Q98 ==================== -->
@@ -1031,68 +3085,585 @@ p::before { content: "👉 "; }</code></pre>
 
             <div class="answer">
                 <strong class="label">✅ Ideal answer</strong>
-                A <strong>stacking context</strong> is a conceptual group of elements that the browser paints together
-                according to stacking rules.<br><br>
-                <code>z-index</code> controls stacking order within the relevant stacking context, but a child cannot
-                simply use a huge <code>z-index</code> to escape its parent's stacking context and appear above
-                everything else.<br><br>
+                A stacking context is a conceptual group of elements that the browser paints together according to
+                stacking rules.<br><br>
+                <code>z-index</code> controls stacking order <strong>within</strong> the relevant stacking context,
+                but a child cannot simply use a huge <code>z-index</code> to escape its parent's stacking context
+                and appear above everything else.<br><br>
                 Certain properties and conditions can create stacking contexts, such as positioned elements with a
-                non-auto z-index, opacity less than 1, and transforms.
+                non-auto <code>z-index</code>, <code>opacity</code> less than 1, and <code>transform</code>.
             </div>
 
             <div class="followup">
                 <span class="q">🔁 Follow-up: Why doesn't a child with z-index: 999999 always appear on top?</span>
-                <span class="a">Because the child is still constrained by the stacking context created by its ancestors.
-                    Its <code>z-index</code> is compared within its stacking context rather than globally against every
-                    element on the page.</span>
+                <span class="a">Because the child is still constrained by the stacking context created by its
+                    ancestors. Its <code>z-index</code> is compared <strong>within its stacking context</strong>
+                    rather than globally against every element on the page.</span>
             </div>
 
-            <h3>💻 Code</h3>
-            <div class="vs-code">
-                <div class="vs-titlebar">
-                    <div class="vs-dots"><span class="vs-dot red"></span><span class="vs-dot yellow"></span><span
-                            class="vs-dot green"></span></div>
-                    <div class="vs-title">style.css — Visual Studio Code</div>
-                </div>
-                <div class="vs-tabbar">
-                    <div class="vs-tab active"><span class="file-icon css"></span>style.css</div>
-                </div>
-                <pre class="vs-body"><code class="language-css">.parent {
-  position: relative;
-  z-index: 1; /* Creates a stacking context */
+            <!-- ============================================================ -->
+            <!-- DEMO 1 — NORMAL Z-INDEX                                       -->
+            <!-- ============================================================ -->
+            <h3>🔴 Demo 1 — Normal z-index (no stacking context parent)</h3>
+            <p class="q98-lede">
+                Two positioned siblings, <strong>no parent</strong> creating a stacking context. Their z-index values
+                are compared directly — <strong>higher wins</strong>.
+            </p>
+
+            <div class="q98-split">
+                <!-- Code side -->
+                <div class="q98-code-col">
+                    <div class="q98-code-label">HTML</div>
+                    <pre class="q98-code"><code>&lt;div class="stage"&gt;
+  &lt;div class="red"&gt;Red&lt;/div&gt;
+  &lt;div class="blue"&gt;Blue&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                    <div class="q98-code-label">CSS</div>
+                    <pre class="q98-code"><code>.stage { position: relative; }
+
+.red {
+  position: absolute;
+  top: 40px; left: 50px;
+  z-index: 3;   /* ← higher */
 }
 
-.child {
-  z-index: 999999; /* Trapped inside parent! */
-}
-
-.sibling {
-  position: relative;
-  z-index: 2; /* Will appear ABOVE the child */
+.blue {
+  position: absolute;
+  top: 70px; left: 120px;
+  z-index: 2;   /* ← lower */
 }</code></pre>
-            </div>
-
-            <h3>🔴 Live demo</h3>
-            <div class="demo-box q98-demo">
-                <p style="font-size: 0.85rem; margin-top:0;">Normal Z-index (Red wins over Blue):</p>
-                <div class="stack-container" style="height: 100px;">
-                    <div class="box1">Red (z:3)</div>
-                    <div class="box2">Blue (z:2)</div>
+                    <div class="q98-result-note">
+                        Result: <strong style="color:#dc2626">Red (z:3)</strong> paints above
+                        <strong style="color:#2563eb">Blue (z:2)</strong>.
+                    </div>
                 </div>
 
-                <p style="font-size: 0.85rem;">Stacking Context Trap (Purple beats Green despite Green having z:9999):
+                <!-- Live side -->
+                <div class="q98-live-col">
+                    <div class="q98-code-label">Live result</div>
+                    <div class="q98-stage q98-stage-normal">
+                        <div class="q98-box q98-normal-red">
+                            Red
+                            <small>z-index: 3</small>
+                        </div>
+                        <div class="q98-box q98-normal-blue">
+                            Blue
+                            <small>z-index: 2</small>
+                        </div>
+                    </div>
+                    <div class="q98-live-hint">
+                        Both are positioned siblings. No parent is creating a stacking context — so their z-index
+                        values compete directly.
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- DEMO 2 — STACKING CONTEXT TRAP                                -->
+            <!-- ============================================================ -->
+            <h3>🔴 Demo 2 — Stacking context trap (parent has z-index)</h3>
+            <p class="q98-lede">
+                Same two boxes, but now the green box is <strong>inside a parent</strong> that creates a stacking
+                context. The green's z-index (9999) is enormous — yet it still loses to purple (2). Why? Because
+                the parent's z-index (1) is what gets compared to purple.
+            </p>
+
+            <div class="q98-split">
+                <!-- Code side -->
+                <div class="q98-code-col">
+                    <div class="q98-code-label">HTML</div>
+                    <pre class="q98-code"><code>&lt;div class="stage"&gt;
+  &lt;div class="parent"&gt;          ← stacking context
+    &lt;div class="green"&gt;Green&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="purple"&gt;Purple&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                    <div class="q98-code-label">CSS</div>
+                    <pre class="q98-code"><code>.parent {
+  position: relative;
+  z-index: 1;    /* ← creates stacking context */
+}
+
+.green {
+  position: absolute;
+  z-index: 9999; /* ← trapped! compared WITHIN parent */
+}
+
+.purple {
+  position: absolute;
+  z-index: 2;    /* ← wins vs the parent's 1 */
+}</code></pre>
+                    <div class="q98-result-note">
+                        Result: <strong style="color:#7c3aed">Purple (z:2)</strong> paints above everything inside the
+                        parent — including <strong style="color:#16a34a">Green (z:9999)</strong>.
+                    </div>
+                </div>
+
+                <!-- Live side -->
+                <div class="q98-live-col">
+                    <div class="q98-code-label">Live result</div>
+
+                    <div class="q98-toggle-wrap">
+                        <label class="q98-toggle">
+                            <input type="checkbox" id="q98-trap-toggle" checked>
+                            <span class="q98-toggle-track"></span>
+                            <span class="q98-toggle-text">
+                                Parent <code>z-index</code>:
+                                <strong id="q98-toggle-state">1 (trap active)</strong>
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="q98-stage q98-stage-trap" id="q98-stage">
+                        <div class="q98-parent" id="q98-parent">
+                            <div class="q98-parent-label">
+                                parent · <code id="q98-parent-z">z-index: 1</code>
+                            </div>
+                            <div class="q98-child q98-green">
+                                Green child
+                                <small>z-index: 9999</small>
+                            </div>
+                        </div>
+                        <div class="q98-sibling q98-purple">
+                            Purple
+                            <small>z-index: 2</small>
+                        </div>
+                    </div>
+
+                    <div class="q98-live-hint" id="q98-caption">
+                        Toggle to see the parent's z-index decide the fate of the child.
+                    </div>
+                </div>
+            </div>
+
+            <!-- The "aha" callout -->
+            <div class="q98-aha">
+                <div class="q98-aha-title">💡 The only difference between Demo 1 and Demo 2</div>
+                <p>
+                    In <strong>Demo 1</strong>, <code>.red</code> and <code>.blue</code> are <strong>siblings in the
+                        same stacking context</strong> — their z-index values compete directly.<br>
+                    In <strong>Demo 2</strong>, <code>.green</code> is a <strong>child of a stacking
+                        context</strong>. The green's <code>z-index: 9999</code> only competes with other elements
+                    <em>inside its parent</em>. In the parent's neighborhood, the parent speaks with
+                    <code>z-index: 1</code> — and purple's <code>z-index: 2</code> beats that.
                 </p>
-                <div class="parent-context">
-                    <div style="font-size: 0.8rem; color: #6b7280;">Parent (z:1)</div>
-                    <div class="child-zindex">Green Child (z:9999)</div>
-                </div>
-                <div class="sibling-zindex">Purple Sibling (z:2)</div>
+                <p class="q98-aha-rule">
+                    <strong>Rule:</strong> A stacking context is a family. A very loud child is still only as loud as
+                    its family — the family has one voice in the neighborhood.
+                </p>
             </div>
+
+            <style>
+                .q98-lede {
+                    font-size: 0.85rem;
+                    color: #4b5563;
+                    margin: 4px 0 14px;
+                    line-height: 1.6;
+                }
+
+                .q98-lede code {
+                    background: #f3f4f6;
+                    padding: 1px 5px;
+                    border-radius: 3px;
+                    font-size: 0.88em;
+                }
+
+                /* ---- Split layout ---- */
+                .q98-split {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 16px;
+                    margin-bottom: 28px;
+                }
+
+                @media (max-width: 720px) {
+                    .q98-split {
+                        grid-template-columns: 1fr;
+                    }
+                }
+
+                /* ---- Code column ---- */
+                .q98-code-col {
+                    background: #1e1e1e;
+                    border-radius: 8px;
+                    padding: 14px;
+                    overflow-x: auto;
+                }
+
+                .q98-code-label {
+                    font-size: 0.65rem;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                    color: #6a9955;
+                    font-weight: 700;
+                    font-family: "SF Mono", Consolas, monospace;
+                    margin-bottom: 6px;
+                    margin-top: 10px;
+                }
+
+                .q98-code-label:first-child {
+                    margin-top: 0;
+                }
+
+                .q98-code {
+                    background: #252526;
+                    color: #d4d4d4;
+                    padding: 10px 12px;
+                    border-radius: 5px;
+                    font-family: "SF Mono", Consolas, monospace;
+                    font-size: 0.72rem;
+                    line-height: 1.6;
+                    margin: 0 0 12px;
+                    overflow-x: auto;
+                    white-space: pre;
+                }
+
+                .q98-code code {
+                    font-family: inherit;
+                    color: inherit;
+                }
+
+                .q98-result-note {
+                    font-size: 0.75rem;
+                    color: #9ca3af;
+                    background: #252526;
+                    padding: 8px 10px;
+                    border-radius: 5px;
+                    border-left: 3px solid #4f46e5;
+                    line-height: 1.5;
+                }
+
+                .q98-result-note strong {
+                    font-weight: 700;
+                }
+
+                /* ---- Live column ---- */
+                .q98-live-col {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+                }
+
+                .q98-live-col .q98-code-label {
+                    color: #4f46e5;
+                }
+
+                .q98-stage {
+                    position: relative;
+                    height: 240px;
+                    background: #f9fafb;
+                    border: 1px dashed #cbd5e1;
+                    border-radius: 6px;
+                    overflow: hidden;
+                }
+
+                /* Demo 1 */
+                .q98-box {
+                    position: absolute;
+                    width: 140px;
+                    height: 110px;
+                    border-radius: 8px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    color: #fff;
+                    font-weight: 700;
+                    font-size: 0.9rem;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                }
+
+                .q98-box small {
+                    font-size: 0.66rem;
+                    font-weight: 600;
+                    opacity: 0.85;
+                    margin-top: 3px;
+                    font-family: "SF Mono", Consolas, monospace;
+                }
+
+                .q98-normal-red {
+                    background: #dc2626;
+                    top: 60px;
+                    left: 50px;
+                    z-index: 3;
+                }
+
+                .q98-normal-blue {
+                    background: #2563eb;
+                    top: 90px;
+                    left: 120px;
+                    z-index: 2;
+                }
+
+                /* Demo 2 */
+                .q98-parent {
+                    position: absolute;
+                    top: 40px;
+                    left: 30px;
+                    width: 200px;
+                    height: 130px;
+                    background: rgba(79, 70, 229, 0.06);
+                    border: 2px dashed #4f46e5;
+                    border-radius: 8px;
+                    z-index: 1;
+                }
+
+                .q98-parent.q98-parent-auto {
+                    z-index: auto;
+                }
+
+                .q98-parent-label {
+                    position: absolute;
+                    top: -11px;
+                    left: 10px;
+                    background: #4f46e5;
+                    color: #fff;
+                    padding: 2px 8px;
+                    border-radius: 4px;
+                    font-size: 0.62rem;
+                    font-weight: 700;
+                    font-family: "SF Mono", Consolas, monospace;
+                    white-space: nowrap;
+                }
+
+                .q98-parent-label code {
+                    background: transparent;
+                    padding: 0;
+                    color: #fff;
+                }
+
+                .q98-child {
+                    position: absolute;
+                    top: 30px;
+                    left: 15px;
+                    width: 170px;
+                    height: 80px;
+                    border-radius: 6px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    color: #fff;
+                    font-weight: 700;
+                    font-size: 0.82rem;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+                }
+
+                .q98-child small {
+                    font-size: 0.65rem;
+                    font-weight: 600;
+                    opacity: 0.9;
+                    margin-top: 3px;
+                    font-family: "SF Mono", Consolas, monospace;
+                }
+
+                .q98-green {
+                    background: #16a34a;
+                    z-index: 9999;
+                }
+
+                .q98-sibling {
+                    position: absolute;
+                    top: 100px;
+                    left: 160px;
+                    width: 170px;
+                    height: 80px;
+                    border-radius: 6px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    color: #fff;
+                    font-weight: 700;
+                    font-size: 0.82rem;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+                }
+
+                .q98-sibling small {
+                    font-size: 0.65rem;
+                    font-weight: 600;
+                    opacity: 0.9;
+                    margin-top: 3px;
+                    font-family: "SF Mono", Consolas, monospace;
+                }
+
+                .q98-purple {
+                    background: #7c3aed;
+                    z-index: 2;
+                }
+
+                /* Toggle */
+                .q98-toggle-wrap {
+                    padding: 8px 10px;
+                    background: #f9fafb;
+                    border: 1px solid #e5e7eb;
+                    border-radius: 6px;
+                }
+
+                .q98-toggle {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 10px;
+                    cursor: pointer;
+                    user-select: none;
+                    font-size: 0.78rem;
+                    color: #4b5563;
+                }
+
+                .q98-toggle input {
+                    display: none;
+                }
+
+                .q98-toggle-track {
+                    width: 34px;
+                    height: 18px;
+                    background: #cbd5e1;
+                    border-radius: 999px;
+                    position: relative;
+                    transition: background 0.2s;
+                    flex-shrink: 0;
+                }
+
+                .q98-toggle-track::after {
+                    content: '';
+                    position: absolute;
+                    width: 14px;
+                    height: 14px;
+                    background: #fff;
+                    border-radius: 50%;
+                    top: 2px;
+                    left: 2px;
+                    transition: left 0.2s;
+                    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+                }
+
+                .q98-toggle input:checked+.q98-toggle-track {
+                    background: #4f46e5;
+                }
+
+                .q98-toggle input:checked+.q98-toggle-track::after {
+                    left: 18px;
+                }
+
+                .q98-toggle-text code {
+                    background: #e5e7eb;
+                    padding: 1px 4px;
+                    border-radius: 3px;
+                    font-size: 0.9em;
+                }
+
+                .q98-toggle-text strong {
+                    color: #1f2937;
+                    font-family: "SF Mono", Consolas, monospace;
+                    font-size: 0.75rem;
+                }
+
+                .q98-live-hint {
+                    font-size: 0.75rem;
+                    color: #6b7280;
+                    line-height: 1.6;
+                    padding: 8px 10px;
+                    background: #f9fafb;
+                    border-radius: 6px;
+                    border-left: 3px solid #4f46e5;
+                }
+
+                .q98-live-hint code {
+                    background: #fff;
+                    padding: 1px 4px;
+                    border-radius: 3px;
+                    font-size: 0.9em;
+                }
+
+                /* ---- Aha callout ---- */
+                .q98-aha {
+                    background: #fffbeb;
+                    border: 1px solid #fde68a;
+                    border-left: 4px solid #f59e0b;
+                    border-radius: 8px;
+                    padding: 16px 18px;
+                    margin-top: 8px;
+                }
+
+                .q98-aha-title {
+                    font-size: 0.82rem;
+                    font-weight: 700;
+                    color: #92400e;
+                    margin-bottom: 8px;
+                }
+
+                .q98-aha p {
+                    font-size: 0.82rem;
+                    color: #78350f;
+                    margin: 0 0 8px;
+                    line-height: 1.7;
+                }
+
+                .q98-aha p:last-child {
+                    margin-bottom: 0;
+                }
+
+                .q98-aha code {
+                    background: rgba(120, 53, 15, 0.1);
+                    padding: 1px 5px;
+                    border-radius: 3px;
+                    font-size: 0.88em;
+                }
+
+                .q98-aha-rule {
+                    background: rgba(120, 53, 15, 0.08);
+                    padding: 8px 12px;
+                    border-radius: 5px;
+                    font-style: italic;
+                }
+            </style>
+
+            <script>
+                (function () {
+                    const toggle = document.getElementById('q98-trap-toggle');
+                    const parent = document.getElementById('q98-parent');
+                    const parentZ = document.getElementById('q98-parent-z');
+                    const stateEl = document.getElementById('q98-toggle-state');
+                    const caption = document.getElementById('q98-caption');
+
+                    function applyState(isTrapOn) {
+                        if (isTrapOn) {
+                            parent.classList.remove('q98-parent-auto');
+                            parent.style.zIndex = '1';
+                            parentZ.textContent = 'z-index: 1';
+                            stateEl.textContent = '1 (trap active)';
+                            caption.innerHTML =
+                                '<strong>Parent creates a stacking context.</strong> Its z-index (1) is compared ' +
+                                'against purple (2) → parent paints <strong>below</strong> purple. Everything inside ' +
+                                'the parent, including green (z:9999), paints below purple too. Green\'s huge z-index ' +
+                                'only matters <em>inside</em> the parent.';
+                        } else {
+                            parent.classList.add('q98-parent-auto');
+                            parent.style.zIndex = '';
+                            parentZ.textContent = 'z-index: auto';
+                            stateEl.textContent = 'auto (no trap)';
+                            caption.innerHTML =
+                                '<strong>Parent no longer creates a stacking context.</strong> Green now participates ' +
+                                'in the root context directly. Its z-index (9999) is compared against purple (2) → ' +
+                                'green paints <strong>above</strong> purple. Same green code — only the parent changed.';
+                        }
+                        toggle.checked = isTrapOn;
+                    }
+
+                    toggle.addEventListener('change', function () {
+                        applyState(toggle.checked);
+                    });
+
+                    applyState(true);
+                })();
+            </script>
         </section>
 
         <!-- ==================== Q99 ==================== -->
         <section class="q-section">
-            <h2>Q99 — What is the difference between reflow and repaint? <span class="badge hard">Hard</span></h2>
+            <h2>Q99 — What is the difference between reflow and repaint? <span class="badge hard">Very Hard</span></h2>
 
             <div class="answer">
                 <strong class="label">✅ Ideal answer</strong>
@@ -1140,7 +3711,7 @@ p::before { content: "👉 "; }</code></pre>
 
         <!-- ==================== Q100 ==================== -->
         <section class="q-section">
-            <h2>Q100 — What is the Critical Rendering Path? <span class="badge hard">Hard</span></h2>
+            <h2>Q100 — What is the Critical Rendering Path? <span class="badge hard">Very Hard</span></h2>
 
             <div class="answer">
                 <strong class="label">✅ Ideal answer</strong>
@@ -1201,7 +3772,7 @@ p::before { content: "👉 "; }</code></pre>
 
         <!-- ==================== STUDENT TASK ==================== -->
         <section class="task-section">
-            <h2>🧑‍🎓 Student Task — CSS Layout & Visuals Playground</h2>
+            <h2>🧑‍🎓 Student Task — Semantic HTML & CSS Layout Deep Dive</h2>
             <p>Build <strong>one HTML page</strong> (+ CSS file + optional JS file) that applies <strong>all 10
                     concepts</strong> from Part 10. Submit as a zipped folder or CodePen link.</p>
 
@@ -1216,62 +3787,95 @@ p::before { content: "👉 "; }</code></pre>
                 <tbody>
                     <tr>
                         <td>91</td>
-                        <td>Display</td>
-                        <td>Create a row of 3 cards using <code>display: inline-block</code>.</td>
+                        <td>code / kbd / samp / var</td>
+                        <td>Write a short "installation guide" paragraph that correctly uses all four semantic elements:
+                            <code>&lt;kbd&gt;</code> for a keyboard shortcut, <code>&lt;code&gt;</code> for a command,
+                            <code>&lt;samp&gt;</code> for console output, and <code>&lt;var&gt;</code> for a variable.
+                            Add a comment explaining why you chose each tag.
+                        </td>
                     </tr>
                     <tr>
                         <td>92</td>
-                        <td>% vs vw</td>
-                        <td>Create a full-width section using <code>100vw</code> and add a comment explaining why
-                            horizontal scrollbar might appear.</td>
+                        <td>100% vs 100vw</td>
+                        <td>Create a full-width section using <code>width: 100vw</code> <strong>inside</strong> a
+                            container
+                            that has <code>padding</code>. Add a comment explaining why the horizontal scrollbar appears
+                            —
+                            and fix it using <code>width: 100%</code> instead.</td>
                     </tr>
                     <tr>
                         <td>93</td>
-                        <td>Units</td>
-                        <td>Set the root font size to <code>16px</code>. Use <code>rem</code> for a title (e.g., 2rem)
-                            and <code>em</code> for padding inside a button.</td>
+                        <td>em / rem / % / vh / vw</td>
+                        <td>Set the root font size to <code>16px</code>. Use <code>rem</code> for a page title (e.g.
+                            <code>2rem</code>) and <code>em</code> for <code>padding</code> inside a button
+                            (e.g. <code>0.5em 1em</code>). Add a <code>min-height: 100vh</code> to the hero section and
+                            explain what each unit measures.
+                        </td>
                     </tr>
                     <tr>
                         <td>94</td>
-                        <td>Box Model</td>
-                        <td>Apply <code>box-sizing: border-box</code> globally
-                            (<code>* { box-sizing: border-box; }</code>).</td>
+                        <td>outline vs border</td>
+                        <td>Place <strong>two identical buttons</strong> side by side. Give the first a 6px
+                            <code>border</code> on focus, and the second a 6px <code>outline</code> on focus.
+                            Add a comment explaining why the border button shifts its neighbor while the outline button
+                            doesn't — and why browsers use <code>outline</code> for <code>:focus</code> indicators.
+                        </td>
                     </tr>
                     <tr>
                         <td>95</td>
-                        <td>Margin Collapse</td>
-                        <td>Create two vertical divs with vertical margins and observe the collapsed gap.</td>
+                        <td>margin collapsing vs padding</td>
+                        <td>Create two vertical divs with <code>margin-bottom: 40px</code> and
+                            <code>margin-top: 20px</code> on the second one. Add a comment explaining why the resulting
+                            gap is <strong>40px</strong>, not 60px. Then demonstrate <em>one fix</em> (flex, flow-root,
+                            or
+                            padding) that makes the gap actually 60px.
+                        </td>
                     </tr>
                     <tr>
                         <td>96</td>
-                        <td>Specificity</td>
-                        <td>Create a button. Target it with an element, a class, and an ID. Add a comment showing which
-                            color wins.</td>
+                        <td>opacity vs rgba()</td>
+                        <td>Build a card with a semi-transparent purple background and fully-opaque dark text using
+                            <code>background: rgba(79, 70, 229, 0.2)</code>. Then build a <em>second</em> card that uses
+                            <code>opacity: 0.5</code> on the parent instead. Add a comment explaining why the second
+                            card's text is harder to read.
+                        </td>
                     </tr>
                     <tr>
                         <td>97</td>
-                        <td>Pseudo</td>
-                        <td>Add a hover effect on a button (<code>:hover</code>) and an arrow before a link using
-                            <code>::before</code>.
+                        <td>box-shadow vs drop-shadow</td>
+                        <td>Create a star (SVG or CSS clip-path) with a shadow. First apply
+                            <code>box-shadow</code>, then <code>filter: drop-shadow()</code>. Add a comment explaining
+                            why <code>box-shadow</code> draws a rectangular shadow around the invisible bounding box
+                            while
+                            <code>drop-shadow</code> follows the star's silhouette.
                         </td>
                     </tr>
                     <tr>
                         <td>98</td>
-                        <td>Z-index</td>
-                        <td>Create two overlapping boxes. Give the first a higher <code>z-index</code> so it sits on
-                            top.</td>
+                        <td>Stacking context</td>
+                        <td>Create two overlapping boxes. Wrap one of them in a parent with <code>position: relative;
+                    z-index: 1</code>. Give the wrapped child <code>z-index: 9999</code> and give the other
+                            sibling <code>z-index: 2</code>. Add a comment explaining why the sibling still appears on
+                            top — and what would change if the parent's z-index were <code>auto</code>.</td>
                     </tr>
                     <tr>
                         <td>99</td>
-                        <td>Animations</td>
-                        <td>Create a button that expands using <code>transform: scale()</code> on hover instead of
-                            <code>width</code>.
-                        </td>
+                        <td>Reflow vs repaint</td>
+                        <td>Build two buttons with hover animations. The first animates <code>width</code> (reflow). The
+                            second animates <code>transform: scale()</code> (composited only). Add a comment explaining
+                            which one is smoother and why. Open DevTools → Performance, record a hover on each, and
+                            describe the difference in the rendering pipeline.</td>
                     </tr>
                     <tr>
                         <td>100</td>
-                        <td>CRP</td>
-                        <td>Add a comment at the top of your HTML explaining the Critical Rendering Path steps.</td>
+                        <td>Critical Rendering Path</td>
+                        <td>Add a commented diagram at the top of your HTML showing the CRP steps:
+                            <code>HTML → DOM</code>, <code>CSS → CSSOM</code>,
+                            <code>DOM + CSSOM → Render Tree</code>,
+                            <code>Render Tree → Layout → Paint → Compositing</code>.
+                            Then add one real <code>&lt;link rel="stylesheet"&gt;</code> and one
+                            <code>&lt;script&gt;</code> tag, and comment on whether they block rendering and why.
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -1281,22 +3885,43 @@ p::before { content: "👉 "; }</code></pre>
                 <li><strong>File names:</strong> <code>index.html</code>, <code>styles.css</code>, <code>app.js</code>
                 </li>
                 <li><strong>Comments:</strong> above each section, e.g.
-                    <code>&lt;!-- Q94: box-sizing applied globally --&gt;</code>
+                    <code>&lt;!-- Q94: outline vs border on :focus --&gt;</code>
                 </li>
-                <li><strong>README.md</strong> with 3 answers:
+                <li><strong>README.md</strong> with <strong>4 answers</strong>:
                     <ol>
-                        <li>Why is <code>box-sizing: border-box</code> recommended?</li>
+                        <li>Why do <code>&lt;code&gt;</code>, <code>&lt;kbd&gt;</code>, <code>&lt;samp&gt;</code>, and
+                            <code>&lt;var&gt;</code> render identically yet carry different meanings — and why does that
+                            matter for accessibility?
+                        </li>
+                        <li>Why does <code>100vw</code> cause horizontal scroll when a parent has padding, and why does
+                            <code>100%</code> not?
+                        </li>
                         <li>Why should you use <code>transform</code> for animations instead of animating
                             <code>width</code> or <code>margin</code>?
                         </li>
-                        <li>Why can <code>z-index</code> fail to bring an element to the front?</li>
+                        <li>Why can <code>z-index: 9999</code> fail to bring an element to the front — and what is the
+                            one-line fix?</li>
                     </ol>
                 </li>
             </ul>
 
+            <h3>⭐ Bonus</h3>
+            <ul>
+                <li>Add a <strong>focus indicator</strong> to a custom button using <code>:focus-visible</code> +
+                    <code>outline</code> (never <code>outline: none</code> without a replacement).
+                </li>
+                <li>Demonstrate the <strong>margin collapsing fix</strong> using <code>display: flow-root</code> — and
+                    compare it side-by-side with <code>overflow: hidden</code>.</li>
+                <li>Use <code>filter: drop-shadow()</code> on a transparent PNG logo and compare it with
+                    <code>box-shadow</code> in DevTools.
+                </li>
+            </ul>
+
             <h3>🎯 Grading (out of 10)</h3>
-            <p>1 point per row. "Reflow vs Repaint" and "Stacking Context" rows are worth double if the README
-                explanation is correct.</p>
+            <p>1 point per row. The <strong>"outline vs border"</strong>, <strong>"opacity vs rgba"</strong>,
+                <strong>"stacking context"</strong>, and <strong>"reflow vs repaint"</strong> rows are worth double if
+                the README explanation is correct.
+            </p>
         </section>
 
     </div>

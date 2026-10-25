@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CSS Grid — Complete Guide</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 16px;
+            line-height: 1.7;
+            color: #2c2c2c;
+            background: #fff;
+        }
+
+        code,
+        pre,
+        kbd {
+            font-family: "SF Mono", "Consolas", "Monaco", monospace;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            background: #fafafa;
+            border-right: 1px solid #eaeaea;
+            padding: 28px 0;
+            font-size: 14px;
+        }
+
+        .sidebar-brand {
+            padding: 0 22px 20px;
+            margin-bottom: 16px;
+            border-bottom: 1px solid #eaeaea;
+            font-size: 1.15rem;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+            color: #1a1a1a;
+        }
+
+        .sidebar-brand span {
+            color: #3b5bdb;
+        }
+
+        .sidebar h2 {
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 1.4px;
+            color: #a0a0a0;
+            padding: 0 22px;
+            margin: 22px 0 6px;
+            font-weight: 700;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 5px 22px 5px 25px;
+            color: #555;
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-family: "SF Mono", "Consolas", monospace;
+            border-left: 3px solid transparent;
+            transition: all 0.12s ease;
+        }
+
+        .sidebar a:hover {
+            background: #f0f3ff;
+            color: #3b5bdb;
+            border-left-color: #3b5bdb;
+        }
+
+        main {
+            padding: 48px 60px 100px;
+            max-width: 920px;
+        }
+
+        .page-title {
+            margin: 0 0 8px;
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: #1a1a1a;
+        }
+
+        .page-intro {
+            color: #666;
+            margin: 0 0 60px;
+            font-size: 1rem;
+            max-width: 640px;
+        }
+
+        .property {
+            padding-bottom: 60px;
+            margin-bottom: 60px;
+            border-bottom: 1px solid #f0f0f0;
+            scroll-margin-top: 20px;
+        }
+
+        .property:last-child {
+            border-bottom: 0;
+        }
+
+        .property h2 {
+            margin: 0 0 4px;
+            font-family: "SF Mono", "Consolas", monospace;
+            font-size: 1.9rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: #1a1a1a;
+        }
+
+        .property .subtitle {
+            margin: 0 0 24px;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .definition {
+            background: #f3f6ff;
+            border-left: 4px solid #3b5bdb;
+            border-radius: 0 6px 6px 0;
+            padding: 18px 22px;
+            margin: 0 0 28px;
+        }
+
+        .definition .chip {
+            display: inline-block;
+            background: #3b5bdb;
+            color: #fff;
+            font-family: "SF Mono", "Consolas", monospace;
+            font-size: 0.82rem;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            letter-spacing: 0.2px;
+        }
+
+        .definition p {
+            margin: 0;
+            color: #444;
+            font-size: 0.95rem;
+        }
+
+        .property h3 {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1.4px;
+            color: #a0a0a0;
+            margin: 28px 0 10px;
+            font-weight: 700;
+        }
+
+        pre.code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 16px 20px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.84rem;
+            line-height: 1.65;
+            margin: 0 0 8px;
+            text-align: left;
+            white-space: pre;
+        }
+
+        pre.code-block .k {
+            color: #569cd6;
+        }
+
+        pre.code-block .v {
+            color: #ce9178;
+        }
+
+        pre.code-block .c {
+            color: #6a9955;
+        }
+
+        pre.code-block .s {
+            color: #d7ba7d;
+        }
+
+        dl.values-list {
+            border: 1px solid #eaeaea;
+            border-radius: 6px;
+            overflow: hidden;
+            margin: 0 0 12px;
+        }
+
+        dl.values-list dt {
+            font-family: "SF Mono", "Consolas", monospace;
+            background: #f8f9fa;
+            padding: 8px 16px;
+            border-bottom: 1px solid #eaeaea;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #3b5bdb;
+        }
+
+        dl.values-list dd {
+            padding: 10px 16px;
+            margin: 0;
+            border-bottom: 1px solid #f3f3f3;
+            font-size: 0.9rem;
+            color: #444;
+        }
+
+        dl.values-list dd:last-child {
+            border-bottom: 0;
+        }
+
+        .demo-box {
+            border: 1px solid #eaeaea;
+            border-radius: 6px;
+            background: #fcfcfc;
+            padding: 16px;
+            margin: 0 0 14px;
+        }
+
+        .demo-box .demo-label {
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: #a0a0a0;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        /* ============================================
+     Grid primitives
+     ============================================ */
+        .cell {
+            background: #3b5bdb;
+            color: #fff;
+            padding: 8px;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 34px;
+        }
+
+        .cell.p {
+            background: #5f3dc4;
+        }
+
+        .cell.o {
+            background: #e8590c;
+        }
+
+        .cell.g {
+            background: #0ca678;
+        }
+
+        .cell.r {
+            background: #c92a2a;
+        }
+
+        .g {
+            display: grid;
+            gap: 8px;
+            background: #fff;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+        }
+
+        /* === NEW: cell slot — fills the grid cell, shows its boundary === */
+        .cell-slot {
+            justify-self: stretch;
+            align-self: stretch;
+            justify-items: inherit;
+            align-items: inherit;
+            display: grid;
+            border: 1px dashed #94a8d0;
+            border-radius: 4px;
+            background: rgba(200, 215, 240, 0.4);
+            padding: 3px;
+            min-height: 28px;
+        }
+
+        .variants {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .variant .vtitle {
+            font-size: 0.72rem;
+            color: #666;
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-family: "SF Mono", "Consolas", monospace;
+        }
+
+        .layout-demo {
+            display: grid;
+            gap: 8px;
+            grid-template-columns: 1fr 2fr 1fr;
+            grid-template-rows: 45px 90px 45px;
+            grid-template-areas:
+                "header header header"
+                "sidebar main aside"
+                "footer footer footer";
+        }
+
+        .inline-wrap {
+            background: #f0f3ff;
+            padding: 8px 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            line-height: 2.1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="sidebar-brand">CSS <span>Grid</span></div>
+            <h2>Container Properties</h2>
+            <ul>
+                <li><a href="#display">display</a></li>
+                <li><a href="#gtc">grid-template-columns</a></li>
+                <li><a href="#gtr">grid-template-rows</a></li>
+                <li><a href="#gta">grid-template-areas</a></li>
+                <li><a href="#gt">grid-template</a></li>
+                <li><a href="#gap">gap</a></li>
+                <li><a href="#ji">justify-items</a></li>
+                <li><a href="#ai">align-items</a></li>
+                <li><a href="#pi">place-items</a></li>
+                <li><a href="#jc">justify-content</a></li>
+                <li><a href="#ac">align-content</a></li>
+                <li><a href="#pc">place-content</a></li>
+                <li><a href="#gac">grid-auto-columns</a></li>
+                <li><a href="#gar">grid-auto-rows</a></li>
+                <li><a href="#gaf">grid-auto-flow</a></li>
+                <li><a href="#grid">grid</a></li>
+            </ul>
+            <h2>Item Properties</h2>
+            <ul>
+                <li><a href="#gcs">grid-column-start / end</a></li>
+                <li><a href="#gc">grid-column</a></li>
+                <li><a href="#grs">grid-row-start / end</a></li>
+                <li><a href="#gr">grid-row</a></li>
+                <li><a href="#ga">grid-area</a></li>
+                <li><a href="#js">justify-self</a></li>
+                <li><a href="#as">align-self</a></li>
+                <li><a href="#ps">place-self</a></li>
+            </ul>
+        </aside>
+
+        <main>
+            <h1 class="page-title">CSS Grid — Complete Guide</h1>
+            <p class="page-intro">
+                Every CSS Grid property, with a quick definition, syntax, values,
+                and a live example. Use the sidebar to jump between properties.
+            </p>
+
+            <!-- ========================= display ========================= -->
+            <section class="property" id="display">
+                <h2>display</h2>
+                <p class="subtitle">Defines the element as a grid container.</p>
+                <div class="definition">
+                    <span class="chip">display: grid | inline-grid</span>
+                    <p>A grid container establishes a grid formatting context for its direct children. <code>grid</code>
+                        is block-level; <code>inline-grid</code> is inline-level.</p>
+                </div>
+                <h3>Syntax</h3>
+                <pre class="code-block"><span class="s">.container</span> {
+  <span class="k">display</span>: <span class="v">grid</span>; <span class="c">/* or inline-grid */</span>
+  <span class="k">gap</span>: <span class="v">8px</span>;
+}</pre>
+                <h3>Example</h3>
+                <div class="demo-box">
+                    <div class="demo-label">grid vs inline-grid</div>
+                    <div class="variants">
+                        <div class="variant">
+                            <div class="vtitle">display: grid</div>
+                            <div class="g" style="grid-template-columns: 1fr 1fr;">
+                                <div class="cell">1</div>
+                                <div class="cell p">2</div>
+                                <div class="cell o">3</div>
+                                <div class="cell g">4</div>
+                            </div>
+                        </div>
+                        <div class="variant">
+                            <div class="vtitle">display: inline-grid</div>
+                            <div class="inline-wrap">
+                                text before
+                                <span
+                                    style="display: inline-grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px; background: #fff; border-radius: 4px; vertical-align: middle; border: 1px solid #e0e0e0;">
+                                    <span class="cell"
+                                        style="padding: 4px 8px; min-height: 22px; font-size: 0.72rem;">1</span>
+                                    <span class="cell p"
+                                        style="padding: 4px 8px; min-height: 22px; font-size: 0.72rem;">2</span>
+                                </span>
+                                text after
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================= grid-template-columns ========================= -->
+            <section class="property" id="gtc">
+                <h2>grid-template-columns</h2>
+                <p class="subtitle">Defines the column tracks of a grid.</p>
+                <div class="definition">
+                    <span class="chip">grid-template-columns: none | &lt;track-list&gt;</span>
+                    <p>Sets the number of columns and the width of each. Supports <code>px</code>, <code>%</code>,
+                        <code>fr</code>, <code>auto</code>, <code>repeat()</code>, <code>minmax()</code>.</p>
+                </div>
+                <h3>Syntax</h3>
+                <pre class="code-block"><span class="s">.container</span> {
+  <span class="k">grid-template-columns</span>: <span class="v">1fr 2fr 1fr</span>;
+  <span class="k">grid-template-columns</span>: <span class="v">repeat(3, 1fr)</span>;
+  <span class="k">grid-template-columns</span>: <span class="v">repeat(3, minmax(100px, 1fr))</span>;
+}</pre>
+                <h3>Values</h3>
+                <dl class="values-list">
+                    <dt>1fr 2fr 1fr</dt>
+                    <dd>Three columns; middle takes double the available space.</dd>
+                    <dt>repeat(3, 1fr)</dt>
+                    <dd>Shorthand to repeat a track pattern N times.</dd>
+                    <dt>minmax(100px, 1fr)</dt>
+                    <dd>Column is at least 100px, at most 1 fraction of free space.</dd>
+                    <dt>auto</dt>
+                    <dd>Sized by content, then stretched if free space exists.</dd>
+                </dl>
+                <h3>Example</h3>
+                <div class="demo-box">
+                    <div class="variants">
+                        <div class="variant">
+                            <div class="vtitle">1fr 2fr 1fr</div>
+                            <div class="g" style="grid-template-columns: 1fr 2fr 1fr;">
+                                <div class="cell">1fr</div>
+                                <div class="cell p">2fr</div>
+                                <div class="cell o">1fr</div>
+                            </div>
+                        </div>
+                        <div class="variant">
+                            <div class="vtitle">100px 1fr auto</div>
+                            <div class="g" style="grid-template-columns: 100px 1fr auto;">
+                                <div class="cell">100</div>
+                                <div class="cell p">1fr</div>
+                                <div class="cell o">auto</div>
+                            </div>
+                        </div>
+                        <div class="variant">
+                            <div class="vtitle">repeat(3, minmax(60px, 1fr))</div>
+                            <div class="g" style="grid-template-columns: repeat(3, minmax(60px, 1fr));">
+                                <div class="cell">1</div>
+                                <div class="cell p">2</div>
+                                <div class="cell o">3</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================= grid-template-rows ========================= -->
+            <section class="property" id="gtr">
+                <h2>grid-template-rows</h2>
+                <p class="subtitle">Defines the row tracks of a grid.</p>
+                <div class="definition">
+                    <span class="chip">grid-template-rows: none | &lt;track-list&gt;</span>
+                    <p>Same as <code>grid-template-columns</code>, but for rows.</p>
+                </div>
+                <h3>Syntax</h3>
+                <pre class="code-block"><span class="s">.container</span> {
+  <span class="k">grid-template-columns</span>: <span class="v">repeat(3, 1fr)</span>;
+  <span class="k">grid-template-rows</span>: <span class="v">50px 90px 40px</span>;
+}</pre>
+                <h3>Example</h3>
+                <div class="demo-box">
+                    <div class="g" style="grid-template-columns: repeat(3, 1fr); grid-template-rows: 50px 90px 40px;">
+                        <div class="cell">50px</div>
+                        <div class="cell p">50px</div>
+                        <div class="cell o">50px</div>
+                        <div class="cell g">90px</div>
+                        <div class="cell">90px</div>
+                        <div class="cell p">90px</div>
+                        <div class="cell o">40px</div>
+                        <div class="cell g">40px</div>
+                        <div class="cell">40px</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================= grid-template-areas ========================= -->
+            <section class="property" id="gta">
+                <h2>grid-template-areas</h2>
+                <p class="subtitle">Names grid regions for easy item placement.</p>
+                <div class="definition">
+                    <span class="chip">grid-template-areas: none | &lt;string&gt;+</span>
+                    <p>Each string is a row of the grid. Use <code>grid-area: name</code> on items to place them. A dot
+                        <code>.</code> = empty cell.</p>
+                </div>
+                <h3>Syntax</h3>
+                <pre class="code-block"><span class="s">.container</span> {
+  <span class="k">grid-template-areas</span>:
+    <span class="v">"header  header  header"</span>
+    <span class="v">"sidebar main    aside"</span>
+    <span class="v">"footer  footer  footer"</span>;
+}
+<span class="s">.header</span> { <span class="k">grid-area</span>: <span class="v">header</span>; }</pre>
+                <h3>Example</h3>
+                <div class="demo-box">
+                    <div class="layout-demo">
+                        <div class="cell" style="grid-area: header;">header</div>
+                        <div class="cell p" style="grid-area: sidebar;">sidebar</div>
+                        <div class="cell o" style="grid-area: main;">main</div>
+                        <div class="cell g" style="grid-area: aside;">aside</div>
+                        <div class="cell r" style="grid-area: footer;">footer</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================= grid-template (shorthand) ========================= -->
+            <section class="property" id="gt">
+                <h2>grid-template</h2>
+                <p class="subtitle">Shorthand for rows, columns, and areas.</p>
+                <div class="definition">
+                    <span class="chip">grid-template: &lt;rows&gt; / &lt;columns&gt;</span>
+                    <p>Combines <code>grid-template-rows</code>, <code>grid-template-columns</code>, and
+                        <code>grid-template-areas</code>.</p>
+                </div>
+                <h3>Syntax</h3>
+                <pre class="code-block"><span class="s">.container</span> {
+  <span class="k">grid-template</span>:
+    <span class="v">"header  header  header"</span> <span class="v">45px</span>
+    <span class="v">"sidebar main    aside"</span>  <span class="v">90px</span>
+    <span class="v">"footer  footer  footer"</span> <span class="v">45px</span>
+    / <span class="v">1fr 2fr 1fr</span>;
+}</pre>
+                <h3>Example</h3>
+                <div class="demo-box">
+                    <div class="layout-demo">
+                        <div class="cell" style="grid-area: header;">header</div>
+                        <div class="cell p" style="grid-area: sidebar;">sidebar</div>
+                        <div class="cell o" style="grid-area: main;">main</div>
+                        <div class="cell g" style="grid-area: aside;">aside</div>
+                        <div class="cell r" style="grid-area: footer;">footer</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================= gap ========================= -->
+            <section class="property" id="gap">
+                <h2>gap</h2>
+                <p class="subtitle">Spacing between rows and columns.</p>
+                <div class="definition">
+                    <span class="chip">gap: &lt;row-gap&gt; &lt;column-gap&gt;</span>
+                    <p>Shorthand for <code>row-gap</code> and <code>column-gap</code>. Previously known as
+                        <code>grid-gap</code>.</p>
+                </div>
+                <h3>Syntax</h3>
+                <pre class="code-block"><span class="s">.container</span> {
+  <span class="k">gap</span>: <span class="v">16px</span>;              <span class="c">/* both row and column */</span>
+  <span class="k">gap</span>: <span class="v">4px 24px</span>;          <span class="c">/* row 4px, column 24px */</span>
+  <span class="k">row-gap</span>: <span class="v">4px</span>;
+  <span class="k">column-gap</span>: <span class="v">24px</span>;
+}</pre>
+                <h3>Example</h3>
+                <div class="demo-box">
+                    <div class="variants">
+                        <div class="variant">
+                            <div class="vtitle">gap: 0</div>
+                            <div class="g" style="grid-template-columns: repeat(3, 1fr); gap: 0;">
+                                <div class="cell">1</div>
+                                <div class="cell p">2</div>
+                                <div class="cell o">3</div>
+                                <div class="cell g">4</div>
+                                <div class="cell r">5</div>
+                                <div class="cell">6</div>
+                            </div>
+                        </div>
+                        <div class="variant">
+                            <div class="vtitle">gap: 8px</div>
+                            <div class="g" style="grid-template-columns: repeat(3, 1fr); gap: 8px;">
+                                <div class="cell">1</div>
+                                <div class="cell p">2</div>
+                                <div class="cell o">3</div>
+                                <div class="cell g">4</div>
+                                <div class="cell r">5</div>
+                                <div class="cell">6</div>
+                            </div>
+                        </div>
+                        <div class="variant">
+                            <div class="vtitle">row 4px / column 24px</div>
+                            <div class="g"
+                                style="grid-template-columns: repeat(3, 1fr); row-gap: 4px; column-gap: 24px;">
+                                <div class="cell">1</div>
+                                <div class="cell p">2</div>
+                                <div class="cell o">3</div>
+                                <div class="cell g">4</div>
+                                <div class="cell r">5</div>
+                                <div class="cell">6</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================= justify-items ========================= -->
+            <section class="property" id="ji">
+                <h2>justify-items</h2>
+                <p class="subtitle">Aligns items along the inline (horizontal) axis.</p>
+                <div class="definition">
+                    <span class="chip">justify-items: start | center | end | stretch</span>
+                    <p>Applies alignment to every item inside its own cell along the inline axis. The dashed box below
+                        shows the full cell, the solid block shows the item.</p>
+                </div>
+                <h3>Syntax</h3>
+                <pre class="code-block"><span class="s">.container</span> {
+  <span class="k">justify-items</span>: <span class="v">center</span>;
+}</pre>
+                <h3>Values</h3>
+                <dl class="values-list">
+                    <dt>start</dt>
+                    <dd>Packs items to the start of the inline axis.</dd>
+                    <dt>center</dt>
+                    <dd>Centers items horizontally inside their cells.</dd>
+                    <dt>end</dt>
+                    <dd>Packs items to the end of the inline axis.</dd>
+                    <dt>stretch</dt>
+                    <dd>Fills the cell along the inline axis (default for grid items).</dd>
+                </dl>
+                <h3>Example</h3>
+                <div class="demo-box">
+                    <div class="variants">
+                        <div class="variant">
+                            <div class="vtitle">start</div>
+                            <div class="g"
+                                style="grid-template-columns: repeat(2, 1fr); justify-items: start; min-height: 80px;">
+                                <div class="cell-slot">
+                                    <div class="cell" style="width: 55px;">A</div>
+                                </div>
+                                <div class="cell-slot">
+                                    <div class="cell p" style="width: 55px;">B</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="variant">
+                            <div class="vtitle">center</div>
+                            <div class="g"
+                                style="grid-template-columns: repeat(2, 1fr); justify-items: center; min-height: 80px;">
+                                <div class="cell-slot">
+                                    <div class="cell" style="width: 55px;">A</div>
+                                </div>
+                                <div class="cell-slot">
+                                    <div class="cell p" style="width: 55px;">B</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="variant">
+                            <div class="vtitle">end</div>
+                            <div class="g"
+                                style="grid-template-columns: repeat(2, 1fr); justify-items: end; min-height: 80px;">
+                                <div class="cell-slot">
+                                    <div class="cell" style="width: 55px;">A</div>
+                                </div>
+                                <div class="cell-slot">
+                                    <div class="cell p" style="width: 55px;">B</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="variant">
+                            <div class="vtitle">stretch</div>
+                            <div class="g"
+                                style="grid-template-columns: repeat(2, 1fr); justify-items: stretch; min-height: 80px;">
+                                <div class="cell-slot">
+                                    <div class="cell">A</div>
+                                </div>
+                                <div class="cell-slot">
+                                    <div class="cell p">B</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================= align-items ========================= -->
+            <section class="property" id="ai">
+                <h2>align-items</h2>
+                <p class="subtitle">Aligns items along the block (vertical) axis.</p>
+                <div class="definition">
+                    <span class="chip">align-items: start | center | end | stretch | baseline</span>
+                    <p>Applies alignment to every item inside its own cell along the block axis. The dashed box shows
+                        the cell, the solid block shows the item.</p>
+                </div>
+                <h3>Syntax</h3>
+                <pre class="code-block"><span class="s">.container</span> {
+  <span class="k">align-items</span>: <span class="v">center</span>;
+}</pre>
+                <h3>Values</h3>
+                <dl class="values-list">
+                    <dt>start</dt>
+                    <dd>Packs items to the start of the block axis (top).</dd>
+                    <dt>center</dt>
+                    <dd>Centers items vertically inside their cells.</dd>
+                    <dt>end</dt>
+                    <dd>Packs items to the end of the block axis (bottom).</dd>
+                    <dt>stretch</dt>
+                    <dd>Fills the cell vertically (default).</dd>
+                    <dt>baseline</dt>
+                    <dd>Aligns items by their first text baseline.</dd>
+                </dl>
+                <h3>Example</h3>
+                <div class="demo-box">
+                    <div class="variants">
+                        <div class="variant">
+                            <div class="vtitle">start</div>
+                            <div class="g"
+                                style="grid-template-columns: repeat(2, 1fr); grid-auto-rows: 110px; align-items: start;">
+                                <div class="cell-slot">
+                                    <div class="cell" style="height: 50px;">A</div>
+                                </div>
+                                <div class="cell-slot">
+                                    <div class="cell p" style="height: 50px;">B</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="variant">
+                            <div class="vtitle">center</div>
+                            <div class="g"
+                                style="grid-template-columns: repeat(2, 1fr); grid-auto-rows: 110px; align-items: center;">
+                                <div class="cell-slot">
+                                    <div class="cell" style="height: 50px;">A</div>
+                                </div>
+                                <div class="cell-slot">
+                                    <div class="cell p" style="height: 50px;">B</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="variant">
+                            <div class="vtitle">end</div>
+                            <div class="g"
+                                style="grid-template-columns: repeat(2, 1fr); grid-auto-rows: 110px; align-items: end;">
+                                <div class="cell-slot">
+                                    <div class="cell" style="height: 50px;">A</div>
+                                </div>
+                                <div class="cell-slot">
+                                    <div class="cell p" style="height: 50px;">B</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="variant">
+                            <div class="vtitle">stretch</div>
+                            <div class="g"
+                                style="grid-template-columns: repeat(2, 1fr); grid-auto-rows: 110px; align-items: stretch;">
+                                <div class="cell-slot">
+                                    <div class="cell">A</div>
+                                </div>
+                                <div class="cell-slot">
+                                    <div class="cell p">B</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================= place-items ========================= -->
+            <section class="property" id="pi">
+                <h2>place-items</h2>
+                <p class="subtitle">Shorthand for align-items and justify-items.</p>
+                <div class="definition">
+                    <span class="chip">place-items: &lt;align-items&gt; &lt;justify-items&gt;</span>
+                    <p>If only one value is provided, it applies to both axes.</p>
+                </div>
+                <h3>Syntax</h3>
+                <pre class="code-block"><span class="s">.container</span> {
+  <span class="k">place-items</span>: <span class="v">center</span>;
+  <span class="k">place-items</span>: <span class="v">center start</span>; <span class="c">/* align: center, justify: start */</span>
+}</pre>
+                <h3>Example</h3>
+                <div class="demo-box">
+                    <div class="g"
+                        style="grid-template-columns: repeat(3, 1fr); grid-auto-rows: 100px; place-items: center center;">
+                        <div class="cell-slot">
+                            <div class="cell" style="width: 55px; height: 55px;">1</div>
+                        </div>
+                        <div class="cell-slot">
+                            <div class="cell p" style="width: 55px; height: 55px;">2</div>
+                        </div>
+                        <div class="cell-slot">
+                            <div class="cell o" style="width: 55px; height: 55px;">3</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================= justify-content ========================= -->
+            <section class="property" id="jc">
+                <h2>justify-content</h2>
+                <p class="subtitle">Distributes the whole grid inline-wise.</p>
+                <div class="definition">
+                    <span class="chip">justify-content: start | center | end | space-between | space-around |
+                        space-evenly</span>
+                    <p>Aligns the grid inside its container along the inline axis. Each dashed box below is one column
+                        track.</p>
+                </div>
+                <h3>Syntax</h3>
+                <pre class="code-block"><span class="s">.container</span> {
+  <span class="k">grid-template-columns</span>: <span class="v">repeat(3, 30px)</span>;
+  <span class="k">justify-content</span>: <span class="v">space-between</span>;
+}</pre>
+                <h3>Example</h3>
+                <div class="demo-box">
+                    <div class="variants">
+                        <div class="variant">
+                            <div class="vtitle">start</div>
+                            <div class="g" style="grid-template-columns: repeat(3, 34px); justify-content: start;">
+                                <div class="cell-slot">
+                                    <div class="cell">1</div>
+                                </div>
+                                <div class="cell-slot">
+                                    <div class="cell p">2</div>
+                                </div>
+                                <div class="cell-slot">
+                                    <div class="cell o">3</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="variant">
+                            <div class="vtitle">center</div>
+                            <div class="g" style="grid-template-columns: repeat(3, 34px); justify-content: center;">
+                                <div class="cell-slot">
+                                    <div class="cell">1</div>
+                                </div>
+                                <div class="cell-slot">
+                                    <div class="cell p">2</div>
+                                </div>
+                                <div class="cell-slot">
+                                    <div class="cell o">3</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="variant">
+                            <div class="vtitle">end</div>
+                            <div class="g" style="grid-template-columns: repeat(3, 34px); justify-content: end;">
+                                <div class="cell-slot">
+                                    <div class="cell">1</div>
+                                </div>
+                                <div class="cell-slot">
+                                    <div class="cell p">2</div>
+                                </div>
+                                <div class="cell-slot">
+                                    <div class="cell o">3</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="variant">
+                            <div class="vtitle">space-between</div>
+                            <div class="g"
+                                style="grid-template-columns: repeat(3, 34px); justify-content: space-between;">
+                                <div class="cell-slot">
+                                    <div class="cell">1</div>
+                                </div>
+                                <div class="cell-slot">
+                                    <div class="cell p">2</div>
+                                </div>
+                                <div class="cell-slot">
+                                    <div class="cell o">3</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================= align-content ========================= -->
+            <section class="property" id="ac">
+                <h2>align-content</h2>
+                <p class="subtitle">Distributes the whole grid block-wise.</p>
+                <div class="definition">
+                    <span class="chip">align-content: start | center | end | space-between | space-around |
+                        space-evenly</span>
+                    <p>Aligns the grid inside its container along the block axis. Each dashed box below is one row
+                        track.</p>
+                </div>
+                <h3>Syntax</h3>
+                <pre class="code-block"><span class="s">.container</span> {
+  <span class="k">grid-template-rows</span>: <span class="v">repeat(3, 40px)</span>;
+  <span class="k">height</span>: <span class="v">200px</span>;
+  <span class="k">align-content</span>: <span class="v">space-between</span>;
+}</pre>
+                <h3>Example</h3>
+                <div class="demo-box">
+                    <div class="variants">
+                        <div class="variant">
+                            <div class="vtitle">start</div>
+                            <div class="g"
+                                style="grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(3, 42px); height: 190px; align-content: start;">
+                                <div class="cell-slot">
+                                    <div class="cell">1</div>
+                                </div>
+                                <div class="cell-slot">
+                                    <div class="cell p">2</div>
+                                </div>
+                                <div class="cell-slot">
+                                    <div class="cell o">3</div>
+                                </div>
+                                <div class="cell-slot">
+                                    <div class="cell g">4</div>
+                                </div>
+                                <div class="cell-slot">
+                                    <div class="cell r">5</div>
+                                </div>
+                                <div class="cell-slot">
+                                    <div class="cell">6</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="variant">
+                            <div class="vtitle">center</div>
+                            <div class="g"
+                                style="grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(3, 42px); height: 190px; align-content: center;">
+                                <div class="cell-slot">
+                                    <div class="cell">1</div>
+                                </div>
+                                <div class="cell-slot">
+                                    <div class="cell p">2</div>
+                                </div>
+                                <div class="cell-slot">
+                                    <div class="cell o">3</div>
+                                </div>
+                                <div class="cell-slot">
+                                    <div class="cell g">4</div>
+                                </div>
+                                <div class="cell-slot">
+                                    <div class="cell r">5</div>
+                                </div>
+                                <div class="cell-slot">
+                                    <div class="cell">6</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="variant">
+                            <div class="vtitle">end</div>
+                            <div class="g"
+                                style="grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(3, 42px); height: 190px; align-content: end;">
+                                <div class="cell-slot">
+                                    <div class="cell">1</div>
+                                </div>
+                                <div class="cell-slot">
+                                    <div class="cell p">2</div>
+                                </div>
+                                <div class="cell-slot">
+                                    <div class="cell o">3</div>
+                                </div>
+                                <div class="cell-slot">
+                                    <div class="cell g">4</div>
+                                </div>
+                                <div class="cell-slot">
+                                    <div class="cell r">5</div>
+                                </div>
+                                <div class="cell-slot">
+                                    <div class="cell">6</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="variant">
+                            <div class="vtitle">space-between</div>
+                            <div class="g"
+                                style="grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(3, 42px); height: 190px; align-content: space-between;">
+                                <div class="cell-slot">
+                                    <div class="cell">1</div>
+                                </div>
+                                <div class="cell-slot">
+                                    <div class="cell p">2</div>
+                                </div>
+                                <div class="cell-slot">
+                                    <div class="cell o">3</div>
+                                </div>
+                                <div class="cell-slot">
+                                    <div class="cell g">4</div>
+                                </div>
+                                <div class="cell-slot">
+                                    <div class="cell r">5</div>
+                                </div>
+                                <div class="cell-slot">
+                                    <div class="cell">6</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================= place-content ========================= -->
+            <section class="property" id="pc">
+                <h2>place-content</h2>
+                <p class="subtitle">Shorthand for align-content and justify-content.</p>
+                <div class="definition">
+                    <span class="chip">place-content: &lt;align-content&gt; &lt;justify-content&gt;</span>
+                    <p>If only one value is provided, it applies to both axes.</p>
+                </div>
+                <h3>Syntax</h3>
+                <pre class="code-block"><span class="s">.container</span> {
+  <span class="k">place-content</span>: <span class="v">center center</span>;
+}</pre>
+                <h3>Example</h3>
+                <div class="demo-box">
+                    <div class="g"
+                        style="grid-template-columns: repeat(3, 40px); grid-template-rows: repeat(2, 40px); width: 300px; height: 190px; place-content: center center;">
+                        <div class="cell-slot">
+                            <div class="cell">1</div>
+                        </div>
+                        <div class="cell-slot">
+                            <div class="cell p">2</div>
+                        </div>
+                        <div class="cell-slot">
+                            <div class="cell o">3</div>
+                        </div>
+                        <div class="cell-slot">
+                            <div class="cell g">4</div>
+                        </div>
+                        <div class="cell-slot">
+                            <div class="cell r">5</div>
+                        </div>
+                        <div class="cell-slot">
+                            <div class="cell">6</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================= grid-auto-columns ========================= -->
+            <section class="property" id="gac">
+                <h2>grid-auto-columns</h2>
+                <p class="subtitle">Sizes implicitly created columns.</p>
+                <div class="definition">
+                    <span class="chip">grid-auto-columns: &lt;track-size&gt;+</span>
+                    <p>Controls the size of columns generated automatically when items exceed the explicitly defined
+                        columns.</p>
+                </div>
+                <h3>Syntax</h3>
+                <pre class="code-block"><span class="s">.container</span> {
+  <span class="k">grid-template-columns</span>: <span class="v">100px</span>;
+  <span class="k">grid-auto-flow</span>: <span class="v">column</span>;
+  <span class="k">grid-auto-columns</span>: <span class="v">60px</span>;
+}</pre>
+                <h3>Example</h3>
+                <div class="demo-box">
+                    <div class="g"
+                        style="grid-template-columns: 100px; grid-auto-flow: column; grid-auto-columns: 60px; grid-auto-rows: 60px;">
+                        <div class="cell">100</div>
+                        <div class="cell p">60</div>
+                        <div class="cell o">60</div>
+                        <div class="cell g">60</div>
+                        <div class="cell r">60</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================= grid-auto-rows ========================= -->
+            <section class="property" id="gar">
+                <h2>grid-auto-rows</h2>
+                <p class="subtitle">Sizes implicitly created rows.</p>
+                <div class="definition">
+                    <span class="chip">grid-auto-rows: &lt;track-size&gt;+</span>
+                    <p>Controls the height of rows generated automatically when items exceed the explicitly defined
+                        rows.</p>
+                </div>
+                <h3>Syntax</h3>
+                <pre class="code-block"><span class="s">.container</span> {
+  <span class="k">grid-template-columns</span>: <span class="v">repeat(3, 1fr)</span>;
+  <span class="k">grid-auto-rows</span>: <span class="v">70px</span>;
+}</pre>
+                <h3>Example</h3>
+                <div class="demo-box">
+                    <div class="g" style="grid-template-columns: repeat(3, 1fr); grid-auto-rows: 70px;">
+                        <div class="cell">1</div>
+                        <div class="cell p">2</div>
+                        <div class="cell o">3</div>
+                        <div class="cell g">4</div>
+                        <div class="cell r">5</div>
+                        <div class="cell">6</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================= grid-auto-flow ========================= -->
+            <section class="property" id="gaf">
+                <h2>grid-auto-flow</h2>
+                <p class="subtitle">Controls auto-placement direction.</p>
+                <div class="definition">
+                    <span class="chip">grid-auto-flow: row | column | row dense | column dense</span>
+                    <p>Determines how items without a defined position are placed. <code>dense</code> backfills earlier
+                        gaps.</p>
+                </div>
+                <h3>Syntax</h3>
+                <pre class="code-block"><span class="s">.container</span> {
+  <span class="k">grid-auto-flow</span>: <span class="v">row</span>;
+  <span class="k">grid-auto-flow</span>: <span class="v">column</span>;
+  <span class="k">grid-auto-flow</span>: <span class="v">row dense</span>;
+}</pre>
+                <h3>Values</h3>
+                <dl class="values-list">
+                    <dt>row</dt>
+                    <dd>Fill each row before moving to the next.</dd>
+                    <dt>column</dt>
+                    <dd>Fill each column before moving to the next.</dd>
+                    <dt>row dense</dt>
+                    <dd>Row flow, but backfill earlier gaps with smaller items.</dd>
+                    <dt>column dense</dt>
+                    <dd>Column flow, with gap backfilling.</dd>
+                </dl>
+                <h3>Example</h3>
+                <div class="demo-box">
+                    <div class="variants">
+                        <div class="variant">
+                            <div class="vtitle">row</div>
+                            <div class="g"
+                                style="grid-template-columns: repeat(3, 50px); grid-template-rows: repeat(2, 50px); grid-auto-rows: 50px; grid-auto-flow: row;">
+                                <div class="cell">1</div>
+                                <div class="cell p">2</div>
+                                <div class="cell o">3</div>
+                                <div class="cell g">4</div>
+                                <div class="cell r">5</div>
+                                <div class="cell">6</div>
+                            </div>
+                        </div>
+                        <div class="variant">
+                            <div class="vtitle">column</div>
+                            <div class="g"
+                                style="grid-template-columns: repeat(3, 50px); grid-template-rows: repeat(2, 50px); grid-auto-rows: 50px; grid-auto-flow: column;">
+                                <div class="cell">1</div>
+                                <div class="cell p">2</div>
+                                <div class="cell o">3</div>
+                                <div class="cell g">4</div>
+                                <div class="cell r">5</div>
+                                <div class="cell">6</div>
+                            </div>
+                        </div>
+                        <div class="variant">
+                            <div class="vtitle">row dense</div>
+                            <div class="g"
+                                style="grid-template-columns: repeat(3, 50px); grid-template-rows: repeat(2, 50px); grid-auto-rows: 50px; grid-auto-flow: row dense;">
+                                <div class="cell" style="grid-column: span 2;">1 (×2)</div>
+                                <div class="cell p" style="grid-column: span 2;">2 (×2)</div>
+                                <div class="cell o">3</div>
+                                <div class="cell g">4</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================= grid (shorthand) ========================= -->
+            <section class="property" id="grid">
+                <h2>grid</h2>
+                <p class="subtitle">Shorthand for every explicit and implicit grid property.</p>
+                <div class="definition">
+                    <span class="chip">grid: &lt;grid-template&gt; | &lt;grid-auto-flow&gt; &lt;grid-auto-rows&gt; /
+                        &lt;grid-auto-columns&gt;</span>
+                    <p>Combines <code>grid-template</code>, <code>grid-auto-flow</code>, <code>grid-auto-rows</code>,
+                        and <code>grid-auto-columns</code>.</p>
+                </div>
+                <h3>Syntax</h3>
+                <pre class="code-block"><span class="s">.container</span> {
+  <span class="k">grid</span>: <span class="v">auto-flow dense 60px / repeat(3, 1fr)</span>;
+  <span class="c">/* = grid-auto-flow: row dense;
+       grid-auto-rows: 60px;
+       grid-template-columns: repeat(3, 1fr); */</span>
+}</pre>
+                <h3>Example</h3>
+                <div class="demo-box">
+                    <div class="g" style="grid: auto-flow dense 60px / repeat(3, 1fr);">
+                        <div class="cell" style="grid-column: span 2;">1 (×2)</div>
+                        <div class="cell p">2</div>
+                        <div class="cell o">3</div>
+                        <div class="cell g">4</div>
+                        <div class="cell r">5</div>
+                        <div class="cell">6</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================= grid-column-start / end ========================= -->
+            <section class="property" id="gcs">
+                <h2>grid-column-start / grid-column-end</h2>
+                <p class="subtitle">Places an item horizontally by line number.</p>
+                <div class="definition">
+                    <span class="chip">grid-column-start: &lt;line&gt; | span &lt;n&gt;</span>
+                    <p>Defines the start and end column lines of a grid item. Lines are counted from 1, or from the end
+                        with negative values.</p>
+                </div>
+                <h3>Syntax</h3>
+                <pre class="code-block"><span class="s">.item</span> {
+  <span class="k">grid-column-start</span>: <span class="v">2</span>;
+  <span class="k">grid-column-end</span>: <span class="v">4</span>;
+}</pre>
+                <h3>Example</h3>
+                <div class="demo-box">
+                    <div class="g" style="grid-template-columns: repeat(4, 1fr); grid-auto-rows: 55px;">
+                        <div class="cell">1</div>
+                        <div class="cell p" style="grid-column-start: 2; grid-column-end: 4;">2 (line 2 → 4)</div>
+                        <div class="cell o">3</div>
+                        <div class="cell g">4</div>
+                        <div class="cell r">5</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================= grid-column ========================= -->
+            <section class="property" id="gc">
+                <h2>grid-column</h2>
+                <p class="subtitle">Shorthand for grid-column-start / grid-column-end.</p>
+                <div class="definition">
+                    <span class="chip">grid-column: &lt;start&gt; / &lt;end&gt;</span>
+                    <p>Can use line numbers, negative numbers, or <code>span N</code>.</p>
+                </div>
+                <h3>Syntax</h3>
+                <pre class="code-block"><span class="s">.a</span> { <span class="k">grid-column</span>: <span class="v">1 / 3</span>; }
+<span class="s">.b</span> { <span class="k">grid-column</span>: <span class="v">3 / span 2</span>; }
+<span class="s">.c</span> { <span class="k">grid-column</span>: <span class="v">span 2</span>; }</pre>
+                <h3>Example</h3>
+                <div class="demo-box">
+                    <div class="g" style="grid-template-columns: repeat(4, 1fr); grid-auto-rows: 55px;">
+                        <div class="cell" style="grid-column: 1 / 3;">1 / 3</div>
+                        <div class="cell p" style="grid-column: 3 / span 2;">3 / span 2</div>
+                        <div class="cell o">auto</div>
+                        <div class="cell g">auto</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================= grid-row-start / end ========================= -->
+            <section class="property" id="grs">
+                <h2>grid-row-start / grid-row-end</h2>
+                <p class="subtitle">Places an item vertically by line number.</p>
+                <div class="definition">
+                    <span class="chip">grid-row-start: &lt;line&gt; | span &lt;n&gt;</span>
+                    <p>Defines the start and end row lines of a grid item.</p>
+                </div>
+                <h3>Syntax</h3>
+                <pre class="code-block"><span class="s">.item-tall</span> {
+  <span class="k">grid-row-start</span>: <span class="v">1</span>;
+  <span class="k">grid-row-end</span>: <span class="v">3</span>;
+}</pre>
+                <h3>Example</h3>
+                <div class="demo-box">
+                    <div class="g" style="grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 60px);">
+                        <div class="cell p" style="grid-row-start: 1; grid-row-end: 3;">spans 2 rows</div>
+                        <div class="cell">2</div>
+                        <div class="cell o">3</div>
+                        <div class="cell g">4</div>
+                        <div class="cell r">5</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================= grid-row ========================= -->
+            <section class="property" id="gr">
+                <h2>grid-row</h2>
+                <p class="subtitle">Shorthand for grid-row-start / grid-row-end.</p>
+                <div class="definition">
+                    <span class="chip">grid-row: &lt;start&gt; / &lt;end&gt;</span>
+                    <p>Same syntax options as <code>grid-column</code>.</p>
+                </div>
+                <h3>Syntax</h3>
+                <pre class="code-block"><span class="s">.tall</span>  { <span class="k">grid-row</span>: <span class="v">1 / 3</span>; }
+<span class="s">.tall2</span> { <span class="k">grid-row</span>: <span class="v">1 / span 2</span>; }</pre>
+                <h3>Example</h3>
+                <div class="demo-box">
+                    <div class="g" style="grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 60px);">
+                        <div class="cell p" style="grid-row: 1 / 3;">1 / 3</div>
+                        <div class="cell o" style="grid-row: 1 / span 2;">1 / span 2</div>
+                        <div class="cell">auto</div>
+                        <div class="cell g">auto</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================= grid-area ========================= -->
+            <section class="property" id="ga">
+                <h2>grid-area</h2>
+                <p class="subtitle">Shorthand for all four placement lines, or a named area.</p>
+                <div class="definition">
+                    <span class="chip">grid-area: &lt;row-start&gt; / &lt;col-start&gt; / &lt;row-end&gt; /
+                        &lt;col-end&gt;</span>
+                    <p>Can also reference an area name defined in <code>grid-template-areas</code>.</p>
+                </div>
+                <h3>Syntax</h3>
+                <pre class="code-block"><span class="c">/* numeric */</span>
+<span class="s">.item</span> { <span class="k">grid-area</span>: <span class="v">2 / 1 / 4 / 4</span>; }
+
+<span class="c">/* named */</span>
+<span class="s">.header</span> { <span class="k">grid-area</span>: <span class="v">header</span>; }</pre>
+                <h3>Example</h3>
+                <div class="demo-box">
+                    <div class="g" style="grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 55px);">
+                        <div class="cell">1</div>
+                        <div class="cell p">2</div>
+                        <div class="cell o">3</div>
+                        <div class="cell g" style="grid-area: 2 / 1 / 4 / 4;">grid-area: 2 / 1 / 4 / 4</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================= justify-self ========================= -->
+            <section class="property" id="js">
+                <h2>justify-self</h2>
+                <p class="subtitle">Aligns a single item on the inline axis.</p>
+                <div class="definition">
+                    <span class="chip">justify-self: auto | start | center | end | stretch</span>
+                    <p>Overrides <code>justify-items</code> for one item. Dashed boxes show the cells; solid blocks show
+                        the items.</p>
+                </div>
+                <h3>Syntax</h3>
+                <pre class="code-block"><span class="s">.item-a</span> { <span class="k">justify-self</span>: <span class="v">start</span>; }
+<span class="s">.item-b</span> { <span class="k">justify-self</span>: <span class="v">center</span>; }
+<span class="s">.item-c</span> { <span class="k">justify-self</span>: <span class="v">end</span>; }
+<span class="s">.item-d</span> { <span class="k">justify-self</span>: <span class="v">stretch</span>; }</pre>
+                <h3>Example</h3>
+                <div class="demo-box">
+                    <div class="g" style="grid-template-columns: 1fr; grid-auto-rows: 55px;">
+                        <div class="cell-slot">
+                            <div class="cell" style="justify-self: start; width: 90px;">start</div>
+                        </div>
+                        <div class="cell-slot">
+                            <div class="cell p" style="justify-self: center; width: 90px;">center</div>
+                        </div>
+                        <div class="cell-slot">
+                            <div class="cell o" style="justify-self: end; width: 90px;">end</div>
+                        </div>
+                        <div class="cell-slot">
+                            <div class="cell g">stretch (default)</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================= align-self ========================= -->
+            <section class="property" id="as">
+                <h2>align-self</h2>
+                <p class="subtitle">Aligns a single item on the block axis.</p>
+                <div class="definition">
+                    <span class="chip">align-self: auto | start | center | end | stretch | baseline</span>
+                    <p>Overrides <code>align-items</code> for one item. Dashed boxes show the cells.</p>
+                </div>
+                <h3>Syntax</h3>
+                <pre class="code-block"><span class="s">.item-a</span> { <span class="k">align-self</span>: <span class="v">start</span>; }
+<span class="s">.item-b</span> { <span class="k">align-self</span>: <span class="v">center</span>; }
+<span class="s">.item-c</span> { <span class="k">align-self</span>: <span class="v">end</span>; }</pre>
+                <h3>Example</h3>
+                <div class="demo-box">
+                    <div class="g" style="grid-template-columns: repeat(3, 1fr); grid-auto-rows: 130px;">
+                        <div class="cell-slot">
+                            <div class="cell" style="align-self: start;  height: 45px;">start</div>
+                        </div>
+                        <div class="cell-slot">
+                            <div class="cell p" style="align-self: center; height: 45px;">center</div>
+                        </div>
+                        <div class="cell-slot">
+                            <div class="cell o" style="align-self: end;    height: 45px;">end</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================= place-self ========================= -->
+            <section class="property" id="ps">
+                <h2>place-self</h2>
+                <p class="subtitle">Shorthand for align-self and justify-self.</p>
+                <div class="definition">
+                    <span class="chip">place-self: &lt;align-self&gt; &lt;justify-self&gt;</span>
+                    <p>If only one value is provided, it applies to both axes.</p>
+                </div>
+                <h3>Syntax</h3>
+                <pre class="code-block"><span class="s">.item</span> {
+  <span class="k">place-self</span>: <span class="v">center end</span>;
+  <span class="c">/* align-self: center; justify-self: end; */</span>
+}</pre>
+                <h3>Example</h3>
+                <div class="demo-box">
+                    <div class="g" style="grid-template-columns: 1fr; grid-auto-rows: 95px;">
+                        <div class="cell-slot">
+                            <div class="cell" style="place-self: center end;  width: 110px; height: 45px;">center / end
+                            </div>
+                        </div>
+                        <div class="cell-slot">
+                            <div class="cell p" style="place-self: start start; width: 110px; height: 45px;">start /
+                                start</div>
+                        </div>
+                        <div class="cell-slot">
+                            <div class="cell o" style="place-self: end center;  width: 110px; height: 45px;">end /
+                                center</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+</body>
+
+</html>
